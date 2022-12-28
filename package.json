@@ -1,8 +1,6 @@
 {
-  "name": "diflexmo-scheduler",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "diflexmo-admin",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,14 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "ng run diflexmo-ui:storybook",
-    "build-storybook": "ng run diflexmo-ui:build-storybook",
+    "storybook": "ng run diflexmo-admin:storybook",
+    "build-storybook": "ng run diflexmo-admin:build-storybook",
     "lint": "ng lint",
     "prepare": "husky install",
     "openapi-gen": "ng-openapi-gen -i http://localhost:7002/swagger/v1/swagger.json -o src/app/core/services"
   },
-  "author": "diflexmo",
-  "license": "ISC",
   "lint-staged": {
     "*.{ts,scss,html}": [
       "eslint --fix",
