@@ -1,1 +1,69 @@
-<p>dashboard works!</p>
+<div class="dashboard-landing">
+    <div class="nav">
+        <div class="right-logo">
+            <img src="/src/assets/images/Difleximo.svg" alt="difleximo">
+        </div>
+        <div class="left-menu">
+            <dfm-button [color]="'tertiary'" [size]="'lg'" class="mx-2">
+                Home
+            </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design">
+                Register
+            </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design">
+                Login
+            </dfm-button>
+            <dfm-button [color]="'primary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design">
+                Schedule Appointment
+            </dfm-button>
+
+            <dfm-button-group class="button-design">
+                <dfm-button-group-item>NL</dfm-button-group-item>
+                <dfm-button-group-item>EN</dfm-button-group-item>
+
+            </dfm-button-group>
+        </div>
+    </div>
+    <div class="container radiology-section">
+        <div class="left-section">
+            <p class="header-section">Welcome to Radiology</p>
+            <div class="sub-header">
+                Appointment Scheduling
+                made easy
+            </div>
+            <p class="p-data">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna.
+            </p>
+            <dfm-button [color]="'primary'" [size]="'lg'" class="my-5">
+                Schedule Appointment
+            </dfm-button>
+        </div>
+        <div class="right-section">
+            <img src="../../../../assets/images/smartphone.svg">
+        </div>
+    </div>
+
+    <div class="opening-day">
+        <div class="img-section bg-dark" >
+            
+        </div>
+        <div class="opening-days-section">
+            <div class="day">
+                monday
+            </div>
+            <div class="time">
+                test
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-footer footer">
+        <p class="location"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p>
+        <p class="location">22 11 34 56</p>
+        <div style="width: 20px; height: 20px; display: flex; flex-direction: row; justify-content: space-between;"><dfm-icon [name]="'mail-05'"></dfm-icon> <p class="location">radiology@gmail.com </p></div> 
+
+
+
+    </div>
+</div>

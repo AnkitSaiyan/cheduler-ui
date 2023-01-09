@@ -1,12 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DesignSystemModule} from 'diflexmo-angular-design'
+import { DesignSystemCoreModule, DesignSystemModule, TableModule } from 'diflexmo-angular-design';
 
 
 @NgModule({
     declarations: [],
     imports: [
         CommonModule,
+        DesignSystemModule,
+        DesignSystemCoreModule,
     ],
     exports: [
         DesignSystemModule
