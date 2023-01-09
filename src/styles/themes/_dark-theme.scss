@@ -1,0 +1,8 @@
+@mixin dark {
+  --dfm-body-bg: #{$gray-modern-100};
+  --dfm-base-layout-bg: #{$gray-modern-100};
+}
+
+.dark {
+  @include dark();
+}
