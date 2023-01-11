@@ -8,16 +8,16 @@ const routes: Routes = [
         component: CoreComponent,
         children: [
             {
-                path: 'dashboard',
-                loadChildren: async () => (await import('../modules/dashboard/dashboard.module')).DashboardModule,
+                path: '',
+                loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
             },
         ],
     },
-    {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full',
-    },
+    // {
+    //     path: '',
+    //     redirectTo: 'dashboard',
+    //     pathMatch: 'full',
+    // },
 ];
 
 @NgModule({

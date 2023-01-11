@@ -4,10 +4,12 @@
     </div>
     <div class=" d-flex login-container">
         <div class="left-container">
-            <div class="header">Login</div>
+            <div class="header">
+                Looks like you are <br>
+                new here</div>
             <div class="sub-header">
-                Get access to your appointments <br>
-                and test history
+                Register with your email <br>
+                to get started
             </div>
             <div class="left-container-img mt-3">
                 <img src="../../../assets/images/user-with-phone.png" width="250px" height="auto">
@@ -16,19 +18,19 @@
 
         <div class="right-container">
             <div class="text-center">
-                <div class="right-section-header">Sign in</div>
+                <div class="right-section-header">Register</div>
                 <div class="right-subheader-section d-flex justify-content-center align-items-center dfm-gap-8 mt-4">
-                    <span class="new-user ">New user?</span>
-                    <div class="register-user">
-                        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">
-                            Register
+                    <span class="new-user ">Existing user?</span>
+                    <span class="register-user">
+                        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login">
+                            Login
                         </dfm-button>
-                    </div>
+                    </span>
                 </div>
             </div>
 
             <div class="login-form mt-3">
-                <div class="p-1">
+                <div class="p-2">
                     <dfm-input type="text" size="sm" label="Email" placeholder="me@diflexmo.com" [disabled]="false"
                         icon="mail-05" [isInvalid]="false" [readonly]="false">
                     </dfm-input>
@@ -39,16 +41,21 @@
                         [isInvalid]="false" [readonly]="false">
                     </dfm-input>
                 </div>
-                <div class="forgot-password">
+                <div class="p-1">
+                    <dfm-input type="text" size="sm" label="Confirm Password*" placeholder="Enter password"
+                        [disabled]="false" [isInvalid]="false" [readonly]="false">
+                    </dfm-input>
+                </div>
 
-                    <dfm-button [color]="'link'" [size]="'lg'">
-                        Forgot Password
-                    </dfm-button>
+                <div class="p-1">
+                    <dfm-input type="text" size="sm" label="Phone number" placeholder="Enter password"
+                        [disabled]="false" [isInvalid]="false" [readonly]="false">
+                    </dfm-input>
                 </div>
             </div>
-            <div class="d-flex justify-content-center text-center">
+            <div class="d-flex justify-content-center text-center mt-4">
                 <dfm-button [color]="'primary'" [size]="'lg'">
-                    Sign in
+                    Register
                 </dfm-button>
             </div>
             <div class="or-section mt-10">
@@ -67,15 +74,13 @@
         </div>
     </div>
 
-    <div class="position-absolute bottom-0 d-flex start-0 p-2">
+
+    <div class="footer-policy d-flex">
         <div class="footer-left">
             Privacy and cookies policy
         </div>
-    </div>
-    <div class="position-absolute bottom-0 d-flex end-0 p-2">
         <div class="footer-right">
             Powered by Diflexmo Scheduling System
         </div>
     </div>
-
 </div>
