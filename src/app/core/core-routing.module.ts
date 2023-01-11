@@ -11,6 +11,14 @@ const routes: Routes = [
                 path: '',
                 loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
             },
+            {
+                path: 'dashboard',
+                loadChildren: async () => (await import('../modules/dashboard/dashboard.module')).DashboardModule,
+            },
+            {
+                path: 'schedule-appointment',
+                loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
+            },
         ],
     },
     // {
