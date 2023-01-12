@@ -1,0 +1,120 @@
+.scrollable-div{
+    height: 100vh;
+    overflow-y: auto !important;
+}
+
+
+.progress-bar-hr {
+    width: 30px;
+    height: 3px;
+    opacity: 1;
+}
+
+
+.button-design{
+    padding: 9px 17px;
+}
+
+.confirm-details {
+    width: 100%;
+    gap: 30px;
+}
+
+.patient-details {
+    width: 26%;
+    max-height: 200px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+}
+
+.display-4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+
+.text-primary {
+    color: #531422 !important;
+    padding-left: 8px;
+}
+
+
+.bg-lite-gray {
+    background-color: #E3E8EF;
+}
+
+.patient-detail-container{
+    padding: 8px 8px 8px 8px;
+}
+
+.appointment-details {
+    width: 31%;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    height: 258px;
+}
+
+
+.display-5 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+.appointment-date-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+}
+
+.lab-confirmation-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.pending-status {
+    padding: 10px 15px 10px 15px;
+    color: #fff;
+    border-radius: 8px;
+}
+
+
+.basic-details-progress-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .progress-button {
+    background-color: #ffff;
+    padding: 9px 15px 9px 15px;
+    border-radius: 8px;
+    color: #531422;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .bg-primary{
+    background-color: #531422 !important;
+  }
+
+  .checkbox-section{
+    padding-left: 468px;
+  }

@@ -19,6 +19,10 @@ const routes: Routes = [
                 path: 'schedule-appointment',
                 loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
             },
+            {
+                path: 'appointment',
+                loadChildren: async () => (await import('../modules/appointment/appointment.module')).AppointmentModule,
+            },
         ],
     },
     // {

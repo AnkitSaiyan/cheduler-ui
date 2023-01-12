@@ -1,1 +1,35 @@
-<p>appointment-time-detail works!</p>
+<dfm-sub-header></dfm-sub-header>
+<div class="basic-details-progress-bar d-flex justify-content-center mt-3">
+    <div>
+        <button class="progress-button bg-success text-white">Basic Details</button>
+    </div>
+    <div>
+        <hr class="progress-bar-hr bg-success">
+    </div>
+    <div>
+        <button class="progress-button bg-success text-white">Select Exam</button>
+    </div>
+    <div>
+        <hr class="progress-bar-hr bg-success">
+    </div>
+    <div>
+        <button class="progress-button bg-primary text-white">Select Time Slot</button>
+    </div>
+    <div>
+        <hr class="progress-bar-hr bg-primary">
+    </div>
+    <div>
+        <button class="progress-button">Confirm</button>
+    </div>
+</div>
+<div class="basic-details-form-group bg-white mt-5 container">
+    <span>Calendar Here...</span>
+</div>
+<div class="d-flex justify-content-center mt-5">
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment">
+        Next
+    </dfm-button>
+</div>
+<div class="fixed-bottom">
+    <dfm-footer></dfm-footer>
+</div>

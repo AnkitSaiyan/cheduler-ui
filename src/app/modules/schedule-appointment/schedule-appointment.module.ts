@@ -7,24 +7,19 @@ import { AppointmentTimeDetailComponent } from './components/appointment-time-de
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing.module';
-import { RouterModule } from '@angular/router';
-
-
+import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-  
+    ScheduleAppointmentComponent,
     OverviewComponent,
-       BasicDetailComponent,
-       ExamDetailComponent,
-       AppointmentTimeDetailComponent,
-       ConfirmAppointmentComponent,
+    BasicDetailComponent,
+    ExamDetailComponent,
+    AppointmentTimeDetailComponent,
+    ConfirmAppointmentComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ScheduleAppointmentRoutingModule,
-    RouterModule
-  ]
+  imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })
-export class ScheduleAppointmentModule { }
+export class ScheduleAppointmentModule {}
+

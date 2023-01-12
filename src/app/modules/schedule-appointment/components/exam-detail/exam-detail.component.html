@@ -1,71 +1,75 @@
 <dfm-sub-header></dfm-sub-header>
-<div class="d-flex justify-content-center mt-4">
+<div class="basic-details-progress-bar d-flex justify-content-center mt-3">
     <div>
-        <dfm-button [color]="'primary'" [size]="'lg'">
-            Basic Details
-        </dfm-button>
+        <button class="progress-button bg-success text-white">Basic Details</button>
     </div>
     <div>
-        <hr class="progress-bar-hr mt-4">
-    </div>
-    <div class="button-design1">
-        <dfm-button [color]="'primary'" [size]="'lg'">
-            Select Exam
-        </dfm-button>
+        <hr class="progress-bar-hr bg-success">
     </div>
     <div>
-        <hr class="progress-bar-hr mt-4">
-    </div>
-    <div class="button-design">
-        <dfm-button [color]="'link'" [size]="'lg'">
-            Select Date &amp; Time
-        </dfm-button>
+        <button class="progress-button bg-primary text-white">Select Exam</button>
     </div>
     <div>
-        <hr class="progress-bar-hr mt-4">
+        <hr class="progress-bar-hr bg-primary">
     </div>
-    <div class="button-design">
-        <dfm-button [color]="'link'" [size]="'lg'">
-            Confirm
+    <div>
+        <button class="progress-button">Select Time Slot</button>
+    </div>
+    <div>
+        <hr class="progress-bar-hr bg-primary">
+    </div>
+    <div>
+        <button class="progress-button">Confirm</button>
+    </div>
+</div>
+<div class="container p-3 mt-3 bg-white" [formGroup]="examForm">
+    <div class=" p-3 exam-container d-flex flex-row">
+        <div class="left-container">
+            <div class="form-group">
+                    <dfm-input-dropdown [items]="physician" (searchInput)="searchInput($event)" label="Referring Physician*" placeholder="Enter physician name" size="md">
+                        {{items.name}}
+                    </dfm-input-dropdown>
+            </div>
+
+            <div class="input mt-4">
+                <span class="select-exam-detail">Select exam(s) below</span>
+                <div class="exam d-flex" formArrayName="credentials">
+                    <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+                        {{items.name}}
+                    </dfm-input-dropdown>
+                    <div class="exam-input d-flex flex-column" *ngFor="let creds of getControls(); let i = index">
+                        <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+                            {{items.name}}
+                        </dfm-input-dropdown>
+                        <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer;" class="mx-2" *ngIf="examName" (click)="removeExam(i)"><dfm-icon
+                            [name]="'trash-01'"></dfm-icon>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="mx-3 exam-text-area">
+                <dfm-text-area [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <dfm-button [color]="'link'" [size]="'2xl'" [leadingIcon]="'plus'" (click)="addCreds()">
+            Click to add more exam
         </dfm-button>
     </div>
 </div>
 
-<div class="container justify-content-center bg-white mt-5">
-    <div class="d-flex justify-content-between p-3">
-        <div class="form-group">
-            <dfm-input type="text" size="sm" label="Referring Physician*"
-                placeholder="Enter physician name"></dfm-input>
-        </div>
-        <div class="mx-3 exam-text-area">
-            <dfm-text-area [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
-        </div>
-    </div>
-    <div class="p-3">
-        <span class="select-exam-detail">Select exam(s) below</span>
-        <div class="d-flex mt-2">
-            <div class="d-flex justify-content-center">
-                <div class="input">
-                    <dfm-input-dropdown [items]="items" label="Exam*" placeholder="Select Exam" [multiple]="true"
-                        size="md">
-                        {{items.examName}}
-                    </dfm-input-dropdown>
-                </div>
-                <div style="width: 20px; height: 20px; margin-top: auto;" class="mx-2"><dfm-icon
-                        [name]="'trash-01'"></dfm-icon></div>
-            </div>
-            <div class="mx-3">
-            </div>
-        </div>
-        <div class="add-more mt-5 text-center">
-            Click to add more exam
-        </div>
-    </div>
-</div>
+
 
 <div class="d-flex justify-content-center mt-3">
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time">
         Next
     </dfm-button>
 </div>
-<dfm-footer></dfm-footer>
+
+<div class="fixed-bottom">
+    <dfm-footer></dfm-footer>
+</div>

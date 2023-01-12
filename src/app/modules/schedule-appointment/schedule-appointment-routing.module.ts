@@ -5,33 +5,39 @@ import { BasicDetailComponent } from './components/basic-detail/basic-detail.com
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
 import { OverviewComponent } from './components/overview/overview.component';
+import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
 
 const scheduleAppointmentRoutes: Routes = [
   {
-    path: 'overview',
-    component: OverviewComponent
+    path: '',
+    component: ScheduleAppointmentComponent,
+    children: [
+      {
+        path: 'overview',
+        component: OverviewComponent,
+      },
+      {
+        path: 'basic',
+        component: BasicDetailComponent,
+      },
+      {
+        path: 'exam',
+        component: ExamDetailComponent,
+      },
+      {
+        path: 'date-time',
+        component: AppointmentTimeDetailComponent,
+      },
+      {
+        path: 'confirm-appointment',
+        component: ConfirmAppointmentComponent,
+      },
+    ],
   },
-  {
-    path: 'basic',
-    component: BasicDetailComponent
-  },
-  {
-    path: 'exam',
-    component: ExamDetailComponent
-  },
-  {
-    path: 'date-time',
-    component: AppointmentTimeDetailComponent
-  },
-  {
-    path: 'confirm-appointment',
-    component: ConfirmAppointmentComponent
-  },
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(scheduleAppointmentRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ScheduleAppointmentRoutingModule { }
+export class ScheduleAppointmentRoutingModule {}

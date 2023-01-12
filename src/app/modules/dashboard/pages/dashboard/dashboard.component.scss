@@ -10,7 +10,7 @@
 
 .sidebar-menu {
     width: 20%;
-    max-height: 240px;
+    max-height: 198px;
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -29,11 +29,13 @@
   
 
 .display-5 {
-    font-family: 'Montserrat';
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
+}
+
+.text-secondary{
+    color: #F4E3CF;
 }
 
 .text-primary {
@@ -57,8 +59,9 @@
     flex-direction: row;
     justify-content: start;
     gap: 10px;
-    color: var(--secondary);
+    color: #F4E3CF;
     padding: 10px;
+    cursor: pointer;
 }
 
 .login-dashboard-content {
@@ -90,4 +93,17 @@
     font-size: 16px;
     line-height: 24px;
     transition: .2s all ease;
+}
+
+
+.active-menu {
+    background-color: #F4E3CF;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    color: #531422;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
 }
