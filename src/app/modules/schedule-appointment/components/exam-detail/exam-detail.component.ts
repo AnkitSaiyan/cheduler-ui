@@ -51,6 +51,7 @@ export class ExamDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   examCount() : FormArray {  
@@ -79,6 +80,10 @@ export class ExamDetailComponent implements OnInit {
   searchInput(physycianName: string) {
     console.log('physycianName: ', physycianName);
 
+  }
+
+  resetForm(){
+    this.examForm.reset();
   }
 }
 

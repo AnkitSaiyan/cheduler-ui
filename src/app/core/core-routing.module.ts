@@ -23,6 +23,10 @@ const routes: Routes = [
                 path: 'appointment',
                 loadChildren: async () => (await import('../modules/appointment/appointment.module')).AppointmentModule,
             },
+            {
+                path: 'profile',
+                loadChildren: async () => (await import('../modules/profile/profile.module')).ProfileModule,
+            },
         ],
     },
     // {

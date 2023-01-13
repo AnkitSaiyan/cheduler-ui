@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'dfm-dashboard',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  loginUserAppointment = new BehaviorSubject<boolean>(false);   
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  scheduleUserAppoointment(){
+    this.loginUserAppointment.next(true);
+    this.router.navigate(['/schedule-appointment/exam']);
+  }
 }

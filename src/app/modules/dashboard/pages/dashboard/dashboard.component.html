@@ -12,7 +12,7 @@
                     <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon">
                     <span class="display-5 text-decoration-none">My appointments</span>
                 </div>
-                <div class="menu-item d-flex float-left">
+                <div class="menu-item d-flex float-left" routerLink="/profile">
                     <img src="../../../../../assets/images/user_icon.svg" alt="user-icon">
                     <span class="display-5 text-decoration-none">Profile</span>
                 </div>
@@ -30,8 +30,9 @@
                         height="auto">
                 </div>
                 <div>
-                    <a href="#"><button class="primary-button">Schedule
-                            Appointment</button></a>
+                    <dfm-button [color]="'primary'" [size]="'lg'" (click)="scheduleUserAppoointment()">
+                        Schedule appointment
+                    </dfm-button>
                 </div>
                 <div class="mt-4"><span class="display-4">Click above to schedule an appointment</span></div>
             </div>

@@ -33,15 +33,20 @@
 
             <div class="input mt-4">
                 <span class="select-exam-detail">Select exam(s) below</span>
-                <div class="exam d-flex" formArrayName="credentials">
-                    <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
-                        {{items.name}}
-                    </dfm-input-dropdown>
-                    <div class="exam-input d-flex flex-column" *ngFor="let creds of getControls(); let i = index">
+                <div class="exam d-flex flex-column" formArrayName="credentials">
+                    <div class="exam-static d-flex">
                         <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
                             {{items.name}}
                         </dfm-input-dropdown>
-                        <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer;" class="mx-2" *ngIf="examName" (click)="removeExam(i)"><dfm-icon
+                        <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer;" class="mx-2" *ngIf="examName.value !== ''" (click)="resetForm()"><dfm-icon
+                            [name]="'trash-01'"></dfm-icon>
+                        </div>
+                    </div>
+                    <div class="exam-input d-flex" *ngFor="let creds of getControls(); let i = index">
+                        <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+                            {{items.name}}
+                        </dfm-input-dropdown>
+                        <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer;" class="mx-2" *ngIf="examName.value !== ''" (click)="removeExam(i); examForm.reset()"><dfm-icon
                             [name]="'trash-01'"></dfm-icon>
                         </div>
                     </div>

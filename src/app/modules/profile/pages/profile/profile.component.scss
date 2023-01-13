@@ -1,0 +1,166 @@
+.profile-page-container {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.display-3 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.display-4 {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.display-5 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.sidebar-menu {
+  width: 18%;
+  max-height: 198px;
+  border-radius: 8px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.bg-primary {
+  background-color: #531422 !important;
+}
+
+.text-secondary {
+  color: #f4e3cf;
+}
+
+.text-primary {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  /* or 140% */
+
+  color: #531422 !important;
+}
+
+.sidebar-menu-items {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  /* gap: 10px; */
+}
+
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 10px;
+  color: #f4e3cf;
+  padding: 10px;
+}
+
+.active-menu {
+  background-color: #f4e3cf;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 5px;
+  border: none;
+  color: #531422;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+}
+
+.login-dashboard-content {
+  width: 58%;
+  border-radius: 8px;
+}
+
+.my-profile-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.my-profile-form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 8px;
+  flex-direction: column;
+  gap: 20px;
+  padding: 35px;
+  text-align: start;
+}
+
+.profile-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 348px;
+}
+
+.my-profile-footer-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.my-profile-footer-blank {
+  width: 20%;
+}
+
+.my-profile-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  gap: 20px;
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+  border-radius: 8px;
+  padding: 20px;
+  margin-right: 108px;
+  margin-left: -48px;
+}
+
+.text-label {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  /* identical to box height, or 150% */
+
+  color: #531422;
+}
+
+.lab-text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  /* identical to box height, or 175% */
+
+  color: #000000;
+}
+
+.delete-button {
+  margin-right: 114px;
+}
