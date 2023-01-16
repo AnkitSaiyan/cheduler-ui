@@ -1,54 +1,56 @@
-<dfm-sub-header></dfm-sub-header>
-<div class="basic-details-progress-bar d-flex justify-content-center mt-3">
-    <div *ngIf="displayBasicDetails">
-        <button class="progress-button bg-primary text-white">Basic Details</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-        <hr class="progress-bar-hr bg-primary">
-    </div>
-    <div>
-        <button class="progress-button bg-white text-primary">Select Exam</button>
-    </div>
-    <div>
-        <hr class="progress-bar-hr bg-primary">
-    </div>
-    <div>
-        <button class="progress-button">Select Time Slot</button>
-    </div>
-    <div>
-        <hr class="progress-bar-hr bg-primary">
-    </div>
-    <div>
-        <button class="progress-button">Confirm</button>
-    </div>
-</div>
-
-<div class="container justify-content-center bg-white mt-5">
-    <div class="d-flex justify-content-center p-3">
-        <div class="form-group">
-            <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"></dfm-input>
+<div class="basic-detail-container">
+    <dfm-sub-header></dfm-sub-header>
+    <div class="basic-details-progress-bar d-flex justify-content-center mt-3">
+        <div *ngIf="displayBasicDetails">
+            <button class="progress-button bg-primary text-white">Basic Details</button>
         </div>
-        <div class="mx-3">
-            <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name"></dfm-input>
+        <div *ngIf="displayBasicDetails">
+            <hr class="progress-bar-hr bg-primary">
+        </div>
+        <div>
+            <button class="progress-button bg-white text-primary">Select Exam</button>
+        </div>
+        <div>
+            <hr class="progress-bar-hr bg-primary">
+        </div>
+        <div>
+            <button class="progress-button">Select Time Slot</button>
+        </div>
+        <div>
+            <hr class="progress-bar-hr bg-primary">
+        </div>
+        <div>
+            <button class="progress-button">Confirm</button>
         </div>
     </div>
-    <div class="d-flex justify-content-center p-3">
-        <div class="form-group">
-            <dfm-input type="email" size="sm" label="Email*" placeholder="Email"></dfm-input>
 
+    <div class="container justify-content-center bg-white mt-5">
+        <div class="d-flex justify-content-center p-3">
+            <div class="form-group">
+                <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"></dfm-input>
+            </div>
+            <div class="mx-3">
+                <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name"></dfm-input>
+            </div>
         </div>
-        <div class="mx-3">
-            <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone"></dfm-input>
+        <div class="d-flex justify-content-center p-3">
+            <div class="form-group">
+                <dfm-input type="email" size="sm" label="Email*" placeholder="Email"></dfm-input>
+
+            </div>
+            <div class="mx-3">
+                <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone"></dfm-input>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex justify-content-center mt-5">
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
-        Next
-    </dfm-button>
-</div>
+    <div class="d-flex justify-content-center mt-5">
+        <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+            Next
+        </dfm-button>
+    </div>
 
-<div class="fixed-bottom">
-    <dfm-footer></dfm-footer>
+    <div class="fixed-bottom">
+        <dfm-footer></dfm-footer>
+    </div>
 </div>
