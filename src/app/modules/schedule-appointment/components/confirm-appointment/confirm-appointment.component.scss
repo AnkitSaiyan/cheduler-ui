@@ -118,3 +118,54 @@
   .checkbox-section{
     padding-left: 468px;
   }
+
+
+  
+.sidebar-menu {
+    width: 18%;
+    max-height: 198px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+
+.bg-primary {
+    background-color: #531422 !important;
+}
+
+
+.text-secondary{
+    color: #F4E3CF;
+}
+
+.text-primary {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+  
+    color: #531422 !important;
+  }
+
+.sidebar-menu-items {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    /* gap: 10px; */
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+    color: #F4E3CF;
+    padding: 10px;
+}
+
+.display-5 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}

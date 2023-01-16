@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -44,14 +45,17 @@ export class ExamDetailComponent implements OnInit {
       description: 'physician3'
     },
   ]
-  constructor(private fb: FormBuilder) {
+  displayExamDetails: boolean = false;
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.examForm = this.fb.group({
       credentials: this.fb.array([]),
     });
   }
 
   ngOnInit(): void {
-    
+    this.authService.isLoggedInUser.subscribe((user: boolean) => {
+      (user === true)? this.displayExamDetails = false : this.displayExamDetails = true;
+    })
   }
 
   examCount() : FormArray {  
