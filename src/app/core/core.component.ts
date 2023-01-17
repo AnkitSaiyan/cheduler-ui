@@ -14,9 +14,15 @@ export class CoreComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.url = this.router.url;
+    // this.url = this.router.url;
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       (user === true)? this.displaySidebar = true : this.displaySidebar = false;
+    })
+
+
+    this.router.events.subscribe((data: any)=>{
+      console.log('data: ', data.url);
+      (data && data.url)? this.url = data.url: '';
     })
   }
 
