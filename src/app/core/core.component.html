@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<div class="main-container">
+    <dfm-sub-header></dfm-sub-header>
+    <div [ngClass]="url ==='/' || url ===''? '':'d-flex'">
+        <div [ngClass]="!displaySidebar? 'sidebar-menu mt-5 mx-5':'sidebar-menu bg-primary mt-5 mx-3 sidebar-menu-shadow'" *ngIf="url !=='/'">
+            <div class="sidebar-menu-items" *ngIf="displaySidebar">
+                <div class="menu-item d-flex" routerLink="/dashboard" (click)="checkUrl()">
+                    <img src="../../../../../assets/images/home-icon.svg" alt="home-icon">
+                    <span [ngClass]="url == '/dashboard'? 'display-5 text-decoration-none active-menu':'display-5 text-decoration-none'">Dashboard</span>
+                </div>
+                <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
+                    <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon">
+                    <span [ngClass]="url == '/appointment'? 'display-5 text-decoration-none active-menu':'display-5 text-decoration-none'">My appointments</span>
+                </div>
+                <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
+                    <img src="../../../../../assets/images/user_icon.svg" alt="user-icon">
+                    <span [ngClass]="url == '/profile'? 'display-5 text-decoration-none active-menu':'display-5 text-decoration-none'">Profile</span>
+                </div>
+                <div class="menu-item d-flex cursor-pointer" routerLink="/auth/login">
+                    <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon">
+                    <span class="display-5 text-decoration-none">Logout</span>
+                </div>
+            </div>
+        </div>
+        <router-outlet></router-outlet>
+    </div>
+    <dfm-footer></dfm-footer>
+</div>

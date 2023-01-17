@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -8,12 +9,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class SubHeaderComponent implements OnInit {
   displayRegisterButton: boolean = false;
-  constructor(private authService: AuthService) { }
+  url!: string;
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.isLoggedInUser.subscribe((user: boolean)=>{
       this.displayRegisterButton = user;
     })
+    this.url = this.router.url;
   }
 
 }

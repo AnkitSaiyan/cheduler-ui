@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   loginUserAppointment = new BehaviorSubject<boolean>(false);   
+  url!: string;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
