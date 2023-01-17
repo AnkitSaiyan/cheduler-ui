@@ -26,6 +26,22 @@
         </div>
     </div>
 
+    <div class="lab-confirmation-status mt-3" *ngIf="isPending">
+        <div class="bg-warning pending-status">
+            <span class="display-4">Confirmation from lab: pending</span>
+        </div>
+        <div>
+            <span class="display-5 text-primary">We will notify you by email once your appointment will be
+                confirmed.</span>
+        </div>
+    </div>
+
+
+    <div class="lab-confirmation-status mt-3" *ngIf="isCanceled">
+        <div class="bg-warning pending-status bg-danger">
+            <span class="display-4">Your appointment has been canceled</span>
+        </div>
+    </div>
     <div class="container-fluid d-flex">
 <!-- 
         <div class="sidebar-menu bg-primary mt-5 mx-3 w-20" *ngIf="!displayBasicDetails">
@@ -48,23 +64,6 @@
                 </div>
             </div>
         </div> -->
-        <div class="lab-confirmation-status mt-3" *ngIf="isPending">
-            <div class="bg-warning pending-status">
-                <span class="display-4">Confirmation from lab: pending</span>
-            </div>
-            <div>
-                <span class="display-5 text-primary">We will notify you by email once your appointment will be
-                    confirmed.</span>
-            </div>
-        </div>
-
-
-        <div class="lab-confirmation-status mt-3" *ngIf="isCanceled">
-            <div class="bg-warning pending-status bg-danger">
-                <span class="display-4">Your appointment has been canceled</span>
-            </div>
-
-        </div>
 
         <div class="container confirm-details d-flex mt-3 justify-content-center">
             <div class="patient-details display-4 bg-white">

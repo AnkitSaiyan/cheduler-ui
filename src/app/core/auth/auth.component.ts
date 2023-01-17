@@ -15,7 +15,8 @@ export class AuthComponent implements OnInit {
   }
 
   logInUser(){
-    this.authService.isLoggedInUser.next(true);
+    // this.authService.isLoggedInUser.next(true);
+    localStorage.setItem('user', 'true');
     this.router.navigate(['/dashboard']);
   }
 }

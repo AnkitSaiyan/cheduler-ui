@@ -17,6 +17,7 @@ export class SubHeaderComponent implements OnInit {
       this.displayRegisterButton = user;
     })
 
+    this.displayRegisterButton = Boolean(localStorage.getItem('user'))
     this.url = this.router.url;
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);

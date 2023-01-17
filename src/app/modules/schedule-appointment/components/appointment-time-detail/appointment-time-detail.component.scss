@@ -103,6 +103,7 @@ body {
 
     .nav {
       display: flex;
+      cursor: pointer;
       justify-content: center;
       align-items: center;
       text-decoration: none;
@@ -152,8 +153,8 @@ body {
 
   .dates {
     display: grid;
+    grid-row-gap: 10px;
     grid-template-columns: repeat(7, 1fr);
-
     button {
       cursor: pointer;
       outline: 0;
@@ -183,10 +184,6 @@ body {
       }
 
       &:hover {
-        background: #eee;
-      }
-
-      &:focus {
         background: #531422;
         color: #fff;
         font-weight: 600;
@@ -229,8 +226,24 @@ body {
     font-weight: 600;
     cursor: pointer;
   }
+  &:focus {
+    background: #531422;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
 
-.slot-heading{
+.slot-heading {
   font-weight: 500;
+}
+
+.set-holiday {
+  background-color: #fec84b !important;
+  color: #697586;
+}
+
+.set-clicked {
+  background-color: #531422 !important;
+  color: #fff;
 }

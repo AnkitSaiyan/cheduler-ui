@@ -56,6 +56,8 @@ export class ExamDetailComponent implements OnInit {
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       (user === true)? this.displayExamDetails = false : this.displayExamDetails = true;
     })
+    this.displayExamDetails = !Boolean(localStorage.getItem('user'))
+
   }
 
   examCount() : FormArray {  

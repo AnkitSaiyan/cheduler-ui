@@ -14,11 +14,12 @@ export class CoreComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    // this.url = this.router.url;
+    this.url = this.router.url;
+    console.log('this.displaySidebar: ', this.displaySidebar);
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       (user === true)? this.displaySidebar = true : this.displaySidebar = false;
     })
-
+    this.displaySidebar = Boolean(localStorage.getItem('user'))
 
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);
@@ -33,4 +34,8 @@ export class CoreComponent implements OnInit {
     })
   }
 
+  logOut(){
+    localStorage.clear();
+    this.router.navigate(['/auth/login']);
+  }
 }

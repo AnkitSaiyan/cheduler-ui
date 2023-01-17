@@ -12,6 +12,7 @@ export class BasicDetailComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.displayBasicDetails =   Boolean(localStorage.getItem('user'))
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       (user === true)? this.displayBasicDetails = false : this.displayBasicDetails = true;
     })
