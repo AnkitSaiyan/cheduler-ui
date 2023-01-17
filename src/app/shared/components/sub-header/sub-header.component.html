@@ -1,4 +1,4 @@
-<div class="container-fluid" style="overflow: hidden;" *ngIf="url !== '/'">
+<div class="container-fluid" style="overflow: hidden;" *ngIf="(url !== undefined && url !== '/') || (url !== '/')">
     <div class="container-fluid">
         <div class="navbar">
             <div class="nav-brand">

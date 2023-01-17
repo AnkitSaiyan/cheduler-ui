@@ -17,11 +17,12 @@ export class SubHeaderComponent implements OnInit {
       this.displayRegisterButton = user;
     })
 
-    
+    this.url = this.router.url;
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);
       (data && data.url)? this.url = data.url: '';
     })
+    console.log('this.url: ', this.url);
   }
 
 }

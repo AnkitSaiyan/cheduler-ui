@@ -1,6 +1,6 @@
 <div class="main-container">
     <dfm-sub-header></dfm-sub-header>
-    <div [ngClass]="url ==='/' || url ===''? '':'d-flex'">
+    <div [ngClass]="(url ==='/' && url === undefined)|| url ===''? '':'d-flex'">
         <div [ngClass]="!displaySidebar? 'sidebar-menu mt-5 mx-5':'sidebar-menu bg-primary mt-5 mx-3 sidebar-menu-shadow'" *ngIf="url !=='/'">
             <div class="sidebar-menu-items" *ngIf="displaySidebar">
                 <div class="menu-item d-flex" routerLink="/dashboard" (click)="checkUrl()">
