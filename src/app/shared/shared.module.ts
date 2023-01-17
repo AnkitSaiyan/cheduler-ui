@@ -4,10 +4,12 @@ import { DesignSystemCoreModule, DesignSystemModule, TableModule } from 'diflexm
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { SubHeaderComponent } from './components/sub-header/sub-header.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
 
 
 @NgModule({
-    declarations: [HeaderComponent, FooterComponent],
+    declarations: [HeaderComponent, FooterComponent, SubHeaderComponent, SideNavComponent],
     imports: [
         CommonModule,
         DesignSystemModule,
@@ -17,7 +19,9 @@ import { RouterModule } from '@angular/router';
     exports: [
         DesignSystemModule,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        SideNavComponent,
+        SubHeaderComponent
     ]
 })
 export class SharedModule {

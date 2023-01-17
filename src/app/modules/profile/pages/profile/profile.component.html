@@ -1,0 +1,82 @@
+
+    <!-- <dfm-sub-header></dfm-sub-header> -->
+    <div class="d-flex justify-content-evenly mt-3">
+        <!-- <div class="sidebar-menu bg-primary">
+            <div class="sidebar-menu-items">
+                <div class="menu-item d-flex " routerLink="/dashboard">
+                    <img src="../../../../../assets/images/home-icon.svg" alt="home-icon">
+                    <span class="display-5   text-decoration-none">Dashboard</span>
+                </div>
+                <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
+                    <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon">
+                    <span class="display-5 text-decoration-none">My appointments</span>
+                </div>
+                <div class="menu-item d-flex float-left cursor-pointer">
+                    <img src="../../../../../assets/images/user_icon.svg" alt="user-icon">
+                    <span class="display-5 active-menu text-decoration-none">Profile</span>
+                </div>
+                <div class="menu-item d-flex cursor-pointer" routerLink="/auth/login">
+                    <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon">
+                    <span class="display-5 text-decoration-none">Logout</span>
+                </div>
+            </div>
+        </div> -->
+        <div class="login-dashboard-content">
+            <div class="d-flex justify-content-center">
+                <span class="display-3"><b>My Profile</b></span>
+            </div>
+            <div class="my-profile-section mt-2">
+                <div class="my-profile-form-group mt-16 bg-white">
+                    <div class="d-flex justify-content-center p-3">
+                        <div class="form-group">
+                            <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"></dfm-input>
+                        </div>
+                        <div class="mx-3">
+                            <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name"></dfm-input>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center p-3">
+                        <div class="form-group">
+                            <dfm-input type="email" size="sm" label="Email*" placeholder="Email"></dfm-input>
+
+                        </div>
+                        <div class="mx-3">
+                            <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone"></dfm-input>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+                        Save Changes
+                    </dfm-button>
+
+                </div>
+
+                <div class="d-flex justify-center mt-3">
+                    <span class="text-label">Labs with access to your personal
+                            information</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-footer">
+        <div class="my-profile-footer-blank"><!--Blank Division--></div>
+        <div class="my-profile-footer mt-4 bg-white">
+            <div class="my-profile-footer-card">
+                <span class="lab-text">Lab 1</span>
+                <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true" routerLink="/schedule-appointment/exam">
+                    Revoke Access
+                </dfm-button>
+            </div>
+            <div class="my-profile-footer-card">
+                <span class="display-4 lab-text">Lab 2</span>
+                <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+                    Revoke Access
+                </dfm-button>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end mt-1 delete-button">
+        <span class="white-button display-5">Delete Account</span>
+    </div>

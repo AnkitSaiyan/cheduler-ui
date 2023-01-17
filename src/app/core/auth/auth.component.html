@@ -40,39 +40,40 @@
                     </dfm-input>
                 </div>
                 <div class="forgot-password">
-
                     <dfm-button [color]="'link'" [size]="'lg'">
                         Forgot Password
                     </dfm-button>
                 </div>
             </div>
-            <div class="d-flex justify-content-center text-center">
-                <dfm-button [color]="'primary'" [size]="'lg'">
-                    Sign in
+            <div class="d-flex justify-content-center flex-column mt-5 align-items-center">
+                <div class="text-center">
+                    <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()">
+                        Sign in
+                    </dfm-button>
+                </div>
+                
+                <div class="or-section mt-10">
+                    <div>
+                        <hr class="bg-gray" width="100px">
+                    </div>
+                    <div><span>&nbsp; or &nbsp; </span></div>
+                    <div>
+                        <hr class="bg-gray" width="100px">
+                    </div>
+                </div>
+
+                <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard">
+                    Schedule Appointment
                 </dfm-button>
             </div>
-            <div class="or-section mt-10">
-                <div>
-                    <hr class="bg-gray" width="100px">
-                </div>
-                <div><span>or</span></div>
-                <div>
-                    <hr class="bg-gray" width="100px">
-                </div>
-            </div>
-
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center">
-                Schedule Appointment
-            </dfm-button>
         </div>
     </div>
 
-    <div class="position-absolute bottom-0 d-flex start-0 p-2">
+
+    <div class="footer-policy d-flex">
         <div class="footer-left">
             Privacy and cookies policy
         </div>
-    </div>
-    <div class="position-absolute bottom-0 d-flex end-0 p-2">
         <div class="footer-right">
             Powered by Diflexmo Scheduling System
         </div>

@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="p-1">
-                    <dfm-input type="text" size="sm" label="Phone number" placeholder="Enter password"
+                    <dfm-input type="text" size="sm" label="Phone number" placeholder="Enter phone number"
                         [disabled]="false" [isInvalid]="false" [readonly]="false">
                     </dfm-input>
                 </div>
@@ -62,13 +62,13 @@
                 <div>
                     <hr class="bg-gray" width="100px">
                 </div>
-                <div><span>or</span></div>
+                <div><span>&nbsp; or &nbsp; </span></div>
                 <div>
                     <hr class="bg-gray" width="100px">
                 </div>
             </div>
 
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center">
+            <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule-appointment/overview">
                 Schedule Appointment
             </dfm-button>
         </div>

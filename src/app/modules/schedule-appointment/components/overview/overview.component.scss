@@ -1,0 +1,73 @@
+.main-div{
+  height: 100vh;
+  overflow-y: auto;
+}
+.dashboard-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .sidebar-menu {
+    width: 20%;
+    max-height: 240px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+  
+  .login-dashboard-content {
+    width: 80%;
+    border-radius: 8px;
+  }
+  
+  .dashboard-main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-main-content {
+    width: 100%;
+  }
+  
+  .primary-button {
+    background-color: #531422;
+    padding: 9px 15px 9px 15px;
+    border-radius: 8px;
+    border: none;
+    color: #f4e3cf;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    transition: 0.2s all ease;
+  }
+  
+  .text-primary {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+  
+    color: #531422 !important;
+  }
+  
+  .display-4 {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 38px;
+    color: #000000;
+  }
+  
+  .account-login-block {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+  }
+  
