@@ -4,3 +4,20 @@
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 @import './themes/theme';
+.lang-dropdown {
+  dfm-input-dropdown {
+    input {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      color: var(--dfm-primary) !important;
+      &::placeholder,
+      &::-webkit-input-placeholder {
+        color: var(--dfm-primary) !important;
+      }
+    }
+  }
+  dfm-icon {
+    color: var(--dfm-primary) !important;
+  }
+}

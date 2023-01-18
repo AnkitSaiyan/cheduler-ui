@@ -2,11 +2,31 @@
   background-color: #f4e3cf;
 }
 
+.navbar {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  // border: 1px solid red;
+  /* height: 50px; */
+}
+.dashboard-text {
+  display: none;
+}
 .menu {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   align-items: center;
   gap: 15px;
+  // border: 1px solid black;
+}
+.register-btn {
+  display: block;
+}
+.add-user-btn-mv {
+  display: none;
 }
 
 .display-4 {
@@ -14,7 +34,6 @@
   font-size: 18px;
   line-height: 32px;
   /* or 133% */
-
 }
 
 .text-primary {
@@ -68,13 +87,107 @@
   justify-content: end;
   align-items: center;
 }
-
-.navbar {
-  margin-top: 15px;
+.home-hover {
+  cursor: pointer;
+}
+.register-menu {
+  position: relative;
+}
+.sub-menu {
+  position: absolute;
+  background-color: #fff;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  display: none;
+  padding: 10px 5px 10px 5px;
+  width: 150px;
+  border-radius: 8px;
+  min-width: 100px;
+  text-align: center;
+}
+.menu .sub-menu .sub-menu-items {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  /* height: 50px; */
+  gap: 10px;
+  margin-top: 5px;
+}
+.menu .register-menu:hover .sub-menu {
+  display: block;
+  z-index: 99999;
+}
+.login-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #531422;
+}
+.lang-btn {
+  max-width: 50px;
+  // background-color: transparent;
+  display: none;
+  font-size: 5px;
+}
+.arrow-btn {
+  display: none;
 }
 
-.home-hover{cursor: pointer;}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .home-menu {
+    display: none;
+  }
+  .navbar {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // transform: translate(-50%, -50%);
+    // border: 1px solid red;
+    background-color: #f4e3cf;
+    width: 100%;
+    padding: 5px 15px 5px 15px;
+    // border: 1px solid red;
+    /* height: 50px; */
+  }
+  .dashboard-text {
+    display: block;
+    font-size: 20px;
+    font-weight: 400;
+    color: #531422;
+  }
+  .menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+    // border: 1px solid black;
+  }
+  .sub-menu {
+    top: 40px;
+  }
+  .arrow-btn {
+    display: block;
+  }
+  .register-btn {
+    display: none;
+  }
+  .add-user-btn-mv {
+    display: block;
+  }
+  .lang-btn {
+    display: block;
+  }
+  .navbar img {
+    display: none;
+  }
+
+  .small-container {
+    display: none;
+  }
+}

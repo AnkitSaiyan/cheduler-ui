@@ -8,6 +8,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  items: any = [
+    {
+      name: 'EN',
+      value: 'EN',
+      discription: '',
+    },
+    {
+      name: 'NL',
+      value: 'NL',
+      discription: '',
+    }
+  ];
 
   constructor(private authService: AuthService, private router: Router) { }
 

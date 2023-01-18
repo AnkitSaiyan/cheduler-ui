@@ -1,21 +1,30 @@
-<div class="nav container">
-    <div class="right-logo">
-        <img src="../../../../assets/images/logo.svg" alt="difleximo">
+<div class="nav">
+  <div class="right-logo">
+    <img src="../../../../assets/images/logo.svg" alt="difleximo" />
+  </div>
+  <div class="right-menu">
+    <dfm-button [color]="'link'" [size]="'lg'" class="button-design mt-2 home-btn"> Home </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design register-btn" routerLink="/auth/register">
+      Register
+    </dfm-button>
+    <div class="register-menu">
+      <!-- <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" class="register-btn"> Register </dfm-button> -->
+      <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design add-user-btn-mv"></dfm-button>
+      <div class="sub-menu">
+        <div class="sub-menu-items">
+          <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/auth/register"> Register </dfm-button>
+          <span class="display-5">Existing user? <span class="text-primary login-link" routerLink="/auth/login">Login</span></span>
+        </div>
+      </div>
     </div>
-    <div class="left-menu">
-        <dfm-button [color]="'link'" [size]="'lg'" class="button-design mt-2">
-            Home
-        </dfm-button>
-        <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design" routerLink="/auth/register">
-            Register
-        </dfm-button>
-        <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design" routerLink="/auth/login">
-            Login
-        </dfm-button>
-        <dfm-button [color]="'primary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design">
-            Schedule Appointment
-        </dfm-button>
-
-        <div class="mx-3"><span class="language-color-primary">NL|</span> <span class="language-color">EN</span></div>
+    <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design login-btn" routerLink="/auth/login">
+      Login
+    </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design schedule-btn"> Schedule Appointment </dfm-button>
+    <div class="lang-btn lang-dropdown">
+      <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
+        {{ items.name }}
+      </dfm-input-dropdown>
     </div>
+  </div>
 </div>

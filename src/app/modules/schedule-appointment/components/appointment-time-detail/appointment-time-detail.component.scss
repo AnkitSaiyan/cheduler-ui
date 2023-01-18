@@ -55,9 +55,10 @@ body {
 }
 
 .calendar-container {
-  margin-left: 40px !important;
-  width: 100%;
-  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .calendar {
@@ -223,7 +224,7 @@ body {
   &:hover {
     background: #531422;
     color: #fff;
-    font-weight: 600;
+    // font-weight: 600;
     cursor: pointer;
   }
   &:focus {

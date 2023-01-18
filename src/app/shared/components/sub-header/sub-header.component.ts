@@ -8,6 +8,18 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sub-header.component.scss']
 })
 export class SubHeaderComponent implements OnInit {
+  items: any = [
+    {
+      name: 'EN',
+      value: 'EN',
+      discription: '',
+    },
+    {
+      name: 'NL',
+      value: 'NL',
+      discription: '',
+    }
+  ];
   displayRegisterButton: boolean = false;
   url!: string;
   constructor(private authService: AuthService, private router: Router) { }

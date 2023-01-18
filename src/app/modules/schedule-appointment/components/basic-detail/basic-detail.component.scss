@@ -1,47 +1,138 @@
-
-.container{
-    // width: 38    % !important;
-    margin-left: 150px;
-    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
-    padding: 18px 18px 18px 18px !important;
-}
+// .container{
+//     // width: 38    % !important;
+//     margin-left: 150px;
+//     box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+//     padding: 18px 18px 18px 18px !important;
+// }
 
 .basic-details-progress-bar {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .progress-button {
-    background-color: #ffff;
-    padding: 9px 15px 9px 15px;
-    border-radius: 8px;
-    color: #531422;
-    border: none;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
+  background-color: #ffff;
+  padding: 9px 15px 9px 15px;
+  border-radius: 8px;
+  color: #531422;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
 }
-.text-primary{
-    color: #531422 !important;
+.text-primary {
+  color: #531422 !important;
 }
 .progress-bar-hr {
-    width: 30px;
-    height: 3px;
-    opacity: 1;
+  width: 30px;
+  height: 3px;
+  opacity: 1;
 }
 
 .progress-bar-hr-completed {
-    width: 30px;
-    height: 3px;
-    font-weight: 600;
+  width: 30px;
+  height: 3px;
+  font-weight: 600;
 }
 
 .bg-primary {
-    background-color: #531422 !important;
+  background-color: #531422 !important;
 }
 
+.button-design {
+  padding: 9px 17px;
+}
+.time-slot-btn {
+  display: none;
+}
 
-.button-design{
-    padding: 9px 17px;
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .exam-main-container {
+    background-color: #fff !important;
+    // border: 1px solid red;
+    width: 100%;
+  }
+  .basic-details-progress-bar {
+    // border: 1px solid red;
+    margin-top: 80px !important;
+    // border: 1px solid red;
+    width: 100%;
+  }
+  .basic-details-progress-bar .progress-button {
+    font-size: 12px;
+    padding: 0.5px 1px;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+  .basic-details-progress-bar .time-slot-btn {
+    display: none;
+  }
+  .basic-details-progress-bar .time-slot-btn-mv {
+    display: block;
+  }
+  .progress-bar-hr {
+    width: 30px;
+    height: 2px;
+    opacity: 1;
+  }
+  .form-group-container {
+    width: 100%;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .main-exam-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .exam-container {
+    width: 100% !important;
+    // border: 1px solid blue;
+    padding: 0px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .exam-container .left-container {
+    width: 100% !important;
+    // border: 1px solid black;
+  }
+  .exam-container .right-container {
+    width: 100% !important;
+    // border: 1px solid red;
+  }
+
+  .exam {
+    // border: 1px solid red;
+    display: none !important;
+  }
+  .exam-text-area-mv {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    // border: 1px solid red !important;
+  }
+  .exam-text-area {
+    display: none !important;
+  }
+  .exam-mv {
+    display: block !important;
+  }
+  .right-container .select-exam-detail {
+    display: block;
+  }
+  .select-exam-detail-mv {
+    display: block !important;
+  }
+  .select-exam-detail {
+    display: none !important;
+  }
 }
