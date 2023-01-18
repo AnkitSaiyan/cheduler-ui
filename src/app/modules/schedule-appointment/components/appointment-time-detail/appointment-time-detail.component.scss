@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 100px;
+  margin-left: 124px;
 }
 
 .progress-button {
@@ -43,21 +43,20 @@
   gap: 15px;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
-
-body {
-  background: #fad390;
-  font-family: 'Questrial', sans-serif;
+.calendar-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
 }
 
-.calendar-container {
-  margin-left: 40px !important;
-  width: 100%;
-  height: 80%;
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content !important;
+  padding: 18px 18px 18px 18px;
 }
 
 .calendar {
@@ -67,9 +66,8 @@ body {
   background: #f8fafc;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
   margin-left: 40px !important;
-
+  width: fit-content;
   .month {
     display: flex;
     justify-content: space-between;
@@ -103,6 +101,7 @@ body {
 
     .nav {
       display: flex;
+      cursor: pointer;
       justify-content: center;
       align-items: center;
       text-decoration: none;
@@ -152,8 +151,8 @@ body {
 
   .dates {
     display: grid;
+    grid-row-gap: 10px;
     grid-template-columns: repeat(7, 1fr);
-
     button {
       cursor: pointer;
       outline: 0;
@@ -175,18 +174,10 @@ body {
 
       border-radius: 24px;
       &.today {
-        box-shadow: inset 0px 0px 0px 2px #0a3d62;
-      }
-
-      &:first-child {
-        grid-column: 3;
+        box-shadow: inset 0px 0px 0px 2px #531422;
       }
 
       &:hover {
-        background: #eee;
-      }
-
-      &:focus {
         background: #531422;
         color: #fff;
         font-weight: 600;
@@ -196,7 +187,7 @@ body {
 }
 
 .notation-container {
-  padding: 38px 0px 0px 48px;
+  padding: 14px 0px 0px 48px;
 }
 
 .notation-text {
@@ -208,14 +199,17 @@ body {
 
 .logo {
   background: #fdb022;
-  border-radius: 100%;
-  width: fit-content;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
 }
 
 .logo-selected {
   background: #531422;
-  border-radius: 100%;
-  width: fit-content;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: 30px;
 }
 
 .time-detail {
@@ -226,11 +220,42 @@ body {
   &:hover {
     background: #531422;
     color: #fff;
+    // font-weight: 600;
+    cursor: pointer;
+  }
+  &:focus {
+    background: #531422;
+    color: #fff;
     font-weight: 600;
     cursor: pointer;
   }
 }
 
-.slot-heading{
+.slot-heading {
   font-weight: 500;
+}
+
+.set-holiday {
+  background-color: #fec84b !important;
+  color: #697586;
+}
+
+.set-clicked {
+  background-color: #531422 !important;
+  color: #fff;
+}
+
+.highlight-time{
+    background-color: #531422 !important;
+    color: #fff;
+}
+
+.disabled-date {
+  border: none !important;
+  outline: none !important;
+  color: #697586 !important;
+  cursor: auto !important;
+  &:hover{
+    background-color: #e3e8ef !important;
+  }
 }

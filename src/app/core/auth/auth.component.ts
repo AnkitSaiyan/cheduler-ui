@@ -8,6 +8,18 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  items: any = [
+    {
+      name: 'EN',
+      value: 'EN',
+      discription: '',
+    },
+    {
+      name: 'NL',
+      value: 'NL',
+      discription: '',
+    }
+  ];
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -15,7 +27,8 @@ export class AuthComponent implements OnInit {
   }
 
   logInUser(){
-    this.authService.isLoggedInUser.next(true);
+    // this.authService.isLoggedInUser.next(true);
+    localStorage.setItem('user', 'true');
     this.router.navigate(['/dashboard']);
   }
 }

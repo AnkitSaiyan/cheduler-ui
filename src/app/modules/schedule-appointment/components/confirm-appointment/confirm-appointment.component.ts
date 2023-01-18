@@ -19,6 +19,7 @@ export class ConfirmAppointmentComponent implements OnInit {
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       (user === true)? this.displayBasicDetails = false : this.displayBasicDetails = true;
     })
+    this.displayBasicDetails = !Boolean(localStorage.getItem('user'))
   }
   displayValue(value: any){
 

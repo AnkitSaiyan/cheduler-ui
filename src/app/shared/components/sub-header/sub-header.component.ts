@@ -8,6 +8,18 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sub-header.component.scss']
 })
 export class SubHeaderComponent implements OnInit {
+  items: any = [
+    {
+      name: 'EN',
+      value: 'EN',
+      discription: '',
+    },
+    {
+      name: 'NL',
+      value: 'NL',
+      discription: '',
+    }
+  ];
   displayRegisterButton: boolean = false;
   url!: string;
   constructor(private authService: AuthService, private router: Router) { }
@@ -17,11 +29,13 @@ export class SubHeaderComponent implements OnInit {
       this.displayRegisterButton = user;
     })
 
-    
+    this.displayRegisterButton = Boolean(localStorage.getItem('user'))
+    this.url = this.router.url;
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);
       (data && data.url)? this.url = data.url: '';
     })
+    console.log('this.url: ', this.url);
   }
 
 }

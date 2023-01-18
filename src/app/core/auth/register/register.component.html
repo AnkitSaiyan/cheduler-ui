@@ -1,86 +1,110 @@
 <div class="container-fluid">
+  <div class="nav-main-container">
     <div class="container">
-        <img src="../../../assets/images/logo.png" width="134px" height="17px" class="mt-4">
+      <div>
+        <img src="../../../assets/images/logo.png" width="134px" height="17px" class="" />
+      </div>
+      <div class="lang-btn lang-dropdown">
+        <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
+          {{ items.name }}
+        </dfm-input-dropdown>
+      </div>
     </div>
-    <div class=" d-flex login-container">
-        <div class="left-container">
-            <div class="header">
-                Looks like you are <br>
-                new here</div>
-            <div class="sub-header">
-                Register with your email <br>
-                to get started
-            </div>
-            <div class="left-container-img mt-3">
-                <img src="../../../assets/images/user-with-phone.png" width="250px" height="auto">
-            </div>
-        </div>
-
-        <div class="right-container">
-            <div class="text-center">
-                <div class="right-section-header">Register</div>
-                <div class="right-subheader-section d-flex justify-content-center align-items-center dfm-gap-8 mt-4">
-                    <span class="new-user ">Existing user?</span>
-                    <span class="register-user">
-                        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login">
-                            Login
-                        </dfm-button>
-                    </span>
-                </div>
-            </div>
-
-            <div class="login-form mt-3">
-                <div class="p-2">
-                    <dfm-input type="text" size="sm" label="Email" placeholder="me@diflexmo.com" [disabled]="false"
-                        icon="mail-05" [isInvalid]="false" [readonly]="false">
-                    </dfm-input>
-                </div>
-
-                <div class="p-1">
-                    <dfm-input type="text" size="sm" label="Password" placeholder="Enter password" [disabled]="false"
-                        [isInvalid]="false" [readonly]="false">
-                    </dfm-input>
-                </div>
-                <div class="p-1">
-                    <dfm-input type="text" size="sm" label="Confirm Password*" placeholder="Enter password"
-                        [disabled]="false" [isInvalid]="false" [readonly]="false">
-                    </dfm-input>
-                </div>
-
-                <div class="p-1">
-                    <dfm-input type="text" size="sm" label="Phone number" placeholder="Enter phone number"
-                        [disabled]="false" [isInvalid]="false" [readonly]="false">
-                    </dfm-input>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center text-center mt-4">
-                <dfm-button [color]="'primary'" [size]="'lg'">
-                    Register
-                </dfm-button>
-            </div>
-            <div class="or-section mt-10">
-                <div>
-                    <hr class="bg-gray" width="100px">
-                </div>
-                <div><span>&nbsp; or &nbsp; </span></div>
-                <div>
-                    <hr class="bg-gray" width="100px">
-                </div>
-            </div>
-
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule-appointment/overview">
-                Schedule Appointment
-            </dfm-button>
-        </div>
+  </div>
+  <div class="d-flex login-container">
+    <div class="left-container">
+      <div class="header">
+        Looks like you are <br />
+        new here
+      </div>
+      <div class="sub-header">
+        Register with your email <br />
+        to get started
+      </div>
+      <div class="left-container-img mt-3">
+        <img src="../../../assets/images/user-with-phone.png" width="250px" height="auto" />
+      </div>
     </div>
 
+    <div class="right-container">
+      <div class="existing-section">
+        <div class="right-section-header">Register</div>
+        <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
+          <span class="new-user">Existing user?</span>
+          <span class="register-user">
+            <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>
+          </span>
+        </div>
+      </div>
 
-    <div class="footer-policy d-flex">
-        <div class="footer-left">
-            Privacy and cookies policy
+      <div class="login-form mt-3">
+        <div class="p-2">
+          <dfm-input
+            type="text"
+            size="sm"
+            label="Email"
+            placeholder="me@diflexmo.com"
+            [disabled]="false"
+            icon="mail-05"
+            [isInvalid]="false"
+            [readonly]="false"
+          >
+          </dfm-input>
         </div>
-        <div class="footer-right">
-            Powered by Diflexmo Scheduling System
+
+        <div class="p-1">
+          <dfm-input type="text" size="sm" label="Password" placeholder="Enter password" [disabled]="false" [isInvalid]="false" [readonly]="false">
+          </dfm-input>
         </div>
+        <div class="p-1">
+          <dfm-input
+            type="text"
+            size="sm"
+            label="Confirm Password*"
+            placeholder="Enter password"
+            [disabled]="false"
+            [isInvalid]="false"
+            [readonly]="false"
+          >
+          </dfm-input>
+        </div>
+
+        <div class="p-1">
+          <dfm-input
+            type="text"
+            size="sm"
+            label="Phone number"
+            placeholder="Enter phone number"
+            [disabled]="false"
+            [isInvalid]="false"
+            [readonly]="false"
+          >
+          </dfm-input>
+        </div>
+      </div>
+      <div class="register-btn-section">
+        <div class="d-flex justify-content-center text-center mt-4">
+          <dfm-button [color]="'primary'" [size]="'lg'"> Register </dfm-button>
+        </div>
+        <div class="or-section mt-10">
+          <div>
+            <hr class="bg-gray" width="100px" />
+          </div>
+          <div><span>&nbsp; or &nbsp; </span></div>
+          <div>
+            <hr class="bg-gray" width="100px" />
+          </div>
+        </div>
+
+        <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule-appointment/overview">
+          Schedule Appointment
+        </dfm-button>
+      </div>
     </div>
+  </div>
+
+  <div class="footer-policy d-flex">
+    <div class="footer-left">Privacy and cookies policy</div>
+    <div class="footer-right">Powered by Diflexmo Scheduling System</div>
+  </div>
 </div>

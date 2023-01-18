@@ -6,6 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  items: any = [
+    {
+      name: 'EN',
+      value: 'EN',
+      discription: '',
+    },
+    {
+      name: 'NL',
+      value: 'NL',
+      discription: '',
+    }
+  ];
 
   constructor() { }
 

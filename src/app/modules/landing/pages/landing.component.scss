@@ -2,38 +2,20 @@
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
-  line-height: 38px;
+  // line-height: 38px;
   margin-top: 38px;
   color: #000000;
 }
 
 .sub-header {
-  width: 607px;
-  height: 134px;
-
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
-  font-size: 48px;
-  line-height: 60px;
-  /* or 125% */
-
-  letter-spacing: -0.02em;
-
+  font-size: 38px;
   color: #531422;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 }
 
 .p-data {
-  width: 638px;
-  height: 96px;
-  left: 29px;
-  top: 216px;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -43,14 +25,32 @@
 .radiology-section {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  flex-direction: row;
+  margin-top: 50px;
+  // border: 1px solid red;
+  padding: 0;
   .left-section {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    // border: 1px solid black;
   }
 
   .right-section {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
   }
+  .right-section img {
+    // border: 1px solid red;
+  }
+  // .right-section-img img {
+  //   width: 200px;
+  // }
 }
 
 .location {
@@ -112,41 +112,45 @@
 }
 
 .weekly-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: row;
-  // flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
   .weekly-content-left {
     width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .schedule-image {
-      margin-top: 55px;
     }
   }
-
   .weekly-content-right {
     width: 50%;
-    top: 542px;
-    border-radius: 8px;
   }
   .opening-detail-table {
     background-color: #ffffff;
     box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
-    margin-top: 16px;
+    margin-top: 10px;
     padding: 16px 16px 16px 16px;
+    border-radius: 4px;
   }
 }
 
-.open-day{
+.open-day {
   width: 103px;
-    height: 38px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 32px;
-    margin-left: 30px;
+  height: 38px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 32px;
+  margin-left: 30px;
 }
 
-.open-time{
+.open-time {
   // width: 103px;
   height: 38px;
   font-family: 'Montserrat';
@@ -155,5 +159,106 @@
   font-size: 14px;
   line-height: 32px;
   margin-left: 45px;
-
+}
+.schedule-sm-button-mv {
+  display: none;
+}
+table {
+  width: 100%;
+  // border: 1px solid red;
+}
+table,
+th,
+td {
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  margin: 0;
+}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .radiology-section {
+    // border: 1px solid red;
+    width: 100%;
+    padding: 0px 10px;
+    margin: 70px 0px 0px 0px;
+  }
+  .radiology-section .left-section {
+    width: 70%;
+    // border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .schedule-button {
+    display: none;
+  }
+  .schedule-sm-button-mv {
+    display: block;
+  }
+  .radiology-section .right-section {
+    width: 30%;
+    // border: 1px solid black;
+  }
+  .radiology-section .right-section .right-section-img {
+    min-width: 110px;
+    height: 100px;
+    // border: 1px solid red;
+  }
+  .radiology-section .right-section .right-section-img img {
+    width: 100%;
+    height: auto;
+  }
+  .radiology-section .left-section .header-section {
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    margin: 20px 0px 0px 0px;
+  }
+  .radiology-section .left-section .sub-header {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .radiology-section .left-section .p-data {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    // margin: 5px 0px 0px 0px;
+  }
+  .header-section {
+  }
+  .weekly-container .weekly-content-left {
+    display: none;
+  }
+  .weekly-container .weekly-content-right {
+    width: 100%;
+    // border: 1px solid red;
+    padding: 0px 10px;
+    margin: 10px 0px 0px 0px;
+  }
+  .weekly-container .weekly-content-right .opening-detail-table {
+    width: 100%;
+    // border: 1px solid black;
+    padding: 0;
+    margin: 10px 0px 0px 0px;
+  }
+  .weekly-container .weekly-content-right .opening-section-header {
+    font-size: 20px;
+  }
+  .weekly-container .weekly-content-right .opening-detail-table .opening-days {
+    width: 50%;
+    border: 1px solid red;
+  }
+  th,
+  td {
+    border-collapse: collapse;
+    // border: 1px solid red;
+    font-size: 15px;
+    font-weight: 500;
+  }
 }

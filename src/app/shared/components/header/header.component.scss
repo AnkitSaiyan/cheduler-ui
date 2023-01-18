@@ -1,41 +1,175 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center !important;
+  flex-direction: row;
   padding-bottom: 8px;
+  background-color: #f2f4f7;
+  // border: 1px solid red;
+  position: fixed;
+  width: 90%;
+  margin: auto;
+  top: 28px;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
   .right-logo {
     left: 0%;
     right: 0%;
     margin-top: 20px;
   }
 }
-
-.left-menu {
-  display: flex;
-  float: right;
-  margin-top: 10px;
-  .button-design {
-    margin-left: 24px;
-  }
+.display-5 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
 }
 
+// .nav.container {
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-top: 10px;
+//   padding: 5px;
+//   border: 1px solid black;
+//   // position: fixed;
+//   // top: 18px;
+//   // left: 50%;
+//   // right: 50%;
+//   // transform: translate(-50%, -50%);
+// }
+.right-menu {
+  display: flex;
+  flex-direction: row;
+  // border: 1px solid black;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0px 0px 0px;
+}
+.register-menu {
+  position: relative;
+}
+.sub-menu {
+  position: absolute;
+  background-color: #fff;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  display: none;
+  padding: 10px 5px 10px 5px;
+  width: 150px;
+  border-radius: 8px;
+  min-width: 100px;
+  text-align: center;
+}
+.sub-menu .sub-menu-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+.register-menu:hover .sub-menu {
+  display: block !important;
+  z-index: 99999;
+}
+.login-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #531422;
+}
 
 .language-color {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 40px;
-    color: #531422;
-    cursor: pointer;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 40px;
+  color: #531422;
+  cursor: pointer;
+}
+
+.language-color-primary {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 40px;
+  color: #697586;
+  cursor: pointer;
+}
+.add-user-btn-mv {
+  display: none;
+}
+.lang-btn {
+  max-width: 50px;
+  // background-color: transparent;
+  display: none;
+}
+.add-user-btn-mv {
+  display: none;
+}
+.register-menu {
+  display: none;
+}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .nav {
+    background-color: #f4e3cf;
+    padding: 10px;
+    width: 100% !important;
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
   }
-  
-  .language-color-primary {
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 40px;
-    color: #697586;
-    cursor: pointer;
+  .nav .right-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    // border: 1px solid red;
   }
-  
+  .nav .right-menu .home-btn {
+    display: none;
+  }
+  .nav .right-menu .login-btn {
+    display: none;
+  }
+  .nav .right-menu .schedule-btn {
+    display: none;
+  }
+  .nav .right-menu .register-btn {
+    display: none;
+  }
+  .nav .right-menu .add-user-btn-mv {
+    display: block;
+  }
+  .left-menu .button-design {
+    margin: 0;
+  }
+  .register-menu {
+    display: block;
+  }
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+    // border: 1px solid black;
+  }
+  .sub-menu {
+    top: 40px;
+  }
+  .lang-btn {
+    display: block;
+  }
+  .add-user-btn-mv {
+    display: block;
+  }
+}
