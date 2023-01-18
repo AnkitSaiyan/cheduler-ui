@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -18,20 +18,46 @@ export class AppointmentTimeDetailComponent implements OnInit {
   totalDays: number[] = [];
   isTimeSlotAvailable: boolean = false;
   isHoliday: boolean = false;
+  isHighLightTime: boolean = false;
+  firstDayOfMonth: any = new Date(this.currentYear, this.currentMonth, 1);
+  dayStartCount!: number;
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.firstDayOfMonth = this.days[this.firstDayOfMonth.getDay()];
+    console.log('this.firstDayOfMonth: ', this.firstDayOfMonth);
     this.getDaysInMonth(this.currentMonth, this.currentYear);
     this.displayAppointmentDetails = Boolean(localStorage.getItem('user'))
+
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
       user === true ? (this.displayAppointmentDetails = false) : (this.displayAppointmentDetails = true);
     });
 
     this.displayAppointmentDetails = !Boolean(localStorage.getItem('user'));
+    this.days.forEach((day: string, index: number)=>{
+      if(day === this.firstDayOfMonth){
+        this.dayStartCount = index;
+      }
+    })
+    console.log('this.dayStartCount: ', this.dayStartCount);
   }
 
   getNextMonth() {
     this.currentMonth >= 0 && this.currentMonth < 11 ? (this.currentMonth += 1) : (this.currentMonth = 11);
+    console.log('this.currentMonth: ', this.currentMonth);
+    this.firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+    this.firstDayOfMonth = this.days[this.firstDayOfMonth.getDay()];
+
+    console.log('this.firstDayOfMonth: 52 ', this.firstDayOfMonth);
+    
+    this.days.forEach((day: string, index: number)=>{
+      console.log('day: ', day);
+      if(day === this.firstDayOfMonth){
+        this.dayStartCount = index;
+        console.log('this.dayStartCount: ', this.dayStartCount);
+      }
+    })
 
     this.months.forEach((month: string, index: number) => {
       this.months[index];
@@ -46,6 +72,15 @@ export class AppointmentTimeDetailComponent implements OnInit {
   getPreviousMonth() {
     this.currentMonth && this.currentMonth >= 0 ? (this.currentMonth -= 1) : (this.currentMonth = 0);
 
+    this.firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+    this.firstDayOfMonth = this.days[this.firstDayOfMonth.getDay()];
+    
+    this.days.forEach((day: string, index: number)=>{
+      if(day === this.firstDayOfMonth){
+        this.dayStartCount = index;
+      }
+    })
+
     this.months.forEach((month: string, index: number) => {
       this.months[index];
       if (this.currentMonth === index) {
@@ -55,6 +90,7 @@ export class AppointmentTimeDetailComponent implements OnInit {
       }
     });
     console.log('this.PreviousMonth: ', this.currentMonth);
+
   }
 
   getCurrentYear() {
@@ -79,13 +115,11 @@ export class AppointmentTimeDetailComponent implements OnInit {
       totalDay = monthCount;
     }
     now = new Date();
-    console.log('this.totalDays: ', this.totalDays);
     this.totalDays = [];
     for (let i = 1; i <= Number(monthCount); i++) {
       (i === 9 )? this.isHoliday = true: this.isHoliday = false;
       this.totalDays.push(i);
     }
-    console.log('this.totalDays: ', this.totalDays);
   }
 
   showTimeSlot(dayCount) {
@@ -93,4 +127,9 @@ export class AppointmentTimeDetailComponent implements OnInit {
       this.isTimeSlotAvailable = true;
     }
   }
+
+  highLightTime(){
+    this.isHighLightTime = true;
+  }
+  
 }

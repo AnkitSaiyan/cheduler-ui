@@ -121,13 +121,15 @@
             </div>
         </div>
     </div>
-    <div class="mt-4 d-flex flex-column checkbox-section" *ngIf="isCanceled=== false && isPending === false">
-        <dfm-checkbox label="I have an application from my referring GP, doctor specialist or dentist.*" size="sm"
-            [indeterminate]="false" (click)="check1 = true">
-        </dfm-checkbox>
-        <dfm-checkbox label="I hereby give consent to store my personal information.*" size="sm" [indeterminate]="false"
-            class="mt-2" (click)="check2 = true">
-        </dfm-checkbox>
+    <div class="checkbox-div d-flex justify-content-center">
+        <div class="mt-4 d-flex flex-column justify-content-between" *ngIf="isCanceled=== false && isPending === false">
+            <dfm-checkbox label="I have an application from my referring GP, doctor specialist or dentist.*" size="sm"
+                [indeterminate]="false" (click)="check1 = true">
+            </dfm-checkbox>
+            <dfm-checkbox label="I hereby give consent to store my personal information.*" size="sm" [indeterminate]="false"
+                class="mt-2" (click)="check2 = true">
+            </dfm-checkbox>
+        </div>
     </div>
     <div class="mt-3 d-flex justify-content-center">
         <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"
