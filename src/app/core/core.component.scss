@@ -5,9 +5,11 @@
 
 .sidebar-menu {
   width: 15%;
-  max-height: 208px;
+  max-height: 188px;
   border-radius: 8px;
+  margin-left: 78px !important;
 }
+
 .sidebar-menu-shadow {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -55,7 +57,7 @@
   justify-content: start;
   gap: 10px;
   color: #f4e3cf;
-  padding: 10px;
+  padding: 5px;
 }
 
 .display-5 {
@@ -63,6 +65,11 @@
   font-size: 14px;
   line-height: 20px;
 }
+
+.logo {
+  padding: 5px;
+}
+
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .sidebar-menu {
