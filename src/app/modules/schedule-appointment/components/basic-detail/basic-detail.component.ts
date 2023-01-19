@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class BasicDetailComponent implements OnInit {
   displayBasicDetails: boolean = false;
-
-  constructor(private authService: AuthService) { }
+  basicDetailsForm!: FormGroup;
+  public firstName = new FormControl();
+  public lastName = new FormControl();
+  public email = new FormControl();
+  public phone = new FormControl();
+  constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.displayBasicDetails =   Boolean(localStorage.getItem('user'))

@@ -50,7 +50,7 @@
         </div>
 
         <div class="p-1">
-          <dfm-input type="text" size="sm" label="Password" placeholder="Enter password" [disabled]="false" [isInvalid]="false" [readonly]="false">
+          <dfm-input [type]="ipType" size="sm" label="Password" placeholder="Enter password" [disabled]="false" [isInvalid]="false" [readonly]="false" [formControl]="isPassword">
           </dfm-input>
         </div>
         <div class="forgot-password">
