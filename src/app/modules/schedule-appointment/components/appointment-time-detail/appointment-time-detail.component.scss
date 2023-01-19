@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 124px;
+  // margin-left: 124px;
 }
 
 .progress-button {
@@ -50,24 +50,24 @@
   align-items: center;
 }
 
-.container{
+.container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: fit-content !important;
-  padding: 18px 18px 18px 18px;
+  // width: fit-content !important;
+  // padding: 18px 18px 18px 18px;
 }
 
 .calendar {
-  display: inline-grid;
-  justify-content: center;
-  align-items: center;
+  // display: inline-grid;
+  // justify-content: center;
+  // align-items: center;
   background: #f8fafc;
-  padding: 20px;
-  border-radius: 5px;
-  margin-left: 40px !important;
-  width: fit-content;
+  // padding: 20px;
+  border-radius: 4px;
+  // margin-left: 40px !important;
+  // width: fit-content;
   .month {
     display: flex;
     justify-content: space-between;
@@ -187,8 +187,8 @@
 }
 
 .notation-container {
-  padding: 14px 0px 0px 48px;
-  width: 100%;
+  // padding: 14px 0px 0px 48px;
+  // width: 100%;
 }
 
 .notation-text {
@@ -246,9 +246,9 @@
   color: #fff;
 }
 
-.highlight-time{
-    background-color: #531422 !important;
-    color: #fff;
+.highlight-time {
+  background-color: #531422 !important;
+  color: #fff;
 }
 
 .disabled-date {
@@ -256,7 +256,46 @@
   outline: none !important;
   color: #697586 !important;
   cursor: auto !important;
-  &:hover{
+  &:hover {
     background-color: #e3e8ef !important;
+  }
+}
+.time-slot-btn-mv {
+  display: none;
+}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .basic-details-progress-bar {
+    // border: 1px solid red;
+    margin-top: 80px !important;
+    // border: 1px solid red;
+    width: 100%;
+  }
+  .basic-details-progress-bar .progress-button {
+    font-size: 12px;
+    padding: 0.5px 1px;
+    border-radius: 4px;
+    font-weight: 400;
+  }
+  .basic-details-progress-bar .time-slot-btn {
+    display: none;
+  }
+  .basic-details-progress-bar .time-slot-btn-mv {
+    display: block;
+  }
+  .progress-bar-hr {
+    width: 30px;
+    height: 2px;
+    opacity: 1;
+  }
+  .calendar-main-container {
+    width: 100%;
+  }
+  .calendar {
+    width: 100%;
+  }
+  .calendar-btn-mv {
+    border: 1px solid black;
+    width: 50%;
   }
 }
