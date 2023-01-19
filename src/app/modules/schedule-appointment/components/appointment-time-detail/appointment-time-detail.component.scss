@@ -273,7 +273,7 @@
   }
   .basic-details-progress-bar .progress-button {
     font-size: 12px;
-    padding: 0.5px 1px;
+    padding: 2.4px !important;
     border-radius: 4px;
     font-weight: 400;
   }
@@ -310,5 +310,8 @@
   }
   .days {
     // border: 1px solid red;
+  }
+  .calendar .days span {
+    width: 0px;
   }
 }
