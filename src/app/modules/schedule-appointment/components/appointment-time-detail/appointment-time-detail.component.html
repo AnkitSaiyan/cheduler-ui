@@ -4,19 +4,19 @@
     <button class="progress-button bg-success text-white">Basic Details</button>
   </div>
   <div *ngIf="displayAppointmentDetails">
-    <hr class="progress-bar-hr bg-success"/>
+    <hr class="progress-bar-hr bg-success" />
   </div>
   <div>
     <button class="progress-button bg-success text-white">Select Exam</button>
   </div>
   <div>
-    <hr class="progress-bar-hr bg-success"/>
+    <hr class="progress-bar-hr bg-success" />
   </div>
   <div>
     <button class="progress-button bg-primary text-white">Select Time Slot</button>
   </div>
   <div>
-    <hr class="progress-bar-hr bg-primary"/>
+    <hr class="progress-bar-hr bg-primary" />
   </div>
   <div>
     <button class="progress-button">Confirm</button>
@@ -40,15 +40,14 @@
     </div>
     <div class="dates">
       <ng-container *ngFor="let dayCount of totalDays; let index=index">
-        <button [style.grid-column]="index == 0 ? dayStartCount+1:0"
-                (click)="showTimeSlot(dayCount)"
-                [ngClass]="dayCount === 9 ? 'set-holiday': isTimeSlotAvailable && dayCount === 21? 'set-clicked': dayCount === 1|| dayCount === 8 || dayCount === 15 || dayCount === 22 || dayCount === 29 || dayCount === 3|| dayCount === 10 || dayCount === 17 || dayCount === 24 || dayCount === 31? 'disabled-date' : ''">
+        <button [style.grid-column]="index == 0 ? dayStartCount+1:0" (click)="showTimeSlot(dayCount)"
+          [ngClass]="dayCount === 9 ? 'set-holiday': isTimeSlotAvailable && dayCount === 21? 'set-clicked': dayCount === 1|| dayCount === 8 || dayCount === 15 || dayCount === 22 || dayCount === 29 || dayCount === 3|| dayCount === 10 || dayCount === 17 || dayCount === 24 || dayCount === 31? 'disabled-date' : ''">
           <time>{{dayCount}}</time>
         </button>
       </ng-container>
     </div>
   </div>
-  <div class="days">
+  <!-- <div class="days">
     <span *ngFor="let day of days">{{ day }}</span>
   </div>
   <div class="dates">
@@ -59,29 +58,33 @@
     >
       <time>{{ dayCount }}</time>
     </button>
+  </div> -->
+  <div class="notation-container d-flex justify-content-start">
+    <div class="logo"></div> &nbsp;
+    <div class="notation-text">Public holiday</div>
+
+    <div class="logo-selected"></div>&nbsp;
+    <div class="notation-text">Selected</div>
   </div>
 </div>
 
 <div class="time-slot-container bg-white d-flex flex-column mt-3 mx-3 p-3" *ngIf="isTimeSlotAvailable">
-  <span class="mx-2 slot-heading">Choose a time slot</span>
-  <div class="d-flex flex-row justify-content-between align-items-center">
-            <span class="time-detail" (click)="highLightTime()"
-                  [ngClass]="isHighLightTime? 'time-detail highlight-time':'time-detail'">10:30A.M-10:45A.M</span>
-    <span class="time-detail">11:00A.M-11:15A.M</span>
-    <span class="time-detail">11:45 A.M -12:00P.M </span>
-  </div>
-  <div class="d-flex flex-row justify-content-between align-items-center">
-    <span class="time-detail">01:00P.M-01:15P.M</span>
-    <span class="time-detail">01:30 P.M-01:45P.M</span>
-    <span class="time-detail">02:00 P.M-02:15P.M</span>
+  <div class="time-slot d-flex flex-column">
+    <span class="mx-2 slot-heading">Choose a time slot</span>
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <span class="time-detail" (click)="highLightTime()"
+        [ngClass]="isHighLightTime? 'time-detail highlight-time':'time-detail'">10:30A.M-10:45A.M</span>
+      <span class="time-detail">11:00A.M-11:15A.M</span>
+      <span class="time-detail">11:45 A.M -12:00P.M </span>
+    </div>
+    <div class="d-flex flex-row justify-content-center align-items-center mt-2">
+      <span class="time-detail">01:00P.M-01:15P.M</span>
+      <span class="time-detail">01:30 P.M-01:45P.M</span>
+      <span class="time-detail">02:00 P.M-02:15P.M</span>
+    </div>
   </div>
 </div>
 
-<div class="slot-two mt-3 d-flex flex-row justify-content-between align-items-center">
-  <span class="time-detail">01:00P.M-01:15P.M</span>
-  <span class="time-detail">01:30 P.M-01:45P.M</span>
-  <span class="time-detail">02:00 P.M-02:15P.M</span>
-</div>
 <div class="d-flex justify-content-center mt-4">
   <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
     Back
