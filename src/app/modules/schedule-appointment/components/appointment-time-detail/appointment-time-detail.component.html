@@ -1,5 +1,5 @@
 <!-- <dfm-sub-header></dfm-sub-header> -->
-<div class="container d-flex flex-row justify-content-center align-items-center">
+<div class="container">
   <div class="basic-details-progress-bar d-flex justify-content-center align-items-center mt-3">
     <div *ngIf="displayAppointmentDetails">
       <button class="progress-button bg-success text-white">Basic Details</button>
@@ -84,14 +84,14 @@
       <div class="time-slot-container bg-white d-flex flex-column mt-3 mx-3 p-3" *ngIf="isTimeSlotAvailable">
         <div class="time-slot d-flex flex-column">
           <span class="slot-heading"> Choose a time slot</span>
-          <div class="mt-2 d-flex flex-row justify-content-center align-items-center">
+          <div class="mt-2 d-flex flex-row justify-content-center align-items-center slot-timing-mv">
             <span class="time-detail" (click)="highLightTime()" [ngClass]="isHighLightTime ? 'time-detail highlight-time' : 'time-detail'"
               >10:30A.M-10:45A.M</span
             >
             <span class="time-detail">11:00A.M-11:15A.M</span>
             <span class="time-detail">11:45 A.M -12:00P.M </span>
           </div>
-          <div class="d-flex flex-row justify-content-center align-items-center mt-2">
+          <div class="d-flex flex-row justify-content-center align-items-center mt-2 slot-timing-mv">
             <span class="time-detail">01:00P.M-01:15P.M</span>
             <span class="time-detail">01:30 P.M-01:45P.M</span>
             <span class="time-detail">02:00 P.M-02:15P.M</span>

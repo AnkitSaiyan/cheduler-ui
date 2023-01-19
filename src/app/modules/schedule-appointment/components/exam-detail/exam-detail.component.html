@@ -1,6 +1,6 @@
 <div class="exam-main-container">
   <!-- <dfm-sub-header></dfm-sub-header> -->
-  <div class="container d-flex flex-row justify-content-center align-items-center">
+  <div class="container">
     <div class="basic-details-progress-bar d-flex justify-content-center align-items-center mt-3">
       <div *ngIf="displayExamDetails">
         <button class="progress-button bg-success text-white">Basic Details</button>
@@ -28,7 +28,7 @@
   </div>
   <!--Progress Bar Ends Here==============================-->
   <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3" [formGroup]="examForm">
-    <div class="p-3 exam-container d-flex flex-row bg-white rounded p-3 shadow-sm">
+    <div class="p-3 exam-container d-flex flex-row bg-white rounded p-3 shadow-sm exam-form-mv">
       <div class="left-container">
         <div class="form-group">
           <dfm-input-dropdown

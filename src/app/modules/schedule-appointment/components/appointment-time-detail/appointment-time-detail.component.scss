@@ -50,14 +50,14 @@
   align-items: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  // width: fit-content !important;
-  // padding: 18px 18px 18px 18px;
-}
+// .container {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   align-items: center;
+//   // width: fit-content !important;
+//   // padding: 18px 18px 18px 18px;
+// }
 
 .calendar {
   // display: inline-grid;
@@ -295,7 +295,20 @@
     width: 100%;
   }
   .calendar-btn-mv {
-    border: 1px solid black;
-    width: 50%;
+    width: 35px !important;
+    height: 35px !important;
+  }
+  .slot-timing-mv {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 10px;
+  }
+  .time-detail {
+    max-width: 300px !important;
+  }
+  .days {
+    // border: 1px solid red;
   }
 }
