@@ -34,7 +34,7 @@
 
 <!-- ============================ -->
 
-<div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/') || url !== '/'">
+<div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/' && !displayRegisterButton) || url !== '/'">
   <div class="container-fluid">
     <div class="navbar">
       <div class="nav-brand d-flex justify-content-between align-items-center gap-2">
@@ -43,7 +43,7 @@
         ><span class="dashboard-text">Dashboard</span>
       </div>
       <div class="menu">
-        <div class="text-primary display-4 home-hover home-menu" routerLink="/">Home</div>
+        <div class="text-primary display-4 home-hover home-menu" (click)="checkDisplayHeader()">Home</div>
         <div class="text-primary display-4 mx-3" *ngIf="!displayRegisterButton">
           <div class="register-menu">
             <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" class="register-btn"> Register </dfm-button>

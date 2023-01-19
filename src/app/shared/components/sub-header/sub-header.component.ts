@@ -39,8 +39,14 @@ export class SubHeaderComponent implements OnInit {
     console.log('this.url: ', this.url);
   }
 
-  back() {
+   back() {
     this._location.back();
+  }
+
+  checkDisplayHeader(){
+    if (!this.displayRegisterButton) {
+      this.router.navigate(['/']);
+    }
   }
 
 }
