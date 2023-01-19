@@ -27,8 +27,12 @@
     </div>
   </div>
   <!--Progress Bar Ends Here==============================-->
-  <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3" [formGroup]="examForm">
-    <div class="p-3 exam-container d-flex flex-row bg-white rounded p-3 shadow-sm exam-form-mv">
+  <div
+    class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3"
+    [formGroup]="examForm"
+    style="background-color: #f2f4f7"
+  >
+    <div class="p-3 exam-container d-flex flex-row rounded p-3 shadow-sm exam-form-mv">
       <div class="left-container">
         <div class="form-group">
           <dfm-input-dropdown
@@ -123,12 +127,12 @@
     <!--Exam Container Ends here-->
   </div>
   <!--Main Exam Container Ends here===============-->
-  <div class="d-flex justify-content-center align-items-center mt-3">
+  <div class="d-flex justify-content-center align-items-center mt-3" style="background-color: #f2f4f7">
     <dfm-button [color]="'link'" [size]="'2xl'" [leadingIcon]="'plus'" (click)="addCreds()"> Click to add more exam </dfm-button>
   </div>
   <!--Click to add more exam section ends here-->
 
-  <div class="d-flex justify-content-center align-items-center mt-3">
+  <div class="d-flex justify-content-center align-items-center mt-3" style="background-color: #f2f4f7">
     <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"> Next </dfm-button>
   </div>
 </div>
