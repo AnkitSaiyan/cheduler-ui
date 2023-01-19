@@ -168,7 +168,6 @@
     Cancel Appointment
   </dfm-button>
 </div> -->
--->
 <!-- <div class="footer">
         <dfm-footer></dfm-footer>
     </div> -->
@@ -179,11 +178,11 @@
 <!-- <div class="confirm-appointment"> -->
 <!-- <dfm-sub-header></dfm-sub-header> -->
 
-<div class="basic-details-progress-bar d-flex justify-content-center mt-3">
-  <div>
+<div class="basic-details-progress-bar d-flex justify-content-center mt-3" *ngIf="isPending === false || isCanceled === false">
+  <div *ngIf="displayBasicDetails">
     <button class="progress-button bg-success text-white">Basic Details</button>
   </div>
-  <div>
+  <div *ngIf="displayBasicDetails">
     <hr class="progress-bar-hr bg-success" />
   </div>
   <div>
@@ -200,7 +199,7 @@
     <hr class="progress-bar-hr bg-success" />
   </div>
   <div>
-    <button class="progress-button bg-primary text-white">Confirm</button>
+    <button [ngClass]="isPending || isCanceled ? 'progress-button text-white bg-success' : 'progress-button text-white bg-primary'">Confirm</button>
   </div>
 </div>
 
@@ -245,7 +244,7 @@
     </div>
   </div>
   <div class="appointment-details display-4 bg-white">
-    <span class="text-primary appointment-text">Appointment Details</span>
+    <span class="text-primary">Appointment Details</span>
     <hr class="bg-lite-gray text-underline" />
     <div class="d-flex flex-column">
       <span class="exams-category-text">Exams: Levering Stuenzolean | Maatname</span>
@@ -289,7 +288,7 @@
 </div>
 <div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
   <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" *ngIf="!isPending && !isCanceled"> Back </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled"> Back </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/dashboard" *ngIf="isCanceled"> Back </dfm-button>
 
   <dfm-button
     [color]="'primary'"
