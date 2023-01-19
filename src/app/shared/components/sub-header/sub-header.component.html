@@ -36,7 +36,7 @@
 
 <div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/') || url !== '/'">
   <div class="container-fluid">
-    <div class="navbar">
+    <div class="navbar" style="z-index: 99999999">
       <div class="nav-brand d-flex justify-content-between align-items-center gap-2">
         <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" width="134px" height="16.54px" />
         <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'arrow-left'" class="arrow-btn"></dfm-button
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
+        <div class="language-btn"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
         <div class="lang-btn lang-dropdown">
           <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
             {{ items.name }}
