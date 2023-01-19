@@ -22,8 +22,11 @@ export class ConfirmAppointmentComponent implements OnInit {
     this.displayBasicDetails = !Boolean(localStorage.getItem('user'))
   }
   displayValue(value: any){
-
     console.log('value: ', value);
+  }
 
+  setPendingStatus(){
+    this.isPending = true;
+    this.authService.isPending.next(true);
   }
 }

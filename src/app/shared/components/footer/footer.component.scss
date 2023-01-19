@@ -55,6 +55,9 @@
   .footer-items {
     display: flex;
     justify-content: flex-start !important;
+    padding: 0;
+    margin: 0;
+    gap: 5px;
   }
   .footer-text {
     display: flex;

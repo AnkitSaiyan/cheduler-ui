@@ -40,7 +40,13 @@ export class SubHeaderComponent implements OnInit {
   }
 
    back() {
-    this._location.back();
+    this.authService.isPending.subscribe((pendingValue) => {
+      if(pendingValue){
+       this.router.navigate(['/schedule-appointment/overview']); 
+      }else{
+        this._location.back();
+      }
+    })
   }
 
   checkDisplayHeader(){
