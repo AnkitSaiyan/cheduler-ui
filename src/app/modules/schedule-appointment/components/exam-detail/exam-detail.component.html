@@ -2,12 +2,6 @@
   <!-- <dfm-sub-header></dfm-sub-header> -->
   <div class="container">
     <div class="basic-details-progress-bar d-flex justify-content-center align-items-center mt-3">
-      <div *ngIf="displayExamDetails">
-        <button class="progress-button bg-success text-white">Basic Details</button>
-      </div>
-      <div *ngIf="displayExamDetails">
-        <hr class="progress-bar-hr bg-success" />
-      </div>
       <div>
         <button class="progress-button bg-primary text-white">Select Exam</button>
       </div>
@@ -17,6 +11,12 @@
       <div>
         <button class="progress-button time-slot-btn">Select Time Slot</button>
         <button class="progress-button time-slot-btn-mv">Select Slot</button>
+      </div>
+      <div *ngIf="displayExamDetails">
+        <hr class="progress-bar-hr bg-primary" />
+      </div>
+      <div *ngIf="displayExamDetails">
+        <button class="progress-button">Basic Details</button>
       </div>
       <div>
         <hr class="progress-bar-hr bg-primary" />
@@ -30,9 +30,8 @@
   <div
     class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3"
     [formGroup]="examForm"
-    style="background-color: #f2f4f7"
   >
-    <div class="p-3 exam-container d-flex flex-row rounded p-3 shadow-sm exam-form-mv">
+    <div class="p-3 exam-container bg-white d-flex flex-row rounded p-3 shadow-sm exam-form-mv">
       <div class="left-container">
         <div class="form-group">
           <dfm-input-dropdown
@@ -127,12 +126,13 @@
     <!--Exam Container Ends here-->
   </div>
   <!--Main Exam Container Ends here===============-->
-  <div class="d-flex justify-content-center align-items-center mt-3" style="background-color: #f2f4f7">
+  <div class="d-flex justify-content-center align-items-center mt-3 add-exam">
     <dfm-button [color]="'link'" [size]="'2xl'" [leadingIcon]="'plus'" (click)="addCreds()"> Click to add more exam </dfm-button>
   </div>
   <!--Click to add more exam section ends here-->
 
-  <div class="d-flex justify-content-center align-items-center mt-3" style="background-color: #f2f4f7">
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"> Next </dfm-button>
+  <div class="d-flex justify-content-center align-items-center mt-3 exam-next-btn">
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic"> Back </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="mx-2"> Next </dfm-button>
   </div>
 </div>

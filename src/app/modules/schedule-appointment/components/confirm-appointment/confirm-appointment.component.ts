@@ -26,7 +26,7 @@ export class ConfirmAppointmentComponent implements OnInit {
   }
 
   setPendingStatus(){
-    this.isPending = true;
+    // this.isPending = true;
     this.authService.isPending.next(true);
   }
 }

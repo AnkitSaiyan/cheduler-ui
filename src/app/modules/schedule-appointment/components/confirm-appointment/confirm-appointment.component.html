@@ -179,12 +179,6 @@
 <!-- <dfm-sub-header></dfm-sub-header> -->
 
 <div class="basic-details-progress-bar d-flex justify-content-center mt-3" *ngIf="!isPending && !isCanceled">
-  <div *ngIf="displayBasicDetails">
-    <button class="progress-button bg-success text-white">Basic Details</button>
-  </div>
-  <div *ngIf="displayBasicDetails">
-    <hr class="progress-bar-hr bg-success" />
-  </div>
   <div>
     <button class="progress-button bg-success text-white">Select Exam</button>
   </div>
@@ -194,6 +188,12 @@
   <div>
     <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
     <button class="progress-button bg-success text-white time-slot-btn-mv">Select Slot</button>
+  </div>
+  <div *ngIf="displayBasicDetails">
+    <hr class="progress-bar-hr bg-success" />
+  </div>
+  <div *ngIf="displayBasicDetails">
+    <button class="progress-button bg-success text-white">Basic Details</button>
   </div>
   <div>
     <hr class="progress-bar-hr bg-success" />
@@ -228,7 +228,7 @@
   <div class="patient-details display-4 bg-white">
     <span class="text-primary">Patient Details</span>
     <hr class="bg-lite-gray patient-hr" />
-    <div class="patient-detail-container">
+    <div class="patient-detail-container mt-3">
       <div class="row d-flex justify-content-between">
         <div class="col-md-4 name">Name</div>
         <div class="col-md-8 value">Johan Green</div>
@@ -294,7 +294,7 @@
     [color]="'primary'"
     [size]="'lg'"
     [disabled]="!(check1 && check2)"
-    (click)="setPendingStatus()"
+    (click)="isPending = true; setPendingStatus();"
     class="mx-3"
     *ngIf="!isPending && !isCanceled"
   >
