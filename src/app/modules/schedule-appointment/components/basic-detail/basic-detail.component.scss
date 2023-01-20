@@ -141,4 +141,18 @@
     box-shadow: none !important;
     background-color: #f2f4f7 !important;
   }
+
+  .form-mv{
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    background-color: #f2f4f7 !important;
+    box-shadow: none !important;
+    padding: 0px !important;
+  }
+
+  .form-group-container{
+    display: flex !important;
+    flex-direction: column !important;
+  }
 }

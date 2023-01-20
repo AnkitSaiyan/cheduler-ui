@@ -238,7 +238,18 @@
 
 .set-holiday {
   background-color: #fec84b !important;
-  color: #697586;
+  color: #000000 !important;
+  outline: none !important;
+  border: none !important;
+  pointer-events: none !important;
+  &:hover {
+    color: #000000 !important;
+    outline: none !important;
+    border: none !important;
+    cursor: default !important;
+    font-weight: 400 !important;
+    pointer-events: none !important;
+  }
 }
 
 .set-clicked {
@@ -255,11 +266,16 @@
   border: none !important;
   outline: none !important;
   color: #697586 !important;
-  cursor:none;
+  pointer-events: none !important;
+  cursor: none;
   &:hover {
-    background-color: #f8fafc !important;
+    // background-color: #f8fafc !important;
+    background: transparent !important;
     box-shadow: none !important;
     outline: none !important;
+    cursor: default !important;
+    font-weight: 400 !important;
+    pointer-events: none !important;
   }
 }
 .time-slot-btn-mv {
