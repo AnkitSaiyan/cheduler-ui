@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -8,6 +9,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
+  public isPassword = new FormControl();
+  ipType: any = "password";
   items: any = [
     {
       name: 'EN',

@@ -10,6 +10,8 @@ export class AppointmentTimeDetailComponent implements OnInit {
   displayAppointmentDetails: boolean = false;
   days: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  timeSlots: string[] = ['10:30A.M-10:45A.M', '11:00A.M-11:15A.M', '11:45 A.M -12:00P.M']
+  timeSlots1: string[]= ['01:00P.M-01:15P.M', '01:30 P.M-01:45P.M', '02:00 P.M-02:15P.M']
   currentDate = new Date();
   currentMonth: number = this.currentDate.getMonth();
   displayMonth: string = this.months[this.currentDate.getMonth()];
@@ -21,6 +23,8 @@ export class AppointmentTimeDetailComponent implements OnInit {
   isHighLightTime: boolean = false;
   firstDayOfMonth: any = new Date(this.currentYear, this.currentMonth, 1);
   dayStartCount!: number;
+  selectedDate!: number;
+  setSelectedSlot!: string;
 
   constructor(private authService: AuthService) {}
 
@@ -123,13 +127,14 @@ export class AppointmentTimeDetailComponent implements OnInit {
   }
 
   showTimeSlot(dayCount) {
-    if (dayCount === 21) {
+    if (dayCount) {
+      this.selectedDate = dayCount;
       this.isTimeSlotAvailable = true;
     }
   }
 
-  highLightTime(){
-    this.isHighLightTime = true;
+  highLightTime(slots){
+    this.setSelectedSlot = slots;
   }
   
 }

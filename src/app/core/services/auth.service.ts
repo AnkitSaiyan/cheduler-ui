@@ -6,5 +6,11 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
   isLoggedInUser = new BehaviorSubject<boolean>(false);
+  isPending = new BehaviorSubject<boolean>(false); // implemented temporarily
   constructor() { }
+
+  userLoginCheck(){
+    let userLoggedIn = Boolean(localStorage.getItem('user'));
+    return !userLoggedIn;
+  }
 }

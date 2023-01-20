@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'dfm-sub-header',
@@ -22,7 +23,7 @@ export class SubHeaderComponent implements OnInit {
   ];
   displayRegisterButton: boolean = false;
   url!: string;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private _location: Location) { }
 
   ngOnInit(): void {
     this.authService.isLoggedInUser.subscribe((user: boolean)=>{
@@ -36,6 +37,22 @@ export class SubHeaderComponent implements OnInit {
       (data && data.url)? this.url = data.url: '';
     })
     console.log('this.url: ', this.url);
+  }
+
+   back() {
+    this.authService.isPending.subscribe((pendingValue) => {
+      if(pendingValue){
+       this.router.navigate(['/schedule-appointment/overview']); 
+      }else{
+        this._location.back();
+      }
+    })
+  }
+
+  checkDisplayHeader(){
+    if (!this.displayRegisterButton) {
+      this.router.navigate(['/']);
+    }
   }
 
 }

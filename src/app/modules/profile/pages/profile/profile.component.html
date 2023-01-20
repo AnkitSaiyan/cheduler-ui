@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
-                    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+                    <dfm-button [color]="'primary'" [size]="'lg'">
                         Save Changes
                     </dfm-button>
 
@@ -65,18 +65,18 @@
         <div class="my-profile-footer mt-4 bg-white">
             <div class="my-profile-footer-card">
                 <span class="lab-text">Lab 1</span>
-                <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true" routerLink="/schedule-appointment/exam">
+                <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true">
                     Revoke Access
                 </dfm-button>
             </div>
             <div class="my-profile-footer-card">
                 <span class="display-4 lab-text">Lab 2</span>
-                <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam">
+                <dfm-button [color]="'primary'" [size]="'lg'" (click)="checkRevokeStatus()" [disabled]="isrevokedPermission">
                     Revoke Access
                 </dfm-button>
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-end mt-1 delete-button">
-        <span class="white-button display-5">Delete Account</span>
+        <span class="white-button display-5" routerLink="/auth/login">Delete Account</span>
     </div>

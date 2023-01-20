@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  isrevokedPermission: boolean = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  checkRevokeStatus(){
+    this.isrevokedPermission = true;
+    return this.isrevokedPermission;
+  }
 }

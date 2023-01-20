@@ -255,9 +255,11 @@
   border: none !important;
   outline: none !important;
   color: #697586 !important;
-  cursor: auto !important;
+  cursor:none;
   &:hover {
-    background-color: #e3e8ef !important;
+    background-color: #f8fafc !important;
+    box-shadow: none !important;
+    outline: none !important;
   }
 }
 .time-slot-btn-mv {

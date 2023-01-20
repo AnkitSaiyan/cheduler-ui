@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dfm-register',
@@ -19,9 +20,14 @@ export class RegisterComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
+  }
+
+  logInUser(){
+    localStorage.setItem('user', 'true');
+    this.router.navigate(['/dashboard']);
   }
 
 }

@@ -10,6 +10,7 @@
   align-items: center;
   // border: 1px solid red;
   /* height: 50px; */
+  z-index: 9999;
 }
 .dashboard-text {
   display: none;
@@ -181,7 +182,7 @@
     display: block;
   }
   .lang-btn {
-    display: block;
+    display: none;
   }
   .navbar img {
     display: none;

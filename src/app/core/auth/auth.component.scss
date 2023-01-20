@@ -140,6 +140,7 @@
     padding: 10px 0px 10px 0px;
     position: absolute;
     top: 0;
+    z-index: 9999;
   }
   .nav-main-container .container img {
     margin: 0px;
@@ -207,4 +208,7 @@
     align-items: center;
     gap: 10px;
   }
+}
+.pass{
+  -webkit-text-security: disc !important;
 }

@@ -25,21 +25,21 @@
 </div> -->
 <div class="container">
   <div class="basic-details-progress-bar d-flex justify-content-center mt-3">
+    <div>
+      <button class="progress-button bg-success text-white">Select Exam</button>
+    </div>
+    <div>
+      <hr class="progress-bar-hr bg-success" />
+    </div>
+    <div>
+      <button class="progress-button time-slot-btn bg-success text-white">Select Time Slot</button>
+      <button class="progress-button time-slot-btn-mv bg-success text-white">Select Slot</button>
+    </div>
+    <div *ngIf="displayBasicDetails">
+      <hr class="progress-bar-hr bg-success" />
+    </div>
     <div *ngIf="displayBasicDetails">
       <button class="progress-button bg-primary text-white">Basic Details</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <hr class="progress-bar-hr bg-primary" />
-    </div>
-    <div>
-      <button class="progress-button">Select Exam</button>
-    </div>
-    <div>
-      <hr class="progress-bar-hr bg-primary" />
-    </div>
-    <div>
-      <button class="progress-button time-slot-btn">Select Time Slot</button>
-      <button class="progress-button time-slot-btn-mv">Select Slot</button>
     </div>
     <div>
       <hr class="progress-bar-hr bg-primary" />
@@ -50,29 +50,30 @@
   </div>
 </div>
 
-<div class="container mt-5 p-0 d-flex justify-content-center align-items-center">
-  <div class="bg-white p-3 rounded shadow-sm form-container-mv">
-    <div class="form-group-container d-flex justify-content-center p-3 gap-4">
+<div class="container mt-5 p-0 d-flex flex-row justify-content-center align-items-center form-container-mv">
+  <div class="bg-white px-5 py-2 rounded shadow-sm form-mv">
+    <div class="form-group-container d-flex justify-content-center flex-row p-3 gap-4">
       <div class="form-group">
-        <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"></dfm-input>
+        <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name" [formControl]="firstName"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name"></dfm-input>
+        <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name" [formControl]="lastName"></dfm-input>
       </div>
     </div>
-    <div class="form-group-container d-flex justify-content-center p-3 gap-4">
+    <div class="form-group-container d-flex justify-content-center flex-row p-3 gap-4">
       <div class="form-group">
-        <dfm-input type="email" size="sm" label="Email*" placeholder="Email"></dfm-input>
+        <dfm-input type="email" size="sm" label="Email*" placeholder="Email" [formControl]="email"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone"></dfm-input>
+        <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone" [formControl]="phone"></dfm-input>
       </div>
     </div>
   </div>
 </div>
 
 <div class="d-flex justify-content-center mt-3">
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/exam"> Next </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"> Back </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-2"> Next </dfm-button>
 </div>
 
 <!-- <div class="fixed-bottom"> 
