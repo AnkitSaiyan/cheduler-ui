@@ -47,6 +47,15 @@
   display: none;
 }
 
+.or-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 12px 12px 12px 12px;
+  // gap: 3px;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .exam-main-container {

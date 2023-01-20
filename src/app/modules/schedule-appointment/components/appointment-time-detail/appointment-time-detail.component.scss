@@ -1,3 +1,7 @@
+.calendar-main-container {
+  padding: 26px 48px;
+}
+
 .date-time {
   height: 100vh;
 }
@@ -75,6 +79,7 @@
     font-size: 20px;
     margin-bottom: 20px;
     font-weight: 300;
+    padding: 18px;
 
     .month-display {
       align-items: center;
