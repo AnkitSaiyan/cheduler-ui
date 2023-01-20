@@ -187,7 +187,7 @@ td {
     margin: 70px 0px 0px 0px;
   }
   .radiology-section .left-section {
-    width: 70%;
+    width: 100%;
     // border: 1px solid blue;
     display: flex;
     flex-direction: column;
@@ -202,7 +202,7 @@ td {
     display: block;
   }
   .radiology-section .right-section {
-    width: 30%;
+    display: none;
     // border: 1px solid black;
   }
   .radiology-section .right-section .right-section-img {

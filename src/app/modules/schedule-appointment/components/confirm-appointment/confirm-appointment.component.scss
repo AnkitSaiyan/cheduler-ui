@@ -234,13 +234,19 @@
   font-size: 14px;
   line-height: 20px;
 }
+.display-6 {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 20px;
+}
 
 .appointment-date-time {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  gap: 8px;
+  gap: 15px !important;
+  // border: 1px solid red;
 }
 
 .lab-confirmation-status {
@@ -302,6 +308,9 @@
   display: none;
 }
 .appointment-text {
+  display: none;
+}
+.exams-category-text {
   display: none;
 }
 
@@ -368,6 +377,8 @@
   }
   .exams-category-text-mv {
     display: block !important;
+    font-size: 14px;
+    font-weight: 500;
   }
   .instructions-text-section {
     // border: 1px solid red;
@@ -388,10 +399,11 @@
     gap: 20px;
   }
   .lab-confirmation-status {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
-    // justify-content: flex-start;
-    align-items: center;
+    // justify-content: start !important;
+    align-items: flex-start;
+    // border: 1px solid red;
     gap: 15px;
   }
   .edit-btn {
@@ -412,7 +424,7 @@
     justify-content: space-between;
   }
   .patient-hr {
-    display: none;
+    display: block;
   }
   .name {
     width: 40%;
@@ -423,7 +435,7 @@
     font-size: 14px;
   }
 
-  .pending-status{
+  .pending-status {
     margin: 15px 0px 0px 0px;
   }
 }

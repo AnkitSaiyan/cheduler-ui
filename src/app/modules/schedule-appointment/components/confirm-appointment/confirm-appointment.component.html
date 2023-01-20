@@ -228,7 +228,7 @@
   <div class="patient-details display-4 bg-white">
     <span class="text-primary">Patient Details</span>
     <hr class="bg-lite-gray patient-hr" />
-    <div class="patient-detail-container mt-3">
+    <div class="patient-detail-container mt-2">
       <div class="row d-flex justify-content-between">
         <div class="col-md-4 name">Name</div>
         <div class="col-md-8 value">Johan Green</div>
@@ -247,16 +247,19 @@
     <span class="text-primary">Appointment Details</span>
     <hr class="bg-lite-gray text-underline" />
     <div class="d-flex flex-column">
-      <span class="exams-category-text">Exams: Levering Stuenzolean | Maatname</span>
-      <div class="display-5 appointment-date-time mt-3">
+      <p class="exams-category-text text-primary">Exams:<span class="exams-category-text text-dark">Levering Stuenzolean, Maatname</span></p>
+      <div class="display-6 appointment-date-time mt-3">
         <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
         <span>21 November, 2022</span>
         <img src="../../../../../assets/images/clock-icon.svg" alt="clock-icon" width="18px" />
         <span>6:00 P.M - 6:30 P.M</span>
       </div>
-      <span class="exams-category-text-mv mt-2 text-primary">Exams: Levering Stuenzolean | Maatname</span>
+      <p class="exams-category-text-mv mt-2 text-primary d-inline">
+        Exams:
+        <span class="exams-category-text-mv d-inline text-dark">Levering Stuenzolean, Maatname</span>
+      </p>
       <hr class="bg-lite-gray text-underline-mv" />
-      <div class="instructions-text-section display-5 d-flex justify-content-between mt-3">
+      <div class="instructions-text-section display-5 d-flex justify-content-between mt-1">
         <span class="instruction-text">Instructions:</span>
         <ul>
           <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
@@ -294,7 +297,7 @@
     [color]="'primary'"
     [size]="'lg'"
     [disabled]="!(check1 && check2)"
-    (click)="isPending = true; setPendingStatus();"
+    (click)="isPending = true; setPendingStatus()"
     class="mx-3"
     *ngIf="!isPending && !isCanceled"
   >
