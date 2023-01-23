@@ -7,10 +7,11 @@ import {HttpClientModule} from "@angular/common/http";
 import {DesignSystemCoreModule} from 'diflexmo-angular-design';
 import {AppRoutingModule} from './app-routing.module';
 import {SharedModule} from "./shared/shared.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, CoreModule, ReactiveFormsModule, FormsModule, HttpClientModule, DesignSystemCoreModule, AppRoutingModule, SharedModule],
+    imports: [BrowserModule, CoreModule, ReactiveFormsModule, FormsModule, HttpClientModule, DesignSystemCoreModule, AppRoutingModule, SharedModule, NgbModule],
     bootstrap: [AppComponent],
 })
 export class AppModule {

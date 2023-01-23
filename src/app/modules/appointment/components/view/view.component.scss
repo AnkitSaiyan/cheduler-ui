@@ -1,0 +1,171 @@
+.login-dashboard-content {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.upcoming-appointments-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.display-3 {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.display-4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.display-5 {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.upcoming-appointments-details {
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 100px;
+    gap: 20px;
+}
+
+.upcoming-appointments-date-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.sidebar-menu {
+    width: 20%;
+    max-height: 198px;
+    border-radius: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+
+.bg-primary {
+    background-color: #531422 !important;
+}
+
+
+.text-secondary{
+    color: #F4E3CF;
+}
+
+.text-primary {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    /* or 140% */
+  
+    color: #531422 !important;
+  }
+
+.sidebar-menu-items {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    /* gap: 10px; */
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 10px;
+    color: #F4E3CF;
+    padding: 10px;
+}
+
+
+.active-menu {
+    background-color: #F4E3CF;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    color: #531422;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+}
+
+.small-container {
+    width: 100%;
+    margin: auto;
+}
+
+
+.previous-appointment-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+}
+
+
+.white-button {
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 8px;
+    color: #531422;
+    cursor: pointer;
+    border: none;
+    transition: .2s all ease;
+    text-decoration: underline;
+}
+
+
+.previous-appointment-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.card-item {
+    padding: 20px;
+    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.previous-appointments-date-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.view-all-btn {
+    position: absolute;
+    top: 0;
+    margin-left: 803px;
+}
+
+.bg-lite-gray {
+    width: 600px;
+    border: none;
+    min-width: 50px;
+    border: 2px solid #b0b3b7;
+}

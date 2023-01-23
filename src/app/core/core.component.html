@@ -9,7 +9,7 @@
                 </div>
                 <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
                     <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo">
-                    <span [ngClass]="url == '/appointment'? 'display-5 text-decoration-none active-menu':'display-5 text-decoration-none'">My appointments</span>
+                    <span [ngClass]="url == '/appointment' || url == '/appointment/view-all'? 'display-5 text-decoration-none active-menu':'display-5 text-decoration-none'">My appointments</span>
                 </div>
                 <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
                     <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo">
