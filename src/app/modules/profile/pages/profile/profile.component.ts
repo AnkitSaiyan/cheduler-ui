@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
         titleText: 'Confirmation',
-        bodyText: 'Are you sure you want to delete this Absence?',
+        bodyText: 'Are you sure you want to delete your account?',
         confirmButtonText: 'Delete',
         cancelButtonText: 'Cancel',
       } as DialogData,

@@ -383,7 +383,10 @@
     // border: 1px solid red;
   }
   .calendar .days span {
-    width: 0px;
+    width: 30px;
+  }
+  .calendar .month {
+    padding: 0px !important;
   }
   .time-slot-container {
     // border: 1px solid red;

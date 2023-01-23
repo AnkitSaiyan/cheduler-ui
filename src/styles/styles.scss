@@ -28,3 +28,6 @@ dfm-footer {
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+@media (min-width: 180px) and (max-width: 680px) {
+}
