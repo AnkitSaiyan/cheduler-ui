@@ -27,8 +27,8 @@
 </div>
 
 <div class="container mt-3 d-flex flex-column justify-content-center align-items-center">
-  <div class="bg-white calendar-main-container shadow-sm p-3">
-    <div class="calendar">
+  <div class="bg-white d-flex flex-column justify-content-between align-items-center calendar-main-container shadow-sm">
+    <div class="calendar shadow-sm">
       <div class="month">
         <a (click)="getPreviousMonth()" class="nav">
           <strong> < </strong>
@@ -83,7 +83,7 @@
       </div>
     </div>
     <div class="w-100 d-flex flex-column justify-content-between">
-      <div class="notation-container d-flex mt-3">
+      <div class="notation-container d-flex mt-4">
         <div class="logo"></div>
         &nbsp;
         <div class="notation-text">Public holiday</div>
@@ -92,27 +92,28 @@
         &nbsp;
         <div class="notation-text">Selected</div>
       </div>
-      <!-- <span class="slot-heading"> Choose a time slot</span> -->
-      <div class="time-slot-container bg-white d-flex flex-column mt-3 mx-3 p-3" *ngIf="isTimeSlotAvailable">
-        <div class="time-slot d-flex flex-column">
-          <span class="slot-heading px-1"> Choose a time slot</span>
-          <div class="mt-2 d-flex flex-row justify-content-center align-items-center slot-timing-mv">
-            <span
-              *ngFor="let slots of timeSlots"
-              (click)="highLightTime(slots)"
-              [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
-            >
-              {{ slots }}
-            </span>
-          </div>
-          <div class="d-flex flex-row justify-content-center align-items-center mt-2 slot-timing-mv">
-            <span
-              *ngFor="let slots of timeSlots1"
-              (click)="highLightTime(slots)"
-              [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
-            >
-              {{ slots }}
-            </span>
+      <div class="time-slot-container bg-white d-flex flex-column mt-5" *ngIf="isTimeSlotAvailable">
+        <div class="time-slot d-flex flex-column gap-3">
+          <div><span class="slot-heading"> Choose a time slot</span></div>
+          <div class="time-slot-mv d-flex flex-column gap-2">
+            <div class="d-flex flex-row justify-content-between align-items-center slot-timing-mv m-0 p-0">
+              <span
+                *ngFor="let slots of timeSlots"
+                (click)="highLightTime(slots)"
+                [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
+              >
+                {{ slots }}
+              </span>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-center slot-timing-mv m-0 p-0">
+              <span
+                *ngFor="let slots of timeSlots1"
+                (click)="highLightTime(slots)"
+                [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
+              >
+                {{ slots }}
+              </span>
+            </div>
           </div>
         </div>
       </div>

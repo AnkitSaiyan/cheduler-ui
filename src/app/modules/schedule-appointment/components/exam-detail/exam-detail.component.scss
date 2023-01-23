@@ -1,17 +1,15 @@
-// .exam-main-container {
-//   height: 100vh;
-//   overflow-y: auto;
-// }
-
 .exam-text-area {
-  // padding: 10px 14px;
   width: 320px;
-  //   height: 30px !important;
 }
-.container {
-  // width: fit-content;
-  // padding: 12px;
-  // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+.add-exam-btn {
+  // border: 1px solid red;
+  text-align: left;
+  width: 155px;
+  font-size: 14px;
+  padding: 0px;
+  color: #531422;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .progress-bar-hr {

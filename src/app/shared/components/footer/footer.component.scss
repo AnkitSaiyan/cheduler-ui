@@ -54,11 +54,12 @@
     display: flex !important;
     flex-direction: row !important;
     justify-content: center !important;
+    // border: 1px solid darkblue !important;
   }
   .footer-main-container .container {
     display: flex !important;
     flex-direction: row !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
   }
   .dashboard-footer {
     // border: 1px solid red;
@@ -67,7 +68,7 @@
     align-items: center !important;
     // border: 1px solid white;
     gap: 20px;
-    width: 70% !important;
+    width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }

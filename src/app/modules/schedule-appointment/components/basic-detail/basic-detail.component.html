@@ -50,15 +50,15 @@
   </div>
 </div>
 
-<div class="container mt-5 p-0 d-flex justify-content-center align-items-center form-container-mv">
-  <div class="form-mv bg-white px-5 py-3 rounded shadow-sm">
-    <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
+<div class="container mt-3 p-0 d-flex justify-content-center align-items-center form-container-mv">
+  <div class="form-mv bg-white p-5 rounded shadow">
+    <!-- <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
       <span class="new-user">Already have an Account?</span> &nbsp;
       <span class="register-user">
         <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>
       </span>
-    </div>
-    <div class="form-group-container d-flex justify-content-center p-3 gap-4 mt-4">
+    </div> -->
+    <div class="form-group-container d-flex justify-content-center gap-4">
       <div class="form-group">
         <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name" [formControl]="firstName"></dfm-input>
       </div>
@@ -66,13 +66,30 @@
         <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name" [formControl]="lastName"></dfm-input>
       </div>
     </div>
-    <div class="form-group-container d-flex justify-content-center p-3 gap-4">
+    <div class="form-group-container d-flex justify-content-center gap-4 mt-3">
       <div class="form-group">
         <dfm-input type="email" size="sm" label="Email*" placeholder="Email" [formControl]="email"></dfm-input>
       </div>
       <div class="">
         <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone" [formControl]="phone"></dfm-input>
       </div>
+    </div>
+
+    <div class="or-section mt-10">
+      <div>
+        <hr class="bg-gray" width="100px" />
+      </div>
+      <div><span>&nbsp; or &nbsp; </span></div>
+      <div>
+        <hr class="bg-gray" width="100px" />
+      </div>
+    </div>
+
+    <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
+      <span class="new-user">Already have an Account?</span> &nbsp;
+      <span class="register-user">
+        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>
+      </span>
     </div>
   </div>
 </div>

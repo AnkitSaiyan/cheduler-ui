@@ -123,7 +123,7 @@
     width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     .schedule-image {
     }
   }
@@ -132,7 +132,7 @@
   }
   .opening-detail-table {
     background-color: #ffffff;
-    box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+    // box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
     margin-top: 10px;
     padding: 16px 16px 16px 16px;
     border-radius: 4px;
@@ -180,6 +180,9 @@ td {
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .container {
+    padding: 0px;
+  }
   .radiology-section {
     // border: 1px solid red;
     width: 100%;

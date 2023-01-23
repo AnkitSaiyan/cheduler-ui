@@ -20,7 +20,15 @@
     <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design login-btn" routerLink="/auth/login">
       Login
     </dfm-button>
-    <dfm-button [color]="'primary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design schedule-btn" routerLink="/schedule-appointment/overview"> Schedule Appointment </dfm-button>
+    <dfm-button
+      [color]="'primary'"
+      [size]="'lg'"
+      [leadingIcon]="'user-01'"
+      class="button-design schedule-btn"
+      routerLink="/schedule-appointment/overview"
+    >
+      Schedule Appointment
+    </dfm-button>
     <div class="lang-btn lang-dropdown">
       <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
         {{ items.name }}

@@ -1,9 +1,6 @@
-.main-container {
-  border: 1px solid red;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+.container.main {
+  // border: 1px solid red;
+  border-radius: 4px;
 }
 .primary-button {
   background-color: #531422;
@@ -38,15 +35,6 @@
   font-size: 18px;
   line-height: 5px;
 }
-// .account-login-block {
-//   font-weight: 500;
-//   font-size: 16px;
-//   line-height: 28px;
-// }
-// .click-above-text {
-//   font-weight: 600;
-//   font-size: 18px;
-// }
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
