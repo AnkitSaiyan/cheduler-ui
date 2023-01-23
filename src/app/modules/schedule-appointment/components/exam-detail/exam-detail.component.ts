@@ -28,68 +28,60 @@ export class ExamDetailComponent implements OnInit {
     },
   ];
 
-  physician: any=[
+  physician: any = [
     {
       name: 'physician1',
       value: 'physician1',
-      description: 'physician1'
+      description: 'physician1',
     },
     {
       name: 'physician2',
       value: 'physician2',
-      description: 'physician2'
+      description: 'physician2',
     },
     {
       name: 'physician3',
       value: 'physician3',
-      description: 'physician3'
+      description: 'physician3',
     },
-  ]
+  ];
   displayExamDetails: boolean = false;
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.examForm = this.fb.group({
-      credentials: this.fb.array([this.examName]),
+      credentials: this.fb.array(['']),
     });
   }
 
   ngOnInit(): void {
     this.authService.isLoggedInUser.subscribe((user: boolean) => {
-      (user === true)? this.displayExamDetails = false : this.displayExamDetails = true;
-    })
-    this.displayExamDetails = !Boolean(localStorage.getItem('user'))
-
+      user === true ? (this.displayExamDetails = false) : (this.displayExamDetails = true);
+    });
+    this.displayExamDetails = !Boolean(localStorage.getItem('user'));
   }
 
-  examCount() : FormArray {  
-    return this.examForm.get("credentials") as FormArray  
-  }  
-
-  addExam(){
-    console.log("examName", this.examName.value);
-    
+  examCount(): FormArray {
+    return this.examForm.get('credentials') as FormArray;
   }
 
-  getControls(){
-    return (this.examForm.controls['credentials'] as FormArray).controls;
+  getControls() {
+    return this.examCount().controls;
   }
 
   addCreds() {
-    this.getControls().push(this.fb.group({
-      examName: '',
-    }));
+    this.getControls().push(this.examName);
   }
 
   removeExam(i: number) {
-   this.examCount().removeAt(i);
+    if (this.getControls().length > 1) {
+      this.examCount().removeAt(i);
+    }
   }
 
   searchInput(physycianName: string) {
     console.log('physycianName: ', physycianName);
-
   }
 
-  resetForm(){
+  resetForm() {
     this.examForm.reset();
   }
 }
-
