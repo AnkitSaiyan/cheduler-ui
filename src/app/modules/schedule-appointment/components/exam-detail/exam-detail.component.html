@@ -1,5 +1,4 @@
 <div class="exam-main-container">
-  <!-- <dfm-sub-header></dfm-sub-header> -->
   <div class="container">
     <div class="basic-details-progress-bar d-flex justify-content-center align-items-center mt-3">
       <div>
@@ -27,17 +26,13 @@
     </div>
   </div>
   <!--Progress Bar Ends Here==============================-->
-  <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3" [formGroup]="examForm">
+  <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3"
+    [formGroup]="examForm">
     <div class="p-3 exam-container bg-white d-flex flex-row rounded p-5 shadow exam-form-mv">
       <div class="left-container">
         <div class="form-group">
-          <dfm-input-dropdown
-            [items]="physician"
-            (searchInput)="searchInput($event)"
-            label="Referring Physician*"
-            placeholder="Enter physician name"
-            size="md"
-          >
+          <dfm-input-dropdown [items]="physician" (searchInput)="searchInput($event)" label="Referring Physician*"
+            placeholder="Enter physician name" size="md">
             {{ items.name }}
           </dfm-input-dropdown>
         </div>
@@ -46,38 +41,20 @@
           <span class="select-exam-detail">Select exam(s) below</span>
           <!--========||Select Exams for Desktop view Display Starts Here||===========-->
           <div class="exam d-flex flex-column" formArrayName="credentials">
-            <div class="exam-static d-flex">
-              <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
-                {{ items.name }}
-              </dfm-input-dropdown>
-              <div
-                style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-                class="mx-2"
-                *ngIf="examName.value !== ''"
-                (click)="resetForm()"
-              >
-                <dfm-icon [name]="'trash-01'"></dfm-icon>
-              </div>
-            </div>
             <div class="exam-input d-flex" *ngFor="let creds of getControls(); let i = index">
-              <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+              <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
+                size="md">
                 {{ items.name }}
               </dfm-input-dropdown>
-              <div
-                style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-                class="mx-2"
-                *ngIf="examName.value !== ''"
-                (click)="removeExam(i); examForm.reset()"
-              >
+              <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
+                *ngIf="examName.value !== ''" (click)="removeExam(i); examForm.reset()">
                 <dfm-icon [name]="'trash-01'"></dfm-icon>
               </div>
             </div>
-            <!--=============||Click to add more exam button starts here||=============-->
             <div class="mt-3 add-exam-btn">
-              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left"> Click to add more exam </dfm-button>
-              <!-- <span class="text-left" (click)="addCreds()">Click to add more exam</span> -->
+              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left">
+                Click to add more exam </dfm-button>
             </div>
-            <!--=============||Click to add more exam button ends here||=============-->
           </div>
           <!--========||Select Exams for Desktop view Display Ends Here||===========-->
           <div class="mx-3 exam-text-area-mv">
@@ -96,35 +73,30 @@
         <span class="select-exam-detail-mv mt-3">Select exam(s) below</span>
         <div class="exam-mv d-flex flex-column" formArrayName="credentials">
           <div class="exam-static d-flex">
-            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
+              size="md">
               {{ items.name }}
             </dfm-input-dropdown>
-            <div
-              style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-              class="mx-2"
-              *ngIf="examName.value !== ''"
-              (click)="resetForm()"
-            >
+            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
+              *ngIf="examName.value !== ''" (click)="resetForm()">
               <dfm-icon [name]="'trash-01'"></dfm-icon>
             </div>
           </div>
 
           <div class="exam-input d-flex" *ngFor="let creds of getControls(); let i = index">
-            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam" size="md">
+            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
+              size="md">
               {{ items.name }}
             </dfm-input-dropdown>
-            <div
-              style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-              class="mx-2"
-              *ngIf="examName.value !== ''"
-              (click)="removeExam(i); examForm.reset()"
-            >
+            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
+              *ngIf="examName.value !== ''" (click)="removeExam(i); examForm.reset()">
               <dfm-icon [name]="'trash-01'"></dfm-icon>
             </div>
           </div>
           <!--=============||Click to add more exam button starts here||=============-->
           <div class="mt-3 add-exam-btn">
-            <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left"> Click to add more exam </dfm-button>
+            <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left">
+              Click to add more exam </dfm-button>
             <!-- <span class="text-left" (click)="addCreds()">Click to add more exam</span> -->
           </div>
           <!--=============||Click to add more exam button ends here||=============-->
@@ -136,13 +108,11 @@
     <!--Exam Container Ends here-->
   </div>
   <!--Main Exam Container Ends here===============-->
-  <!-- <div class="d-flex justify-content-center align-items-center mt-3" style="background-color: #f2f4f7">
-    <dfm-button [color]="'link'" [size]="'2xl'" [leadingIcon]="'plus'" (click)="addCreds()"> Click to add more exam </dfm-button>
-  </div> -->
   <!--Click to add more exam section ends here-->
 
   <div class="d-flex justify-content-center align-items-center mt-3 exam-next-btn">
     <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic"> Back </dfm-button>
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="mx-2"> Next </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="mx-2"> Next
+    </dfm-button>
   </div>
 </div>

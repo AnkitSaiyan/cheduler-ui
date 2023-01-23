@@ -119,50 +119,9 @@
       </div>
     </div>
   </div>
-  <!-- <div class="days">
-    <span *ngFor="let day of days">{{ day }}</span>
-  </div>
-  <div class="dates">
-    <button
-      *ngFor="let dayCount of totalDays"
-      (click)="showTimeSlot(dayCount)"
-      [ngClass]="dayCount === 9 ? 'set-holiday' : isTimeSlotAvailable && dayCount === 21 ? 'set-clicked' : ''"
-    >
-      <time>{{ dayCount }}</time>
-    </button>
-  </div> -->
-  <!-- <div class="notation-container d-flex justify-content-start">
-    <div class="logo"></div>
-    &nbsp;
-    <div class="notation-text">Public holiday</div>
-
-    <div class="logo-selected"></div>
-    &nbsp;
-    <div class="notation-text">Selected</div>
-  </div> -->
 </div>
-
-<!-- <div class="container">
-  <div class="time-slot-container bg-white d-flex flex-column mt-3 mx-3 p-3" *ngIf="isTimeSlotAvailable">
-    <div class="time-slot d-flex flex-column">
-      <span class="slot-heading"> Choose a time slot</span>
-      <div class="mt-2 d-flex flex-row justify-content-center align-items-center">
-        <span class="time-detail" (click)="highLightTime()" [ngClass]="isHighLightTime ? 'time-detail highlight-time' : 'time-detail'"
-          >10:30A.M-10:45A.M</span
-        >
-        <span class="time-detail">11:00A.M-11:15A.M</span>
-        <span class="time-detail">11:45 A.M -12:00P.M </span>
-      </div>
-      <div class="d-flex flex-row justify-content-center align-items-center mt-2">
-        <span class="time-detail">01:00P.M-01:15P.M</span>
-        <span class="time-detail">01:30 P.M-01:45P.M</span>
-        <span class="time-detail">02:00 P.M-02:15P.M</span>
-      </div>
-    </div>
-  </div>
-</div> -->
 
 <div class="d-flex justify-content-center mt-4">
   <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/exam"> Back </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/basic" class="mx-2"> Next </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="(selectedDate === 0 || setSelectedSlot === '')" routerLink="/schedule-appointment/basic" class="mx-2"> Next </dfm-button>
 </div>

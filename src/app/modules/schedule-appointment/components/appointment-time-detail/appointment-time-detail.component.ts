@@ -23,8 +23,8 @@ export class AppointmentTimeDetailComponent implements OnInit {
   isHighLightTime: boolean = false;
   firstDayOfMonth: any = new Date(this.currentYear, this.currentMonth, 1);
   dayStartCount!: number;
-  selectedDate!: number;
-  setSelectedSlot!: string;
+  selectedDate: number = 0;
+  setSelectedSlot: string = '';
 
   constructor(private authService: AuthService) {}
 
