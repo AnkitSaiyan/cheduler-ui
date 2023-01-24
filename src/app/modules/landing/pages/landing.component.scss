@@ -119,6 +119,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  // border: 1px solid red;
   .weekly-content-left {
     width: 50%;
     display: flex;
@@ -171,6 +172,7 @@ table,
 th,
 td {
   border-collapse: collapse;
+  font-weight: 500;
 }
 th,
 td {
@@ -218,10 +220,10 @@ td {
     height: auto;
   }
   .radiology-section .left-section .header-section {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 500;
     color: #000000;
-    margin: 20px 0px 0px 0px;
+    margin: 3px 0px 9px 0px;
   }
   .radiology-section .left-section .sub-header {
     font-size: 16px;

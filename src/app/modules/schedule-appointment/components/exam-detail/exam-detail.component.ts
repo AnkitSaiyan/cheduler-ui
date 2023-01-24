@@ -48,7 +48,7 @@ export class ExamDetailComponent implements OnInit {
   displayExamDetails: boolean = false;
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.examForm = this.fb.group({
-      credentials: this.fb.array([]),
+      credentials: this.fb.array([this.examName]),
     });
   }
 

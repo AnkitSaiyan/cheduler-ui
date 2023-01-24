@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center !important;
   flex-direction: row;
-  padding: 2px 130px 2px 130px;
+  padding: 10px 130px 10px 130px;
   background-color: #f2f4f7;
   position: fixed;
   width: 100%;
@@ -24,7 +24,8 @@
   gap: 20px;
   justify-content: space-between;
   align-items: center;
-  // margin: 5px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
+  // padding: 5px;
 }
 .register-menu {
   position: relative;

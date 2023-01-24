@@ -1,30 +1,5 @@
-<!-- <div class="basic-detail-container"> -->
-<!-- <dfm-sub-header></dfm-sub-header> -->
-<!-- <div class="basic-details-progress-bar d-flex justify-content-center mt-3">
-  <div *ngIf="displayBasicDetails">
-    <button class="progress-button bg-primary text-white">Basic Details</button>
-  </div>
-  <div *ngIf="displayBasicDetails">
-    <hr class="progress-bar-hr bg-primary" />
-  </div>
-  <div>
-    <button class="progress-button bg-white text-primary">Select Exam</button>
-  </div>
-  <div>
-    <hr class="progress-bar-hr bg-primary" />
-  </div>
-  <div>
-    <button class="progress-button">Select Time Slot</button>
-  </div>
-  <div>
-    <hr class="progress-bar-hr bg-primary" />
-  </div>
-  <div>
-    <button class="progress-button">Confirm</button>
-  </div>
-</div> -->
-<div class="container">
-  <div class="basic-details-progress-bar d-flex justify-content-center mt-3">
+<div class="container py-3">
+  <div class="basic-details-progress-bar d-flex justify-content-center">
     <div>
       <button class="progress-button bg-success text-white">Select Exam</button>
     </div>
@@ -52,12 +27,6 @@
 
 <div class="container mt-3 p-0 d-flex justify-content-center align-items-center form-container-mv">
   <div class="form-mv bg-white p-5 rounded shadow">
-    <!-- <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
-      <span class="new-user">Already have an Account?</span> &nbsp;
-      <span class="register-user">
-        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>
-      </span>
-    </div> -->
     <div class="form-group-container d-flex justify-content-center gap-4">
       <div class="form-group">
         <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name" [formControl]="firstName"></dfm-input>
@@ -96,10 +65,5 @@
 
 <div class="d-flex justify-content-center mt-3">
   <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"> Back </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-2"> Next </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-3"> Next </dfm-button>
 </div>
-
-<!-- <div class="fixed-bottom"> 
-        <dfm-footer></dfm-footer> 
-     </div> 
- </div> -->

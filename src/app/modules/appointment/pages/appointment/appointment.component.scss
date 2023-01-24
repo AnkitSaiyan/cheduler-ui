@@ -1,6 +1,7 @@
 .login-dashboard-content {
     width: 100%;
     border-radius: 8px;
+    // border: 1px solid red;
 }
 
 .upcoming-appointments-section {
@@ -168,4 +169,12 @@
     border: none;
     min-width: 50px;
     border: 2px solid #b0b3b7;
+}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+.upcoming-appointments-section{
+    width: 100%;
+    border: 1px solid black;
+}
+
 }

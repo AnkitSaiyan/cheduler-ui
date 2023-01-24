@@ -1,3 +1,6 @@
+* {
+  font-family: 'Montserrat';
+}
 .container.main {
   // border: 1px solid red;
   border-radius: 4px;
@@ -35,6 +38,11 @@
   font-size: 18px;
   line-height: 5px;
 }
+.hello-user-img {
+  min-width: 100px;
+  height: auto;
+  // border: 1px solid red;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -43,5 +51,11 @@
     width: 90%;
     margin: auto;
     border-radius: 4px;
+  }
+}
+@media (min-width: 180px) and (max-width: 420px) {
+  .hello-user-img {
+    width: 200px;
+    height: auto;
   }
 }
