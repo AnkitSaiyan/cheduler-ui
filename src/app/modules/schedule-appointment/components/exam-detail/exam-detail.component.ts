@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class ExamDetailComponent implements OnInit {
   examForm!: FormGroup;
-  public examName = new FormControl('', []);
   items: any = [
     {
       name: 'Aanpasing steunzolen',
@@ -48,7 +47,7 @@ export class ExamDetailComponent implements OnInit {
   displayExamDetails: boolean = false;
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.examForm = this.fb.group({
-      credentials: this.fb.array(['']),
+      exams: this.fb.array([this.newExam()]),
     });
   }
 
@@ -60,19 +59,23 @@ export class ExamDetailComponent implements OnInit {
   }
 
   examCount(): FormArray {
-    return this.examForm.get('credentials') as FormArray;
+    return this.examForm.get('exams') as FormArray;
+  }
+  
+  newExam(): FormGroup {
+    return this.fb.group({
+      examName: new FormControl('')
+    })
   }
 
-  getControls() {
-    return this.examCount().controls;
+  addExam() {
+    console.log('newExam(): ', this.examForm.controls['exams']['value'][0].examName);
+    console.log("Adding a exam");
+    this.examCount().push(this.newExam());
   }
-
-  addCreds() {
-    this.getControls().push(this.examName);
-  }
-
+  
   removeExam(i: number) {
-    if (this.getControls().length > 1) {
+    if (this.examCount().length > 1) {
       this.examCount().removeAt(i);
     }
   }

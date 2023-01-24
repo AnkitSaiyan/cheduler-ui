@@ -2,7 +2,7 @@
   <dfm-sub-header></dfm-sub-header>
   <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex' : ''">
     <div
-      [ngClass]="!displaySidebar ? 'sidebar-menu mt-5 mx-5' : 'sidebar-menu bg-primary mt-5 mx-3 sidebar-menu-shadow'"
+      [ngClass]="!displaySidebar ? 'sidebar-menu mx-5' : 'sidebar-menu bg-primary mx-3 sidebar-menu-shadow'"
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">
