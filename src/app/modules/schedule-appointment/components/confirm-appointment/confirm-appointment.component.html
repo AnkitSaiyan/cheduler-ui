@@ -100,7 +100,7 @@
       label="I have an application from my referring GP, doctor specialist or dentist.*"
       size="sm"
       [indeterminate]="false"
-      (click)="check1 = true"
+      [formControl]="check1" 
     >
     </dfm-checkbox>
     <dfm-checkbox
@@ -108,20 +108,20 @@
       size="sm"
       [indeterminate]="false"
       class="mt-2"
-      (click)="check2 = true"
+      [formControl]="check2"
     >
     </dfm-checkbox>
   </div>
 </div>
 <div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" *ngIf="!isPending && !isCanceled"> Back </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic" *ngIf="!isPending && !isCanceled"> Back </dfm-button>
   <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled"> Back </dfm-button>
 
   <dfm-button
     [color]="'primary'"
     [size]="'lg'"
-    [disabled]="!(check1 && check2)"
-    (click)="isPending = true; setPendingStatus()"
+    [disabled]="checkBoxStatus()"
+    (click)="setPendingStatus()"
     class="mx-3"
     *ngIf="!isPending && !isCanceled"
   >

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import {Location} from '@angular/common';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'dfm-sub-header',
@@ -40,12 +41,12 @@ export class SubHeaderComponent implements OnInit {
   }
 
    back() {
-    this.authService.isPending.subscribe((pendingValue) => {
-      if(pendingValue){
-       this.router.navigate(['/schedule-appointment/overview']); 
-      }else{
-        this._location.back();
-      }
+    this.authService.isPending.pipe(take(1)).subscribe((pendingStatus: boolean)=>{
+      if(this.url === '/schedule-appointment/confirm-appointment' && pendingStatus){
+        this.router.navigate(['/schedule-appointment/overview']); 
+       }else{
+         this._location.back();
+       }
     })
   }
 

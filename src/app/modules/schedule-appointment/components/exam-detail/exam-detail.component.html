@@ -83,15 +83,15 @@
         <span class="select-exam-detail-mv mt-3">Select exam(s) below</span>
         <div class="exam-mv d-flex flex-column" formArrayName="exams">
           <div class="exam-input d-flex" *ngFor="let creds of examCount().controls; let i = index">
-            <div [formGroupName]="i">
+            <div [formGroupName]="i" class="d-flex">
               <dfm-input-dropdown [items]="items" formControlName="examName" label="Exam*" placeholder="Select Exam" size="md">
                 {{ items.name }}
               </dfm-input-dropdown>
               <div
                 style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
                 class="mx-2"
-                *ngIf="newExam().controls['examName'].value != ''"
-                (click)="removeExam(i); examForm.reset()"
+                *ngIf="this.examForm.controls['exams']['value'][i].examName != ''"
+                (click)="removeExam(i);"
               >
                 <dfm-icon [name]="'trash-01'"></dfm-icon>
               </div>

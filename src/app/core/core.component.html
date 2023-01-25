@@ -6,14 +6,14 @@
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">
-        <div class="menu-item d-flex" routerLink="/dashboard" (click)="checkUrl()">
+        <div class="menu-item d-flex" routerLink="/dashboard/overview" (click)="checkUrl()">
           <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" />
           <span
             [ngClass]="
-              url == '/dashboard' ||
-              url == '/schedule-appointment/exam' ||
-              url == '/schedule-appointment/date-time' ||
-              url == '/schedule-appointment/confirm-appointment'
+              url == '/dashboard/overview' ||
+              url == '/dashboard/exam' ||
+              url == '/dashboard/date-time' ||
+              url == '/dashboard/confirm-appointment'
                 ? 'display-5 text-decoration-none active-menu'
                 : 'display-5 text-decoration-none'
             "
