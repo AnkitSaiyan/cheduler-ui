@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center !important;
   flex-direction: row;
-  padding: 10px 130px 10px 130px;
+  padding: 10px 100px 10px 70px;
   background-color: #f2f4f7;
   position: fixed;
   width: 100%;
@@ -166,6 +166,6 @@
     display: block;
   }
   .lang-btn-mv{
-    display: block;
+    display: block!important;
   }
 }

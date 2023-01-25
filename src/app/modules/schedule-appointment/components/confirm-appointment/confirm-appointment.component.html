@@ -1,5 +1,5 @@
-<div class="container py-3">
-  <div class="basic-details-progress-bar d-flex justify-content-center align-items-center">
+<div class="py-3">
+  <div class="basic-details-progress-bar d-flex justify-content-center align-items-center" *ngIf="!isPending && !isCanceled">
     <div>
       <button class="progress-button bg-success text-white select-exam-bar">Select Exam</button>
     </div>
@@ -26,12 +26,13 @@
       <hr class="progress-bar-hr bg-success" />
     </div>
     <div>
-      <button class="progress-button">Confirm</button>
+      <button [ngClass]="isPending || isCanceled ? 'progress-button text-white bg-success' : 'progress-button text-white bg-primary'">Confirm</button>
     </div>
   </div>
 </div>
 
-<div class="container">
+
+<div class="container mt-3">
   <div class="lab-confirmation-status" *ngIf="isPending">
     <div class="bg-warning pending-status">
       <span class="display-4">Confirmation from lab: pending</span>
@@ -42,7 +43,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container mt-3">
   <div class="lab-confirmation-status" *ngIf="isCanceled">
     <div class="bg-warning pending-status bg-danger">
       <span class="display-4">Your appointment has been canceled</span>
@@ -58,7 +59,7 @@
     <hr class="bg-lite-gray patient-hr" />
     <div class="patient-detail-container mt-2">
       <div class="row d-flex justify-content-between">
-        <div class="col-md-4 name">Name:</div>
+        <div class="col-md-4 name">Name</div>
         <div class="col-md-8 value">Johan Green</div>
       </div>
       <div class="row d-flex justify-content-between mt-2">
@@ -66,7 +67,7 @@
         <div class="col-md-8 value">johangreen@gmail.com</div>
       </div>
       <div class="row d-flex justify-content-between mt-2">
-        <div class="col-md-4 name">Phone No. :</div>
+        <div class="col-md-4 name">Phone No:</div>
         <div class="col-md-8 value">22 45 79 09 45</div>
       </div>
     </div>
@@ -76,7 +77,7 @@
     <hr class="bg-lite-gray appointment-hr" />
     <div class="appointment-details-section">
       <p class="exams-category-text text-primary d-inline">
-        Exams:&nbsp;<span class="exams-category-text text-dark d-inline">Levering Stuenzolean, Maatname</span>
+        Exams:<span class="exams-category-text text-dark d-inline">Levering Stuenzolean, Maatname</span>
       </p>
       <div class="display-6 appointment-date-time">
         <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
@@ -86,8 +87,8 @@
       </div>
       <div class="exams-category-text-mv">
         <p class="mt-2 text-primary">
-          Exams: &nbsp;
-          <span class="text-dark"> Levering Stuenzolean, Maatname</span>
+          Exams:
+          <span class="text-dark">Levering Stuenzolean, Maatname</span>
         </p>
       </div>
       <hr class="bg-lite-gray appointment-hr-mv" />
@@ -138,17 +139,17 @@
 </div>
 
 <div class="pending-section-button d-flex justify-content-center mt-3" *ngIf="isPending">
-  <dfm-button [color]="'secondary'" [size]="'lg'" (click)="isPending = true" class="edit-btn" routerLink="/schedule-appointment/date-time">
+  <dfm-button [color]="'secondary'" [size]="'lg'" (click)="isPending = true" class="mx-3 edit-btn" routerLink="/dashboard/date-time">
     Edit Appointment
   </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'sm'" (click)="isPending = true" class="edit-btn-mv" routerLink="/schedule-appointment/date-time">
+  <dfm-button [color]="'secondary'" [size]="'sm'" (click)="isPending = true" class="mx-3 edit-btn-mv" routerLink="/dashboard/date-time">
     Edit
   </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" (click)="isCanceled = true" class="mx-3 cancel-btn" (click)="isCanceled = true; isPending = false">
+  <dfm-button [color]="'primary'" [size]="'lg'" (click)="isCanceled = true" class="cancel-btn" (click)="isCanceled = true; isPending = false">
     Cancel Appointment
   </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'sm'" (click)="isCanceled = true" class="mx-3 cancel-btn-mv" (click)="isCanceled = true; isPending = false">
-    Cancel Appointment
+  <dfm-button [color]="'primary'" [size]="'sm'" (click)="isCanceled = true" class=" cancel-btn-mv" (click)="isCanceled = true; isPending = false">
+    Cancel
   </dfm-button>
 </div>
 <div class="footer">

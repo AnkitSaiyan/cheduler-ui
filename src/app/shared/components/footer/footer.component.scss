@@ -6,7 +6,7 @@
 
 .footer-main-container {
   background-color: #531422;
-  margin: 0;
+  margin: 20px 0px 0px 0px;
 }
 .dashboard-footer {
   display: flex;
@@ -40,7 +40,7 @@
   align-items: center;
   flex-direction: row;
   // border: 1px solid red;
-  margin-top: 50px;
+  // margin-top: 10px;
   padding: 8px 10px;
   .footer-left {
     font-weight: 500;

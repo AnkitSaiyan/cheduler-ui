@@ -4,6 +4,7 @@
   height: 100vh;
   overflow-y: auto;
   background-color: #f2f4f7;
+  width: 100%!important;
 }
 // .login-container {
 //  display: flex;
@@ -168,6 +169,7 @@
     background-color: #f2f4f7;
     padding: 0px 10px 0px 10px;
     margin: 0;
+    width: 100%!important;
   }
   .sidebar-menu {
     display: none;
