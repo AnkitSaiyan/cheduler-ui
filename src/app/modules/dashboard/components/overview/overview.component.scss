@@ -1,0 +1,67 @@
+
+.main{
+  // border: 1px solid red;
+  padding: 20px 250px;
+}
+* {
+  font-family: 'Montserrat';
+}
+.container.main {
+  // border: 1px solid red;
+  border-radius: 4px;
+}
+.primary-button {
+  background-color: #531422;
+  padding: 9px 15px 9px 15px;
+  border-radius: 8px;
+  border: none;
+  color: #f4e3cf;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  transition: 0.2s all ease;
+}
+
+.text-primary {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  /* or 140% */
+
+  color: #531422 !important;
+}
+
+.display-4 {
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 38px;
+  color: #000000;
+}
+.click-above-text {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 5px;
+}
+.hello-user-img {
+  min-width: 100px;
+  height: auto;
+  // border: 1px solid red;
+}
+
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  .main {
+    margin-top: 50px !important;
+    width: 100%;
+    margin: auto;
+    padding: 0px;
+    // height:500px;
+}
+}
+@media (min-width: 180px) and (max-width: 420px) {
+  .hello-user-img {
+    width: 200px;
+    height: auto;
+  }
+}

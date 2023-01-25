@@ -336,6 +336,12 @@
 .appointment-hr-mv {
   display: none;
 }
+.select-exam-bar-mv{
+  display: none;
+}
+.basic-details-bar-mv{
+  display: none;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -348,12 +354,12 @@
     // border: 1px solid red;
   }
   .basic-details-progress-bar .progress-button {
-    padding: 0;
-    font-size: 13px;
-    padding: 1px;
+    font-size: 14px;
+    padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
-  }
+    line-height: 14px;
+}
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
@@ -478,5 +484,17 @@
 
   .pending-status {
     margin: 15px 0px 0px 0px;
+  }
+  .select-exam-bar{
+    display: none;
+  }
+  .select-exam-bar-mv{
+    display: block;
+  }
+  .basic-details-bar{
+    display: none;
+  }
+  .basic-details-bar-mv{
+    display: block;
   }
 }

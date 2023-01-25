@@ -1,101 +1,95 @@
 <div class="main-container">
   <dfm-sub-header></dfm-sub-header>
-    <div [ngClass]="displaySidebar && url !== '/' ? 'dashboard-main-container d-flex flex-row justify-content-start mt-3 mx-5 gap-5' : ''">
-      <div
-        [ngClass]="!displaySidebar ? 'sidebar-menu' : 'sidebar-menu bg-primary shadow-sm'"
-        *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
-      >
-        <div class="sidebar-menu-items" *ngIf="displaySidebar">
-          <div class="menu-item d-flex" routerLink="/dashboard" (click)="checkUrl()">
-            <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" />
-            <span
-              [ngClass]="
-                url == '/dashboard' ||
-                url == '/schedule-appointment/exam' ||
-                url == '/schedule-appointment/date-time' ||
-                url == '/schedule-appointment/confirm-appointment'
-                  ? 'display-5 text-decoration-none active-menu'
-                  : 'display-5 text-decoration-none'
-              "
-              >Dashboard</span
-            >
-          </div>
-          <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
-            <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo" />
-            <span
-              [ngClass]="
-                url == '/appointment' || url == '/appointment/view-all'
-                  ? 'display-5 text-decoration-none active-menu'
-                  : 'display-5 text-decoration-none'
-              "
-              >My appointments</span
-            >
-          </div>
-          <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
-            <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" />
-            <span [ngClass]="url == '/profile' ? 'display-5 text-decoration-none active-menu' : 'display-5 text-decoration-none'"
-              >&nbsp;&nbsp;Profile</span
-            >
-          </div>
-          <div class="menu-item d-flex cursor-pointer" (click)="logOut()">
-            <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" />
-            <span class="display-5 text-decoration-none">Logout</span>
-          </div>
+  <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex' : ''" class="dashboard-main-container-mv d-flex flex-row justify-content-between mt-4 gap-5 px-5
+  ">
+    <div
+      [ngClass]="!displaySidebar ? 'sidebar-menu mx-5' : 'sidebar-menu bg-primary sidebar-menu-shadow'"
+      *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
+    >
+      <div class="sidebar-menu-items" *ngIf="displaySidebar">
+        <div class="menu-item d-flex" routerLink="/dashboard/overview" (click)="checkUrl()">
+          <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" />
+          <span
+            [ngClass]="
+              url == '/dashboard/overview' ||
+              url == '/dashboard/exam' ||
+              url == '/dashboard/date-time' ||
+              url == '/dashboard/confirm-appointment'
+                ? 'display-5 text-decoration-none active-menu'
+                : 'display-5 text-decoration-none'
+            "
+            >Dashboard</span
+          >
+        </div>
+        <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
+          <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo" />
+          <span
+            [ngClass]="
+              url == '/appointment' || url == '/appointment/view-all'
+                ? 'display-5 text-decoration-none active-menu'
+                : 'display-5 text-decoration-none'
+            "
+            >My appointments</span
+          >
+        </div>
+        <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
+          <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" />
+          <span [ngClass]="url == '/profile' ? 'display-5 text-decoration-none active-menu' : 'display-5 text-decoration-none'"
+            >&nbsp;&nbsp;Profile</span
+          >
+        </div>
+        <div class="menu-item d-flex cursor-pointer" (click)="logOut()">
+          <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" />
+          <span class="display-5 text-decoration-none">Logout</span>
         </div>
       </div>
-
-      <!-- ==================== -->
-      <!--==============||sidebar for mobile view starts here||=====================-->
-
-      <!-- <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex flex-row' : ''"> -->
-        <div [ngClass]="displaySidebar ? 'sidebar-menu-mv mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
-          <div class="sidebar-menu-items-mv" *ngIf="displaySidebar">
-            <div class="menu-item" routerLink="/dashboard" (click)="checkUrl()">
-              <!-- <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" /> -->
-              <div style="width: 20px; height: 20px;"><dfm-icon [name]="'home-03'"></dfm-icon></div>
-              <span
-                [ngClass]="
-                  url == '/dashboard' ||
-                  url == '/schedule-appointment/exam' ||
-                  url == '/schedule-appointment/date-time' ||
-                  url == '/schedule-appointment/confirm-appointment'
-                    ? 'display-5 text-decoration-none active-menu-mv'
-                    : 'display-5 text-decoration-none'
-                "
-              ></span>
-            </div>
-            <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
-              <!-- <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo" /> -->
-              <div style="width: 20px; height: 20px;"><dfm-icon [name]="'home-03'" class=".active-menu-mv"></dfm-icon></div>
-              <span
-                [ngClass]="
-                  url == '/appointment' || url == '/appointment/view-all'
-                    ? 'display-5 text-decoration-none active-menu-mv'
-                    : 'display-5 text-decoration-none'
-                "
-              ></span>
-            </div>
-            <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
-              <!-- <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" /> -->
-              <div style="width: 20px; height: 20px;"><dfm-icon [name]="'home-03'"></dfm-icon></div>
-              <span [ngClass]="url == '/profile' ? 'display-5 text-decoration-none active-menu-mv' : 'display-5 text-decoration-none'"
-                >&nbsp;&nbsp;</span
-              >
-            </div>
-            <div class="menu-item d-flex cursor-pointer" (click)="logOut()">
-              <!-- <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" /> -->
-              <div style="width: 20px; height: 20px;"><dfm-icon [name]="'home-03'"></dfm-icon></div>
-              <span class="display-5 text-decoration-none"></span>
-            </div>
-          </div>
-        </div>
-        <div [ngClass]="displaySidebar ? 'login-main-container' : ''">
-          <div [ngClass]="displaySidebar ? 'dashboard-main-content' : ''">
-          <router-outlet></router-outlet>
-        </div>
-        </div>
-      <!-- </div> -->
-      <!--==============||sidebar for mobile view ends here||=====================-->
     </div>
-    <dfm-footer></dfm-footer>
+    <!--==============||sidebar for mobile view starts here||=====================-->
+
+    <!-- <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex flex-row' : ''"> -->
+    <div [ngClass]="displaySidebar ? 'sidebar-menu-mv mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
+      <div class="sidebar-menu-items-mv" *ngIf="displaySidebar">
+        <div class="menu-item" routerLink="/dashboard/overview" (click)="checkUrl()">
+          <!-- <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" /> -->
+          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <span
+            [ngClass]="
+              url == '/dashboard/overview' || url == '/dashboard/exam' || url == '/dashboard/date-time' || url == '/dashboard/confirm-appointment'
+                ? 'display-5 text-decoration-none active-menu-mv'
+                : 'display-5 text-decoration-none'
+            "
+          ></span>
+        </div>
+        <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
+          <!-- <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo" /> -->
+          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'" class=".active-menu-mv"></dfm-icon></div>
+          <span
+            [ngClass]="
+              url == '/appointment' || url == '/appointment/view-all'
+                ? 'display-5 text-decoration-none active-menu-mv'
+                : 'display-5 text-decoration-none'
+            "
+          ></span>
+        </div>
+        <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
+          <!-- <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" /> -->
+          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <span [ngClass]="url == '/profile' ? 'display-5 text-decoration-none active-menu-mv' : 'display-5 text-decoration-none'">&nbsp;&nbsp;</span>
+        </div>
+        <div class="menu-item d-flex cursor-pointer" (click)="logOut()">
+          <!-- <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" /> -->
+          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <span class="display-5 text-decoration-none"></span>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!--==============||sidebar for mobile view ends here||=====================-->
+    <div [ngClass]="displaySidebar ? 'login-main-container' : ''">
+      <div [ngClass]="displaySidebar ? 'dashboard-main-content' : ''">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <dfm-footer></dfm-footer>
 </div>

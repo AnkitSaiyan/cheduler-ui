@@ -1,3 +1,6 @@
+* {
+  font-family: 'Montserrat';
+}
 .calendar-main-container {
   padding: 26px 48px;
 }
@@ -252,6 +255,12 @@
 .time-slot-btn-mv {
   display: none;
 }
+.select-exam-bar-mv{
+  display: none;
+}
+.basic-details-bar-mv{
+  display: none;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   * {
@@ -264,11 +273,12 @@
     width: 100%;
   }
   .basic-details-progress-bar .progress-button {
-    font-size: 12px;
-    padding: 2.4px !important;
+    font-size: 14px;
+    padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
-  }
+    line-height: 14px;
+}
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
@@ -354,5 +364,17 @@
   }
   .slot-heading {
     font-size: 14px;
+  }
+  .select-exam-bar{
+    display: none;
+  }
+  .select-exam-bar-mv{
+    display: block;
+  }
+  .basic-details-bar{
+    display: none;
+  }
+  .basic-details-bar-mv{
+    display: block;
   }
 }

@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Tooltip } from 'bootstrap';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'dfm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit { 
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('nl');
+  }
+
   ngOnInit(): void {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach((e) => new Tooltip(e));

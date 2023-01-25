@@ -97,6 +97,15 @@
 .register-menu {
   display: none;
 }
+.lang-btn-mv{
+  display: none;
+}
+.text-bold {
+  font-weight: 600;
+}
+.text-primary {
+  color: #531422 !important;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .nav {
@@ -151,9 +160,12 @@
     top: 40px;
   }
   .lang-btn {
-    display: block;
+    display: none;
   }
   .add-user-btn-mv {
+    display: block;
+  }
+  .lang-btn-mv{
     display: block;
   }
 }
