@@ -1,9 +1,8 @@
 <div class="main-container">
   <dfm-sub-header></dfm-sub-header>
-  <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex' : ''" class="dashboard-main-container-mv d-flex flex-row justify-content-between mt-4 gap-5 px-5
-  ">
+  <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex dashboard-main-container-mv d-flex flex-row justify-content-between mt-4 gap-5 px-5' : ''" >
     <div
-      [ngClass]="!displaySidebar ? 'sidebar-menu mx-5' : 'sidebar-menu bg-primary sidebar-menu-shadow'"
+      [ngClass]="!displaySidebar ? '' : 'sidebar-menu bg-primary sidebar-menu-shadow'"
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">

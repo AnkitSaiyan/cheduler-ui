@@ -47,7 +47,7 @@
                   <div
                     style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
                     class="mx-2"
-                    *ngIf="this.examForm.controls['exams']['value'][i].examName != ''"
+                    *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"
                     (click)="removeExam(i);"
                   >
                     <dfm-icon [name]="'trash-01'"></dfm-icon>
@@ -84,7 +84,7 @@
                 <div
                   style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
                   class="mx-2"
-                  *ngIf="this.examForm.controls['exams']['value'][i].examName != ''"
+                  *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"
                   (click)="removeExam(i);"
                 >
                   <dfm-icon [name]="'trash-01'"></dfm-icon>
