@@ -1,8 +1,9 @@
-<div class="container main text-center bg-white shadow">
-  <div><span class="text-primary">Hello User!</span></div>
+<div class="container main text-center bg-white shadow py-4">
+  <div><span class="text-primary hello-user-text ">Hello User!</span></div>
   <img src="../../../../../assets/images/online_calendar_new.png" alt="calendar-image" width="300px" height="auth" class="mt-3 hello-user-img" />
   <div class="d-flex justify-content-center mt-4">
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/dashboard/exam"> Schedule Appointment </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/dashboard/exam" class="schedule-btn"> Schedule Appointment </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/dashboard/exam" class="schedule-btn-mv"> Schedule Appointment </dfm-button>
   </div>
   <div class="mt-4"><span class="display-4 click-above-text">Click above to schedule an appointment</span></div>
 </div>

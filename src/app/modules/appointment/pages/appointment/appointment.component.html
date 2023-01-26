@@ -1,23 +1,37 @@
 <div class="login-dashboard-content">
     <div class="upcoming-appointments-section">
       <span class="display-3 text-center upcoming-text">Upcoming Appointments</span>
-      <div class="upcoming-appointments-details mt-3 bg-white shadow-sm">
+      <div class="upcoming-appointments-details mt-3 bg-white shadow">
         <div class="display-5 upcoming-appointments-date-time">
           <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November, 2022</span>
           <img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
           <span>12:30 P.M</span>
         </div>
-        <span class="display-4 appointment-exam-t"
+        <span class="display-4 appointment-exam-text"
           >Exam: Levering stuenzolen <span class="text-gray">|</span> Confirmation Status: <span class="text-warning">Pending</span>
           <hr class="bg-lite-gray appointment-hr-mv" /> 
         </span>
+        <div class="appointment-exam-text-mv">
+          <span class=" appointment-exam-text-mv text-primary"
+          >Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
+          <span>
+          <hr class="bg-lite-gray appointment-hr-mv" /> 
+        </span>
+        </div>
+        <div class="instructions-text-section-mv d-flex justify-content-between">
+          <span class="instruction-text text-primary">Instructions:</span>
+          <ul>
+            <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
+            <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li>
+          </ul>
+        </div>
          
         <div>
-          <span class="display-4"><b>Have an empty stomach 10 hours prior to the test</b></span>
+          <span class="display-4 instruction-desk-view" style="font-weight: 600;">Have an empty stomach 10 hours prior to the test</span>
         </div>
         <div class="upcoming-appointments-btn d-flex justify-content-between text-center">
           <dfm-button [color]="'secondary'" [size]="'lg'"> Cancel </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'lg'" class="mx-2"> Edit appointment </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'lg'" class="mx-3"> Edit appointment </dfm-button>
         </div>
       </div>
       <div class="d-flex justify-content-center">
@@ -29,7 +43,7 @@
   </div>
 
     <div class="previous-appointment-title">
-      <span class="display-4"><b>Previous Appointments</b></span>
+      <span class="display-4 previous-app-text"><b>Previous Appointments</b></span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
       <dfm-button [color]="'link'" [size]="'lg'" class="view-all-btn" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
     </div>

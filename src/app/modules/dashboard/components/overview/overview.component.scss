@@ -1,10 +1,10 @@
 
+  * {
+    font-family: 'Montserrat';
+  }
 .main{
   // border: 1px solid red;
   padding: 20px 250px;
-}
-* {
-  font-family: 'Montserrat';
 }
 .container.main {
   // border: 1px solid red;
@@ -48,6 +48,9 @@
   height: auto;
   // border: 1px solid red;
 }
+.schedule-btn-mv{
+  display: none!important;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -65,11 +68,26 @@
     height: auto;
   }
 }
-@media (max-width:320px){
+@media (min-width: 320px) and (max-width: 374px){
   .account-login-heading{
     display: flex!important;
     flex-direction: column!important;
     gap:5px!important;
-    border: 1px solid red;
+    // border: 1px solid red;
+  }
+  .hello-user-text{
+    font-size: 15px!important;
+    margin: 10px 0px 0px 0px!important;
+  }
+  .schedule-btn{
+    display: none!important;
+  }
+  .schedule-btn-mv{
+    display: block!important;
+  }
+  .click-above-text{
+    font-size: 13px!important;
+    font-weight: 600px!important;
+    line-height: 5px!important;
   }
 }

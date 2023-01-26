@@ -220,18 +220,18 @@
     flex-direction: column;
     justify-content: space-between;
   }
-  .patient-details {
-    max-height: 200px;
-    border-radius: 4px;
-    padding: 15px 25px;
-    display: flex;
-    flex-direction: column;
-    font-weight: 700;
-    // border: 1px solid red;
-    width: 30%;
-  }
+  // .patient-details {
+  //   max-height: 200px;
+  //   border-radius: 4px;
+  //   padding: 15px 25px;
+  //   display: flex;
+  //   flex-direction: column;
+  //   font-weight: 700;
+  //   // border: 1px solid red;
+  //   width: 30%;
+  // }
   .appointment-details {
-    width: 40%;
+    width: 100%;
     border-radius: 8px;
     padding: 15px 20px;
     display: flex;

@@ -49,8 +49,8 @@
     <div [ngClass]="displaySidebar ? 'sidebar-menu-mv mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
       <div class="sidebar-menu-items-mv" *ngIf="displaySidebar">
         <div class="menu-item" routerLink="/dashboard/overview" (click)="checkUrl()">
-          <!-- <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" /> -->
-          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" width="30px" height="30px"/>
+          <!-- <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div> -->
           <span
             [ngClass]="
               url == '/dashboard/overview' || url == '/dashboard/exam' || url == '/dashboard/date-time' || url == '/dashboard/confirm-appointment'
@@ -60,8 +60,8 @@
           ></span>
         </div>
         <div class="menu-item d-flex cursor-pointer" routerLink="/appointment">
-          <!-- <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo" /> -->
-          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'" class=".active-menu-mv"></dfm-icon></div>
+          <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo"width="30px" height="30px" />
+          <!-- <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'" class=".active-menu-mv"></dfm-icon></div> -->
           <span
             [ngClass]="
               url == '/appointment' || url == '/appointment/view-all'
@@ -71,13 +71,13 @@
           ></span>
         </div>
         <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
-          <!-- <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" /> -->
-          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <img src="../../../../../assets/images/user_icon.svg" alt="user-icon" class="logo" width="30px" height="30px"/>
+          <!-- <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div> -->
           <span [ngClass]="url == '/profile' ? 'display-5 text-decoration-none active-menu-mv' : 'display-5 text-decoration-none'">&nbsp;&nbsp;</span>
         </div>
         <div class="menu-item d-flex cursor-pointer" (click)="logOut()">
-          <!-- <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" /> -->
-          <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div>
+          <img src="../../../../../assets/images/logout_icon.svg" alt="logout-icon" class="logo" width="30px" height="30px" />
+          <!-- <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div> -->
           <span class="display-5 text-decoration-none"></span>
         </div>
       </div>

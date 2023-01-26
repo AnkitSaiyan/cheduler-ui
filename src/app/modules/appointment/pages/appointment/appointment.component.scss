@@ -1,3 +1,6 @@
+*{
+    font-family: 'Montserrat';
+}
 .login-dashboard-content {
     // width: 100%;
     border-radius: 8px;
@@ -165,6 +168,18 @@
     min-width: 50px;
     border: 2px solid #b0b3b7;
 }
+.appointment-hr-mv{
+    display: none;
+}
+.appointment-exam-text{
+    display: block!important;
+}
+.appointment-exam-text-mv{
+    display: none!important;
+}
+.instructions-text-section-mv{
+    display: none!important;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
 .upcoming-appointments-section{
@@ -174,6 +189,11 @@
 
 }
 @media (min-width: 320px) and (max-width: 374px){
+    .upcoming-appointments-section{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
     .upcoming-text{
         font-size: 14px!important;
         color: #531422;
@@ -185,6 +205,7 @@
         // border: 1px solid red;
         width: 100%!important;
         padding: 10px!important;
+        gap: 5px!important;
     }
     .upcoming-appointments-date-time{
         // border: 1px solid red;
@@ -203,9 +224,45 @@
         border: 0;
         border-top: 1px solid;
         opacity: 0.25;
+        display: block!important;
     }
     .appointment-exam-text{
         font-size: 14px!important;
+    }
+    .appointment-exam-text-mv{
+        display: block!important;
+        font-size: 13px;
+        padding: 0px!important;
+        margin: 0px!important;
+        // border: 1px solid red;
+        width: 100%!important;
+    }
+    .appointment-exam-text{
+        display: none!important;
+    }
+    .instructions-text-section-mv{
+        display: block!important;
+    }
+    .instruction-desk-view{
+        display: none!important;
+    }
+    .instructions-text-section-mv ul li{
+        font-size: 13px!important;
+        line-height: 22px;
+        font-weight: 500;
+    }
+    .instruction-text{
+        font-size: 16px;
+    }
+    .previous-app-text{
+        display: none!important;
+    }
+    .previous-appointment-cards{
+        display: flex!important;
+        flex-direction: column!important;
+    }
+    .view-all-btn{
+        display: none!important;
     }
     }
 
