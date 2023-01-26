@@ -88,6 +88,12 @@
   .select-exam-detail-mv {
     display: none !important;
   }
+  .exam-next-btn-mv{
+    display: none!important;
+  }
+  .exam-next-btn{
+    display: block!important;
+  }
   
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -187,6 +193,12 @@
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+    }
+    .exam-next-btn{
+      display: none!important;
+    }
+    .exam-next-btn-mv{
+      display: block!important;
     }
   }
   

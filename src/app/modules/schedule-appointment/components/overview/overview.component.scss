@@ -3,7 +3,7 @@
 }
 .container.main {
   // border: 1px solid red;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 .primary-button {
   background-color: #531422;
@@ -33,6 +33,10 @@
   line-height: 38px;
   color: #000000;
 }
+.display-5 {
+  font-weight: 500;
+  font-size: 20px;
+}
 .click-above-text {
   font-weight: 600;
   font-size: 18px;
@@ -43,6 +47,12 @@
   height: auto;
   // border: 1px solid red;
 }
+.account-login-block{
+  font-weight: 500;
+}
+.sa-btn-mv{
+  display: none!important;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -52,10 +62,40 @@
     margin: auto;
     border-radius: 4px;
   }
+  .click-above-text{
+    font-size: 13px;
+  }
+  .sa-btn-mv{
+    display: none!important;
+  }
 }
+
 @media (min-width: 180px) and (max-width: 420px) {
   .hello-user-img {
     width: 200px;
     height: auto;
+  }
+  .sa-btn-mv{
+    display: none!important;
+  }
+}
+@media (min-width: 320px) and (max-width: 374px){
+  .account-login-heading{
+    display: flex!important;
+    flex-direction: row!important;
+    align-items: center;
+    // gap:5px!important;
+    // border: 1px solid red;
+    line-height: 10px!important;
+    font-size: 13px;
+  }
+  .sa-btn{
+    display: none!important;
+  }
+  .sa-btn-mv{
+    display: block!important;
+  }
+  .hello-user-text{
+    font-size: 15px!important;
   }
 }

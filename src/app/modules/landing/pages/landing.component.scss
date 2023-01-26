@@ -130,13 +130,14 @@
   }
   .weekly-content-right {
     width: 50%;
+    border-radius: 8px!important;
   }
   .opening-detail-table {
     background-color: #ffffff;
     // box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
     margin-top: 10px;
-    padding: 16px 16px 16px 16px;
-    border-radius: 4px;
+    padding: 20px 16px 20px 16px;
+    border-radius: 8px;
   }
 }
 
@@ -180,6 +181,9 @@ td {
   text-align: left;
   margin: 0;
 }
+.opening-section-header-mv{
+  display: none;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .container {
@@ -199,6 +203,9 @@ td {
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0px 5px 8px 5px;
   }
   .schedule-button {
     display: none;
@@ -223,7 +230,8 @@ td {
     font-size: 26px;
     font-weight: 500;
     color: #000000;
-    margin: 3px 0px 9px 0px;
+    margin: 0px 0px 0px 0px;
+    // border: 1px solid red;
   }
   .radiology-section .left-section .sub-header {
     font-size: 16px;
@@ -265,5 +273,25 @@ td {
     // border: 1px solid red;
     font-size: 15px;
     font-weight: 500;
+  }
+  .opening-section-header{
+    display: none;
+  }
+  .opening-section-header-mv{
+    display: block!important;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #531422;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px){
+  .header-section{
+    font-size: 22px!important;
+  }
+  .sub-header{
+    font-size: 14px!important;
   }
 }

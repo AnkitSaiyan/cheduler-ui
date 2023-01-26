@@ -128,13 +128,23 @@
 </div>
 
 <div class="d-flex justify-content-center mt-4">
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/exam"> Back </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/exam" class="cal-back-btn"> Back </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/exam" class="cal-back-btn-mv"> Back </dfm-button>
   <dfm-button
     [color]="'primary'"
     [size]="'lg'"
     [disabled]="selectedDate === 0 || setSelectedSlot === ''"
     routerLink="/schedule-appointment/basic"
-    class="mx-3"
+    class="mx-3 cal-next-btn"
+  >
+    Next
+  </dfm-button>
+  <dfm-button
+    [color]="'primary'"
+    [size]="'sm'"
+    [disabled]="selectedDate === 0 || setSelectedSlot === ''"
+    routerLink="/schedule-appointment/basic"
+    class="mx-3 cal-next-btn-mv"
   >
     Next
   </dfm-button>

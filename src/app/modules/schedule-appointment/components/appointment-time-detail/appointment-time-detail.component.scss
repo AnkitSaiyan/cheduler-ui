@@ -261,6 +261,12 @@
 .basic-details-bar-mv{
   display: none;
 }
+.cal-next-btn-mv{
+  display: none!important;
+}
+.cal-back-btn-mv{
+  display: none!important;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   * {
@@ -268,7 +274,7 @@
   }
   .basic-details-progress-bar {
     // border: 1px solid red;
-    margin-top: 80px !important;
+    margin-top: 60px !important;
     // border: 1px solid red;
     width: 100%;
   }
@@ -376,5 +382,17 @@
   }
   .basic-details-bar-mv{
     display: block;
+  }
+  .cal-back-btn-mv{
+    display: block!important;
+  }
+  .cal-next-btn-mv{
+    display: block!important;
+  }
+  .cal-next-btn{
+    display: none!important;
+  }
+  .cal-back-btn{
+    display: none!important;
   }
 }

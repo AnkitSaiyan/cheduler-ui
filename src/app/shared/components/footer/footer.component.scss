@@ -102,9 +102,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0px;
+    margin-bottom: 45px;
     margin-top: 20px;
     width: 100%;
     gap: 5px;
+  }
+}
+@media (min-width: 320px) and (max-width: 374px){
+  .footer-right{
+    font-size: 15px!important;
   }
 }

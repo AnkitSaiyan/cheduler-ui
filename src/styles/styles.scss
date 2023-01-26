@@ -25,6 +25,14 @@
 dfm-footer {
   margin-top: auto;
 }
+.account-login-heading{
+  dfm-button{
+    text-decoration: underline!important;
+    color:#531422;
+    // background-color: #f4e3cf!important;
+    // font-size: 14px!important;
+  }
+}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
