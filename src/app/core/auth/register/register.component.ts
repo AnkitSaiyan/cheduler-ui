@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
 
   logInUser(){
     localStorage.setItem('user', 'true');
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard/overview']);
   }
 
 }

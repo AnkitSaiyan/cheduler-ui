@@ -122,6 +122,16 @@
     color: #531422;
   }
 }
+.text-primary {
+  color: #531422 !important;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+.lang-btn-section{
+  display: none;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .container-fluid {
@@ -208,7 +218,10 @@
     align-items: center;
     gap: 10px;
   }
-}
-.pass{
-  -webkit-text-security: disc !important;
+  .pass{
+    -webkit-text-security: disc !important;
+  }
+  .lang-btn-section{
+    display: block!important;
+  }
 }

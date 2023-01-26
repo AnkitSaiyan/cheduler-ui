@@ -227,3 +227,9 @@
     display: block!important;
   }
 }
+
+@media (min-width: 320px) and (max-width: 374px){
+.basic-details-progress-bar .progress-button{
+  font-size: 10.5px!important;
+}
+}

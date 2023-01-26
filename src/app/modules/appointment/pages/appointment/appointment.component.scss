@@ -173,3 +173,40 @@
 }
 
 }
+@media (min-width: 320px) and (max-width: 374px){
+    .upcoming-text{
+        font-size: 14px!important;
+        color: #531422;
+        text-align: left;
+        font-weight: 600;
+        margin: 0px!important;
+    }
+    .upcoming-appointments-details{
+        // border: 1px solid red;
+        width: 100%!important;
+        padding: 10px!important;
+    }
+    .upcoming-appointments-date-time{
+        // border: 1px solid red;
+        width: 100%!important;
+    }
+    .upcoming-appointments-btn{
+        display: none!important;
+    }
+    .appointment-hr{
+        display: none!important;
+    }
+    .appointment-hr-mv{
+        width: 100%;
+        margin: 1rem 0;
+        color: inherit;
+        border: 0;
+        border-top: 1px solid;
+        opacity: 0.25;
+    }
+    .appointment-exam-text{
+        font-size: 14px!important;
+    }
+    }
+
+

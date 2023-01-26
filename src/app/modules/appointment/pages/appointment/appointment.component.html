@@ -1,15 +1,17 @@
 <div class="login-dashboard-content">
     <div class="upcoming-appointments-section">
       <span class="display-3 text-center upcoming-text">Upcoming Appointments</span>
-      <div class="upcoming-appointments-details mt-3 bg-white">
+      <div class="upcoming-appointments-details mt-3 bg-white shadow-sm">
         <div class="display-5 upcoming-appointments-date-time">
-          <img src="../../../../../assets/images/clock-icon.svg" alt="clock-icon" width="18px" /><span>12 November, 2022</span>
-          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
+          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November, 2022</span>
+          <img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
           <span>12:30 P.M</span>
         </div>
-        <span class="display-4"
-          >Exam: Levering stuenzolen <span class="text-gray">|</span> Confirmation Status: <span class="text-warning">Pending</span></span
-        >
+        <span class="display-4 appointment-exam-t"
+          >Exam: Levering stuenzolen <span class="text-gray">|</span> Confirmation Status: <span class="text-warning">Pending</span>
+          <hr class="bg-lite-gray appointment-hr-mv" /> 
+        </span>
+         
         <div>
           <span class="display-4"><b>Have an empty stomach 10 hours prior to the test</b></span>
         </div>
@@ -20,7 +22,7 @@
       </div>
       <div class="d-flex justify-content-center">
         <span>
-        <hr class="bg-lite-gray text-center" />
+        <hr class="bg-lite-gray appointment-hr" />
     </span>
       </div>
     </div>
@@ -29,7 +31,7 @@
     <div class="previous-appointment-title">
       <span class="display-4"><b>Previous Appointments</b></span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-      <dfm-button [color]="'link'" [size]="'lg'" class="view-all-btn" (click)="viewAll = !viewAll"> View all </dfm-button>
+      <dfm-button [color]="'link'" [size]="'lg'" class="view-all-btn" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
     </div>
     <div class="previous-appointment-cards d-flex justify-content-center mt-3">
       <div class="card-item bg-white">
