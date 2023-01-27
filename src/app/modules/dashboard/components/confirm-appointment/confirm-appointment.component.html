@@ -125,7 +125,17 @@
       [size]="'lg'"
       [disabled]="checkBoxStatus()"
       (click)="setPendingStatus()"
-      class="mx-3"
+      class="mx-3 confirm-btn"
+      *ngIf="!isPending && !isCanceled"
+    >
+      Confirm
+    </dfm-button>
+    <dfm-button
+      [color]="'primary'"
+      [size]="'sm'"
+      [disabled]="checkBoxStatus()"
+      (click)="setPendingStatus()"
+      class="confirm-btn-mv"
       *ngIf="!isPending && !isCanceled"
     >
       Confirm

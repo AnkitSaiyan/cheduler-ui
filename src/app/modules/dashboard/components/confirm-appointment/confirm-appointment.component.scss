@@ -347,6 +347,9 @@
   .back-btn{
     display: block;
   }
+  .confirm-btn-mv{
+    display: none;
+  }
   
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -468,7 +471,7 @@
       display: block;
     }
     .cancel-btn-mv {
-      display: block;
+      display: block!important;
     }
     .confirm-details {
       display: flex;
@@ -500,6 +503,12 @@
       display: block!important;
     }
     .back-btn{
+      display: none!important;
+    }
+    .confirm-btn-mv{
+      display: block!important;
+    }
+    .confirm-btn{
       display: none!important;
     }
   }
