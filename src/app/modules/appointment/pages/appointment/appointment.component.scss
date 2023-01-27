@@ -192,7 +192,7 @@
     align-items: flex-start;
 }
 .upcoming-text{
-    font-size: 14px!important;
+    font-size: 16px!important;
     color: #531422;
     text-align: left;
     font-weight: 600;
@@ -228,7 +228,7 @@
 }
 .appointment-exam-text-mv{
     display: block!important;
-    font-size: 13px;
+    font-size: 14px;
     padding: 0px!important;
     margin: 0px!important;
     // border: 1px solid red;
@@ -244,7 +244,7 @@
     display: none!important;
 }
 .instructions-text-section-mv ul li{
-    font-size: 13px!important;
+    font-size: 14px!important;
     line-height: 22px;
     font-weight: 500;
 }
@@ -252,7 +252,12 @@
     font-size: 16px;
 }
 .previous-app-text{
-    display: none!important;
+    display: block!important;
+    margin: 10px 0px 0px 0px;
+    color: #531422;
+    // border: 1px solid red;
+    font-weight: 600;
+    
 }
 .previous-appointment-cards{
     display: flex!important;
@@ -264,6 +269,13 @@
 .previous-appointments-date-time{
     font-size: 13px!important;
 }
+.previous-appointment-title {
+    display: flex!important;
+    flex-direction: row!important;
+    justify-content: start!important;
+    align-items: flex-start!important;
+    // position: relative;
+}
 
 }
 @media (min-width: 320px) and (max-width: 374px){
@@ -273,7 +285,7 @@
         align-items: flex-start;
     }
     .upcoming-text{
-        font-size: 14px!important;
+        font-size: 16px!important;
         color: #531422;
         text-align: left;
         font-weight: 600;
@@ -309,7 +321,7 @@
     }
     .appointment-exam-text-mv{
         display: block!important;
-        font-size: 13px;
+        font-size: 14px;
         padding: 0px!important;
         margin: 0px!important;
         // border: 1px solid red;
@@ -325,7 +337,7 @@
         display: none!important;
     }
     .instructions-text-section-mv ul li{
-        font-size: 13px!important;
+        font-size: 14px!important;
         line-height: 22px;
         font-weight: 500;
     }
@@ -333,7 +345,7 @@
         font-size: 16px;
     }
     .previous-app-text{
-        display: none!important;
+        display: block!important;
     }
     .previous-appointment-cards{
         display: flex!important;
