@@ -516,7 +516,7 @@
     display: block;
   }
   .appointment-date-time{
-    font-size: 13px!important;
+    font-size: 14px!important;
   }
   .confirm-btn-mv{
     display: block!important;
@@ -540,7 +540,7 @@
 
 @media (min-width: 320px) and (max-width: 374px){
 .appointment-date-time{
-  font-size:12px!important;
+  font-size:13px!important;
   font-weight: 500;
   gap: 5px!important;
 }
@@ -549,6 +549,9 @@
 }
 .basic-details-progress-bar .progress-button{
     font-size: 10.5px!important;
+  }
+  .pending-status span{
+    font-size: 14px!important;
   }
   .confirm-checkbox{
     font-size: 12px!important;

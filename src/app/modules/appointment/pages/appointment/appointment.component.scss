@@ -276,6 +276,11 @@
     align-items: flex-start!important;
     // position: relative;
 }
+.card-item{
+    gap: 8px!important;
+    padding: 10px!important;
+    height: 100px!important;
+}
 
 }
 @media (min-width: 320px) and (max-width: 374px){
@@ -321,7 +326,7 @@
     }
     .appointment-exam-text-mv{
         display: block!important;
-        font-size: 14px;
+        font-size: 13px;
         padding: 0px!important;
         margin: 0px!important;
         // border: 1px solid red;

@@ -206,6 +206,7 @@ td {
     // background-color: white;
     border-radius: 8px;
     padding: 0px 5px 8px 5px;
+    margin: 40px 0px 0px 0px!important;
   }
   .schedule-button {
     display: none;
@@ -215,7 +216,7 @@ td {
   }
   .radiology-section .right-section {
     display: none;
-    // border: 1px solid black;
+    border: 1px solid black;
   }
   .radiology-section .right-section .right-section-img {
     min-width: 110px;
@@ -230,8 +231,9 @@ td {
     font-size: 26px;
     font-weight: 500;
     color: #000000;
-    margin: 0px 0px 0px 0px;
+    // margin: 10px 0px 0px 0px;
     // border: 1px solid red;
+    margin: 0px!important;
   }
   .radiology-section .left-section .sub-header {
     font-size: 16px;

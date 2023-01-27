@@ -116,12 +116,15 @@
     padding: 10px;
     width: 100% !important;
     // border: 1px solid red;
-    height: 70px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0;
+    margin: -12px 0px 0px 0px;
+  }
+  .right-logo img{
+    margin: 12px 0px 0px 0px!important;
   }
   .nav .right-menu {
     display: flex;

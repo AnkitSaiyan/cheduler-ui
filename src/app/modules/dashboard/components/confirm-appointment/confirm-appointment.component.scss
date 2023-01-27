@@ -336,6 +336,9 @@
   .appointment-hr-mv {
     display: none;
   }
+  .exam-btn-mv{
+    display: none;
+  }
   
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -478,6 +481,12 @@
   
     .pending-status {
       margin: 15px 0px 0px 0px;
+    }
+    .exam-btn-mv{
+      display: block!important;
+    }
+    .exam-btn{
+      display: none!important;
     }
   }
   

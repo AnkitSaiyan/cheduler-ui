@@ -351,11 +351,20 @@
       flex-wrap: wrap;
       margin: 0px !important;
       padding: 0px !important;
-      gap: 55px!important;
+      gap: 30px!important;
     }
     .slot-heading {
       font-size: 14px!important;
       font-weight: 700!important;
+    }
+    .exam-btn{
+      display: none!important;
+    }
+    .exam-btn-mv{
+      display: block!important;
+    }
+    .calendar-footer-section{
+      padding: 0px 20px!important;
     }
   }
   

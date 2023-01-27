@@ -1,14 +1,15 @@
 
 <div class="basic-details-progress-bar d-flex justify-content-center" *ngIf="!isPending && !isCanceled">
     <div>
-      <button class="progress-button bg-success text-white">Select Exam</button>
+      <button class="progress-button bg-success text-white exam-btn">Select Exam</button>
+      <button class="progress-button bg-success text-white exam-btn-mv">Exam</button>
     </div>
     <div>
       <hr class="progress-bar-hr bg-success" />
     </div>
     <div>
       <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
-      <button class="progress-button bg-success text-white time-slot-btn-mv">Select Slot</button>
+      <button class="progress-button bg-success text-white time-slot-btn-mv">Slot</button>
     </div>
     <div *ngIf="displayBasicDetails">
       <hr class="progress-bar-hr bg-success" />
@@ -141,7 +142,7 @@
       Cancel Appointment
     </dfm-button>
     <dfm-button [color]="'primary'" [size]="'sm'" (click)="isCanceled = true" class="mx-3 cancel-btn-mv" (click)="isCanceled = true; isPending = false">
-      Cancel Appointment
+      Cancel
     </dfm-button>
   </div>
   <div class="footer">
