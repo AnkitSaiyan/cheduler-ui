@@ -104,7 +104,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 8px;
   flex-direction: column;
-  gap: 20px;
+  gap: 0px;
   padding: 35px;
   text-align: start;
 }
@@ -190,12 +190,10 @@
   margin: 0px!important;
 }
 .my-profile-form-group{
-  background-color: transparent!important;
-  box-shadow: none!important;
-}
-.my-profile-form-group{
   gap: 0px!important;
   padding: 0px!important;
+  background-color: transparent!important;
+  box-shadow: none!important;
 }
 .my-profile-text{
   display: none;

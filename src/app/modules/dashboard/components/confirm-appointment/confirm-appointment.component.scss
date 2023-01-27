@@ -166,7 +166,9 @@
 //   height: 100vh;
 //   overflow-y: auto !important;
 // }
-
+* {
+  font-family: 'Montserrat';
+}
 .display-4 {
     font-weight: 500;
     font-size: 16px;
@@ -339,6 +341,12 @@
   .exam-btn-mv{
     display: none;
   }
+  .back-btn-mv{
+    display: none;
+  }
+  .back-btn{
+    display: block;
+  }
   
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -351,11 +359,11 @@
       // border: 1px solid red;
     }
     .basic-details-progress-bar .progress-button {
-      padding: 0;
-      font-size: 13px;
-      padding: 1px;
-      border-radius: 4px;
-      font-weight: 400;
+      font-size: 14px;
+    padding: 9px !important;
+    border-radius: 4px;
+    font-weight: 400;
+    line-height: 14px;
     }
     .basic-details-progress-bar .time-slot-btn {
       display: none;
@@ -486,6 +494,12 @@
       display: block!important;
     }
     .exam-btn{
+      display: none!important;
+    }
+    .back-btn-mv{
+      display: block!important;
+    }
+    .back-btn{
       display: none!important;
     }
   }
