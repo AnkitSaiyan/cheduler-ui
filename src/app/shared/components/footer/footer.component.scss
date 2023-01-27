@@ -30,7 +30,7 @@
   font-size: 16px;
 }
 .footer-text {
-  font-size: 18px;
+  font-size: 16px;
   // border: 1px solid red;
 }
 
@@ -102,11 +102,17 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 45px;
     margin-top: 20px;
     width: 100%;
     gap: 5px;
   }
+  .footer-bottom-margin{
+    margin-bottom: 45px;
+  }
+  .footer-guest-bottom-margin{
+    margin-bottom: 10px;
+  }
+
 }
 @media (min-width: 320px) and (max-width: 374px){
   .footer-right{

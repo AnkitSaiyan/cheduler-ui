@@ -62,7 +62,11 @@
     // height:500px;
 }
 .click-above-text{
-  font-size: 16px!important;
+  font-size: 14.5px!important;
+}
+.hello-user-text{
+  font-size: 20px!important;
+  margin: 10px 0px 0px 0px!important;
 }
 }
 @media (min-width: 180px) and (max-width: 420px) {
@@ -79,7 +83,7 @@
     // border: 1px solid red;
   }
   .hello-user-text{
-    font-size: 15px!important;
+    font-size: 20px!important;
     margin: 10px 0px 0px 0px!important;
   }
   .schedule-btn{
@@ -89,7 +93,7 @@
     display: block!important;
   }
   .click-above-text{
-    font-size: 13px!important;
+    font-size: 14.5px!important;
     font-weight: 600px!important;
     line-height: 5px!important;
   }

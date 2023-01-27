@@ -203,7 +203,7 @@ td {
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
-    background-color: white;
+    // background-color: white;
     border-radius: 8px;
     padding: 0px 5px 8px 5px;
   }
@@ -257,7 +257,7 @@ td {
   .weekly-container .weekly-content-right .opening-detail-table {
     width: 100%;
     // border: 1px solid black;
-    padding: 0;
+    padding: 10px;
     margin: 10px 0px 0px 0px;
   }
   .weekly-container .weekly-content-right .opening-section-header {
@@ -292,6 +292,6 @@ td {
     font-size: 22px!important;
   }
   .sub-header{
-    font-size: 14px!important;
+    font-size: 16px!important;
   }
 }
