@@ -37,6 +37,15 @@ dfm-footer {
     // background-color: #f4e3cf!important;
     // font-size: 14px!important;
   }
+ 
+}
+.register-menu{
+  dfm-button{
+    // border: 1px solid red!important;
+    box-shadow: none!important;
+    border: none!important;
+  }
+ 
 }
 
 @media (min-width: 180px) and (max-width: 680px) {

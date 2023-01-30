@@ -262,6 +262,7 @@
 .previous-appointment-cards{
     display: flex!important;
     flex-direction: column!important;
+    width: 100%!important;
 }
 .view-all-btn{
     display: none!important;
@@ -275,6 +276,12 @@
     justify-content: start!important;
     align-items: flex-start!important;
     // position: relative;
+}
+.card-item{
+    gap: 8px!important;
+    padding: 10px!important;
+    height: 100px!important;
+    width: 100%!important;
 }
 
 }
@@ -321,7 +328,7 @@
     }
     .appointment-exam-text-mv{
         display: block!important;
-        font-size: 14px;
+        font-size: 13px;
         padding: 0px!important;
         margin: 0px!important;
         // border: 1px solid red;
@@ -346,6 +353,8 @@
     }
     .previous-app-text{
         display: block!important;
+        margin: 20px 0px 0px 0px;
+        // border: 1px solid red;
     }
     .previous-appointment-cards{
         display: flex!important;

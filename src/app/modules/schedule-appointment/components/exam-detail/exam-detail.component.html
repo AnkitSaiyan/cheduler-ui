@@ -62,7 +62,7 @@
                   
                   (click)="removeExam(i);"
                 >
-                  <dfm-icon [name]="'trash-01'" *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"></dfm-icon>
+                  <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
               <div
                 style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
                 class="mx-2"
-                *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"
+                *ngIf="examCount().length > 1"
                 (click)="removeExam(i);"
               >
                 <dfm-icon [name]="'trash-01'"></dfm-icon>

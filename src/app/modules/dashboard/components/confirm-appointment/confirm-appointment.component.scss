@@ -166,7 +166,9 @@
 //   height: 100vh;
 //   overflow-y: auto !important;
 // }
-
+* {
+  font-family: 'Montserrat';
+}
 .display-4 {
     font-weight: 500;
     font-size: 16px;
@@ -336,6 +338,18 @@
   .appointment-hr-mv {
     display: none;
   }
+  .exam-btn-mv{
+    display: none;
+  }
+  .back-btn-mv{
+    display: none;
+  }
+  .back-btn{
+    display: block;
+  }
+  .confirm-btn-mv{
+    display: none;
+  }
   
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -348,11 +362,11 @@
       // border: 1px solid red;
     }
     .basic-details-progress-bar .progress-button {
-      padding: 0;
-      font-size: 13px;
-      padding: 1px;
-      border-radius: 4px;
-      font-weight: 400;
+      font-size: 14px;
+    padding: 9px !important;
+    border-radius: 4px;
+    font-weight: 400;
+    line-height: 14px;
     }
     .basic-details-progress-bar .time-slot-btn {
       display: none;
@@ -457,7 +471,7 @@
       display: block;
     }
     .cancel-btn-mv {
-      display: block;
+      display: block!important;
     }
     .confirm-details {
       display: flex;
@@ -478,6 +492,24 @@
   
     .pending-status {
       margin: 15px 0px 0px 0px;
+    }
+    .exam-btn-mv{
+      display: block!important;
+    }
+    .exam-btn{
+      display: none!important;
+    }
+    .back-btn-mv{
+      display: block!important;
+    }
+    .back-btn{
+      display: none!important;
+    }
+    .confirm-btn-mv{
+      display: block!important;
+    }
+    .confirm-btn{
+      display: none!important;
     }
   }
   

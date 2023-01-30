@@ -1,3 +1,6 @@
+* {
+  font-family: 'Montserrat';
+}
 .calendar-main-container {
     padding: 26px 48px;
   }
@@ -252,6 +255,9 @@
   .time-slot-btn-mv {
     display: none;
   }
+  .exam-btn-mv{
+    display: none;
+  }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     * {
@@ -264,10 +270,11 @@
       width: 100%;
     }
     .basic-details-progress-bar .progress-button {
-      font-size: 12px;
-      padding: 2.4px !important;
-      border-radius: 4px;
-      font-weight: 400;
+      font-size: 14px;
+    padding: 9px !important;
+    border-radius: 4px;
+    font-weight: 400;
+    line-height: 14px;
     }
     .basic-details-progress-bar .time-slot-btn {
       display: none;
@@ -351,11 +358,20 @@
       flex-wrap: wrap;
       margin: 0px !important;
       padding: 0px !important;
-      gap: 55px!important;
+      gap: 30px!important;
     }
     .slot-heading {
       font-size: 14px!important;
       font-weight: 700!important;
+    }
+    .exam-btn{
+      display: none!important;
+    }
+    .exam-btn-mv{
+      display: block!important;
+    }
+    .calendar-footer-section{
+      padding: 0px 20px!important;
     }
   }
   
