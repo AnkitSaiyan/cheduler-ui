@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center !important;
   flex-direction: row;
-  padding: 2px 130px 2px 130px;
+  padding: 10px 100px 10px 70px;
   background-color: #f2f4f7;
   position: fixed;
   width: 100%;
@@ -24,7 +24,8 @@
   gap: 20px;
   justify-content: space-between;
   align-items: center;
-  // margin: 5px 0px 0px 0px;
+  margin: 10px 0px 0px 0px;
+  // padding: 5px;
 }
 .register-menu {
   position: relative;
@@ -52,6 +53,9 @@
   align-items: center;
   gap: 10px;
   margin-top: 5px;
+}
+.sub-menu .sub-menu-items .existing-section-btn{
+  font-size: 15px!important;
 }
 .register-menu:hover .sub-menu {
   display: block !important;
@@ -96,6 +100,15 @@
 .register-menu {
   display: none;
 }
+.lang-btn-mv{
+  display: none;
+}
+.text-bold {
+  font-weight: 600;
+}
+.text-primary {
+  color: #531422 !important;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .nav {
@@ -103,6 +116,7 @@
     padding: 10px;
     width: 100% !important;
     // border: 1px solid red;
+    height: 70px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -150,9 +164,12 @@
     top: 40px;
   }
   .lang-btn {
-    display: block;
+    display: none;
   }
   .add-user-btn-mv {
     display: block;
+  }
+  .lang-btn-mv{
+    display: block!important;
   }
 }

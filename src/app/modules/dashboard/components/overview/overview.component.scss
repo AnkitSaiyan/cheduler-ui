@@ -1,9 +1,14 @@
-* {
-  font-family: 'Montserrat';
+
+  * {
+    font-family: 'Montserrat';
+  }
+.main{
+  // border: 1px solid red;
+  padding: 20px 250px;
 }
 .container.main {
   // border: 1px solid red;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 .primary-button {
   background-color: #531422;
@@ -33,10 +38,6 @@
   line-height: 38px;
   color: #000000;
 }
-.display-5 {
-  font-weight: 500;
-  font-size: 20px;
-}
 .click-above-text {
   font-weight: 600;
   font-size: 18px;
@@ -47,55 +48,53 @@
   height: auto;
   // border: 1px solid red;
 }
-.account-login-block{
-  font-weight: 500;
-}
-.sa-btn-mv{
+.schedule-btn-mv{
   display: none!important;
 }
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  .container.main {
-    margin-top: 80px !important;
-    width: 90%;
+  .main {
+    margin-top: 50px !important;
+    width: 100%;
     margin: auto;
-    border-radius: 4px;
-  }
-  .click-above-text{
-    font-size: 13px;
-  }
-  .sa-btn-mv{
-    display: none!important;
-  }
+    padding: 0px;
+    // height:500px;
 }
-
+.click-above-text{
+  font-size: 14.5px!important;
+}
+.hello-user-text{
+  font-size: 20px!important;
+  margin: 10px 0px 0px 0px!important;
+}
+}
 @media (min-width: 180px) and (max-width: 420px) {
   .hello-user-img {
     width: 200px;
     height: auto;
   }
-  .sa-btn-mv{
-    display: none!important;
-  }
 }
 @media (min-width: 320px) and (max-width: 374px){
   .account-login-heading{
     display: flex!important;
-    flex-direction: row!important;
-    align-items: center;
-    // gap:5px!important;
+    flex-direction: column!important;
+    gap:5px!important;
     // border: 1px solid red;
-    line-height: 10px!important;
-    font-size: 13px;
-  }
-  .sa-btn{
-    display: none!important;
-  }
-  .sa-btn-mv{
-    display: block!important;
   }
   .hello-user-text{
-    font-size: 15px!important;
+    font-size: 20px!important;
+    margin: 10px 0px 0px 0px!important;
+  }
+  .schedule-btn{
+    display: none!important;
+  }
+  .schedule-btn-mv{
+    display: block!important;
+  }
+  .click-above-text{
+    font-size: 14.5px!important;
+    font-weight: 600px!important;
+    line-height: 5px!important;
   }
 }

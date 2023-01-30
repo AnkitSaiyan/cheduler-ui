@@ -1,13 +1,17 @@
+*{
+    font-family: 'Montserrat';
+}
 .login-dashboard-content {
-    width: 100%;
+    // width: 100%;
     border-radius: 8px;
+    // border: 1px solid red;
 }
 
 .upcoming-appointments-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
 }
 
 
@@ -106,11 +110,6 @@
     font-weight: 600;
 }
 
-.small-container {
-    width: 100%;
-    margin: auto;
-}
-
 
 .previous-appointment-title {
     display: flex;
@@ -169,3 +168,195 @@
     min-width: 50px;
     border: 2px solid #b0b3b7;
 }
+.appointment-hr-mv{
+    display: none;
+}
+.appointment-exam-text{
+    display: block!important;
+}
+.appointment-exam-text-mv{
+    display: none!important;
+}
+.instructions-text-section-mv{
+    display: none!important;
+}
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+.upcoming-appointments-section{
+    width: 100%;
+    // border: 1px solid black;
+}
+.upcoming-appointments-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.upcoming-text{
+    font-size: 16px!important;
+    color: #531422;
+    text-align: left;
+    font-weight: 600;
+    margin: 0px!important;
+}
+.upcoming-appointments-details{
+    // border: 1px solid red;
+    width: 100%!important;
+    padding: 10px!important;
+    gap: 5px!important;
+}
+.upcoming-appointments-date-time{
+    // border: 1px solid red;
+    width: 100%!important;
+}
+.upcoming-appointments-btn{
+    display: none!important;
+}
+.appointment-hr{
+    display: none!important;
+}
+.appointment-hr-mv{
+    width: 100%;
+    margin: 1rem 0;
+    color: inherit;
+    border: 0;
+    border-top: 1px solid;
+    opacity: 0.25;
+    display: block!important;
+}
+.appointment-exam-text{
+    font-size: 14px!important;
+}
+.appointment-exam-text-mv{
+    display: block!important;
+    font-size: 14px;
+    padding: 0px!important;
+    margin: 0px!important;
+    // border: 1px solid red;
+    width: 100%!important;
+}
+.appointment-exam-text{
+    display: none!important;
+}
+.instructions-text-section-mv{
+    display: block!important;
+}
+.instruction-desk-view{
+    display: none!important;
+}
+.instructions-text-section-mv ul li{
+    font-size: 14px!important;
+    line-height: 22px;
+    font-weight: 500;
+}
+.instruction-text{
+    font-size: 16px;
+}
+.previous-app-text{
+    display: block!important;
+    margin: 10px 0px 0px 0px;
+    color: #531422;
+    // border: 1px solid red;
+    font-weight: 600;
+    
+}
+.previous-appointment-cards{
+    display: flex!important;
+    flex-direction: column!important;
+}
+.view-all-btn{
+    display: none!important;
+}
+.previous-appointments-date-time{
+    font-size: 13px!important;
+}
+.previous-appointment-title {
+    display: flex!important;
+    flex-direction: row!important;
+    justify-content: start!important;
+    align-items: flex-start!important;
+    // position: relative;
+}
+
+}
+@media (min-width: 320px) and (max-width: 374px){
+    .upcoming-appointments-section{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .upcoming-text{
+        font-size: 16px!important;
+        color: #531422;
+        text-align: left;
+        font-weight: 600;
+        margin: 0px!important;
+    }
+    .upcoming-appointments-details{
+        // border: 1px solid red;
+        width: 100%!important;
+        padding: 10px!important;
+        gap: 5px!important;
+    }
+    .upcoming-appointments-date-time{
+        // border: 1px solid red;
+        width: 100%!important;
+    }
+    .upcoming-appointments-btn{
+        display: none!important;
+    }
+    .appointment-hr{
+        display: none!important;
+    }
+    .appointment-hr-mv{
+        width: 100%;
+        margin: 1rem 0;
+        color: inherit;
+        border: 0;
+        border-top: 1px solid;
+        opacity: 0.25;
+        display: block!important;
+    }
+    .appointment-exam-text{
+        font-size: 14px!important;
+    }
+    .appointment-exam-text-mv{
+        display: block!important;
+        font-size: 14px;
+        padding: 0px!important;
+        margin: 0px!important;
+        // border: 1px solid red;
+        width: 100%!important;
+    }
+    .appointment-exam-text{
+        display: none!important;
+    }
+    .instructions-text-section-mv{
+        display: block!important;
+    }
+    .instruction-desk-view{
+        display: none!important;
+    }
+    .instructions-text-section-mv ul li{
+        font-size: 14px!important;
+        line-height: 22px;
+        font-weight: 500;
+    }
+    .instruction-text{
+        font-size: 16px;
+    }
+    .previous-app-text{
+        display: block!important;
+    }
+    .previous-appointment-cards{
+        display: flex!important;
+        flex-direction: column!important;
+    }
+    .view-all-btn{
+        display: none!important;
+    }
+    .previous-appointments-date-time{
+        font-size: 13px!important;
+    }
+    }
+
+

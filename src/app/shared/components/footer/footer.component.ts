@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
   url!: string;
+  isUserLoggedIn: boolean = false;
   constructor(private router: Router) { }
   
   ngOnInit(): void {
-    this.url = this.router.url 
+    this.url = this.router.url;
+    this.isUserLoggedIn = Boolean(localStorage.getItem('user'))
 
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);

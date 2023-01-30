@@ -1,20 +1,26 @@
-<div class="container">
-  <div class="basic-details-progress-bar d-flex justify-content-center mt-3">
+<div class="container py-3">
+  <div class="basic-details-progress-bar d-flex justify-content-center align-items-center">
     <div>
-      <button class="progress-button bg-success text-white">Select Exam</button>
+      <button class="progress-button bg-success text-white select-exam-bar">Select Exam</button>
+    </div>
+    <div>
+      <button class="progress-button bg-success text-white select-exam-bar-mv">Exam</button>
     </div>
     <div>
       <hr class="progress-bar-hr bg-success" />
     </div>
     <div>
-      <button class="progress-button time-slot-btn bg-success text-white">Select Time Slot</button>
-      <button class="progress-button time-slot-btn-mv bg-success text-white">Select Slot</button>
+      <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
+      <button class="progress-button bg-success text-white time-slot-btn-mv">Slot</button>
     </div>
     <div *ngIf="displayBasicDetails">
       <hr class="progress-bar-hr bg-success" />
     </div>
     <div *ngIf="displayBasicDetails">
-      <button class="progress-button bg-primary text-white">Basic Details</button>
+      <button class="progress-button bg-primary text-white basic-details-bar">Basic Details</button>
+    </div>
+    <div *ngIf="displayBasicDetails">
+      <button class="progress-button bg-primary text-white basic-details-bar-mv">Details</button>
     </div>
     <div>
       <hr class="progress-bar-hr bg-primary" />
@@ -64,7 +70,8 @@
 </div>
 
 <div class="d-flex justify-content-center mt-3">
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time"> Back </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-2"> Next </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="basic-back-btn"> Back </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/date-time" class="basic-back-btn-mv"> Back </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-3 basic-next-btn"> Next </dfm-button>
+  <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/schedule-appointment/confirm-appointment" class="mx-3 basic-next-btn-mv"> Next </dfm-button>
 </div>
-

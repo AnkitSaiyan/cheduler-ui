@@ -8,15 +8,11 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  loginUserAppointment = new BehaviorSubject<boolean>(false);   
-  url!: string;
-  constructor(private router: Router) { }
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  scheduleUserAppoointment(){
-    this.loginUserAppointment.next(true);
-    this.router.navigate(['/schedule-appointment/exam']);
-  }
+
 }

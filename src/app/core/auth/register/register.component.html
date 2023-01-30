@@ -4,11 +4,12 @@
       <div routerLink="/">
         <img src="../../../assets/images/logo.png" width="134px" height="17px" class="" />
       </div>
-      <div class="lang-btn lang-dropdown">
+      <!-- <div class="lang-btn lang-dropdown">
         <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
           {{ items.name }}
         </dfm-input-dropdown>
-      </div>
+      </div> -->
+      <div class="lang-btn-section"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
     </div>
   </div>
   <div class="d-flex login-container">
@@ -42,7 +43,7 @@
           <dfm-input
             type="text"
             size="sm"
-            label="Email"
+            label="Email*"
             placeholder="me@diflexmo.com"
             [disabled]="false"
             icon="mail-05"
@@ -53,7 +54,7 @@
         </div>
 
         <div class="p-1">
-          <dfm-input type="text" size="sm" label="Password" placeholder="Enter password" [disabled]="false" [isInvalid]="false" [readonly]="false">
+          <dfm-input type="text" size="sm" label="Password*" placeholder="Enter password" [disabled]="false" [isInvalid]="false" [readonly]="false">
           </dfm-input>
         </div>
         <div class="p-1">
@@ -73,7 +74,7 @@
           <dfm-input
             type="text"
             size="sm"
-            label="Phone number"
+            label="Phone number*"
             placeholder="Enter phone number"
             [disabled]="false"
             [isInvalid]="false"

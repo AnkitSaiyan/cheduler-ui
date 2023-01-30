@@ -1,0 +1,207 @@
+* {
+  font-family: 'Montserrat';
+}
+.exam-text-area {
+    width: 320px;
+  }
+  .add-exam-btn {
+    // border: 1px solid red;
+    text-align: left;
+    width: 100%;
+    font-size: 14px;
+    padding: 0px;
+    color: #531422;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .progress-bar-hr {
+    width: 30px;
+    height: 3px;
+    opacity: 1 !important;
+  }
+  
+  .button-design {
+    padding: 9px 17px;
+  }
+  
+  .select-exam-detail {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    color: #000000;
+  }
+  
+  .add-more {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    /* identical to box height, or 156% */
+  
+    color: #000000;
+  }
+  
+  .basic-details-progress-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .progress-button {
+    background-color: #ffff;
+    padding: 9px 15px 9px 15px;
+    border-radius: 8px;
+    color: #531422;
+    border: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .bg-primary {
+    background-color: #531422 !important;
+  }
+  
+  .left-container {
+    width: 50%;
+  }
+  
+  .right-container {
+    width: 50%;
+    padding-right: 4rem !important;
+  }
+  .time-slot-btn-mv {
+    display: none;
+  }
+  .exam {
+    display: block;
+  }
+  .exam-text-area-mv {
+    display: none !important;
+  }
+  .exam-mv {
+    display: none !important;
+  }
+  .right-container .exam-text-area {
+    display: block;
+  }
+  .select-exam-detail {
+    display: block !important;
+  }
+  .select-exam-detail-mv {
+    display: none !important;
+  }
+  .exam-next-btn-mv{
+    display: none!important;
+  }
+  .exam-next-btn{
+    display: block!important;
+  }
+  
+  // ======================Media Query for Mobile view=================
+  @media (min-width: 180px) and (max-width: 680px) {
+    .exam-main-container {
+      // background-color: #fff !important;
+      // border: 1px solid red;
+      width: 100%;
+    }
+    .basic-details-progress-bar {
+      // border: 1px solid red;
+      margin-top: 10px !important;
+      // border: 1px solid red;
+      width: 100%;
+    }
+    .basic-details-progress-bar .progress-button {
+      font-size: 12px;
+      padding: 2.4px !important;
+      border-radius: 4px;
+      font-weight: 400;
+    }
+    .basic-details-progress-bar .time-slot-btn {
+      display: none;
+    }
+    .basic-details-progress-bar .time-slot-btn-mv {
+      display: block;
+    }
+    .progress-bar-hr {
+      width: 30px;
+      height: 2px;
+      opacity: 1;
+    }
+    .main-exam-container {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      background-color: #f2f4f7;
+    }
+    .exam-container {
+      width: 100% !important;
+      // border: 1px solid blue;
+      padding: 0px !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .exam-container .left-container {
+      width: 100% !important;
+      // border: 1px solid black;
+      // background-color: #f2f4f7;
+    }
+    .exam-container .right-container {
+      width: 100% !important;
+      // border: 1px solid red;
+    }
+  
+    .exam {
+      // border: 1px solid red;
+      display: none !important;
+    }
+    .exam-text-area-mv {
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: block !important;
+      // border: 1px solid red !important;
+    }
+    .exam-text-area {
+      display: none !important;
+    }
+    .exam-mv {
+      display: block !important;
+    }
+    .right-container .select-exam-detail {
+      display: block;
+    }
+    .select-exam-detail-mv {
+      display: block !important;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .select-exam-detail {
+      display: none !important;
+    }
+    .exam-form-mv {
+      box-shadow: none !important;
+      background-color: #f2f4f7 !important;
+    }
+  
+    .add-exam {
+      background-color: #f2f4f7;
+    }
+  
+    .exam-next-btn {
+      background-color: #f2f4f7;
+    }
+    .add-exam-btn{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    .exam-next-btn{
+      display: none!important;
+    }
+    .exam-next-btn-mv{
+      display: block!important;
+    }
+  }
+  

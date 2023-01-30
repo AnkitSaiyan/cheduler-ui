@@ -56,6 +56,18 @@
   padding: 12px 12px 12px 12px;
   // gap: 3px;
 }
+.select-exam-bar-mv{
+  display: none;
+}
+.basic-details-bar-mv{
+  display: none;
+}
+.basic-back-btn-mv{
+  display: none!important;
+}
+.basic-next-btn-mv{
+  display: none!important;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .exam-main-container {
@@ -65,17 +77,17 @@
   }
   .basic-details-progress-bar {
     // border: 1px solid red;
-    margin-top: 80px !important;
+    margin-top: 60px !important;
     // border: 1px solid red;
     width: 100%;
   }
   .basic-details-progress-bar .progress-button {
-    font-size: 12px;
-    padding: 2.4px !important;
+    font-size: 14px;
+    padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
-    // background-color: #d3d3d3;
-  }
+    line-height: 14px;
+}
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
@@ -164,4 +176,35 @@
   //   display: flex !important;
   //   flex-direction: column !important;
   // }
+
+  .select-exam-bar{
+    display: none;
+  }
+  .select-exam-bar-mv{
+    display: block;
+  }
+  .basic-details-bar{
+    display: none;
+  }
+  .basic-details-bar-mv{
+    display: block;
+  }
+  .basic-back-btn-mv{
+    display: block!important;
+  }
+  .basic-next-btn-mv{
+  display: block!important;
+  }
+  .basic-back-btn{
+    display: none!important;
+  }
+  .basic-next-btn{
+    display: none!important;
+  }
 }
+
+@media (min-width: 320px) and (max-width: 374px){
+  .basic-details-progress-bar .progress-button{
+    font-size: 10.5px!important;
+  }
+  }

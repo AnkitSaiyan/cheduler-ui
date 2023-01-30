@@ -119,6 +119,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  // border: 1px solid red;
   .weekly-content-left {
     width: 50%;
     display: flex;
@@ -129,13 +130,14 @@
   }
   .weekly-content-right {
     width: 50%;
+    border-radius: 8px!important;
   }
   .opening-detail-table {
     background-color: #ffffff;
     // box-shadow: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
     margin-top: 10px;
-    padding: 16px 16px 16px 16px;
-    border-radius: 4px;
+    padding: 20px 16px 20px 16px;
+    border-radius: 8px;
   }
 }
 
@@ -171,12 +173,16 @@ table,
 th,
 td {
   border-collapse: collapse;
+  font-weight: 500;
 }
 th,
 td {
   padding: 8px;
   text-align: left;
   margin: 0;
+}
+.opening-section-header-mv{
+  display: none;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -187,7 +193,7 @@ td {
     // border: 1px solid red;
     width: 100%;
     padding: 0px 10px;
-    margin: 70px 0px 0px 0px;
+    margin: 20px 0px 0px 0px;
   }
   .radiology-section .left-section {
     width: 100%;
@@ -197,6 +203,9 @@ td {
     justify-content: space-between;
     align-items: flex-start;
     gap: 8px;
+    // background-color: white;
+    border-radius: 8px;
+    padding: 0px 5px 8px 5px;
   }
   .schedule-button {
     display: none;
@@ -218,10 +227,11 @@ td {
     height: auto;
   }
   .radiology-section .left-section .header-section {
-    font-size: 20px;
+    font-size: 26px;
     font-weight: 500;
     color: #000000;
-    margin: 20px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    // border: 1px solid red;
   }
   .radiology-section .left-section .sub-header {
     font-size: 16px;
@@ -247,11 +257,11 @@ td {
   .weekly-container .weekly-content-right .opening-detail-table {
     width: 100%;
     // border: 1px solid black;
-    padding: 0;
+    padding: 10px;
     margin: 10px 0px 0px 0px;
   }
   .weekly-container .weekly-content-right .opening-section-header {
-    font-size: 20px;
+    font-size:18px;
   }
   .weekly-container .weekly-content-right .opening-detail-table .opening-days {
     width: 50%;
@@ -263,5 +273,25 @@ td {
     // border: 1px solid red;
     font-size: 15px;
     font-weight: 500;
+  }
+  .opening-section-header{
+    display: none;
+  }
+  .opening-section-header-mv{
+    display: block!important;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #531422;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px){
+  .header-section{
+    font-size: 22px!important;
+  }
+  .sub-header{
+    font-size: 16px!important;
   }
 }

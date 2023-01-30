@@ -1,21 +1,27 @@
-<div class="exam-main-container">
-  <div class="container">
-    <div class="basic-details-progress-bar d-flex justify-content-center align-items-center mt-3">
+<!-- <div class="exam-main-container"> -->
+  <div class="container py-3">
+    <div class="basic-details-progress-bar d-flex justify-content-center align-items-center">
       <div>
-        <button class="progress-button bg-primary text-white">Select Exam</button>
+        <button class="progress-button bg-primary text-white select-exam-bar">Select Exam</button>
+      </div>
+      <div>
+        <button class="progress-button bg-primary text-white select-exam-bar-mv">Exam</button>
       </div>
       <div>
         <hr class="progress-bar-hr bg-primary" />
       </div>
       <div>
         <button class="progress-button time-slot-btn">Select Time Slot</button>
-        <button class="progress-button time-slot-btn-mv">Select Slot</button>
+        <button class="progress-button time-slot-btn-mv">Slot</button>
       </div>
       <div *ngIf="displayExamDetails">
         <hr class="progress-bar-hr bg-primary" />
       </div>
       <div *ngIf="displayExamDetails">
-        <button class="progress-button">Basic Details</button>
+        <button class="progress-button basic-details-bar">Basic Details</button>
+      </div>
+      <div *ngIf="displayExamDetails">
+        <button class="progress-button basic-details-bar-mv">Details</button>
       </div>
       <div>
         <hr class="progress-bar-hr bg-primary" />
@@ -26,13 +32,17 @@
     </div>
   </div>
   <!--Progress Bar Ends Here==============================-->
-  <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3 mt-3"
-    [formGroup]="examForm">
-    <div class="p-3 exam-container bg-white d-flex flex-row rounded p-5 shadow exam-form-mv">
+  <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3" [formGroup]="examForm">
+    <div class="exam-container bg-white d-flex flex-row p-5 shadow exam-form-mv">
       <div class="left-container">
         <div class="form-group">
-          <dfm-input-dropdown [items]="physician" (searchInput)="searchInput($event)" label="Referring Physician*"
-            placeholder="Enter physician name" size="md">
+          <dfm-input-dropdown
+            [items]="physician"
+            (searchInput)="searchInput($event)"
+            label="Referring Physician*"
+            placeholder="Enter physician name"
+            size="md"
+          >
             {{ items.name }}
           </dfm-input-dropdown>
         </div>
@@ -40,20 +50,26 @@
         <div class="input mt-4">
           <span class="select-exam-detail">Select exam(s) below</span>
           <!--========||Select Exams for Desktop view Display Starts Here||===========-->
-          <div class="exam d-flex flex-column" formArrayName="credentials">
-            <div class="exam-input d-flex" *ngFor="let creds of getControls(); let i = index">
-              <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
-                size="md">
-                {{ items.name }}
-              </dfm-input-dropdown>
-              <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
-                *ngIf="examName.value !== ''" (click)="removeExam(i); examForm.reset()">
-                <dfm-icon [name]="'trash-01'"></dfm-icon>
+          <div class="exam d-flex flex-column" formArrayName="exams">
+            <div class="exam-input d-flex" *ngFor="let creds of examCount().controls; let i = index">
+              <div [formGroupName]="i" class="d-flex">
+                <dfm-input-dropdown [items]="items" formControlName="examName" label="Exam*" placeholder="Select Exam" size="md">
+                  {{ items.name }}
+                </dfm-input-dropdown>
+                <div
+                  style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
+                  class="mx-2"
+                  
+                  (click)="removeExam(i);"
+                >
+                  <dfm-icon [name]="'trash-01'" *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"></dfm-icon>
+                </div>
               </div>
             </div>
             <div class="mt-3 add-exam-btn">
-              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left">
-                Click to add more exam </dfm-button>
+              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addExam()" class="text-left">
+                Click to add more exam
+              </dfm-button>
             </div>
           </div>
           <!--========||Select Exams for Desktop view Display Ends Here||===========-->
@@ -71,32 +87,25 @@
         <!--=========||Textarea Hidden for mobile view End||============-->
         <!--========||Select Exams for Mobile view Display Starts Here||===========-->
         <span class="select-exam-detail-mv mt-3">Select exam(s) below</span>
-        <div class="exam-mv d-flex flex-column" formArrayName="credentials">
-          <div class="exam-static d-flex">
-            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
-              size="md">
-              {{ items.name }}
-            </dfm-input-dropdown>
-            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
-              *ngIf="examName.value !== ''" (click)="resetForm()">
-              <dfm-icon [name]="'trash-01'"></dfm-icon>
-            </div>
-          </div>
-
-          <div class="exam-input d-flex" *ngFor="let creds of getControls(); let i = index">
-            <dfm-input-dropdown [items]="items" [formControl]="examName" label="Exam*" placeholder="Select Exam"
-              size="md">
-              {{ items.name }}
-            </dfm-input-dropdown>
-            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" class="mx-2"
-              *ngIf="examName.value !== ''" (click)="removeExam(i); examForm.reset()">
-              <dfm-icon [name]="'trash-01'"></dfm-icon>
+        <div class="exam-mv d-flex flex-column" formArrayName="exams">
+          <div class="exam-input d-flex" *ngFor="let creds of examCount().controls; let i = index">
+            <div [formGroupName]="i" class="d-flex">
+              <dfm-input-dropdown [items]="items" formControlName="examName" label="Exam*" placeholder="Select Exam" size="md">
+                {{ items.name }}
+              </dfm-input-dropdown>
+              <div
+                style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
+                class="mx-2"
+                *ngIf="(examForm.controls['exams']['value'][i].examName !== '' || displayRemoveLogo)"
+                (click)="removeExam(i);"
+              >
+                <dfm-icon [name]="'trash-01'"></dfm-icon>
+              </div>
             </div>
           </div>
           <!--=============||Click to add more exam button starts here||=============-->
           <div class="mt-3 add-exam-btn">
-            <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addCreds()" class="text-left">
-              Click to add more exam </dfm-button>
+            <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addExam()"> Click to add more exam </dfm-button>
             <!-- <span class="text-left" (click)="addCreds()">Click to add more exam</span> -->
           </div>
           <!--=============||Click to add more exam button ends here||=============-->
@@ -110,9 +119,9 @@
   <!--Main Exam Container Ends here===============-->
   <!--Click to add more exam section ends here-->
 
-  <div class="d-flex justify-content-center align-items-center mt-3 exam-next-btn">
-    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic"> Back </dfm-button>
-    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="mx-2"> Next
-    </dfm-button>
+  <div class="d-flex justify-content-center align-items-center mt-3">
+    <!-- <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic"> Back </dfm-button> -->
+    <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="mx-2 exam-next-btn"> Next </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/schedule-appointment/date-time" class="mx-2 exam-next-btn-mv"> Next </dfm-button>
   </div>
-</div>
+<!-- </div> -->

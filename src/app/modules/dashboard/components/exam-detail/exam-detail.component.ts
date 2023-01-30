@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class ExamDetailComponent implements OnInit {
   examForm!: FormGroup;
-  displayRemoveLogo: boolean = false;
+  displayRemoveLogo : boolean = false;
   items: any = [
     {
       name: 'Aanpasing steunzolen',
@@ -70,11 +70,10 @@ export class ExamDetailComponent implements OnInit {
   }
 
   addExam() {
-    console.log('newExam(): ', this.examForm.controls['exams']['value'][0].examName);
+    console.log('newExam(): ', this.examForm.controls['exams']);
     console.log("Adding a exam");
     this.examCount().push(this.newExam());
     this.displayRemoveLogo = true;
-
   }
   
   removeExam(i: number) {

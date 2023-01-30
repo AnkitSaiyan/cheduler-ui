@@ -247,13 +247,16 @@
   justify-content: space-between;
   gap: 5px;
 }
+.exams-category-text{
+  font-weight: 500;
+}
 
 .appointment-date-time {
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  gap: 15px !important;
+  gap: 8px;
   // border: 1px solid red;
   font-size: 14px;
   font-weight: 600;
@@ -336,6 +339,27 @@
 .appointment-hr-mv {
   display: none;
 }
+.select-exam-bar-mv{
+  display: none;
+}
+.basic-details-bar-mv{
+  display: none;
+}
+.name{
+  font-weight: 500;
+}
+.value{
+  font-weight: 500;
+}
+.confirm-btn-mv{
+  display: none!important;
+}
+.back-btn-mv{
+  display: none!important;
+}
+.back-btn2-mv{
+  display: none!important;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -344,16 +368,16 @@
   }
   .basic-details-progress-bar {
     // border: 1px solid red;
-    margin-top: 80px !important;
+    margin-top: 60px !important;
     // border: 1px solid red;
   }
   .basic-details-progress-bar .progress-button {
-    padding: 0;
-    font-size: 13px;
-    padding: 1px;
+    font-size: 14px;
+    padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
-  }
+    line-height: 14px;
+}
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
@@ -469,14 +493,70 @@
   }
   .name {
     width: 40%;
-    font-size: 14px;
+    font-size: 14px !important;
   }
   .value {
     width: 60%;
-    font-size: 14px;
+    font-size: 14px!important;
   }
 
   .pending-status {
     margin: 15px 0px 0px 0px;
   }
+  .select-exam-bar{
+    display: none;
+  }
+  .select-exam-bar-mv{
+    display: block;
+  }
+  .basic-details-bar{
+    display: none;
+  }
+  .basic-details-bar-mv{
+    display: block;
+  }
+  .appointment-date-time{
+    font-size: 13px!important;
+  }
+  .confirm-btn-mv{
+    display: block!important;
+  }
+  .confirm-btn{
+    display: none!important;
+  }
+  .back-btn-mv{
+    display: block!important;
+  }
+  .back-btn{
+    display: none!important;
+  }
+  .back-btn2{
+    display: none!important;
+  }
+  .back-btn2-mv{
+    display: block!important;
+  }
 }
+
+@media (min-width: 320px) and (max-width: 374px){
+.appointment-date-time{
+  font-size:12px!important;
+  font-weight: 500;
+  gap: 5px!important;
+}
+.appointment-img-icon{
+  width: 15px!important;
+}
+.basic-details-progress-bar .progress-button{
+    font-size: 10.5px!important;
+  }
+  .confirm-checkbox{
+    font-size: 12px!important;
+    line-height: 14px!important;
+  }
+  .confirm-checkbox{
+    font-size: 12px!important;
+    line-height: 14px!important;
+  }
+}
+ 

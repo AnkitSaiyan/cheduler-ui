@@ -40,7 +40,7 @@
       <div class="nav-brand d-flex justify-content-between align-items-center gap-2">
         <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" width="134px" height="16.54px" routerLink="/"/>
         <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'arrow-left'" class="arrow-btn" (click)="back()"></dfm-button
-        ><span class="dashboard-text">Dashboard</span>
+        ><span class="dashboard-text">{{(url === '/profile')?'Profile': (url === '/appointment')? 'Appointment': 'Dashboard'}}</span>
       </div>
       <div class="menu">
         <div class="text-primary display-4 home-hover home-menu" (click)="checkDisplayHeader()">Home</div>
