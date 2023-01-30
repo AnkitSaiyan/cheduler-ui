@@ -43,7 +43,7 @@ export class SubHeaderComponent implements OnInit {
    back() {
     this.authService.isPending.pipe(take(1)).subscribe((pendingStatus: boolean)=>{
       if(this.url === '/schedule-appointment/confirm-appointment' && pendingStatus){
-        this.router.navigate(['/schedule-appointment/overview']); 
+        this.router.navigate(['/schedule-appointment/overview']);
        }else{
          this._location.back();
        }
@@ -56,4 +56,13 @@ export class SubHeaderComponent implements OnInit {
     }
   }
 
+  public navigateToHome() {
+    this.authService.isLoggedIn$.pipe().subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.router.navigate(['/']);
+      }
+    })
+  }
 }

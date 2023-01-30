@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {Observable} from "rxjs";
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'dfm-footer',
@@ -8,12 +10,12 @@ import { Router } from '@angular/router';
 })
 export class FooterComponent implements OnInit {
   url!: string;
-  isUserLoggedIn: boolean = false;
-  constructor(private router: Router) { }
-  
+  public isUserLoggedIn$!: Observable<boolean>;
+  constructor(private router: Router, private authSvc: AuthService) { }
+
   ngOnInit(): void {
     this.url = this.router.url;
-    this.isUserLoggedIn = Boolean(localStorage.getItem('user'))
+    this.isUserLoggedIn$ = this.authSvc.isLoggedIn$;
 
     this.router.events.subscribe((data: any)=>{
       console.log('data: ', data.url);

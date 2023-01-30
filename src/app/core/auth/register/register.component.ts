@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'dfm-register',
@@ -20,14 +21,15 @@ export class RegisterComponent implements OnInit {
     }
   ];
 
-  constructor(private router : Router) { }
+  constructor(private router : Router, private authSvc: AuthService) { }
 
   ngOnInit(): void {
   }
 
   logInUser(){
-    localStorage.setItem('user', 'true');
-    this.router.navigate(['/dashboard/overview']);
+    this.authSvc.login$().pipe().subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 
 }
