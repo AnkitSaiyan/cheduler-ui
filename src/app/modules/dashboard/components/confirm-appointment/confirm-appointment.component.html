@@ -1,14 +1,15 @@
 
 <div class="basic-details-progress-bar d-flex justify-content-center" *ngIf="!isPending && !isCanceled">
     <div>
-      <button class="progress-button bg-success text-white">Select Exam</button>
+      <button class="progress-button bg-success text-white exam-btn">Select Exam</button>
+      <button class="progress-button bg-success text-white exam-btn-mv">Exam</button>
     </div>
     <div>
       <hr class="progress-bar-hr bg-success" />
     </div>
     <div>
       <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
-      <button class="progress-button bg-success text-white time-slot-btn-mv">Select Slot</button>
+      <button class="progress-button bg-success text-white time-slot-btn-mv">Slot</button>
     </div>
     <div *ngIf="displayBasicDetails">
       <hr class="progress-bar-hr bg-success" />
@@ -115,15 +116,26 @@
     </div>
   </div>
   <div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
-    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/basic" *ngIf="!isPending && !isCanceled"> Back </dfm-button>
-    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/overview" *ngIf="isCanceled"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/basic" *ngIf="!isPending && !isCanceled" class="back-btn"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/basic" *ngIf="!isPending && !isCanceled" class="back-btn-mv"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/overview" *ngIf="isCanceled"> Back </dfm-button>
   
     <dfm-button
       [color]="'primary'"
       [size]="'lg'"
       [disabled]="checkBoxStatus()"
       (click)="setPendingStatus()"
-      class="mx-3"
+      class="mx-3 confirm-btn"
+      *ngIf="!isPending && !isCanceled"
+    >
+      Confirm
+    </dfm-button>
+    <dfm-button
+      [color]="'primary'"
+      [size]="'sm'"
+      [disabled]="checkBoxStatus()"
+      (click)="setPendingStatus()"
+      class="confirm-btn-mv"
       *ngIf="!isPending && !isCanceled"
     >
       Confirm
@@ -141,7 +153,7 @@
       Cancel Appointment
     </dfm-button>
     <dfm-button [color]="'primary'" [size]="'sm'" (click)="isCanceled = true" class="mx-3 cancel-btn-mv" (click)="isCanceled = true; isPending = false">
-      Cancel Appointment
+      Cancel
     </dfm-button>
   </div>
   <div class="footer">

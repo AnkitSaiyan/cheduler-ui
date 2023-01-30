@@ -4,25 +4,26 @@
       </div>
       <div class="my-profile-section mt-3 w-100">
         <div class="my-profile-form-group bg-white">
-          <div class="form-group-container d-flex justify-content-center p-3">
+          <div class="form-group-container d-flex justify-content-center p-3 gap-4">
             <div class="form-group">
               <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"></dfm-input>
             </div>
-            <div class="form-group mx-3">
+            <div class="form-group">
               <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name"></dfm-input>
             </div>
           </div>
-          <div class="form-group-container d-flex justify-content-center p-3">
+          <div class="form-group-container d-flex justify-content-center p-3 gap-4">
             <div class="form-group">
               <dfm-input type="email" size="sm" label="Email*" placeholder="Email"></dfm-input>
             </div>
-            <div class="form-group mx-3">
+            <div class="form-group">
               <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone"></dfm-input>
             </div>
           </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
-          <dfm-button [color]="'primary'" [size]="'lg'"> Save Changes </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'lg'" class="save-change-btn"> Save Changes </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'sm'" class="save-change-btn-mv"> Save Changes </dfm-button>
         </div>
       </div>
     </div>
@@ -35,11 +36,13 @@
     <div class="my-profile-footer bg-white">
       <div class="my-profile-footer-card">
         <span class="lab-text">Lab 1</span>
-        <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true"> Revoke Access </dfm-button>
+        <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true" class="revoke-btn"> Revoke Access </dfm-button>
+        <dfm-button [color]="'primary'" [size]="'sm'" [disabled]="true" class="revoke-btn-mv"> Revoke Access </dfm-button>
       </div>
       <div class="my-profile-footer-card">
         <span class="display-4 lab-text">Lab 2</span>
-        <dfm-button [color]="'primary'" [size]="'lg'" (click)="checkRevokeStatus()" [disabled]="isrevokedPermission"> Revoke Access </dfm-button>
+        <dfm-button [color]="'primary'" [size]="'lg'" (click)="checkRevokeStatus()" [disabled]="isrevokedPermission" class="remove-enable-btn"> Revoke Access </dfm-button>
+        <dfm-button [color]="'primary'" [size]="'sm'" (click)="checkRevokeStatus()" [disabled]="isrevokedPermission" class="remove-enable-btn-mv"> Revoke Access </dfm-button>
       </div>
     </div>
     <div class="d-flex justify-content-end delete-button w-100">

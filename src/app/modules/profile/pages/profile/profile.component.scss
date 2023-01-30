@@ -104,7 +104,7 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 8px;
   flex-direction: column;
-  gap: 20px;
+  gap: 0px;
   padding: 35px;
   text-align: start;
 }
@@ -165,6 +165,15 @@
 .delete-button span{
   font-size: 14px;
 }
+.save-change-btn-mv{
+  display: none;
+}
+.revoke-btn-mv{
+  display: none!important;
+}
+.remove-enable-btn-mv{
+  display: none;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -181,12 +190,10 @@
   margin: 0px!important;
 }
 .my-profile-form-group{
-  background-color: transparent!important;
-  box-shadow: none!important;
-}
-.my-profile-form-group{
   gap: 0px!important;
   padding: 0px!important;
+  background-color: transparent!important;
+  box-shadow: none!important;
 }
 .my-profile-text{
   display: none;
@@ -197,4 +204,23 @@
 .delete-button span{
   font-size: 15px!important;
 }
+.save-change-btn-mv{
+  display: block!important;
+}
+.save-change-btn{
+  display: none!important;
+}
+.revoke-btn-mv{
+  display: block!important;
+}
+.revoke-btn{
+  display: none!important;
+}
+.remove-enable-btn-mv{
+  display: block!important;
+}
+.remove-enable-btn{
+  display: none;
+}
+
 }
