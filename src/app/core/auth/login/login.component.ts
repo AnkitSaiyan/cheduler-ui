@@ -38,7 +38,8 @@ export class LoginComponent extends DestroyableComponent implements OnInit, OnDe
 
   logInUser(){
     // this.authService.isLoggedInUser.next(true);
-    localStorage.setItem('user', 'true');
-    this.router.navigate(['/dashboard/overview']);
+    this.authService.login$().pipe().subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 }
