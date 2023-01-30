@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="(isLoggedIn$ | async) === false">
   <router-outlet></router-outlet>
   <dfm-footer></dfm-footer>
 </div>

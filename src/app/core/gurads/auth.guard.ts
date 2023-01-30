@@ -33,10 +33,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   private checkLogin(url: string): Observable<boolean> {
     console.log(url);
+
     return this.authService.isLoggedIn$.pipe(
       map((isLoggedIn) => {
+        console.log(isLoggedIn);
+
         if (!isLoggedIn) {
-          if (url.includes('schedule-appointment')) {
+          if (url.includes('schedule-appointment') || url === '/') {
             return true;
           } else {
             this.router.navigate(['/auth'], {

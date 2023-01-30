@@ -1,16 +1,17 @@
 <div class="main-container">
   <dfm-sub-header></dfm-sub-header>
-  <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex dashboard-main-container-mv d-flex flex-row justify-content-between mt-4 gap-5 px-5' : ''" >
+
+  <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex dashboard-main-container-mv justify-content-between mt-4 gap-5 px-5' : ''" >
     <div
       [ngClass]="!displaySidebar ? '' : 'sidebar-menu bg-primary sidebar-menu-shadow'"
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">
-        <div class="menu-item d-flex" routerLink="/dashboard/overview" (click)="checkUrl()">
+        <div class="menu-item d-flex" routerLink="/dashboard" (click)="checkUrl()">
           <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" />
           <span
             [ngClass]="
-              url == '/dashboard/overview' ||
+              url == '/dashboard' ||
               url == '/dashboard/exam' ||
               url == '/dashboard/date-time' ||
               url == '/dashboard/confirm-appointment'
@@ -48,11 +49,12 @@
     <!-- <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex flex-row' : ''"> -->
     <div [ngClass]="displaySidebar ? 'sidebar-menu-mv mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
       <div class="sidebar-menu-items-mv" *ngIf="displaySidebar">
-        <div class="menu-item" routerLink="/dashboard/overview" (click)="checkUrl()">
+        <div class="menu-item" routerLink="/dashboard" (click)="checkUrl()">
+          <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" width="30px" height="30px"/>
           <!-- <div style="width: 20px; height: 20px"><dfm-icon [name]="'home-03'"></dfm-icon></div> -->
           <span
             [ngClass]="
-              url == '/dashboard/overview' || url == '/dashboard/exam' || url == '/dashboard/date-time' || url == '/dashboard/confirm-appointment'
+              url == '/dashboard' || url == '/dashboard/exam' || url == '/dashboard/date-time' || url == '/dashboard/confirm-appointment'
                 ? 'display-5 text-decoration-none active-menu-mv'
                 : 'display-5 text-decoration-none'
             "
@@ -70,7 +72,7 @@
             "
           >
           <img src="../../../../../assets/images/calendar_icon.svg" alt="calendar-icon" class="logo"width="30px" height="30px" />
-        
+
         </span>
         </div>
         <div class="menu-item d-flex float-left cursor-pointer" routerLink="/profile">
