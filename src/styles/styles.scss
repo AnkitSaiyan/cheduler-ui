@@ -4,6 +4,11 @@
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 @import './themes/theme';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+
 .lang-dropdown {
   dfm-input-dropdown {
     input {
@@ -33,9 +38,6 @@ dfm-footer {
     // font-size: 14px!important;
   }
 }
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
 
 @media (min-width: 180px) and (max-width: 680px) {
 }

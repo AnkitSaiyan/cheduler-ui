@@ -27,10 +27,8 @@ export class ProfileComponent implements OnInit {
   checkRevokeStatus() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        titleText: 'Confirmation',
         bodyText: 'Are you sure you want to revoke  access to your personal information for this lab?',
         confirmButtonText: 'Proceed',
-        cancelButtonText: 'Cancel',
       } as DialogData,
     });
 
@@ -49,10 +47,8 @@ export class ProfileComponent implements OnInit {
   displayDeletePopup() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        titleText: 'Confirmation',
         bodyText: 'Are you sure you want to delete your account?',
         confirmButtonText: 'Delete',
-        cancelButtonText: 'Cancel',
       } as DialogData,
     });
 
