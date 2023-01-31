@@ -350,7 +350,9 @@
   .confirm-btn-mv{
     display: none;
   }
-  
+  .redirect-back-btn-mv{
+  display: none;
+  }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     .confirm-appointment {
@@ -510,6 +512,12 @@
     }
     .confirm-btn{
       display: none!important;
+    }
+    .redirect-back-btn{
+      display: none!important;
+    }
+    .redirect-back-btn-mv{
+      display: block!important;
     }
   }
   

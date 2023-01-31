@@ -258,6 +258,12 @@
   .exam-btn-mv{
     display: none;
   }
+  .back-btn-mv{
+    display: none;
+  }
+  .next-btn-mv{
+    display: none;
+  }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     * {
@@ -372,6 +378,18 @@
     }
     .calendar-footer-section{
       padding: 0px 20px!important;
+    }
+    .back-btn-mv{
+      display: block!important;
+    }
+    .next-btn-mv{
+      display: block!important;
+    }
+    .next-btn{
+      display: none!important;
+    }
+    .back-btn{
+      display: none!important;
     }
   }
   
