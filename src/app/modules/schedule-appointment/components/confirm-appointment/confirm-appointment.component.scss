@@ -441,7 +441,7 @@
   }
   .exams-category-text-mv {
     display: block !important;
-    font-size: 14px;
+    font-size: 13px!important;
     font-weight: 700;
   }
   .exams-category-text {
@@ -542,8 +542,8 @@
 
 @media (min-width: 320px) and (max-width: 374px){
 .appointment-date-time{
-  font-size:13px!important;
-  font-weight: 500;
+  font-size: 12px!important;
+  font-weight: 600;
   gap: 5px!important;
 }
 .appointment-img-icon{
@@ -562,6 +562,14 @@
   .confirm-checkbox{
     font-size: 12px!important;
     line-height: 14px!important;
+  }
+  .exams-category-text-mv{
+    font-size: 11px!important;
+    font-weight: 800;
+  }
+  .value{
+    font-size: 12px!important;
+    font-weight: 600!important;
   }
 }
  

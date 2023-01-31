@@ -118,8 +118,8 @@
   <div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
     <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/basic" *ngIf="!isPending && !isCanceled" class="back-btn"> Back </dfm-button>
     <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/basic" *ngIf="!isPending && !isCanceled" class="back-btn-mv"> Back </dfm-button>
-    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/overview" *ngIf="isCanceled" class="redirect-back-btn"> Back </dfm-button>
-    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/overview" *ngIf="isCanceled" class="redirect-back-btn-mv"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard" *ngIf="isCanceled" class="redirect-back-btn"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard" *ngIf="isCanceled" class="redirect-back-btn-mv"> Back </dfm-button>
   
     <dfm-button
       [color]="'primary'"

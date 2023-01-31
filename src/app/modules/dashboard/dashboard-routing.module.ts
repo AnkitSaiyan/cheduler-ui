@@ -4,15 +4,17 @@ import { AppointmentTimeDetailComponent } from './components/appointment-time-de
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
 import { OverviewComponent } from './components/overview/overview.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/dashboard.component';
+import {AuthGuard} from "../../core/gurads/auth.guard";
 
 const dashboardRoutes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'overview',
+        path: '',
         component: OverviewComponent,
       },
       {
@@ -27,6 +29,11 @@ const dashboardRoutes: Routes = [
         path: 'confirm-appointment',
         component: ConfirmAppointmentComponent,
       },
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
+      }
     ],
   },
 ];

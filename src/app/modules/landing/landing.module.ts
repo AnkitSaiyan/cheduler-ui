@@ -7,14 +7,17 @@ import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    LandingComponent,
-  ],
-  imports: [
-    CommonModule,
-    LandingRoutingModule,
-    SharedModule,
-    RouterModule
-  ]
+    declarations: [
+        LandingComponent,
+    ],
+    exports: [
+        LandingComponent
+    ],
+    imports: [
+        CommonModule,
+        LandingRoutingModule,
+        SharedModule,
+        RouterModule
+    ]
 })
 export class LandingModule { }

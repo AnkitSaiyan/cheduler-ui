@@ -1,22 +1,60 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+import {Injectable} from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree
+} from '@angular/router';
+import {map, Observable} from 'rxjs';
+import {AuthService} from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router
-  ) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let url: string = state.url;
-    return this.authService.userLoginCheck();
+  ) {
   }
-  
+
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const { url } = state;
+    return this.checkLogin(url);
+  }
+
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    const { url } = state;
+    return this.checkLogin(url);
+  }
+
+  private checkLogin(url: string): Observable<boolean> {
+    console.log(url);
+
+    return this.authService.isLoggedIn$.pipe(
+      map((isLoggedIn) => {
+        console.log(isLoggedIn);
+
+        if (!isLoggedIn) {
+          if (url.includes('schedule-appointment') || url === '/') {
+            return true;
+          } else {
+            this.router.navigate(['/auth'], {
+              queryParams: { redirectTo: url },
+            });
+          }
+        }
+
+        // Block logged-in user from accessing landing and guest appointment pages
+        if (url === '/' || url.includes('schedule-appointment')) {
+          this.router.navigate(['/dashboard']);
+        }
+
+        return isLoggedIn;
+      })
+    );
+  }
 }
