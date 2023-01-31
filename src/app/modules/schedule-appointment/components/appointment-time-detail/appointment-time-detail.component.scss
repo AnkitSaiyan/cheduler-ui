@@ -400,6 +400,9 @@
 }
 
 @media (min-width: 320px) and (max-width: 374px){
+  * {
+    font-family: 'Montserrat';
+  }
   .basic-details-progress-bar .progress-button{
     font-size: 10.5px!important;
   }
