@@ -1,8 +1,10 @@
-.nav-main-container .container {
+.nav-main-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  // border: 1px solid red;
+  height: 70px!important;
 }
 .nav-main-container .container .lang-btn {
   max-width: 80px;
@@ -12,10 +14,9 @@
 
 .login-container {
   background-color: #ffff;
-
   width: 80%;
-  margin: auto;
-  margin-top: 38px;
+  margin: auto!important;
+  // margin-top: 38px;
   display: flex;
   justify-content: space-between;
   padding: 38px 60px;
@@ -139,6 +140,7 @@
     position: absolute;
     top: 0;
     z-index: 9999;
+    height: 48px!important;
   }
   .nav-main-container .container img {
     margin: 0px;
@@ -170,6 +172,7 @@
   .right-section-header {
     font-size: 25px;
     color: #531422;
+    margin-top: 20px!important;
   }
   .login-container .left-container {
     display: none;
@@ -211,5 +214,11 @@
   }
   .lang-btn-section{
     display: block!important;
+  }
+  .nav-main-container .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
