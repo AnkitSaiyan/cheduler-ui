@@ -194,9 +194,9 @@
 .upcoming-text{
     font-size: 16px!important;
     color: #531422;
-    text-align: left;
+    // text-align: left;
     font-weight: 600;
-    margin: 0px!important;
+    margin: 16px 0px 0px 0px!important;
 }
 .upcoming-appointments-details{
     // border: 1px solid red;
@@ -216,7 +216,7 @@
 }
 .appointment-hr-mv{
     width: 100%;
-    margin: 1rem 0;
+    // margin: 1rem 0;
     color: inherit;
     border: 0;
     border-top: 1px solid;
@@ -253,22 +253,29 @@
 }
 .previous-app-text{
     display: block!important;
-    margin: 10px 0px 0px 0px;
+    margin: 16px 0px 0px 0px;
     color: #531422;
     // border: 1px solid red;
     font-weight: 600;
+    font-size: 17px!important;
     
 }
 .previous-appointment-cards{
     display: flex!important;
     flex-direction: column!important;
     width: 100%!important;
+    // border: 1px solid red;
+    border-radius: 8px;
+    background-color: #fff;
 }
 .view-all-btn{
     display: none!important;
 }
 .previous-appointments-date-time{
     font-size: 13px!important;
+    gap: 42px!important;
+    justify-content: flex-start;
+    // border: 1px solid red;
 }
 .previous-appointment-title {
     display: flex!important;
@@ -279,9 +286,12 @@
 }
 .card-item{
     gap: 8px!important;
-    padding: 10px!important;
+    padding: 20px!important;
     height: 100px!important;
     width: 100%!important;
+    // border: 1px solid red;
+    box-shadow: none!important;
+
 }
 
 }
@@ -292,11 +302,11 @@
         align-items: flex-start;
     }
     .upcoming-text{
-        font-size: 16px!important;
+        font-size: 17px!important;
         color: #531422;
-        text-align: left;
+        // text-align: left;
         font-weight: 600;
-        margin: 0px!important;
+        margin: 16px 0px 0px 0px!important;
     }
     .upcoming-appointments-details{
         // border: 1px solid red;
@@ -316,10 +326,7 @@
     }
     .appointment-hr-mv{
         width: 100%;
-        margin: 1rem 0;
         color: inherit;
-        border: 0;
-        border-top: 1px solid;
         opacity: 0.25;
         display: block!important;
     }
