@@ -5,6 +5,11 @@
 //   background-color: #f4e3cf;
 //   // overflow: auto;
 // }
+.display-4{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 32px;
+}
 .nav-main-container {
   display: flex;
   flex-direction: row;
@@ -18,6 +23,13 @@
   max-width: 80px;
   // background-color: transparent;
   display: none;
+}
+.navigation-section{
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .login-container {
   background-color: #ffff;
@@ -91,7 +103,10 @@
   line-height: 24px;
   color: black;
 }
-
+.register-user {
+  text-decoration: underline;
+  text-decoration-color: #531422;
+}
 .or-section {
   display: flex;
   justify-content: center;
@@ -127,7 +142,10 @@
   font-weight: 600;
 }
 .lang-btn-section{
-  display: none;
+  display: block;
+}
+.home-btn:hover{
+  cursor: pointer;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -246,5 +264,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+  .home-btn{
+    display: none!important;
   }
 }

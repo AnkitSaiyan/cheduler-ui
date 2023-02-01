@@ -1,44 +1,9 @@
-<!-- <div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/') || url !== '/'">
-  <div class="container-fluid">
-    <div class="navbar">
-      <div class="nav-brand">
-        <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" width="134px" height="16.54px" />
-      </div>
-      <div class="menu">
-        <div class="text-primary display-4 home-hover" routerLink="/">Home</div>
-        <div class="text-primary display-4 mx-3" *ngIf="!displayRegisterButton">
-          <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" routerLink="/auth/register"> Register </dfm-button>
-        </div>
-        <div><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="small-container mt-32">
-    <div class="header-container mt-40">
-      <div class="container-left">
-        <span class="display-5 text-primary">Welcome to Radiology</span><br />
-        <span class="text-primary mt-10 display-3">Schedule your appointment with us</span>
-        <p class="text-primary display-4 mt-3">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?
-        </p>
-      </div>
-      <div class="container-right">
-        <div class="container-right-img">
-          <img src="../../../../assets/images/image_18.png" alt="user-holding-a-phone-img" width="250px" height="auto" />
-        </div>
-      </div>
-    </div>
-  </div>
-   <dfm-footer></dfm-footer> --><!--this should be commented-->
-<!--</div> -->
-
-<!-- ============================ -->
 
 <div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/' && !displayRegisterButton) || url !== '/'">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar">
       <div class="nav-brand d-flex justify-content-between align-items-center gap-2">
-        <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" class="pointer" width="134px" height="16.54px" (click)="navigateToHome()">
+        <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" class="pointer" width="134px" height="18px" (click)="navigateToHome()">
         <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'arrow-left'" class="arrow-btn" (click)="back()"></dfm-button
         ><span class="dashboard-text">{{(url === '/profile')?'Profile': (url === '/appointment')? 'Appointment': 'Dashboard'}}</span>
       </div>
@@ -68,9 +33,9 @@
   <div class="small-container mt-32">
     <div class="header-container mt-40">
       <div class="container-left">
-        <span class="display-5 text-primary">Welcome to Radiology</span><br />
+        <span class="display-4 text-primary">Welcome to Radiology</span><br />
         <span class="text-primary mt-10 display-3">Schedule your appointment with us</span>
-        <p class="text-primary display-4 mt-3">
+        <p class="text-primary display-5 mt-3">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?
         </p>
       </div>

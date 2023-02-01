@@ -10,8 +10,8 @@ export class AppointmentTimeDetailComponent implements OnInit {
   displayAppointmentDetails: boolean = false;
   days: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  timeSlots: string[] = ['10:30-10:45', '11:00-11:15', '11:45 -00:00'];
-  timeSlots1: string[] = ['13:00-13:15', '13:30-13:45', '14:00-14:15'];
+  timeSlots: string[] = ['10:30-10:45', '11:00-11:15', '11:45 -00:00','11:30-11:45', '00:15-00:30',];
+  timeSlots1: string[] = ['13:00-13:15', '13:30-13:45', '14:00-14:15','13:15-13:30', '13:30-13:50'];
   currentDate = new Date();
   currentMonth: number = this.currentDate.getMonth();
   displayMonth: string = this.months[this.currentDate.getMonth()];

@@ -1,14 +1,19 @@
 <div class="nav-main-container">
-  <div class="container">
+  <div class="container navigation-section">
+    <div>
     <div routerLink="/">
       <img src="../../../assets/images/logo.png" width="134px" height="18px" class="" />
+    </div>
     </div>
     <!-- <div class="lang-btn lang-dropdown">
       <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
         {{ items.name }}
       </dfm-input-dropdown>
     </div> -->
+    <div class="d-flex flex-row justify-content-between align-items-center gap-3">
+          <div class="text-primary display-4 home-btn" routerLink="/">Home</div>
     <div class="lang-btn-section"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
+  </div>
   </div>
 </div>
 
@@ -27,8 +32,8 @@
   <div class="right-container">
     <div class="existing-section">
       <div class="right-section-header">Sign in</div>
-      <div class="right-subheader-section d-flex justify-content-center align-items-center dfm-gap-8">
-        <span class="new-user">New user?</span>
+      <div class="right-subheader-section d-flex justify-content-center align-items-center">
+        <span class="new-user">New user?</span>&nbsp;
         <div class="register-user">
           <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">Register </dfm-button>
         </div>
