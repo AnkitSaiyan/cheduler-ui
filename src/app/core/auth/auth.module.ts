@@ -6,12 +6,14 @@ import {SharedModule} from 'src/app/shared/shared.module';
 import {RegisterComponent} from './register/register.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LoginComponent} from "./login/login.component";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
