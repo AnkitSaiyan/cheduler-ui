@@ -9,7 +9,11 @@
     </dfm-button>
     <div class="register-menu">
       <!-- <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" class="register-btn"> Register </dfm-button> -->
-      <dfm-button [color]="'secondary'" [size]="'sm'" [leadingIcon]="'user-01'" class="button-design add-user-btn-mv"></dfm-button>
+      <!-- <dfm-button [color]="'primary'" [size]="'sm'" class="button-design add-user-btn-mv">Login</dfm-button> -->
+      <div class="d-flex flex-row justify-content-between gap-2 align-items-center">
+      <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 50px; height:25px; line-height:25px; text-align: center;"><span>Login</span></div>
+      <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 70px; height:25px; line-height:25px; text-align: center;"><span>Register</span></div>
+    </div>
       <div class="sub-menu">
         <div class="sub-menu-items">
           <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/auth/register"> Register </dfm-button>

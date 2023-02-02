@@ -3,6 +3,9 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {FormControl} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import { ModalService } from "../../services/modal.service";
+import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
+import { filter, take } from "rxjs";
 
 @Component({
   selector: 'dfm-login',
@@ -25,7 +28,7 @@ export class LoginComponent extends DestroyableComponent implements OnInit, OnDe
     }
   ];
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private modalService: ModalService) {
     super();
   }
 
@@ -40,6 +43,16 @@ export class LoginComponent extends DestroyableComponent implements OnInit, OnDe
     // this.authService.isLoggedInUser.next(true);
     this.authService.login$().pipe().subscribe(() => {
       this.router.navigate(['/dashboard']);
+    });
+  }
+  public forgotPassword(){
+    const modalRef = this.modalService.open(ForgotPasswordComponent);
+    modalRef.closed
+    .pipe(
+      filter((res: boolean) => res),
+      take(1),
+    )
+    .subscribe(() => {
     });
   }
 }

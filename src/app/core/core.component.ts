@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { filter, take } from 'rxjs';
+import { ConfirmActionModalComponent, DialogData } from '../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { AuthService } from './services/auth.service';
+import { ModalService } from './services/modal.service';
+import { NotificationDataService } from './services/notification-data.service';
 
 @Component({
   selector: 'dfm-core',
@@ -11,7 +15,7 @@ export class CoreComponent implements OnInit {
   displaySidebar: boolean = false;
   url!: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private modalSvc: ModalService, private notificationSvc: NotificationDataService, private router: Router) { }
 
   public ngOnInit(): void {
     this.url = this.router.url;
@@ -34,7 +38,24 @@ export class CoreComponent implements OnInit {
     })
   }
 
-  public logOut(){
-    this.authService.logout$();
+  public logOut() {
+    const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
+      data: {
+        bodyText: 'Are you sure you want to logout?',
+        confirmButtonText: 'Logout',
+      } as DialogData,
+    });
+
+    modalRef.closed
+      .pipe(
+        filter((res: boolean) => res),
+        take(1),
+      )
+      .subscribe(() => {
+        this.authService.logout$();
+        this.notificationSvc.showNotification('Logout Successfully');
+        localStorage.clear();
+        this.router.navigate(['/auth/login']);
+      });
   }
 }

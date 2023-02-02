@@ -255,7 +255,7 @@
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    gap: 15px !important;
+    gap:12px !important;
     // border: 1px solid red;
     font-size: 14px;
     font-weight: 600;
@@ -350,7 +350,9 @@
   .confirm-btn-mv{
     display: none;
   }
-  
+  .redirect-back-btn-mv{
+  display: none;
+  }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     .confirm-appointment {
@@ -510,6 +512,12 @@
     }
     .confirm-btn{
       display: none!important;
+    }
+    .redirect-back-btn{
+      display: none!important;
+    }
+    .redirect-back-btn-mv{
+      display: block!important;
     }
   }
   

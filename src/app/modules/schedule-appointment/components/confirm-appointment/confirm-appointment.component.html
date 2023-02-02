@@ -35,7 +35,7 @@
 <div class="container mt-3">
   <div class="lab-confirmation-status" *ngIf="isPending">
     <div class="bg-warning pending-status">
-      <span class="display-4">Confirmation from lab: pending</span>
+      <span class="display-4">Appointment Status : pending</span>
     </div>
     <div>
       <p class="display-5 text-primary">We will notify you by email once your appointment will be confirmed.</p>
@@ -46,7 +46,7 @@
 <div class="container mt-3">
   <div class="lab-confirmation-status" *ngIf="isCanceled">
     <div class="bg-warning pending-status bg-danger">
-      <span class="display-4">Your appointment has been canceled</span>
+      <span class="display-4">Appointment Status : Cancelled</span>
     </div>
   </div>
 </div>
@@ -59,15 +59,15 @@
     <hr class="bg-lite-gray patient-hr" />
     <div class="patient-detail-container mt-2">
       <div class="row d-flex justify-content-between">
-        <div class="col-md-4 name">Name:</div>
+        <div class="col-md-4 name">Name :</div>
         <div class="col-md-8 value">Johan Green</div>
       </div>
       <div class="row d-flex justify-content-between mt-2">
-        <div class="col-md-4 name">Email:</div>
+        <div class="col-md-4 name">Email :</div>
         <div class="col-md-8 value">johangreen@gmail.com</div>
       </div>
       <div class="row d-flex justify-content-between mt-2">
-        <div class="col-md-4 name">Phone No.:</div>
+        <div class="col-md-4 name">Phone No. :</div>
         <div class="col-md-8 value">22 45 79 09 45</div>
       </div>
     </div>
@@ -77,23 +77,27 @@
     <hr class="bg-lite-gray appointment-hr" />
     <div class="appointment-details-section">
       <p class="exams-category-text text-primary d-inline">
-        Exams:<span class="exams-category-text text-dark d-inline"> Levering Stuenzolean, Maatname</span>
+        Exams :<span class="exams-category-text text-dark d-inline"> Levering Stuenzolean, Maatname</span>
       </p>
       <div class="appointment-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
         <img src="../../../../../assets/images/checked-calendar-icon.svg" class="appointment-img-icon" alt="calendar-icon" width="18px" />
         <span>21 November, 2022</span>
+      </div>
+      <div class="d-flex flex-row justify-content-between gap-2">
         <img src="../../../../../assets/images/clock-icon.svg" class="appointment-img-icon" alt="clock-icon" width="18px" />
         <span>18:00 - 18:30</span>
       </div>
+      </div>
       <div class="exams-category-text-mv">
         <p class="mt-2 text-primary">
-          Exams:
+          Exams :
           <span class="text-dark">Levering Stuenzolean, Maatname</span>
         </p>
       </div>
       <hr class="bg-lite-gray appointment-hr-mv" />
-      <div class="instructions-text-section display-5 d-flex justify-content-between mt-1">
-        <span class="instruction-text">Instructions:</span>
+      <div class="instructions-text-section display-5 d-flex justify-content-between flex-row mt-1">
+        <span class="instruction-text">Instructions :</span>
         <ul>
           <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
           <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li>

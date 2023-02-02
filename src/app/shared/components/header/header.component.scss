@@ -1,3 +1,6 @@
+* {
+  font-family: 'Montserrat';
+}
 .nav {
   display: flex;
   justify-content: space-between;
@@ -12,6 +15,7 @@
   left: 50%;
   right: 50%;
   transform: translate(-50%, -50%);
+  height: 70px!important;
 }
 .display-5 {
   font-weight: 500;
@@ -26,6 +30,7 @@
   align-items: center;
   margin: 10px 0px 0px 0px;
   // padding: 5px;
+
 }
 .register-menu {
   position: relative;
@@ -116,15 +121,15 @@
     padding: 10px;
     width: 100% !important;
     // border: 1px solid red;
-    height: 60px;
+    height: 50px!important;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: -12px 0px 0px 0px;
+    // margin: 11px 0px 0px 0px;
   }
   .right-logo img{
-    margin: 12px 0px 0px 0px!important;
+    // margin: 12px 0px 0px 0px!important;
   }
   .nav .right-menu {
     display: flex;
@@ -133,6 +138,7 @@
     align-items: center;
     gap: 10px;
     // border: 1px solid red;
+    margin: 0px;
   }
   .nav .right-menu .home-btn {
     display: none;
@@ -174,5 +180,12 @@
   }
   .lang-btn-mv{
     display: block!important;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px){
+  .lang-btn-mv{
+    gap:5px!important
   }
 }

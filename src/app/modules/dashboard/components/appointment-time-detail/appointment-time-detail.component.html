@@ -90,9 +90,9 @@
         <div class="time-slot-container bg-white d-flex flex-column mt-5" *ngIf="isTimeSlotAvailable">
           <div class="time-slot d-flex flex-column gap-3">
             <div><span class="slot-heading"> Choose a time slot</span></div>
-            <div class="time-slot-mv d-flex flex-column gap-2">
-              <div class="d-flex flex-row justify-content-between align-items-center slot-timing-mv m-0 p-0">
-                <span
+            <div class="time-slot-mv d-flex flex-column justify-content-between align-items-center gap-3">
+              <div class="d-flex flex-row justify-content-between align-items-center gap-3 slot-timing-mv m-0 p-0">
+                <span class="p-2" style="width: 100px; text-align: center; font-size: 14px; font-weight: 500;"
                   *ngFor="let slots of timeSlots"
                   (click)="highLightTime(slots)"
                   [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
@@ -100,8 +100,8 @@
                   {{ slots }}
                 </span>
               </div>
-              <div class="d-flex flex-row justify-content-between align-items-center slot-timing-mv m-0 p-0">
-                <span
+              <div class="d-flex flex-row justify-content-between align-items-center gap-3 slot-timing-mv m-0 p-0">
+                <span class="p-2" style="width: 100px; text-align: center; font-size: 14  px; font-weight: 500;"
                   *ngFor="let slots of timeSlots1"
                   (click)="highLightTime(slots)"
                   [ngClass]="setSelectedSlot === slots ? 'time-detail highlight-time' : 'time-detail'"
@@ -117,7 +117,9 @@
   </div>
   
   <div class="d-flex justify-content-center mt-4">
-    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/exam"> Back </dfm-button>
-    <dfm-button [color]="'primary'" [size]="'sm'" [disabled]="(selectedDate === 0 || setSelectedSlot === '')" routerLink="/dashboard/confirm-appointment" class="mx-3"> Next </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/dashboard/exam" class="back-btn"> Back </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/dashboard/exam" class="back-btn-mv"> Back </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="(selectedDate === 0 || setSelectedSlot === '')" routerLink="/dashboard/confirm-appointment" class="mx-3 next-btn"> Next </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'sm'" [disabled]="(selectedDate === 0 || setSelectedSlot === '')" routerLink="/dashboard/confirm-appointment" class="mx-3 next-btn-mv"> Next </dfm-button>
   </div>
   

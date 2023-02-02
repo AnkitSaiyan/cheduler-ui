@@ -58,7 +58,8 @@ export class ProfileComponent implements OnInit {
         take(1),
       )
       .subscribe(() => {
-        this.notificationSvc.showNotification('Absence deleted successfully');
+        this.notificationSvc.showNotification('Account deleted successfully');
+        localStorage.clear();
         this.router.navigate(['/auth/login']);
       });
   }

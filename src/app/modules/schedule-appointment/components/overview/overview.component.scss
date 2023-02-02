@@ -37,6 +37,9 @@
   font-weight: 500;
   font-size: 20px;
 }
+.hello-user-text{
+  font-weight: 600!important;
+}
 .click-above-text {
   font-weight: 600;
   font-size: 18px;
@@ -97,5 +100,13 @@
   }
   .hello-user-text{
     font-size: 15px!important;
+  }
+  .click-above-text{
+    font-size: 14.5px!important;
+    font-weight: 600!important;
+  }
+  .account-login-block{
+    font-size: 14px!important;
+    // font-weight: 600!important;
   }
 }

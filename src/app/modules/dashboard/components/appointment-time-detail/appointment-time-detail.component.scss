@@ -140,14 +140,12 @@
         align-self: center;
         width: 72px;
         height: 45px;
-        border-radius: 50px;
+        border-radius: 24px;
         margin: 2px;
         transition-duration: 0.2s;
         border: 1px solid #531422;
         // filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.2));
         // backdrop-filter: blur(10px);
-  
-        border-radius: 24px;
         &.today {
           box-shadow: inset 0px 0px 0px 2px #531422;
         }
@@ -258,6 +256,12 @@
   .exam-btn-mv{
     display: none;
   }
+  .back-btn-mv{
+    display: none;
+  }
+  .next-btn-mv{
+    display: none;
+  }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     * {
@@ -320,11 +324,16 @@
       padding: 5px 6px;
     }
     .slot-timing-mv span {
-      width: 117px;
-      font-size: 13px;
-      padding: 8px;
+      width: 114px!important;
+      height: 100px!important;
+      font-size: 13px!important;
+      padding: 14px!important;
       font-weight: 500;
       text-align: center;
+      display: flex!important;
+      align-items: center!important;
+      justify-content: center;
+      overflow-y: hidden;
     }
     .time-detail {
       max-width: 300px !important;
@@ -354,7 +363,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      max-height: 180px;
+      max-height: 210px;
       flex-wrap: wrap;
       margin: 0px !important;
       padding: 0px !important;
@@ -372,6 +381,18 @@
     }
     .calendar-footer-section{
       padding: 0px 20px!important;
+    }
+    .back-btn-mv{
+      display: block!important;
+    }
+    .next-btn-mv{
+      display: block!important;
+    }
+    .next-btn{
+      display: none!important;
+    }
+    .back-btn{
+      display: none!important;
     }
   }
   
