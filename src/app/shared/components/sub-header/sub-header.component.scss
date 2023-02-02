@@ -186,7 +186,7 @@
     display: none;
   }
   .navbar img {
-    display: none;
+    display: block;
   }
 
   .small-container {
@@ -194,5 +194,8 @@
   }
   .language-btn {
     display: none;
+  }
+  .nav-brand{
+    margin: 3px 0px 0px 0px!important;
   }
 }

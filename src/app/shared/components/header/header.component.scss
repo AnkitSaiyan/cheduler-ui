@@ -177,5 +177,12 @@
   }
   .lang-btn-mv{
     display: block!important;
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px){
+  .lang-btn-mv{
+    gap:5px!important
   }
 }

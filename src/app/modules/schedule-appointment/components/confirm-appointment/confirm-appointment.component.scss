@@ -354,6 +354,7 @@
 }
 .value{
   font-weight: 500;
+  padding: 0px;
 }
 .confirm-btn-mv{
   display: none!important;
@@ -429,8 +430,9 @@
   .appointment-date-time {
     display: flex !important;
     flex-direction: row !important;
-    justify-content: space-between !important;
-    gap: 8px !important;
+    justify-content:flex-start !important;
+    gap: 15px !important;
+    // border: 1px solid red;
   }
   .appointment-details-section {
     display: flex;
