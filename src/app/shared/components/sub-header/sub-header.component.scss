@@ -1,3 +1,6 @@
+* {
+  font-family: 'Montserrat';
+}
 .container-fluid {
   background-color: #f4e3cf;
 }
@@ -44,6 +47,10 @@
 .text-bold {
   font-weight: 600;
 }
+.welcome-text{
+  font-size: 22px;
+  font-weight: 500;
+}
 
 .small-container {
   width: 80%;
@@ -55,11 +62,14 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  // border: 1px solid red;
+  // padding: 0px!important;
+  margin: 10px 0px 0px 0px;
 }
 
 .container-left {
   width: 50%;
-  padding: 38px 7px 12px;
+  // padding: 38px 7px 12px;
 }
 
 .container-right {
@@ -197,5 +207,8 @@
   }
   .nav-brand{
     margin: 3px 0px 0px 0px!important;
+  }
+  .sub-header-main{
+    display: none;
   }
 }

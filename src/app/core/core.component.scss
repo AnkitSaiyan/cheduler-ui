@@ -17,7 +17,7 @@
 // }
 .sidebar-menu {
   width: 15%;
-  max-height: 180px;
+  max-height: 200px;
   border-radius: 8px;
 }
 .sidebar-menu-items .menu-item img{
@@ -92,10 +92,11 @@
   gap: 5px;
   color: #f4e3cf;
   padding: 5px;
+  // border: 1px solid red;
 }
 .menu-item span{
-  font-size: 12px!important;
-  font-weight: 400;
+  font-size: 13px!important;
+  font-weight: 600!important;
 }
 
 .display-5 {
