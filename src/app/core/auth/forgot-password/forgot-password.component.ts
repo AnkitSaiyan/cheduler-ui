@@ -52,7 +52,7 @@ export class ForgotPasswordComponent extends DestroyableComponent implements OnI
   public dialogData: DialogData = {
     confirmButtonText: 'Proceed',
     cancelButtonText: 'Cancel',
-    titleText: 'Forgot Password Confirmation',
+    titleText: 'Forgot Password',
     bodyText: 'Please enter your email address to continue',
   };
   public forgotPasswordControl = new FormControl('', Validators.required);
