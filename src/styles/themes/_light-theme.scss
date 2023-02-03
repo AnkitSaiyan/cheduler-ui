@@ -1,6 +1,57 @@
+@import '../abstracts/variables';
+
 @mixin light {
   --dfm-body-bg: #{$gray-modern-100};
   --dfm-base-layout-bg: #{$gray-modern-100};
+
+  // global colors
+  --dfm-primary: #{$diflexmo-primary};
+  --dfm-secondary: #{$diflexmo-secondary};
+
+  // button colors
+  --dfm-btn-primary-bg: #{$diflexmo-primary};
+  --dfm-btn-primary-bg-hover: #{$diflexmo-primary};
+  --dfm-btn-primary-bg-focus: #{$diflexmo-primary};
+  --dfm-btn-primary-color: #{$diflexmo-primary-text};
+  --dfm-btn-primary-border: #{$diflexmo-primary};
+  --dfm-btn-primary-border-hover: #{$diflexmo-primary};
+  --dfm-btn-primary-border-focus: #{$diflexmo-primary};
+
+  --dfm-btn-secondary-bg: #{$diflexmo-secondary};
+  --dfm-btn-secondary-bg-hover: #{$diflexmo-secondary};
+  --dfm-btn-secondary-bg-focus: #{$diflexmo-secondary};
+  --dfm-btn-secondary-bg-disabled: #{$gray-modern-25};
+  --dfm-btn-secondary-color: #{$diflexmo-secondary-text};
+  --dfm-btn-secondary-color-hover: #{$diflexmo-primary};
+  --dfm-btn-secondary-color-focus: #{$diflexmo-primary};
+  --dfm-btn-secondary-border: #{$diflexmo-secondary};
+  --dfm-btn-secondary-border-hover: #{$diflexmo-secondary};
+  --dfm-btn-secondary-border-focus: #{$diflexmo-secondary};
+
+  --dfm-btn-tertiary-color: #{$diflexmo-primary};
+  --dfm-btn-tertiary-color-hover: #{$diflexmo-primary};
+  --dfm-btn-tertiary-color-focus: #{$diflexmo-primary};
+
+  --dfm-btn-link-color: #{$diflexmo-primary};
+  --dfm-btn-link-color-hover: #{$diflexmo-primary};
+  --dfm-btn-link-color-focus: #{$diflexmo-primary};
+
+  // checkbox
+  --dfm-checkbox-focus-border: #{$diflexmo-primary};
+  --dfm-checkbox-border-hover: #{$diflexmo-primary};
+
+  // radio
+  --dfm-radio-hover-border: #{$diflexmo-primary};
+
+  // dropdown
+  --dfm-input-dropdown-option-selected-color: #{$diflexmo-primary};
+
+  // input
+  --dfm-input-border-focus: #{$diflexmo-secondary};
+
+  // textarea
+  --dfm-text-area-focus-border-color: #{$diflexmo-secondary};
+
 }
 
 .light {
