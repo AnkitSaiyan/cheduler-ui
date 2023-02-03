@@ -1,8 +1,8 @@
 * {
   font-family: 'Montserrat';
 }
-.container-fluid {
-  background-color: #f4e3cf;
+.sub-header-main-container {
+  background-color:var(--dfm-primary-lighter);
 }
 
 .navbar {
@@ -41,7 +41,7 @@
 }
 
 .text-primary {
-  color: #531422 !important;
+  color:var(--dfm-primary) !important;
 }
 
 .text-bold {

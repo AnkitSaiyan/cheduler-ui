@@ -85,14 +85,14 @@
   font-size: 30px;
   line-height: 38px;
   /* identical to box height, or 127% */
-  color: #531422;
+  color:var(-dfm-primary);
 }
 
 .sub-header {
   font-weight: 500;
   font-size: 20px;
   margin-top: 16px;
-  color: #531422;
+  color:var(-dfm-primary);
 }
 
 .right-section-header {
@@ -151,9 +151,11 @@
   }
 }
 .text-primary {
-  color: #531422 !important;
+  color:var(--dfm-primary) !important;
 }
-
+.text-lite-gray{
+  color:#697586
+}
 .text-bold {
   font-weight: 600;
 }

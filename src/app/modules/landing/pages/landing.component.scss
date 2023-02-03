@@ -3,7 +3,7 @@
   font-weight: 500;
   font-size: 30px;
   line-height: 0px;
-  margin-top: 38px;
+  margin-top: 20px;
   color: #000000;
   // border: 1px solid red;
 }
@@ -13,7 +13,7 @@
   font-style: normal;
   font-weight: 600;
   font-size: 33px;
-  color: #531422;
+  color:var(--dfm-primary);
   // border: 1px solid red;
 }
 
@@ -29,9 +29,9 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: 80px;
   // border: 1px solid red;
-  padding: 0;
+  padding: 25px;
   .left-section {
     width: 50%;
     display: flex;
@@ -50,11 +50,12 @@
     justify-content: start;
   }
   .right-section img {
-    // border: 1px solid red;
+    object-fit: contain;
   }
-  // .right-section-img img {
-  //   width: 200px;
-  // }
+
+}
+.weekly-main-container{
+  padding: 35px 25px;
 }
 
 .location {
@@ -91,7 +92,7 @@
   font-weight: 600;
   font-size: 30px;
   line-height: 38px;
-  color: #531422;
+  color:var(--dfm-primary);
   // padding: 0px 0px 50px 0px;
   // border: 1px solid red;
 }
@@ -288,7 +289,7 @@ td {
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
-    color: #531422;
+    color: var(--dfm-primary);
   }
 }
 

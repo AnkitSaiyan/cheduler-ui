@@ -143,15 +143,15 @@
       border-radius: 24px;
       margin: 2px;
       transition-duration: 0.2s;
-      border: 1px solid #531422;
+      border: 1px solid var(--dfm-primary);
       // filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.2));
       // backdrop-filter: blur(10px);
       &.today {
-        box-shadow: inset 0px 0px 0px 2px #531422;
+        box-shadow: inset 0px 0px 0px 2px var(--dfm-primary);
       }
 
       &:hover {
-        background: #531422;
+        background:var(--dfm-primary);
         color: #fff;
         font-weight: 600;
       }

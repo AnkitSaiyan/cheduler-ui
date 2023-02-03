@@ -73,7 +73,7 @@
   font-size: 30px;
   line-height: 38px;
   /* identical to box height, or 127% */
-  color: #531422;
+  color: var(--dfm-primary);
   // border: 1px solid red;
 }
 
@@ -81,7 +81,7 @@
   font-weight: 500;
   font-size: 20px;
   margin-top: 16px;
-  color: #531422;
+  color:var(--dfm-primary);
 }
 
 .right-section-header {
@@ -150,7 +150,10 @@
   }
 }
 .text-primary {
-  color: #531422 !important;
+  color:var(--dfm-primary) !important;
+}
+.text-lite-gray{
+  color:#697586
 }
 
 .text-bold {
@@ -209,7 +212,7 @@
   }
   .register-user {
     text-decoration: underline;
-    text-decoration-color: #531422;
+    text-decoration-color:var(--dfm-primary);
   }
   .right-section-header {
     font-size: 25px;
