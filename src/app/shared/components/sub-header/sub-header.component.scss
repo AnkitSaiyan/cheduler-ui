@@ -143,6 +143,13 @@
 .arrow-btn {
   display: none;
 }
+.header-login-btn{
+  display: none!important;
+}
+.header-register-btn{
+  display: none!important;
+}
+
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -181,6 +188,7 @@
     // border: 1px solid black;
   }
   .sub-menu {
+    display: none!important;
     top: 40px;
   }
   .arrow-btn {
@@ -190,7 +198,7 @@
     display: none;
   }
   .add-user-btn-mv {
-    display: block;
+    display: none;
   }
   .lang-btn {
     display: none;
@@ -210,5 +218,23 @@
   }
   .sub-header-main{
     display: none;
+  }
+  .lang-btn-mv{
+    display: block!important;
+    font-size: 13px;
+  }
+  .lang-btn{
+    display: none!important;
+  }
+  .header-login-btn{
+    display: block!important;
+  }
+  .header-register-btn{
+    display: block!important;
+  }
+}
+@media (min-width: 320px) and (max-width: 374px){
+  .lang-btn-mv{
+    gap:5px!important
   }
 }
