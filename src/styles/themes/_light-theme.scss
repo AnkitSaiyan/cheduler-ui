@@ -44,6 +44,11 @@
   --dfm-btn-link-color-focus: #{$diflexmo-primary};
 
   // checkbox
+  --dfm-checkbox-hover-bg: #{$diflexmo-secondary-text};
+  --dfm-checkbox-checked-bg: #{$diflexmo-secondary-text};
+  --dfm-checkbox-disabled-bg: #{$gray-modern-100};
+  --dfm-checkbox-disabled-border: #{$gray-modern-300};
+  --dfm-checkbox-focus-shadow: #{$diflexmo-primary-text};
   --dfm-checkbox-focus-border: #{$diflexmo-primary};
   --dfm-checkbox-border-hover: #{$diflexmo-primary};
 
