@@ -207,6 +207,8 @@
 .upcoming-appointments-date-time{
     // border: 1px solid red;
     width: 100%!important;
+    justify-content: flex-start;
+    gap: 45px;
 }
 .upcoming-appointments-btn{
     display: none!important;
@@ -222,6 +224,8 @@
     border-top: 1px solid;
     opacity: 0.25;
     display: block!important;
+    padding: 0px!important;
+    margin: 5px 0px 0px 0px!important;
 }
 .appointment-exam-text{
     font-size: 14px!important;
@@ -267,6 +271,7 @@
     // border: 1px solid red;
     border-radius: 8px;
     background-color: #fff;
+    gap: 8px!important;
 }
 .view-all-btn{
     display: none!important;
@@ -286,8 +291,8 @@
 }
 .card-item{
     gap: 8px!important;
-    padding: 20px!important;
-    height: 100px!important;
+    padding: 10px 20px!important;
+    // height: 100px!important;
     width: 100%!important;
     // border: 1px solid red;
     box-shadow: none!important;
@@ -371,7 +376,7 @@
         display: none!important;
     }
     .previous-appointments-date-time{
-        font-size: 13px!important;
+        font-size: 12px!important;
     }
     }
 

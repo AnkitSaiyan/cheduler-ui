@@ -201,7 +201,7 @@
   display: none;
 }
 .profile-footer-text{
-  font-size: 15px!important;
+  font-size: 16px!important;
 }
 .delete-button span{
   font-size: 15px!important;
@@ -225,4 +225,9 @@
   display: none;
 }
 
+}
+@media (min-width: 320px) and (max-width: 374px){
+  .profile-footer-text{
+    font-size: 13px!important;
+  }
 }
