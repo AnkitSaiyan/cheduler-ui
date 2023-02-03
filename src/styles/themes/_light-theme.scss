@@ -7,6 +7,8 @@
   // global colors
   --dfm-primary: #{$diflexmo-primary};
   --dfm-secondary: #{$diflexmo-secondary};
+  --dfm-primary-lighter: #{$diflexmo-primary-text};
+  --dfm-btn-secondary-lighter: #{$diflexmo-secondary-text};
 
   // button colors
   --dfm-btn-primary-bg: #{$diflexmo-primary};
@@ -27,9 +29,15 @@
   --dfm-btn-secondary-border-hover: #{$diflexmo-secondary};
   --dfm-btn-secondary-border-focus: #{$diflexmo-secondary};
 
+  --dfm-btn-tertiary-bg: #{$diflexmo-primary-text};
+  --dfm-btn-tertiary-bg-hover: #{$diflexmo-primary};
+  --dfm-btn-tertiary-bg-focus: #{$diflexmo-primary};
+  --dfm-btn-tertiary-bg-disabled: #{$white};
   --dfm-btn-tertiary-color: #{$diflexmo-primary};
-  --dfm-btn-tertiary-color-hover: #{$diflexmo-primary};
-  --dfm-btn-tertiary-color-focus: #{$diflexmo-primary};
+  --dfm-btn-tertiary-color-hover: #{$diflexmo-primary-text};
+  --dfm-btn-tertiary-color-focus: #{$diflexmo-primary-text};
+  --dfm-btn-tertiary-color-disabled: #{$gray-modern-300};
+  --dfm-btn-tertiary-border: #{$diflexmo-primary};
 
   --dfm-btn-link-color: #{$diflexmo-primary};
   --dfm-btn-link-color-hover: #{$diflexmo-primary};
@@ -50,7 +58,6 @@
 
   // textarea
   --dfm-text-area-focus-border-color: #{$diflexmo-secondary};
-
 }
 
 .light {

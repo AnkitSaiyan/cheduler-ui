@@ -1,11 +1,11 @@
 .footer {
-  background-color: #531422;
+  background-color: var(--dfm-primary);
   padding: 0;
   margin: 0;
 }
 
 .footer-main-container {
-  background-color: #531422;
+  background-color: var(--dfm-primary);
   margin: 20px 0px 0px 0px!important;
 }
 .dashboard-footer {
@@ -19,7 +19,7 @@
   // width: 100% !important;
   // height: 88px;
   // margin-top: 20px;
-  background: #531422;
+  //background: var(--dfm-primary);
   .footer-text {
     display: flex;
     padding: 0;
