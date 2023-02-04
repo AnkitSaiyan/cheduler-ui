@@ -8,6 +8,7 @@ import { AppointmentTimeDetailComponent } from './components/appointment-time-de
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BasicDetailsComponent } from './components/basic-details/basic-details.component';
 
 
 
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppointmentTimeDetailComponent,
     ConfirmAppointmentComponent,
     OverviewComponent,
+    BasicDetailsComponent,
   ],
   imports: [
     CommonModule,

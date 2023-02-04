@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreComponent} from "./core.component";
 import {AuthGuard} from './gurads/auth.guard';
+import {PrivacyPolicyComponent} from "./privacy/privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
         loadChildren: async () => (await import('../modules/profile/profile.module')).ProfileModule,
         canActivateChild: [AuthGuard]
       },
+      {
+        path: 'privacy/policy',
+        component: PrivacyPolicyComponent,
+      }
     ],
   },
 ];

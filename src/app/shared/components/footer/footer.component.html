@@ -21,6 +21,6 @@
 </div>
 
 <div [ngClass]="(isUserLoggedIn$ | async) ? 'footer-policy footer-bottom-margin':'footer-policy footer-guest-bottom-margin'">
-  <div class="footer-left">Privacy Policy and Cookies</div>
+  <div class="footer-left" routerLink="/privacy/policy">Privacy Policy and Cookies</div>
   <div class="footer-right">Powered by Diflexmo Scheduling System</div>
 </div>
