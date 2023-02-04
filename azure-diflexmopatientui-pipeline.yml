@@ -30,6 +30,10 @@ jobs:
     inputs:
       command: 'custom'
       customCommand: 'run build --configuration=production'
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: 'cp ./staticwebapp.config.json ./dist/diflexmo-patient/staticwebapp.config.json'
   - task: AzureStaticWebApp@0
     inputs:
       skip_app_build: true
