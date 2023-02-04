@@ -37,7 +37,7 @@
   line-height: 28px;
   /* or 140% */
 
-  color: #531422 !important;
+  color: var(--dfm-primary) !important;
 }
 
 .sidebar-menu-items {
@@ -165,7 +165,7 @@
 .delete-button span{
   font-size: 14px;
   text-decoration: underline;
-  color: #531422;
+  color: var(--dfm-primary);
 }
 .save-change-btn-mv{
   display: none;

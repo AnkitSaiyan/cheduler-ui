@@ -3,7 +3,7 @@
 
   <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex dashboard-main-container-mv justify-content-between mt-4 gap-5 px-5' : ''" >
     <div
-      [ngClass]="!displaySidebar ? '' : 'sidebar-menu bg-primary sidebar-menu-shadow'"
+      [ngClass]="!displaySidebar ? '' : 'sidebar-menu sidebar-menu-shadow'"
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">

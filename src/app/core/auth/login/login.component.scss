@@ -174,7 +174,7 @@
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .nav-main-container {
-    background-color: #f4e3cf;
+    background-color:var(--dfm-primary-lighter);
     width: 100%;
     // border: 1px solid red;
     display: flex;

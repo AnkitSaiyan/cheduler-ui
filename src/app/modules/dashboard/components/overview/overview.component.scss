@@ -27,9 +27,8 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 28px;
-  /* or 140% */
-
-  color: #531422 !important;
+  color: var(--dfm-primary)!important;
+  
 }
 
 .display-4 {
