@@ -20,6 +20,9 @@ body {
 .border-r{
   border-radius: 20px;
 }
+.text-primary{
+  color: var(---dfm-primary)!important;
+}
 .text-lite-gray{
   color:#697586;
 }
@@ -75,6 +78,11 @@ dfm-footer {
     border: none!important;
   }
 
+}
+.hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 // ===================Modal Styling Starts Here==================
 .modal-header {
