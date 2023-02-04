@@ -30,35 +30,15 @@
     </div>
   </div>
 </div>
-
-
-<div class="container mt-3">
-  <div class="lab-confirmation-status" *ngIf="isPending">
-    <div class="bg-warning pending-status">
-      <span class="display-4">Appointment Status : pending</span>
-    </div>
-    <div>
-      <p class="display-5 text-primary">We will notify you by email once your appointment will be confirmed.</p>
-    </div>
-  </div>
-</div>
-
-<div class="container mt-3">
-  <div class="lab-confirmation-status" *ngIf="isCanceled">
-    <div class="bg-warning pending-status bg-danger">
-      <span class="display-4">Appointment Status : Cancelled</span>
-    </div>
-  </div>
-</div>
 <div class="container mt-3">
   <!-- <span class="text-primary appointment-text">Appointment Details</span> -->
 </div>
-<div class="container confirm-details mt-3">
-  <div class="patient-details display-4 bg-white shadow">
+<div class="container confirm-details mt-3 border-r">
+  <div class="patient-details display-4 bg-white shadow border-r">
     <span class="text-primary">Patient Details</span>
     <hr class="bg-lite-gray patient-hr" />
-    <div class="patient-detail-container mt-2">
-      <div class="row d-flex justify-content-between">
+    <div class="patient-detail-container">
+      <!-- <div class="row d-flex justify-content-between">
         <div class="col-md-4 name">Name :</div>
         <div class="col-md-8 value">Johan Green</div>
       </div>
@@ -69,23 +49,44 @@
       <div class="row d-flex justify-content-between mt-2">
         <div class="col-md-4 name">Phone No. :</div>
         <div class="col-md-8 value">22 45 79 09 45</div>
-      </div>
+      </div> -->
+      <table>
+        <tr>
+          <td>Name :</td>
+          <td>Johan Green</td>
+        </tr>
+        <tr>
+          <td>Email :</td>
+          <td>johangreen@gmail.com</td>
+          </tr>
+        <tr>
+          <td>Phone No. :</td>
+          <td>22 45 79 09 45</td>
+          </tr>
+      </table>
     </div>
   </div>
-  <div class="appointment-details display-4 bg-white shadow">
+  <div class="appointment-details display-4 bg-white shadow border-r">
+    <div class="container p-0 text-left">
+      <div class="lab-confirmation-status" *ngIf="isCanceled">
+        <div class="pending-status-cancel text-danger text-left">
+          <span class="display-4">Your Appointment has been cancelled</span>
+        </div>
+      </div>
+    </div>
     <span class="text-primary">Appointment Details</span>
     <hr class="bg-lite-gray appointment-hr" />
     <div class="appointment-details-section">
       <p class="exams-category-text text-primary d-inline">
         Exams :<span class="exams-category-text text-dark d-inline"> Levering Stuenzolean, Maatname</span>
       </p>
-      <div class="appointment-date-time">
+      <div class="appointment-date-time mt-1">
         <div class="d-flex flex-row justify-content-between gap-2">
-        <img src="../../../../../assets/images/checked-calendar-icon.svg" class="appointment-img-icon" alt="calendar-icon" width="18px" />
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
         <span>21 November, 2022</span>
       </div>
       <div class="d-flex flex-row justify-content-between gap-2">
-        <img src="../../../../../assets/images/clock-icon.svg" class="appointment-img-icon" alt="clock-icon" width="18px" />
+        <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
         <span>18:00 - 18:30</span>
       </div>
       </div>
@@ -96,12 +97,22 @@
         </p>
       </div>
       <hr class="bg-lite-gray appointment-hr-mv" />
-      <div class="instructions-text-section display-5 d-flex justify-content-between flex-row mt-1">
+      <div class="instructions-text-section display-5 mt-1">
         <span class="instruction-text">Instructions :</span>
-        <ul>
-          <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
-          <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li>
-        </ul>
+        <div>
+          *Have an empty stomach 10 hours prior to the test (Levering stuenzolen)
+          <!-- <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li> -->
+        </div>
+      </div>
+      <div class="container mt-1 p-0">
+        <div class="lab-confirmation-status" *ngIf="isPending">
+          <div class="bg-warning pending-status">
+            <span class="display-4">Appointment Status : pending</span>
+          </div>
+          <!-- <div>
+            <p class="display-5 text-primary">We will notify you by email once your appointment will be confirmed.</p>
+          </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -131,7 +142,7 @@
 <div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
   <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic" *ngIf="!isPending && !isCanceled" class="back-btn"> Back </dfm-button>
   <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/basic" *ngIf="!isPending && !isCanceled" class="back-btn-mv"> Back </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled" class="back-btn2"> Back </dfm-button>
+  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled" class="back-btn2"> Go to Dashboard </dfm-button>
   <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled" class="back-btn2-mv"> Back </dfm-button>
 
   <dfm-button

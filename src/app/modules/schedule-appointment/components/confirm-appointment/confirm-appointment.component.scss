@@ -20,7 +20,6 @@
 
 .text-primary {
   color: var(--dfm-primary) !important;
-  // padding-left: 8px;
 }
 
 .bg-lite-gray {
@@ -41,12 +40,14 @@
 }
 
 .confirm-details {
-  width: 100%;
-  // border: 1px solid red;
+  width: 70%;
+  // border: 1px solid green;
   display: flex;
   flex-direction: row;
   gap: 20px;
   justify-content: center;
+  background-color: var(--dfm-primary-lighter);
+  padding: 20px!important;
 }
 
 .patient-detail-container {
@@ -54,20 +55,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 40px;
+  }
+  
+  td, th {
+    text-align: left;
+    width: 300px;
+  }
 }
 .patient-details {
-  // max-height: 200px;
-  border-radius: 4px;
   padding: 15px 25px;
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  // border: 1px solid red;
-  width: 30%;
+  width: 50%;
 }
 .appointment-details {
-  width: 40%;
-  border-radius: 8px;
+  width: 60%;
+  // border-radius: 8px;
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
@@ -91,7 +102,7 @@
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
   // border: 1px solid red;
   font-size: 14px;
   font-weight: 600;
@@ -100,15 +111,20 @@
 .lab-confirmation-status {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+  align-items:flex-start;
+  // gap: 15px;
+  // border: 1px solid red;
+  width: 100%;
 }
 
 .pending-status {
   padding: 10px 15px 10px 15px;
   color: #fff;
   border-radius: 8px;
+  text-align: left;
+}
+.pending-status-cancel{
+  padding: 10px 0px;
 }
 
 .basic-details-progress-bar {
@@ -198,7 +214,17 @@
 .back-btn2-mv{
   display: none!important;
 }
-
+.instructions-text-section{
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
+}
+.instructions-text-section ul{
+  list-style-type: none;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .confirm-appointment {
@@ -234,6 +260,7 @@
     flex-direction: column !important;
     // border: 1px solid red;
     padding: 10px !important;
+    // background-color: var(--dfm-primary-lighter);
   }
   .confirm-details .patient-details {
     display: block;
@@ -293,9 +320,11 @@
     gap: 10px;
   }
   .instructions-text-section .instruction-text {
-    color: #531422;
     font-size: 16px;
     font-weight: 500;
+  }
+  .instructions-text-section ul{
+    list-style-type: none!important;
   }
   .confirm-btn-section {
     // border: 1px solid red;

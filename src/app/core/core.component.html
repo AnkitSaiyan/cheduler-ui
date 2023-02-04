@@ -3,7 +3,7 @@
 
   <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex dashboard-main-container-mv justify-content-between mt-4 gap-5 px-5' : ''" >
     <div
-      [ngClass]="!displaySidebar ? '' : 'sidebar-menu sidebar-menu-shadow'"
+      [ngClass]="!displaySidebar ? '' : 'sidebar-menu border-r sidebar-menu-shadow'"
       *ngIf="(url !== '/' && displaySidebar) || url !== '/'"
     >
       <div class="sidebar-menu-items" *ngIf="displaySidebar">
@@ -47,7 +47,7 @@
     <!--==============||sidebar for mobile view starts here||=====================-->
 
     <!-- <div [ngClass]="displaySidebar && url !== '/' ? 'd-flex flex-row' : ''"> -->
-    <div [ngClass]="displaySidebar ? 'sidebar-menu-mv mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
+    <div [ngClass]="displaySidebar ? 'sidebar-menu-mv border-r mx-5' : ''" *ngIf="(url !== '/' && displaySidebar) || url !== '/'">
       <div class="sidebar-menu-items-mv" *ngIf="displaySidebar">
         <div class="menu-item" routerLink="/dashboard" (click)="checkUrl()">
           <!-- <img src="../../../../../assets/images/home-icon.svg" alt="home-icon" class="logo" width="30px" height="30px"/> -->

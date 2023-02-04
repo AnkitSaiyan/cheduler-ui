@@ -33,7 +33,7 @@
   </div>
   <!--Progress Bar Ends Here==============================-->
   <div class="d-flex flex-row justify-content-center align-items-center container main-exam-container p-3" [formGroup]="examForm">
-    <div class="exam-container bg-white d-flex flex-row p-5 shadow exam-form-mv">
+    <div class="exam-container bg-white d-flex flex-row p-5 shadow exam-form-mv border-r">
       <div class="left-container">
         <div class="form-group">
           <dfm-input-dropdown
@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="mt-3 add-exam-btn">
-              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus'" (click)="addExam()" class="text-left">
+              <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'plus-circle'" (click)="addExam()" class="text-left">
                 Click to add more exam
               </dfm-button>
             </div>
