@@ -45,7 +45,7 @@
 // }
 
 .bg-primary {
-  background-color: #531422 !important;
+  background-color: var(--dfm-primary) !important;
 }
 
 .active-menu {
@@ -54,7 +54,7 @@
   cursor: pointer;
   padding: 5px;
   border: none;
-  color: #531422;
+  color: var(--dfm-primary);
   width: 100%;
   text-align: left;
   font-weight: 600!important;
