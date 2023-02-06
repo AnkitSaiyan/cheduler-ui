@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
-import {SwUpdate} from "@angular/service-worker";
-import {from} from "rxjs";
+import {SwUpdate, VersionReadyEvent} from "@angular/service-worker";
+import {filter, from, map} from "rxjs";
 import {VersioningService} from "../../../core/services/versioning.service";
 
 @Component({
@@ -23,17 +23,27 @@ export class VersioningComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    from(this.swUpdate.activateUpdate()).pipe().subscribe(() => {
-      this.isWrongVersion = true;
-      this.cd.markForCheck();
-    });
+    // from(this.swUpdate.activateUpdate()).pipe().subscribe(() => {
+    //   this.isWrongVersion = true;
+    //   this.cd.markForCheck();
+    // });
+    //
+    // this.swUpdate.activateUpdate().then(() => {
+    //   this.isWrongVersion = true;
+    //   this.cd.markForCheck();
+    // });
 
-    this.swUpdate.activateUpdate().then(() => {
-      this.isWrongVersion = true;
-      this.cd.markForCheck();
-    });
-
-    this.swUpdate.available.pipe().subscribe(() => {
+    // this.swUpdate.available.pipe().subscribe(() => {
+    //   this.isWrongVersion = true;
+    //   this.cd.markForCheck();
+    // });
+    this.swUpdate.versionUpdates.pipe(
+      filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'),
+      map(evt => ({
+        type: 'UPDATE_AVAILABLE',
+        current: evt.currentVersion,
+        available: evt.latestVersion,
+      }))).subscribe((version) => {
       this.isWrongVersion = true;
       this.cd.markForCheck();
     });
