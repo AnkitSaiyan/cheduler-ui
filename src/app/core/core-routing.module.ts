@@ -12,32 +12,26 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
       },
       {
-        path: 'dashboard',
-        loadChildren: async () => (await import('../modules/dashboard/dashboard.module')).DashboardModule,
-        canActivateChild: [AuthGuard]
+        path: 'auth',
+        loadChildren: async () => (await import('../core/auth/auth.module')).AuthModule
       },
       {
-        path: 'schedule-appointment',
+        path: 'schedule',
         loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
-        canActivateChild: [AuthGuard]
-      },
-      {
-        path: 'appointment',
-        loadChildren: async () => (await import('../modules/appointment/appointment.module')).AppointmentModule,
-        canActivateChild: [AuthGuard]
-      },
-      {
-        path: 'profile',
-        loadChildren: async () => (await import('../modules/profile/profile.module')).ProfileModule,
-        canActivateChild: [AuthGuard]
+        // canActivateChild: [AuthGuard]
       },
       {
         path: 'privacy/policy',
         component: PrivacyPolicyComponent,
-      }
+      },
+      {
+        path: '',
+        loadChildren: async () => (await import('../modules/main/main.module')).MainModule,
+        canActivateChild: [AuthGuard]
+      },
     ],
   },
 ];

@@ -17,28 +17,28 @@
     font-size: 12px;
     line-height: 20px;
   }
-  
+
   .text-primary {
     color: var(--dfm-primary) !important;
   }
-  
+
   .bg-lite-gray {
     background-color: #e3e8ef;
   }
-  
+
   .progress-bar-hr {
     width: 30px;
     height: 3px;
     opacity: 1;
   }
-  
+
   .button-design {
     padding: 9px 17px;
   }
   .container.confirm-details {
     padding: 0px;
   }
-  
+
   .confirm-details {
     width: 90%;
     // border: 1px solid green;
@@ -49,13 +49,13 @@
     background-color: var(--dfm-primary-lighter);
     padding: 20px!important;
   }
-  
+
   .patient-detail-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-  
+
     table {
       border-collapse: collapse;
       width: 100%;
@@ -63,7 +63,7 @@
       font-size: 14px;
       line-height: 40px;
     }
-    
+
     td, th {
       text-align: left;
       width: 300px;
@@ -77,14 +77,7 @@
     // border: 1px solid red;
     width: 50%;
   }
-  .appointment-details {
-    width: 60%;
-    padding: 15px 20px;
-    display: flex;
-    flex-direction: column;
-    font-weight: 700;
-  }
-  
+
   .appointment-date-time {
     display: flex;
     flex-direction: row;
@@ -94,7 +87,7 @@
     font-size: 14px;
     font-weight: 600;
   }
-  
+
   .lab-confirmation-status {
     display: flex;
     flex-direction: column;
@@ -102,7 +95,7 @@
     // justify-content: space-between;
     gap: 15px;
   }
-  
+
   .pending-status {
     padding: 10px 15px 10px 15px;
     color: #fff;
@@ -111,13 +104,13 @@
   .pending-status-cancel{
     padding: 10px 0px;
   }
-  
+
   .basic-details-progress-bar {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  
+
   .progress-button {
     background-color: #ffff;
     padding: 9px 15px 9px 15px;
@@ -128,15 +121,14 @@
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .bg-primary {
     background-color: #531422 !important;
   }
-  
+
   .checkbox-section {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     //   border: 1px solid red;
     gap: 10px;
@@ -194,7 +186,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 5px;
+    gap: 16px;
 }
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
@@ -334,7 +326,7 @@
       width: 60%;
       font-size: 14px;
     }
-  
+
     .pending-status {
       margin: 15px 0px 0px 0px;
     }
@@ -363,4 +355,3 @@
       display: block!important;
     }
   }
-  

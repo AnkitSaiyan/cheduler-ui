@@ -1,44 +1,53 @@
-* {
-  font-family: 'Montserrat';
-}
-.nav {
+//* {
+//  font-family: 'Montserrat';
+//}
+
+.nav-bar {
   display: flex;
   justify-content: space-between;
-  align-items: center !important;
-  flex-direction: row;
-  padding: 10px 100px 10px 70px;
-  //background-color: #f2f4f7;
-  background: var(--dfm-primary-lighter);
+  align-items: center;
   position: fixed;
   width: 100%;
-  margin: auto;
-  top: 23px;
-  left: 50%;
-  right: 50%;
-  transform: translate(-50%, -50%);
-  height: 70px!important;
+  background: var(--dfm-primary-lighter);
+  padding: 16px 32px;
+  min-height: 76px;
+  //padding: 10px 100px 10px 70px;
+  //background-color: #f2f4f7;
+  //background: var(--dfm-primary-lighter);
+  //position: fixed;
+  //width: 100%;
+  //margin: auto;
+  //top: 23px;
+  //left: 50%;
+  //right: 50%;
+  //transform: translate(-50%, -50%);
+  //height: 70px!important;
+
+  .nav-logo {
+    img[alt] {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--dfm-primary);
+    }
+  }
 }
 .display-5 {
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
 }
-.right-menu {
+.nav-items-right {
   display: flex;
-  flex-direction: row;
-  gap: 20px;
-  justify-content: space-between;
   align-items: center;
-  margin: 10px 0px 0px 0px;
-  // padding: 5px;
-
+  gap: 24px;
+  justify-content: space-between;
 }
+
+
 .register-menu {
   position: relative;
 }
-.right-logo {
-  margin-top: 0px !important;
-}
+
 .sub-menu {
   position: absolute;
   background-color: #fff;
@@ -131,11 +140,17 @@
   display: none!important;
 }
 // ======================Media Query for Mobile view=================
+@media (max-width: 812px) {
+  .schedule-btn {
+    display: none;
+  }
+}
+
 @media (min-width: 180px) and (max-width: 680px) {
   .container{
     width: 100%!important;
   }
-  .nav {
+  .nav-bar {
     background-color:var(--dfm-primary-lighter);
     padding: 10px;
     width: 100% !important;
@@ -147,10 +162,8 @@
     align-items: center;
     // margin: 11px 0px 0px 0px;
   }
-  .right-logo img{
-    // margin: 12px 0px 0px 0px!important;
-  }
-  .nav .right-menu {
+
+  .nav-bar .nav-items-right {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -159,19 +172,19 @@
     // border: 1px solid red;
     margin: 0px;
   }
-  .nav .right-menu .home-btn {
+  .nav-bar .nav-items-right .home-btn {
     display: none;
   }
-  .nav .right-menu .login-btn {
+  .nav-bar .nav-items-right .login-btn {
     display: none;
   }
-  .nav .right-menu .schedule-btn {
+  .nav-bar .nav-items-right .schedule-btn {
     display: none;
   }
-  .nav .right-menu .register-btn {
+  .nav-bar .nav-items-right .register-btn {
     display: none;
   }
-  .nav .right-menu .add-user-btn-mv {
+  .nav-bar .nav-items-right .add-user-btn-mv {
     display: block;
   }
   .left-menu .button-design {

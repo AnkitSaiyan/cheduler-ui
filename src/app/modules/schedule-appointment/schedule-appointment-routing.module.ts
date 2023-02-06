@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppointmentTimeDetailComponent } from './components/appointment-time-detail/appointment-time-detail.component';
+import { AppointmentSlotComponent } from './components/appointment-slot/appointment-slot.component';
 import { BasicDetailComponent } from './components/basic-detail/basic-detail.component';
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
 import { OverviewComponent } from './components/overview/overview.component';
-import { ScheduleAppointmentComponent } from './pages/schedule-appointment/schedule-appointment.component';
+import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
 
 const scheduleAppointmentRoutes: Routes = [
   {
@@ -17,7 +17,7 @@ const scheduleAppointmentRoutes: Routes = [
         component: OverviewComponent,
       },
       {
-        path: 'basic',
+        path: 'basic-details',
         component: BasicDetailComponent,
       },
       {
@@ -25,11 +25,11 @@ const scheduleAppointmentRoutes: Routes = [
         component: ExamDetailComponent,
       },
       {
-        path: 'date-time',
-        component: AppointmentTimeDetailComponent,
+        path: 'slot',
+        component: AppointmentSlotComponent,
       },
       {
-        path: 'confirm-appointment',
+        path: 'confirm',
         component: ConfirmAppointmentComponent,
       },
     ],

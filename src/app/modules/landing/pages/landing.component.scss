@@ -1,9 +1,10 @@
+
 .header-section {
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
   line-height: 0px;
-  margin-top: 20px;
+  //margin-top: 20px;
   color: #000000;
   // border: 1px solid red;
 }
@@ -29,9 +30,9 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin-top: 80px;
+  //margin-top: 80px;
   // border: 1px solid red;
-  padding: 25px;
+  padding: 24px;
   .left-section {
     width: 50%;
     display: flex;
@@ -191,15 +192,16 @@ td {
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  .container {
-    padding: 0px;
+  .landing-page {
+    padding: 24px;
   }
+
   .radiology-section {
     // border: 1px solid red;
     width: 100%;
     padding: 0px 10px;
-    margin: 20px 0px 0px 0px;
   }
+
   .radiology-section .left-section {
     width: 100%;
     // border: 1px solid blue;

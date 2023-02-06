@@ -1,94 +1,59 @@
-<div class="nav-main-container">
-  <div class="container navigation-section">
-  <div>
-    <div routerLink="/" class="pointer">
-      <img src="../../../../assets/images/Diflexmo_Logo.svg" width="134px" height="18px" class="" />
+<div class="d-flex flex-column justify-content-center align-items-center dfm-gap-16">
+  <section class="d-flex flex-column align-items-center dfm-gap-8">
+    <h2 class="font-weight-semi-bold">Sign in</h2>
+    <div class="right-subheader-section d-flex justify-content-center align-items-center">
+      <span class="new-user">New user?</span>&nbsp;
+      <div class="register-user">
+        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">Register </dfm-button>
+      </div>
     </div>
-    </div>
-    <!-- <div class="lang-btn lang-dropdown">
-      <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
-        {{ items.name }}
-      </dfm-input-dropdown>
-    </div> -->
-    <div class="d-flex flex-row justify-content-between align-items-center gap-3">
-          <div class="text-primary display-4 home-btn" routerLink="/">Home</div>
-          <div class="d-flex flex-row justify-content-between gap-2 align-items-center">
-            <div routerLink="/auth/login" style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 50px; height:25px; line-height:25px; text-align: center;" class="header-login-btn"><span>Login</span></div>
-            <div routerLink="/auth/register" style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 70px; height:25px; line-height:25px; text-align: center;" class="header-register-btn"><span>Register</span></div>
-          </div>
-    <div class="lang-btn-section"><span class="text-lite-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
-  </div>
-  </div>
-</div>
+  </section>
 
-<div class="d-flex login-container">
-  <div class="left-container">
-    <div class="header">Login</div>
-    <div class="sub-header">
-      Get access to your appointments <br />
-      and test history
+  <section class="login-form">
+    <div class="p-1">
+      <dfm-input
+        type="text"
+        size="sm"
+        label="Email*"
+        placeholder="Enter Email"
+        icon="mail-05"
+      >
+      </dfm-input>
     </div>
-    <div class="left-container-img mt-3">
-      <img src="../../../assets/images/user-with-phone.png" width="250px" height="auto" />
-    </div>
-  </div>
 
-  <div class="right-container">
-    <div class="existing-section">
-      <div class="right-section-header">Sign in</div>
-      <div class="right-subheader-section d-flex justify-content-center align-items-center">
-        <span class="new-user">New user?</span>&nbsp;
-        <div class="register-user">
-          <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">Register </dfm-button>
-        </div>
+    <div class="p-1">
+      <dfm-input
+        [type]="ipType"
+        size="sm"
+        label="Password*"
+        placeholder="Enter password"
+        [disabled]="false"
+        [isInvalid]="false"
+        [readonly]="false"
+        [formControl]="isPassword"
+      >
+      </dfm-input>
+    </div>
+    <div class="forgot-password" routerLink="../forgot">
+      <dfm-button color="link" [size]="'lg'"> Forgot Password </dfm-button>
+    </div>
+  </section>
+
+  <section class="d-flex justify-content-center flex-column align-items-center">
+    <div class="text-center">
+      <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> Sign in </dfm-button>
+    </div>
+
+    <div class="or-section">
+      <div>
+        <hr class="bg-gray" width="100px" />
+      </div>
+      <div><span>&nbsp; or &nbsp; </span></div>
+      <div>
+        <hr class="bg-gray" width="100px" />
       </div>
     </div>
 
-    <div class="login-form mt-3">
-      <div class="p-1">
-        <dfm-input
-          type="text"
-          size="sm"
-          label="Email*"
-          placeholder="Enter Email"
-          icon="mail-05"
-        >
-        </dfm-input>
-      </div>
-
-      <div class="p-1">
-        <dfm-input
-          [type]="ipType"
-          size="sm"
-          label="Password*"
-          placeholder="Enter password"
-          [disabled]="false"
-          [isInvalid]="false"
-          [readonly]="false"
-          [formControl]="isPassword"
-        >
-        </dfm-input>
-      </div>
-      <div class="forgot-password" (click)="forgotPassword()">
-        <dfm-button color="link" [size]="'lg'"> Forgot Password </dfm-button>
-      </div>
-    </div>
-    <div class="d-flex justify-content-center flex-column mt-5 align-items-center">
-      <div class="text-center">
-        <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> Sign in </dfm-button>
-      </div>
-
-      <div class="or-section mt-10">
-        <div>
-          <hr class="bg-gray" width="100px" />
-        </div>
-        <div><span>&nbsp; or &nbsp; </span></div>
-        <div>
-          <hr class="bg-gray" width="100px" />
-        </div>
-      </div>
-
-      <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview"> Schedule Appointment </dfm-button>
-    </div>
-  </div>
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview"> Schedule Appointment </dfm-button>
+  </section>
 </div>

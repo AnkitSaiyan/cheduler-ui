@@ -1,13 +1,25 @@
-.footer {
-  background-color: var(--dfm-primary);
-  padding: 0;
-  margin: 0;
+.footer-main-container {
+  //background-color: var(--dfm-primary);
 }
 
-.footer-main-container {
-  background-color: var(--dfm-primary);
-  margin: 20px 0px 0px 0px!important;
+.footer-sec-1 {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 16px;
+  background: var(--dfm-primary);
+  color: var(--dfm-primary-lighter);
+  padding: 24px 32px;
 }
+
+.footer-sec-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 24px;
+  color: var(--dfm-primary);
+}
+
 .dashboard-footer {
   display: flex;
   flex-direction: row;
@@ -26,99 +38,21 @@
     margin: 0;
   }
 }
+
 .footer-location-text {
   font-size: 16px;
 }
+
 .footer-text {
   font-size: 16px;
   // border: 1px solid red;
 }
 
-.footer-policy {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  // border: 1px solid red;
-  // margin-top: 10px;
-  padding: 8px 10px;
-  .footer-left {
-    font-weight: 500;
-    font-size: 14px;
-    text-decoration-line: underline;
-    color: var(--dfm-primary);
-    // margin-left: 8px;
-  }
-
-  .footer-right {
-    font-weight: 600;
-    font-size: 16px;
-    color:var(--dfm-primary);
-  }
-}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  .footer-main-container {
-    padding: 0px 0px !important;
-    margin: 40px 0px 0px 0px !important;
-    // border: 1px solid blue !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: center !important;
-    // border: 1px solid darkblue !important;
-  }
-  .footer-main-container .container {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-start !important;
-  }
-  .dashboard-footer {
-    // border: 1px solid red;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    // border: 1px solid white;
-    gap: 8px;
-    width: 100% !important;
-    padding: 5px 0px !important;
-    margin: 0 !important;
-  }
-  .footer-items {
-    display: flex;
-    justify-content: flex-start !important;
-    padding: 0;
-    margin: 0;
-    gap: 5px;
-  }
-
-  .footer-text {
-   font-size: 14px!important;
-  }
-  .footer-policy {
-    display: flex;
+  .footer-sec-1 {
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    width: 100%;
-    gap: 5px;
-    // border: 1px solid red;
-    // background-color: #fff;
-  }
-  .footer-bottom-margin{
-    margin-bottom: 45px;
-  }
-  .footer-guest-bottom-margin{
-    margin-bottom: 20px;
-  }
-  .footer-items span img{
-    width: 20px!important;
-  }
-
-}
-@media (min-width: 320px) and (max-width: 374px){
-  .footer-right{
-    font-size: 15px!important;
+    align-items: flex-start;
   }
 }

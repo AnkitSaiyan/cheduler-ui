@@ -1,4 +1,19 @@
-<div class="container-fluid" *ngIf="(isLoggedIn$ | async) === false">
-  <router-outlet></router-outlet>
-  <dfm-footer></dfm-footer>
+<div class="auth-container" *ngIf="(isLoggedIn$ | async) === false">
+  <div class="auth-sub-container bg-white shadow-md border-r-8">
+    <section class="auth-section-1 dfm-color-primary">
+      <h3 class="font-weight-semi-bold">{{title}}</h3>
+      <p class="text-lg font-weight-medium">
+        {{subTitle1}} <br/> {{subTitle2}}
+      </p>
+      <div class="auth-img-container">
+        <img src="../../../assets/images/user-with-phone.png" class="object-fit-contain w-100 h-100"/>
+      </div>
+    </section>
+
+    <div class="auth-divider"></div>
+
+    <section class="auth-section-2">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
 </div>

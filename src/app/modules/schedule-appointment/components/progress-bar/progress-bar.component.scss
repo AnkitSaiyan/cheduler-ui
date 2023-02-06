@@ -1,0 +1,53 @@
+.progress-bar-container {
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.progress-bar-item {
+  flex: 1;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-bar-marker {
+  transition: 200ms all linear;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  color: var(--dfm-primary);
+  border: 1px solid var(--dfm-primary);
+  cursor: pointer;
+
+  .progress-bar-tick-mark {
+    width: 75%;
+    height: 75%;
+    margin: 4px auto;
+  }
+}
+
+.progress-bar-text {
+  font-size: 0.8rem;
+}
+
+.progress-bar-line {
+  border-bottom: 1px solid gray;
+  width: 24px;
+}
+
+.progress-bar-marker-selected {
+  background: var(--dfm-primary);
+  color: white;
+}
+
+.progress-bar-marker-completed {
+  background: var(--dfm-green);
+  border-color: var(--dfm-green);
+  color: white;
+}

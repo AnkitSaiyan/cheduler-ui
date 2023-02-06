@@ -1,6 +1,4 @@
-* {
-  font-family: 'Montserrat';
-}
+
 .exam-text-area {
     width: 320px;
   }
@@ -14,39 +12,39 @@
     font-weight: 500;
     cursor: pointer;
   }
-  
+
   .progress-bar-hr {
     width: 30px;
     height: 3px;
     opacity: 1 !important;
   }
-  
+
   .button-design {
     padding: 9px 17px;
   }
-  
+
   .select-exam-detail {
     font-weight: 500;
     font-size: 16px;
     line-height: 28px;
     color: #000000;
   }
-  
+
   .add-more {
     font-weight: 500;
     font-size: 18px;
     line-height: 28px;
     /* identical to box height, or 156% */
-  
+
     color: #000000;
   }
-  
+
   .basic-details-progress-bar {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  
+
   .progress-button {
     background-color: #ffff;
     padding: 9px 15px 9px 15px;
@@ -57,15 +55,15 @@
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .bg-primary {
     background-color: #531422 !important;
   }
-  
+
   .left-container {
     width: 50%;
   }
-  
+
   .right-container {
     width: 50%;
     padding-right: 4rem !important;
@@ -103,7 +101,7 @@
   .exam-btn-mv{
     display: none!important;
   }
-  
+
   // ======================Media Query for Mobile view=================
   @media (min-width: 180px) and (max-width: 680px) {
     *{font-family: 'Montserrat'};
@@ -159,7 +157,7 @@
       width: 100% !important;
       // border: 1px solid red;
     }
-  
+
     .exam {
       // border: 1px solid red;
       display: none !important;
@@ -192,11 +190,11 @@
       box-shadow: none !important;
       background-color: #f2f4f7 !important;
     }
-  
+
     .add-exam {
       background-color: #f2f4f7;
     }
-  
+
     .exam-next-btn {
       background-color: #f2f4f7;
     }
@@ -218,4 +216,3 @@
       display: block!important;
     }
   }
-  

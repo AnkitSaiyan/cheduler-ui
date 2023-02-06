@@ -15,35 +15,12 @@ export interface DialogData {
 
 @Component({
   selector: 'dfm-forgot-password',
-  template: `
-    <div #content class="bg-white rounded-4 confirm-action-modal">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ dialogData.titleText }}</h5>
-        <dfm-button-icon color="tertiary-gray" icon="x-close" (click)="close(false)"></dfm-button-icon>
-      </div>
-
-      <div class="modal-body">
-        <p class="dfm-m-0">{{ dialogData.bodyText }}</p>
-        <dfm-input [formControl]="forgotPasswordControl" size="md" placeholder="Enter Email"></dfm-input>
-      </div>
-
-      <div class="modal-footer">
-        <dfm-button color="secondary" size="md" (click)="close(false)">{{ dialogData.cancelButtonText }}</dfm-button>
-        <dfm-button color="primary" size="md" (click)="close(true)">{{ dialogData.confirmButtonText }}</dfm-button>
-      </div>
-    </div>
-  `,
+  templateUrl: `forgot-password.component.html`,
   styles: [
     `
-      @media (max-width: 680px) {
-        .confirm-action-modal {
-          margin: auto 16px;
-        }
-
-        dfm-button {
-          height: 44px;
-          flex: 1;
-        }
+      .reset-password-container {
+        margin: auto 0;
+        padding: 0 16px;
       }
     `,
   ],
@@ -62,7 +39,7 @@ export class ForgotPasswordComponent extends DestroyableComponent implements OnI
   }
 
   public ngOnInit() {
-   
+
   }
 
   public override ngOnDestroy() {
