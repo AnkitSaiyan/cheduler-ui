@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of, startWith, Subject, switchMap} from 'rxjs';
 import {Router} from "@angular/router";
+import {ScheduleAppointmentService} from "./schedule-appointment.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
 
   private refreshLoginStatus$$ = new Subject<void>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private scheduleAppointmentSvc: ScheduleAppointmentService) {
   }
 
   public login$(): Observable<any> {
@@ -27,6 +28,7 @@ export class AuthService {
   public logout$(redirect = true): Observable<{}> {
     this.clearLocalStorage();
     this.refreshLoginStatus$$.next();
+    this.scheduleAppointmentSvc.resetDetails();
     return this.navigateToAuth$(redirect);
   }
 
