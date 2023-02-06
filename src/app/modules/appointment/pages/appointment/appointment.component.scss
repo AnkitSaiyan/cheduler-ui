@@ -10,8 +10,10 @@
 .upcoming-appointments-section {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    // border: 1px solid red;
 }
 
 
@@ -35,14 +37,17 @@
 
 .upcoming-appointments-details {
     padding: 5px;
-    border-radius: 8px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    // border-radius: 8px;
+    // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 100px;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 30px;
     gap: 20px;
+    // border: 1px solid red;
+    font-weight: 600;
+    width: 70%;
 }
 
 .upcoming-appointments-date-time {
@@ -51,8 +56,27 @@
     justify-content: space-between;
     align-items: center;
     gap: 8px;
+    font-weight: 600;
 }
-
+.instruction-details{
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+.lab-confirmation-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    // justify-content: space-between;
+    gap: 15px;
+  }
+  .pending-status {
+    padding: 10px 15px 10px 15px;
+    color: #fff;
+    border-radius: 8px;
+  }
 
 .sidebar-menu {
     width: 20%;
@@ -114,8 +138,8 @@
 .previous-appointment-title {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    position: relative;
+    justify-content:space-between;
+    // position: relative;
 }
 
 
@@ -129,8 +153,10 @@
     transition: .2s all ease;
     text-decoration: underline;
 }
-
-
+.previous-appointment-container{
+    // border: 1px solid red;
+    padding: 20px;
+}
 .previous-appointment-cards {
     display: flex;
     flex-direction: row;
@@ -141,11 +167,12 @@
 
 .card-item {
     padding: 20px;
-    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    // box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    background-color: var(--dfm-body-bg);
 }
 
 .previous-appointments-date-time {
@@ -157,9 +184,9 @@
 }
 
 .view-all-btn {
-    position: absolute;
-    top: 0;
-    margin-left: 803px;
+    // position: absolute;
+    // top: 0;
+    // margin-left: 803px;
 }
 
 .bg-lite-gray {
@@ -173,12 +200,16 @@
 }
 .appointment-exam-text{
     display: block!important;
+    font-weight: 600;
 }
 .appointment-exam-text-mv{
     display: none!important;
 }
 .instructions-text-section-mv{
     display: none!important;
+}
+.upcoming-text{
+    font-weight: 600;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -193,7 +224,6 @@
 }
 .upcoming-text{
     font-size: 16px!important;
-    color: #531422;
     // text-align: left;
     font-weight: 600;
     margin: 16px 0px 0px 0px!important;
@@ -207,6 +237,8 @@
 .upcoming-appointments-date-time{
     // border: 1px solid red;
     width: 100%!important;
+    justify-content: flex-start;
+    gap: 45px;
 }
 .upcoming-appointments-btn{
     display: none!important;
@@ -222,6 +254,8 @@
     border-top: 1px solid;
     opacity: 0.25;
     display: block!important;
+    padding: 0px!important;
+    margin: 5px 0px 0px 0px!important;
 }
 .appointment-exam-text{
     font-size: 14px!important;
@@ -267,6 +301,7 @@
     // border: 1px solid red;
     border-radius: 8px;
     background-color: #fff;
+    gap: 8px!important;
 }
 .view-all-btn{
     display: none!important;
@@ -286,8 +321,8 @@
 }
 .card-item{
     gap: 8px!important;
-    padding: 20px!important;
-    height: 100px!important;
+    padding: 10px 20px!important;
+    // height: 100px!important;
     width: 100%!important;
     // border: 1px solid red;
     box-shadow: none!important;
@@ -371,7 +406,7 @@
         display: none!important;
     }
     .previous-appointments-date-time{
-        font-size: 13px!important;
+        font-size: 12px!important;
     }
     }
 

@@ -1,63 +1,27 @@
-* {
-  font-family: 'Montserrat';
-}
-.container.main {
-  // border: 1px solid red;
-  border-radius: 8px;
-}
-.primary-button {
-  background-color: #531422;
-  padding: 9px 15px 9px 15px;
-  border-radius: 8px;
-  border: none;
-  color: #f4e3cf;
-  font-weight: 400;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 24px;
-  transition: 0.2s all ease;
+.overview-main-container {
+  max-width: 85%;
+  margin: 32px auto;
+  padding: 32px;
+  gap: 16px;
 }
 
-.text-primary {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
-  /* or 140% */
+.overview-img-container {
 
-  color: #531422 !important;
 }
 
-.display-4 {
-  font-weight: 600;
-  font-size: 30px;
-  line-height: 38px;
-  color: #000000;
-}
-.display-5 {
-  font-weight: 500;
-  font-size: 20px;
-}
-.hello-user-text{
-  font-weight: 600!important;
-}
-.click-above-text {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 5px;
-}
-.hello-user-img {
-  min-width: 100px;
-  height: auto;
-  // border: 1px solid red;
-}
-.account-login-block{
-  font-weight: 500;
-}
 .sa-btn-mv{
   display: none!important;
 }
 
 // ======================Media Query for Mobile view=================
+
+@media (max-width: 1024px) {
+  .overview-main-container {
+    margin: 32px;
+    max-width: 100%;
+  }
+}
+
 @media (min-width: 180px) and (max-width: 680px) {
   .container.main {
     margin-top: 80px !important;

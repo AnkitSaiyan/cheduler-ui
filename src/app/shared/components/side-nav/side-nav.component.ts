@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'dfm-side-nav',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authSvc: AuthService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
+  public logout() {
+    this.authSvc.logout$();
+  }
 }

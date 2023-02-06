@@ -1,116 +1,9 @@
-* {
-  font-family: 'Montserrat';
-}
-.exam-text-area {
-  width: 320px;
-  color: #364152;
-}
-.add-exam-btn {
-  // border: 1px solid red;
-  // text-align: left;
-  // width: inherit;
-  font-size: 14px;
-  padding: 0px;
-  color: #531422;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+.exam-form-container {
+  padding: 48px;
 }
 
-.progress-bar-hr {
-  width: 30px;
-  height: 3px;
-  opacity: 1 !important;
-}
-
-.button-design {
-  padding: 9px 17px;
-}
-
-.select-exam-detail {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 28px;
-  color: #364152;
-}
-
-.add-more {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 28px;
-  /* identical to box height, or 156% */
-
-  color: #000000;
-}
-
-.basic-details-progress-bar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.progress-button {
-  background-color: #ffff;
-  padding: 9px 15px 9px 15px;
-  border-radius: 8px;
-  color: #531422;
-  border: none;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  // border: 1px solid red;
-}
-
-.bg-primary {
-  background-color: #531422 !important;
-}
-
-.left-container {
-  width: 50%;
-}
-
-.right-container {
-  width: 50%;
-  padding-right: 4rem !important;
-}
-.time-slot-btn-mv {
+.exam-next-btn-mv {
   display: none;
-}
-.exam {
-  display: block;
-}
-.exam-text-area-mv {
-  display: none !important;
-}
-.exam-mv {
-  display: none !important;
-}
-.right-container .exam-text-area {
-  display: block;
-}
-.select-exam-detail {
-  display: block !important;
-}
-.select-exam-detail-mv {
-  display: none !important;
-}
-.select-exam-bar-mv{
-  display: none;
-}
-.basic-details-bar-mv{
-  display: none;
-}
-.exam-container{
-  border-radius: 8px;
-}
-.exam-next-btn-mv{
-  display: none!important;
-}
-.exam-next-btn{
-  display: block!important;
 }
 
 // ======================Media Query for Mobile view=================
@@ -144,13 +37,15 @@
     height: 2px;
     opacity: 1;
   }
+
   .main-exam-container {
     width: 100%;
     padding: 0;
     margin: 0;
     box-shadow: none;
-    background-color: #f2f4f7;
+    //background-color: #f2f4f7;
   }
+
   .exam-container {
     width: 100% !important;
     // border: 1px solid blue;

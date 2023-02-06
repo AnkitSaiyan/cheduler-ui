@@ -1,75 +1,72 @@
-<div class="container" style="position: relative;">
-<dfm-header></dfm-header>
-</div>
-<!-- <div class="dashboard-landing"> -->
-<div class="container radiology-section">
-  <div class="left-section">
-    <p class="header-section">Welcome to Radiology</p>
-    <div class="sub-header">Appointment Scheduling made easy</div>
-    <p class="p-data">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-    <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule-appointment/overview">
-      Schedule Appointment
-    </dfm-button>
-    <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule-appointment/overview">
-      Schedule Appointment
-    </dfm-button>
-  </div>
-  <div class="right-section">
-    <div class="right-section-img">
-      <img src="../../../../assets/images/image_18.png" width="519px" height="346px" />
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="weekly-container">
-    <div class="weekly-content-left">
-      <img
-        src="../../../../assets/images/undraw_online_calendar_re_wk3t.png"
-        alt="left-content-img"
-        width="450px"
-        height="300px"
-        class="schedule-image"
-      />
+<div class="landing-page d-flex flex-column align-items-center dfm-gap-32 dfm-p-32">
+  <div class="radiology-section bg-white border-r-16">
+    <div class="left-section">
+      <h2 class="m-0">Welcome to Radiology</h2>
+      <div class="sub-header">Appointment Scheduling made easy</div>
+      <p class="p-data m-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+      <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule/overview">
+        Schedule Appointment
+      </dfm-button>
+      <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule/overview">
+        Schedule Appointment
+      </dfm-button>
     </div>
 
-    <div class="weekly-content-right">
-      <div class="opening-detail-table shadow">
-      <span class="opening-section-header">Opening days</span>
-        <span class="opening-section-header-mv mx-2"> Opening days</span>
-        <table class="mt-2">
-          <tr>
-            <th>Monday</th>
-            <td>17:30 - 23:40</td>
-          </tr>
-          <tr>
-            <th>Tuesday</th>
-            <td>Closed</td>
-          </tr>
-          <tr>
-            <th>Wednesday</th>
-            <td>9:15 - 12:40, 13:00 - 20:30</td>
-          </tr>
-          <tr>
-            <th>Thursday</th>
-            <td>8:00 - 12:45</td>
-          </tr>
-          <tr>
-            <th>Friday</th>
-            <td>Closed</td>
-          </tr>
-          <tr>
-            <th>Saturday</th>
-            <td>Closed</td>
-          </tr>
-          <tr>
-            <th>Sunday</th>
-            <td>Closed</td>
-          </tr>
-        </table>
+    <div class="right-section">
+      <div class="right-section-img">
+        <img class="w-100 h-100 object-fit-contain" src="../../../../assets/images/landing-1.png" />
+      </div>
+    </div>
+  </div>
+
+  <div class="weekly-main-container bg-white border-r-16">
+    <div class="weekly-container">
+      <div class="weekly-content-left">
+        <img
+          src="../../../../assets/images/landing-2.png"
+          alt="left-content-img"
+          width="450px"
+          height="300px"
+          class="schedule-image"
+        />
+      </div>
+
+      <div class="weekly-content-right">
+        <div class="opening-detail-table shadow-sm">
+          <span class="opening-section-header">Opening days</span>
+          <span class="opening-section-header-mv mx-2"> Opening days</span>
+          <table class="mt-2">
+            <tr>
+              <th>Monday</th>
+              <td>17:30 - 23:40</td>
+            </tr>
+            <tr>
+              <th>Tuesday</th>
+              <td>Closed</td>
+            </tr>
+            <tr>
+              <th>Wednesday</th>
+              <td>9:15 - 12:40, 13:00 - 20:30</td>
+            </tr>
+            <tr>
+              <th>Thursday</th>
+              <td>8:00 - 12:45</td>
+            </tr>
+            <tr>
+              <th>Friday</th>
+              <td>Closed</td>
+            </tr>
+            <tr>
+              <th>Saturday</th>
+              <td>Closed</td>
+            </tr>
+            <tr>
+              <th>Sunday</th>
+              <td>Closed</td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- <dfm-footer></dfm-footer> -->
-<!-- </div> -->

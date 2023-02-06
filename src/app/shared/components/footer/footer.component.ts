@@ -1,26 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {Observable} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, takeUntil} from "rxjs";
 import {AuthService} from "../../../core/services/auth.service";
+import {RouterStateService} from "../../../core/services/router-state.service";
+import {DestroyableComponent} from "../destroyable/destroyable.component";
 
 @Component({
   selector: 'dfm-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
-  url!: string;
+export class FooterComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  public url!: string;
   public isUserLoggedIn$!: Observable<boolean>;
-  constructor(private router: Router, private authSvc: AuthService) { }
 
-  ngOnInit(): void {
-    this.url = this.router.url;
+  constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService) {
+    super();
+  }
+
+  public ngOnInit(): void {
+    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url);
     this.isUserLoggedIn$ = this.authSvc.isLoggedIn$;
+  }
 
-    this.router.events.subscribe((data: any)=>{
-      console.log('data: ', data.url);
-      (data && data.url)? this.url = data.url: '';
-    })
+  public override ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
 }

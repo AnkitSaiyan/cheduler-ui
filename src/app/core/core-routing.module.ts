@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CoreComponent} from "./core.component";
 import {AuthGuard} from './gurads/auth.guard';
+import {PrivacyPolicyComponent} from "./privacy/privacy-policy/privacy-policy.component";
 
 const routes: Routes = [
   {
@@ -14,23 +15,21 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: 'dashboard',
-        loadChildren: async () => (await import('../modules/dashboard/dashboard.module')).DashboardModule,
-        canActivateChild: [AuthGuard]
+        path: 'auth',
+        loadChildren: async () => (await import('../core/auth/auth.module')).AuthModule
       },
       {
-        path: 'schedule-appointment',
+        path: 'schedule',
         loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
-        canActivateChild: [AuthGuard]
+        // canActivateChild: [AuthGuard]
       },
       {
-        path: 'appointment',
-        loadChildren: async () => (await import('../modules/appointment/appointment.module')).AppointmentModule,
-        canActivateChild: [AuthGuard]
+        path: 'privacy/policy',
+        component: PrivacyPolicyComponent,
       },
       {
-        path: 'profile',
-        loadChildren: async () => (await import('../modules/profile/profile.module')).ProfileModule,
+        path: '',
+        loadChildren: async () => (await import('../modules/main/main.module')).MainModule,
         canActivateChild: [AuthGuard]
       },
     ],

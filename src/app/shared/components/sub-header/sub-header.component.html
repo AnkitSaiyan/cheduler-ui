@@ -1,50 +1,18 @@
+<div class="sub-header-main-container">
+  <div class="sub-header-sub-container d-flex justify-content-center">
+    <section class="container-left d-flex flex-column dfm-gap-8 dfm-color-primary flex-1">
+      <span class="font-weight-medium">Welcome to Radiology</span>
+      <h3>Schedule your appointment with us</h3>
+      <p class="font-weight-medium text-lg">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto,
+        dolore id?
+      </p>
+    </section>
 
-<div class="container-fluid" style="overflow: hidden" *ngIf="(url !== undefined && url !== '/' && !displayRegisterButton) || url !== '/'">
-  <div class="container">
-    <div class="navbar">
-      <div class="nav-brand d-flex justify-content-between align-items-center gap-2">
-        <img src="../../../../assets/images/logo.png" alt="Diflexmo-logo" class="pointer" width="134px" height="18px" (click)="navigateToHome()">
-        <!-- <dfm-button [color]="'link'" [size]="'sm'" [leadingIcon]="'arrow-left'" class="arrow-btn" (click)="back()"></dfm-button> -->
-        <!-- <span class="dashboard-text">{{(url === '/profile')?'Profile': (url === '/appointment')? 'Appointment': 'Dashboard'}}</span> -->
+    <section class="container-right flex-1">
+      <div class="sub-header-img-container">
+        <img src="../../../../assets/images/landing-1.png" alt="user-holding-a-phone-img" width="300px" height="auto"/>
       </div>
-      <div class="menu">
-        <div class="text-primary display-4 home-hover home-menu" (click)="checkDisplayHeader()">Home</div>
-        <div class="text-primary display-4 mx-3" *ngIf="!displayRegisterButton">
-          <div class="register-menu">
-            <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" class="register-btn"> Register </dfm-button>
-            <dfm-button [color]="'secondary'" [size]="'sm'" [leadingIcon]="'user-01'" class="button-design add-user-btn-mv"></dfm-button>
-            <div class="sub-menu">
-              <div class="sub-menu-items">
-                <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/auth/register"> Register </dfm-button>
-                <span class="display-5">Existing user? <span class="text-primary login-link" routerLink="/auth/login">Login</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
-        <div class="lang-btn lang-dropdown">
-          <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
-            {{ items.name }}
-          </dfm-input-dropdown>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
-  <div class="container sub-header-main">
-    <div class="header-container">
-      <div class="container-left">
-        <span class="welcome-text text-primary">Welcome to Radiology</span><br />
-        <span class="text-primary display-3">Schedule your appointment with us</span>
-        <p class="text-primary display-5 mt-3">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?
-        </p>
-      </div>
-      <div class="container-right">
-        <div class="container-right-img">
-          <img src="../../../../assets/images/image_18.png" alt="user-holding-a-phone-img" width="250px" height="auto" />
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- <dfm-footer></dfm-footer> -->
 </div>

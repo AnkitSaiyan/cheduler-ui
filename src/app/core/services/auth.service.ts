@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, combineLatest, Observable, of, startWith, Subject, switchMap} from 'rxjs';
 import {Router} from "@angular/router";
 
 @Injectable({
@@ -8,10 +8,15 @@ import {Router} from "@angular/router";
 export class AuthService {
   isLoggedInUser = new BehaviorSubject<boolean>(false);
   isPending = new BehaviorSubject<boolean>(false); // implemented temporarily
-  constructor(private router: Router) { }
+
+  private refreshLoginStatus$$ = new Subject<void>();
+
+  constructor(private router: Router) {
+  }
 
   public login$(): Observable<any> {
     this.saveToLocalStorage();
+    this.refreshLoginStatus$$.next();
     return of('');
   }
 
@@ -21,6 +26,7 @@ export class AuthService {
 
   public logout$(redirect = true): Observable<{}> {
     this.clearLocalStorage();
+    this.refreshLoginStatus$$.next();
     return this.navigateToAuth$(redirect);
   }
 
@@ -31,13 +37,13 @@ export class AuthService {
   private navigateToAuth$(redirect: boolean): Observable<{}> {
     const url = this.router.routerState.snapshot.url;
     this.router.navigate(['/auth'], {
-      queryParams: { redirectTo: redirect && !url?.includes('auth') ? url : null },
+      queryParams: {redirectTo: redirect && !url?.includes('auth') ? url : null},
     });
     return of({});
   }
 
   public get isLoggedIn$(): Observable<boolean> {
-    return of(!!localStorage.getItem('user'));
+    return combineLatest([this.refreshLoginStatus$$.pipe(startWith(''))]).pipe(switchMap(() => of(!!localStorage.getItem('user'))));
   }
 
   // userLoginCheck(){

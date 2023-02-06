@@ -1,25 +1,22 @@
-<div class="container-fluid footer-main-container py-3" *ngIf="url === '/' || (url === undefined && url === '')">
-  <div class="container ">
-    <!-- <div class="footer"> -->
-    <div class="row dashboard-footer">
-      <div class="footer-items col-md-4 footer-text d-flex flex-row justify-content-center align-items-center gap-3">
-        <span> <img src="../../../../assets/images/location.svg" style="width: 23px" /></span>
-        <span class="footer-text">Lorem ipsum dolor sit amet, <br />consectetur adipiscing elit,</span>
-      </div>
-      <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
-        <span> <img src="../../../../assets/images/phone.svg" style="width: 23px" /></span><span class="footer-text">22 11 34 56</span>
-      </div>
-      <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
-        <span> <img src="../../../../assets/images/mail.svg" style="width: 23px" /></span>
-        <span class="footer-text">radiology@gmail.com</span>
-      </div>
+<div class="d-flex flex-column">
+  <section class="footer-sec-1" *ngIf="url === '/'">
+    <div class="footer-items col-md-4 footer-text d-flex flex-row justify-content-center align-items-center gap-3">
+      <div style="width: 20px; height: 20px"><dfm-icon name="marker-pin-01"></dfm-icon></div>
+      <span class="footer-text">Lorem ipsum dolor sit amet, <br />consectetur adipiscing elit,</span>
     </div>
 
-    <!-- </div> -->
-  </div>
-</div>
+    <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
+      <div style="width: 20px; height: 20px"><dfm-icon name="phone"></dfm-icon></div><span class="footer-text">22 11 34 56</span>
+    </div>
 
-<div [ngClass]="(isUserLoggedIn$ | async) ? 'footer-policy footer-bottom-margin':'footer-policy footer-guest-bottom-margin'">
-  <div class="footer-left">Privacy Policy and Cookies</div>
-  <div class="footer-right">Powered by Diflexmo Scheduling System</div>
+    <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
+      <div style="width: 20px; height: 20px"><dfm-icon name="mail-01"></dfm-icon></div>
+      <span class="footer-text">radiology@gmail.com</span>
+    </div>
+  </section>
+
+  <section class="footer-sec-2" [ngClass]="{ 'dfm-bg-primary-lighter': url.includes('auth') }">
+    <span class="pointer underline-primary font-weight-medium text-sm" routerLink="/privacy/policy">Privacy Policy and Cookies</span>
+    <span class="footer-right font-weight-semi-bold">Powered by Diflexmo Scheduling System</span>
+  </section>
 </div>

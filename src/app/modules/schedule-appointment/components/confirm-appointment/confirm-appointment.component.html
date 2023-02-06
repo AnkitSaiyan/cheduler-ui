@@ -1,176 +1,143 @@
-<div class="py-3">
-  <div class="basic-details-progress-bar d-flex justify-content-center align-items-center" *ngIf="!isPending && !isCanceled">
-    <div>
-      <button class="progress-button bg-success text-white select-exam-bar">Select Exam</button>
-    </div>
-    <div>
-      <button class="progress-button bg-success text-white select-exam-bar-mv">Exam</button>
-    </div>
-    <div>
-      <hr class="progress-bar-hr bg-success" />
-    </div>
-    <div>
-      <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
-      <button class="progress-button bg-success text-white time-slot-btn-mv">Slot</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <hr class="progress-bar-hr bg-success" />
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <button class="progress-button bg-success text-white basic-details-bar">Basic Details</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <button class="progress-button bg-success text-white basic-details-bar-mv">Details</button>
-    </div>
-    <div>
-      <hr class="progress-bar-hr bg-success" />
-    </div>
-    <div>
-      <button [ngClass]="isPending || isCanceled ? 'progress-button text-white bg-success' : 'progress-button text-white bg-primary'">Confirm</button>
-    </div>
-  </div>
-</div>
+<div class="d-flex flex-column align-items-center dfm-gap-24 dfm-p-16">
+  <div class="d-grid grid-cols-2 dfm-gap-24">
+    <section class="confirm-details dfm-card dfm-p-24 flex-1">
+      <div class="patient-details">
+        <h5 class="font-weight-bold">Patient Details</h5>
+        <div class="patient-detail-container">
+          <table>
+            <tr>
+              <td>Name :</td>
+              <td>{{ basicDetails?.firstname | titlecase }} {{ basicDetails?.lastname }}</td>
+            </tr>
+            <tr>
+              <td>Email :</td>
+              <td>{{ basicDetails?.email }}</td>
+            </tr>
+            <tr>
+              <td>Phone No. :</td>
+              <td>{{ basicDetails?.phone }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="dfm-card d-flex flex-column dfm-p-24 dfm-gap-16 flex-1">
+      <h5 class="font-weight-bold">Appointment Details</h5>
+
+      <div class="d-flex align-items-center dfm-gap-8 font-weight-medium">
+        <span>Exams: </span>
+        <span *ngIf="examDetails?.exams?.length">{{ examDetails.exams | joinWithAnd : 'exam' }}</span>
+      </div>
+
+      <div class="d-flex dfm-gap-16">
+        <div class="d-flex align-items-center gap-2 font-weight-medium">
+          <div style="width: 20px; height: 20px">
+            <dfm-icon name="calendar-check-01"></dfm-icon>
+          </div>
+          <span>Date: </span>
+          <span class="text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
+        </div>
+
+        <div class="d-flex gap-2 font-weight-medium">
+          <div style="width: 20px; height: 20px">
+            <dfm-icon name="clock"></dfm-icon>
+          </div>
+          <span>Time: </span>
+          <span class="text-nowrap" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
+        </div>
+      </div>
+
+      <div class="instructions-text-section">
+        <span class="font-weight-medium">Instructions</span>
+        <span class="text-sm">*Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</span>
+      </div>
 
 
-<div class="container mt-3">
-  <div class="lab-confirmation-status" *ngIf="isPending">
-    <div class="bg-warning pending-status">
-      <span class="display-4">Appointment Status : pending</span>
-    </div>
-    <div>
-      <p class="display-5 text-primary">We will notify you by email once your appointment will be confirmed.</p>
-    </div>
-  </div>
-</div>
+      <div class="d-flex flex-column dfm-gap-8" *ngIf="isConfirmed">
+        <span class="font-weight-medium">Status</span>
 
-<div class="container mt-3">
-  <div class="lab-confirmation-status" *ngIf="isCanceled">
-    <div class="bg-warning pending-status bg-danger">
-      <span class="display-4">Appointment Status : Cancelled</span>
-    </div>
+        <dfm-badge color="gray" size="md">
+          <span class="font-weight-medium">Pending</span>
+        </dfm-badge>
+      </div>
+    </section>
   </div>
-</div>
-<div class="container mt-3">
-  <!-- <span class="text-primary appointment-text">Appointment Details</span> -->
-</div>
-<div class="container confirm-details mt-3">
-  <div class="patient-details display-4 bg-white shadow">
-    <span class="text-primary">Patient Details</span>
-    <hr class="bg-lite-gray patient-hr" />
-    <div class="patient-detail-container mt-2">
-      <div class="row d-flex justify-content-between">
-        <div class="col-md-4 name">Name :</div>
-        <div class="col-md-8 value">Johan Green</div>
-      </div>
-      <div class="row d-flex justify-content-between mt-2">
-        <div class="col-md-4 name">Email :</div>
-        <div class="col-md-8 value">johangreen@gmail.com</div>
-      </div>
-      <div class="row d-flex justify-content-between mt-2">
-        <div class="col-md-4 name">Phone No. :</div>
-        <div class="col-md-8 value">22 45 79 09 45</div>
-      </div>
-    </div>
-  </div>
-  <div class="appointment-details display-4 bg-white shadow">
-    <span class="text-primary">Appointment Details</span>
-    <hr class="bg-lite-gray appointment-hr" />
-    <div class="appointment-details-section">
-      <p class="exams-category-text text-primary d-inline">
-        Exams :<span class="exams-category-text text-dark d-inline"> Levering Stuenzolean, Maatname</span>
-      </p>
-      <div class="appointment-date-time">
-        <div class="d-flex flex-row justify-content-between gap-2">
-        <img src="../../../../../assets/images/checked-calendar-icon.svg" class="appointment-img-icon" alt="calendar-icon" width="18px" />
-        <span>21 November, 2022</span>
-      </div>
-      <div class="d-flex flex-row justify-content-between gap-2">
-        <img src="../../../../../assets/images/clock-icon.svg" class="appointment-img-icon" alt="clock-icon" width="18px" />
-        <span>18:00 - 18:30</span>
-      </div>
-      </div>
-      <div class="exams-category-text-mv">
-        <p class="mt-2 text-primary">
-          Exams :
-          <span class="text-dark">Levering Stuenzolean, Maatname</span>
-        </p>
-      </div>
-      <hr class="bg-lite-gray appointment-hr-mv" />
-      <div class="instructions-text-section display-5 d-flex justify-content-between flex-row mt-1">
-        <span class="instruction-text">Instructions :</span>
-        <ul>
-          <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
-          <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="container mt-4 checkbox-section" *ngIf="isCanceled === false && isPending === false">
-  <div class="checkbox-section-items">
-    <dfm-checkbox
-      label="I have an application from my referring GP, doctor specialist or dentist.*"
-      size="sm"
-      [indeterminate]="false"
-      [formControl]="check1" 
-      class="confirm-checkbox"
+  <div class="checkbox-section w-fit" *ngIf="isCanceled === false && isConfirmed === false">
+    <div class="w-fit">
+      <dfm-checkbox
+        label="I have an application from my referring GP, doctor specialist or dentist.*"
+        size="sm"
+        class="w-fit"
+        [formControl]="referDoctorCheckbox"
+      >
+      </dfm-checkbox>
+    </div>
+
+    <div class="w-fit">
+      <dfm-checkbox
+        label="I hereby give consent to store my personal information.*"
+        size="sm"
+        class="w-fit"
+        [formControl]="consentCheckbox"
+      >
+      </dfm-checkbox>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center confirm-btn-section dfm-gap-16">
+    <dfm-button color="secondary" size="lg" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
+                class="back-btn"> Back
+    </dfm-button>
+    <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
+                class="back-btn-mv"> Back
+    </dfm-button>
+    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/" *ngIf="isCanceled" class="back-btn2"> Go to
+      Dashboard
+    </dfm-button>
+    <dfm-button color="primary" size="sm" routerLink="../overview" *ngIf="isCanceled" class="back-btn2-mv">
+      Back
+    </dfm-button>
+
+    <dfm-button
+      [color]="'primary'"
+      [size]="'lg'"
+      [disabled]="checkBoxStatus()"
+      (click)="confirmAppointment()"
+      class="confirm-btn"
+      *ngIf="!isConfirmed && !isCanceled"
     >
-    </dfm-checkbox>
-    <dfm-checkbox
-      label="I hereby give consent to store my personal information.*"
-      size="sm"
-      [indeterminate]="false"
-      class="mt-2"
-      [formControl]="check2"
-      class="confirm-checkbox"
+      Confirm
+    </dfm-button>
+    <dfm-button
+      [color]="'primary'"
+      [size]="'sm'"
+      [disabled]="checkBoxStatus()"
+      (click)="confirmAppointment()"
+      class="confirm-btn-mv"
+      *ngIf="!isConfirmed && !isCanceled"
     >
-    </dfm-checkbox>
+      Confirm
+    </dfm-button>
+  </div>
+
+  <div class="pending-section-button d-flex justify-content-center dfm-gap-16" *ngIf="isConfirmed">
+    <dfm-button [color]="'secondary'" [size]="'lg'" (click)="isConfirmed = true" class="mx-3 edit-btn"
+                routerLink="/schedule-appointment/date-time">
+      Edit Appointment
+    </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" (click)="isConfirmed = true" class="mx-3 edit-btn-mv"
+                routerLink="/schedule-appointment/date-time">
+      Edit
+    </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
+      Cancel Appointment
+    </dfm-button>
+    <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
+                (click)="isCanceled = true; isConfirmed = false">
+      Cancel
+    </dfm-button>
   </div>
 </div>
-<div class="mt-3 d-flex justify-content-center flex-row confirm-btn-section">
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/basic" *ngIf="!isPending && !isCanceled" class="back-btn"> Back </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/basic" *ngIf="!isPending && !isCanceled" class="back-btn-mv"> Back </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled" class="back-btn2"> Back </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/overview" *ngIf="isCanceled" class="back-btn2-mv"> Back </dfm-button>
 
-  <dfm-button
-    [color]="'primary'"
-    [size]="'lg'"
-    [disabled]="checkBoxStatus()"
-    (click)="setPendingStatus()"
-    class="mx-3 confirm-btn"
-    *ngIf="!isPending && !isCanceled"
-  >
-    Confirm
-  </dfm-button>
-  <dfm-button
-    [color]="'primary'"
-    [size]="'sm'"
-    [disabled]="checkBoxStatus()"
-    (click)="setPendingStatus()"
-    class="confirm-btn-mv"
-    *ngIf="!isPending && !isCanceled"
-  >
-    Confirm
-  </dfm-button>
-</div>
-
-<div class="pending-section-button d-flex justify-content-center mt-3" *ngIf="isPending">
-  <dfm-button [color]="'secondary'" [size]="'lg'" (click)="isPending = true" class="mx-3 edit-btn" routerLink="/schedule-appointment/date-time">
-    Edit Appointment
-  </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'sm'" (click)="isPending = true" class="mx-3 edit-btn-mv" routerLink="/schedule-appointment/date-time">
-    Edit
-  </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" (click)="isCanceled = true" class="cancel-btn" (click)="isCanceled = true; isPending = false">
-    Cancel Appointment
-  </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'sm'" (click)="isCanceled = true" class=" cancel-btn-mv" (click)="isCanceled = true; isPending = false">
-    Cancel
-  </dfm-button>
-</div>
-<div class="footer">
-  <!-- <dfm-footer></dfm-footer> -->
-</div>
-<!-- </div> -->

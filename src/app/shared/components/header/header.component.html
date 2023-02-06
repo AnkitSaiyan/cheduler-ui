@@ -1,41 +1,62 @@
-<div class="nav">
-  <div class="right-logo pointer">
-    <img src="../../../../assets/images/logo.svg" alt="difleximo" />
+<div class="nav-bar" [ngClass]="{ 'header-logged-in': isLoggedIn$ | async }">
+  <div class="nav-logo pointer" routerLink="/">
+    <img src="../../../../assets/images/Diflexmo_Logo.svg" alt="SCHEDULER" />
   </div>
-  <div class="right-menu">
-    <dfm-button [color]="'link'" [size]="'lg'" class="button-design home-btn"> Home </dfm-button>
-    <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design register-btn" routerLink="/auth/register">
-      Register
-    </dfm-button>
+
+  <div class="nav-items-right">
     <div class="register-menu">
-      <!-- <dfm-button [color]="'link'" [size]="'lg'" [leadingIcon]="'user-01'" class="register-btn"> Register </dfm-button> -->
-      <!-- <dfm-button [color]="'primary'" [size]="'sm'" class="button-design add-user-btn-mv">Login</dfm-button> -->
       <div class="d-flex flex-row justify-content-between gap-2 align-items-center">
-      <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 50px; height:25px; line-height:25px; text-align: center;"><span>Login</span></div>
-      <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 70px; height:25px; line-height:25px; text-align: center;"><span>Register</span></div>
-    </div>
-      <div class="sub-menu">
-        <div class="sub-menu-items">
-          <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/auth/register"> Register </dfm-button>
-          <span class="display-5 existing-section-btn">Existing user? <span class="text-primary login-link existing-section-btn" routerLink="/auth/login">Login</span></span>
-        </div>
+        <div routerLink="/auth/login" style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 50px; height:25px; line-height:25px; text-align: center;" class="header-login-btn"><span>Login</span></div>
+        <div routerLink="/auth/register"style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 70px; height:25px; line-height:25px; text-align: center;"class="header-register-btn"><span>Register</span></div>
       </div>
+
     </div>
+
     <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
-    <dfm-button [color]="'secondary'" [size]="'lg'" [leadingIcon]="'user-01'" class="button-design login-btn" routerLink="/auth/login">
-      Login
-    </dfm-button>
-    <dfm-button
-      [color]="'primary'"
-      [size]="'lg'"
-      [leadingIcon]="'user-01'"
-      class="button-design schedule-btn"
-      routerLink="/schedule-appointment/overview"
-    >
-      Schedule Appointment
-    </dfm-button>
+
+    <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
+      <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/"> Home </dfm-button>
+
+      <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
+        Register
+      </dfm-button>
+
+      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" routerLink="/auth/login">
+        Login
+      </dfm-button>
+
+      <dfm-button
+        color="primary"
+        size="lg"
+        class="button-design schedule-btn"
+        routerLink="/schedule/overview"
+      >
+        Schedule Appointment
+      </dfm-button>
+    </ng-container>
+
+    <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
+      <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
+      <dfm-button color="link" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
+        Register
+      </dfm-button>
+      <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+        <span class="dfm-text-main-500 pointer">NL</span>
+        <span>|</span>
+        <span class="dfm-color-primary pointer">EN</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn$ | async">
+      <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+        <span class="dfm-text-main-500 pointer">NL</span>
+        <span>|</span>
+        <span class="dfm-color-primary pointer">EN</span>
+      </div>
+    </ng-container>
+
     <div class="lang-btn lang-dropdown">
-      <dfm-input-dropdown [items]="items" label="" placeholder="" size="sm">
+      <dfm-input-dropdown [items]="items" size="sm">
         {{ items.name }}
       </dfm-input-dropdown>
     </div>

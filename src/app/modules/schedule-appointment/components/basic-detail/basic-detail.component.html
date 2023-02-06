@@ -1,77 +1,51 @@
-<div class="container py-3">
-  <div class="basic-details-progress-bar d-flex justify-content-center align-items-center">
-    <div>
-      <button class="progress-button bg-success text-white select-exam-bar">Select Exam</button>
-    </div>
-    <div>
-      <button class="progress-button bg-success text-white select-exam-bar-mv">Exam</button>
-    </div>
-    <div>
-      <hr class="progress-bar-hr bg-success" />
-    </div>
-    <div>
-      <button class="progress-button bg-success text-white time-slot-btn">Select Time Slot</button>
-      <button class="progress-button bg-success text-white time-slot-btn-mv">Slot</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <hr class="progress-bar-hr bg-success" />
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <button class="progress-button bg-primary text-white basic-details-bar">Basic Details</button>
-    </div>
-    <div *ngIf="displayBasicDetails">
-      <button class="progress-button bg-primary text-white basic-details-bar-mv">Details</button>
-    </div>
-    <div>
-      <hr class="progress-bar-hr bg-primary" />
-    </div>
-    <div>
-      <button class="progress-button">Confirm</button>
-    </div>
-  </div>
-</div>
-
-<div class="container mt-3 p-0 d-flex justify-content-center align-items-center form-container-mv">
-  <div class="form-mv bg-white p-5 rounded shadow">
+<div class="d-flex flex-column justify-content-center align-items-center form-container-mv dfm-gap-24 dfm-p-24">
+  <form class="form-mv dfm-card basic-details-form" [formGroup]="basicDetailsForm">
     <div class="form-group-container d-flex justify-content-center gap-4">
       <div class="form-group">
-        <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name" [formControl]="firstName"></dfm-input>
+        <dfm-input type="text" size="sm" label="First Name*" placeholder="First Name"
+                   formControlName="firstname"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="text" size="sm" label="Last Name*" placeholder="Last Name" [formControl]="lastName"></dfm-input>
+        <dfm-input type="text" size="sm" label="Last Name" placeholder="Last Name"
+                   formControlName="lastname"></dfm-input>
       </div>
     </div>
     <div class="form-group-container d-flex justify-content-center gap-4 mt-3">
       <div class="form-group">
-        <dfm-input type="email" size="sm" label="Email*" placeholder="Email" [formControl]="email"></dfm-input>
+        <dfm-input type="email" size="sm" label="Email*" placeholder="Email" formControlName="email"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="text" size="sm" label="Phone Number*" placeholder="Phone" [formControl]="phone"></dfm-input>
+        <dfm-input type="number" size="sm" label="Phone Number*" placeholder="Phone" formControlName="phone"></dfm-input>
       </div>
     </div>
 
-    <div class="or-section mt-10">
-      <div>
-        <hr class="bg-gray" width="100px" />
-      </div>
-      <div><span>&nbsp; or &nbsp; </span></div>
-      <div>
-        <hr class="bg-gray" width="100px" />
-      </div>
-    </div>
+    <!--    <div class="or-section mt-10">-->
+    <!--      <div>-->
+    <!--        <hr class="bg-gray" width="100px" />-->
+    <!--      </div>-->
+    <!--      <div><span>&nbsp; or &nbsp; </span></div>-->
+    <!--      <div>-->
+    <!--        <hr class="bg-gray" width="100px" />-->
+    <!--      </div>-->
+    <!--    </div>-->
 
-    <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
-      <span class="new-user">Already have an Account?</span> &nbsp;
-      <span class="register-user">
-        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>
-      </span>
-    </div>
+    <!--    <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">-->
+    <!--      <span class="new-user">Already have an Account?</span> &nbsp;-->
+    <!--      <span class="register-user">-->
+    <!--        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>-->
+    <!--      </span>-->
+    <!--    </div>-->
+  </form>
+
+  <div class="d-flex justify-content-center dfm-gap-16">
+    <dfm-button color="secondary" size="lg" routerLink="../slot" class="basic-back-btn"> Back</dfm-button>
+    <dfm-button color="secondary" size="sm" routerLink="../slot" class="basic-back-btn-mv"> Back</dfm-button>
+    <dfm-button color="primary" size="lg" (click)="saveBasicDetails()" class="basic-next-btn"
+                [disabled]="basicDetailsForm.invalid"> Next
+    </dfm-button>
+    <dfm-button color="primary" size="sm" (click)="saveBasicDetails()" class="basic-next-btn-mv"
+                [disabled]="basicDetailsForm.invalid"> Next
+    </dfm-button>
   </div>
 </div>
 
-<div class="d-flex justify-content-center mt-3">
-  <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule-appointment/date-time" class="basic-back-btn"> Back </dfm-button>
-  <dfm-button [color]="'secondary'" [size]="'sm'" routerLink="/schedule-appointment/date-time" class="basic-back-btn-mv"> Back </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'lg'" routerLink="/schedule-appointment/confirm-appointment" class="mx-3 basic-next-btn"> Next </dfm-button>
-  <dfm-button [color]="'primary'" [size]="'sm'" routerLink="/schedule-appointment/confirm-appointment" class="mx-3 basic-next-btn-mv"> Next </dfm-button>
-</div>

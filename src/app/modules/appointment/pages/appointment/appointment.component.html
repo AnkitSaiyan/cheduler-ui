@@ -1,16 +1,20 @@
 <div class="login-dashboard-content">
     <div class="upcoming-appointments-section">
-      <span class="display-3 text-center upcoming-text">Upcoming Appointments</span>
-      <div class="upcoming-appointments-details mt-3 bg-white shadow">
-        <div class="display-5 upcoming-appointments-date-time">
-          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November, 2022</span>
-          <img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
-          <span>12:30</span>
-        </div>
+      <div class="upcoming-appointments-details border-r bg-white shadow-sm">
+        <span class="display-3 upcoming-text">Upcoming Appointments</span>
         <span class="display-4 appointment-exam-text"
-          >Exam: Levering stuenzolen <span class="text-gray">|</span> Confirmation Status: <span class="text-warning">Pending</span>
+          >Exam: Levering stuenzolen <span class="text-gray"></span>
           <hr class="bg-lite-gray appointment-hr-mv" /> 
         </span>
+        <div class="display-5 upcoming-appointments-date-time">
+          <div class=" d-flex flex-row justify-content-start gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>Date : 12 November, 2022</span>
+          </div>
+          <div class=" d-flex flex-row justify-content-start gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>Time : 12:30</span>
+        </div>
+        </div>
         <div class="appointment-exam-text-mv">
           <span class=" appointment-exam-text-mv text-primary"
           >Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
@@ -20,38 +24,33 @@
         </div>
         <div class="instructions-text-section-mv d-flex justify-content-between">
           <span class="instruction-text text-primary">Instructions:</span>
-          <ul>
-            <li>Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</li>
-            <li>Do not consume alcohal 24 hours prior to the test(Maatname)</li>
-          </ul>
+          <span>*Have an empty stomach 10 hours prior to the test</span>
         </div>
          
-        <div>
-          <span class="display-4 instruction-desk-view" style="font-weight: 600;">Have an empty stomach 10 hours prior to the test</span>
+        <div class="instruction-details">
+          <span class="display-4" style="font-weight: 600;">Instructions :</span>
+          <span class="display-4 instruction-desk-view" style="font-weight: 600;">*Have an empty stomach 10 hours prior to the test</span>
         </div>
-        <div class="upcoming-appointments-btn d-flex justify-content-between text-center">
-          <dfm-button [color]="'secondary'" [size]="'lg'"> Cancel </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'lg'" class="mx-3"> Edit appointment </dfm-button>
+        <div class="lab-confirmation-status">
+          <div class="bg-warning pending-status">
+            <span class="display-4">Appointment Status : pending</span>
+          </div>
         </div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <span>
-        <hr class="bg-lite-gray appointment-hr" />
-    </span>
       </div>
     </div>
   </div>
 
-    <div class="previous-appointment-title">
+  <div class="container previous-appointment-container mt-4 bg-white border-r">  
+  <div class="previous-appointment-title">
       <span class="display-4 previous-app-text">Previous Appointments</span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-      <dfm-button [color]="'link'" [size]="'lg'" class="view-all-btn" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
+      <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
     </div>
     <div class="previous-appointment-cards d-flex justify-content-center mt-3">
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span></div>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
@@ -59,10 +58,10 @@
         <hr class="bg-lite-gray appointment-hr-mv" />
       </span>
       </div>
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span></div>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
@@ -70,10 +69,10 @@
         <hr class="bg-lite-gray appointment-hr-mv" />
       </span>
       </div>
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/checked-calendar-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><img src="../../../../../assets/images/clock-icon.svg" alt="calendar-icon" width="18px" />
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
+          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span></div>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
@@ -84,32 +83,33 @@
     </div>
   
     <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <img src="../../../../../assets/images/clock-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span>
-          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
         <span class="display-5">Status: <span class="text-success">Completed</span></span>
       </div>
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <img src="../../../../../assets/images/clock-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span>
-          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
         <span class="display-5">Status: <span class="text-success">Completed</span></span>
       </div>
-      <div class="card-item bg-white">
+      <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
-          <img src="../../../../../assets/images/clock-icon.svg" alt="clock-icon" width="18px" /><span>12 November,2022</span>
-          <img src="../../../../../assets/images/checked-calendar-icon.svg" alt="calendar-icon" width="18px" />
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>12:30</span>
         </div>
         <span class="display-5">Exam: Levering Stuenzolean</span>
         <span class="display-5">Status: <span class="text-success">Completed</span></span>
       </div>
     </div>
+  </div>
   

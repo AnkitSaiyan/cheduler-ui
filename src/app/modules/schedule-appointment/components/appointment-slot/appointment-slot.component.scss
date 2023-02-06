@@ -1,0 +1,306 @@
+.appointment-slot-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  width: 80%;
+  margin: auto;
+  transition: all 100ms linear;
+}
+
+.appointment-slot-sec-1, .appointment-slot-sec-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  transition: all linear 100ms;
+}
+
+.appointment-slot-sec-1 {
+  width: 512px;
+}
+
+.appointment-slot-sec-2 {
+  overflow-y: auto;
+  max-height: 440px;
+}
+
+table, th, tr, td {
+  //border: 1px solid var(--dfm-main-300);
+  border-collapse: collapse;
+}
+
+.appointment-slot-calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.calender-month-view {
+  transition: all 150ms linear;
+  width: 100%;
+  height: 100%;
+
+  th, td {
+    padding: 4px;
+  }
+
+  .calender-month-view-weekday {
+    //background: var(--dfm-table-odd-cell-bg);
+
+    th {
+      color: var(--dfm-primary);
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .calender-month-view-day-cell {
+      //transition: all 150ms linear;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .calender-month-view-day {
+    transition: all 150ms linear;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    line-height: 40px;
+    color: var(--dfm-main-400);
+  }
+
+  .calender-month-view-day-hover:hover {
+    cursor: pointer;
+    background: var(--dfm-main-200);
+    border-color: var(--dfm-main-200);
+    color: black;
+  }
+
+  .calender-month-view-day-selected {
+    color: white !important;
+    background: var(--dfm-primary);
+  }
+
+  .calender-month-view-day-available {
+    border: 1px solid var(--dfm-main-600);
+    color: var(--dfm-main-600);
+  }
+
+  .calender-month-view-day-holiday {
+    border: none;
+    color: black;
+    background: var(--dfm-yellow);
+  }
+
+  .calender-month-view-day-light {
+    color: var(--dfm-main-300);
+  }
+}
+
+.appointment-slot-divider {
+  margin: 80px 0;
+  border-right: 2px solid var(--dfm-main-200);
+}
+
+
+.time-slot-text {
+  background: var(--dfm-main-100);
+  border-radius: 10px;
+  padding: 8px;
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+  //  background: var(--dfm-main-200);
+  //  color: var(--dfm-primary);
+    cursor: pointer;
+  }
+}
+
+.time-slot-selected-text {
+  background: var(--dfm-primary);
+  color: white;
+}
+
+.set-clicked {
+  background-color: #531422 !important;
+  color: #fff;
+}
+
+.highlight-time {
+  background-color: #531422 !important;
+  color: #fff;
+}
+
+.time-slot-btn-mv {
+  display: none;
+}
+.select-exam-bar-mv{
+  display: none;
+}
+
+.basic-details-bar-mv{
+  display: none;
+}
+
+.cal-next-btn-mv{
+  display: none!important;
+}
+
+.cal-back-btn-mv{
+  display: none!important;
+}
+
+
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+  * {
+    overflow-x: hidden;
+  }
+  .basic-details-progress-bar {
+    // border: 1px solid red;
+    margin-top: 45px !important;
+    // border: 1px solid red;
+    width: 100%;
+  }
+  .basic-details-progress-bar .progress-button {
+    font-size: 14px;
+    padding: 9px !important;
+    border-radius: 4px;
+    font-weight: 400;
+    line-height: 14px;
+}
+  .basic-details-progress-bar .time-slot-btn {
+    display: none;
+  }
+  .basic-details-progress-bar .time-slot-btn-mv {
+    display: block;
+  }
+  .progress-bar-hr {
+    width: 30px;
+    height: 2px;
+    opacity: 1;
+  }
+  .calendar {
+    padding: 10px 20px;
+  }
+  .calendar-btn-mv {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  .logo {
+    background: #fdb022;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+  }
+
+  .logo-selected {
+    background: #531422;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: 30px;
+  }
+  .notation-text {
+    font-size: 14px;
+  }
+  .slot-timing-mv {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 10px;
+    font-size: 10px;
+    padding: 5px 6px;
+    // font-weight: 500;
+  }
+  .slot-timing-mv span {
+    width: 114px!important;
+    height: 100px!important;
+    font-size: 13px!important;
+    padding: 14px!important;
+    font-weight: 500;
+    text-align: center;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center;
+    overflow-y: hidden;
+  }
+  .time-detail {
+    max-width: 300px !important;
+  }
+  .calendar .days span {
+    width: 30px;
+  }
+  .calendar .month {
+    padding: 0px !important;
+  }
+  .time-slot-container {
+    // border: 1px solid red;
+    margin: 5px 0px 0px 0px !important;
+  }
+  .time-slot-btn {
+    display: none;
+  }
+  .time-slot {
+    display: flex !important;
+    padding: 0px 5px;
+  }
+  .time-slot-btn {
+    display: none;
+  }
+  .time-slot-mv {
+    display: flex;
+    flex-direction: column;
+    align-items: center!important;
+    max-height: 210px;
+    flex-wrap: wrap;
+    margin: 0px !important;
+    padding: 0px !important;
+    gap: 0px;
+  }
+  .slot-heading {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .select-exam-bar{
+    display: none;
+  }
+  .select-exam-bar-mv{
+    display: block;
+  }
+  .basic-details-bar{
+    display: none;
+  }
+  .basic-details-bar-mv{
+    display: block;
+  }
+  .cal-back-btn-mv{
+    display: block!important;
+  }
+  .cal-next-btn-mv{
+    display: block!important;
+  }
+  .cal-next-btn{
+    display: none!important;
+  }
+  .cal-back-btn{
+    display: none!important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px){
+  * {
+    font-family: 'Montserrat';
+  }
+  .basic-details-progress-bar .progress-button{
+    font-size: 10.5px!important;
+  }
+  .calendar-footer-section{
+    padding: 10px!important;
+  }
+  }

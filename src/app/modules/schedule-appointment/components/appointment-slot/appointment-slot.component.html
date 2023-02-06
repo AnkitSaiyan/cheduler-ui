@@ -1,0 +1,116 @@
+<div class="appointment-slot-container">
+  <div class="d-flex justify-content-center m-auto w-fit">
+    <section class="appointment-slot-sec-1" [ngClass]="{ 'flex-1': selectedDate }">
+      <div class="dfm-card d-flex flex-column align-items-center dfm-gap-16 dfm-p-24">
+        <div class="appointment-slot-calendar-header">
+          <dfm-button trailingIcon="chevron-left" color="link" size="sm" (click)="changeMonth(-1)"></dfm-button>
+
+          <h5 class="font-weight-semi-bold m-0">{{ selectedCalendarDate | date : 'MMMM yyyy' }}</h5>
+
+          <dfm-button trailingIcon="chevron-right" color="link" size="sm" (click)="changeMonth(1)"></dfm-button>
+        </div>
+
+        <table class="calender-month-view">
+          <thead class="calender-month-view-weekday">
+          <th>{{ weekdayEnum.SUN | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.WED | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.THU | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.FRI | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.SAT | weekdayToName : true | uppercase }}</th>
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let days of daysInMonthMatrix;">
+            <td class="calender-month-view-day-cell" *ngFor="let day of days">
+              <div
+                (click)="availableDays.includes(+day) ? selectDate(day) : $event.preventDefault()"
+                *ngIf="day && day <= 31"
+                class="calender-month-view-day text-sm"
+                [ngClass]="{
+            'calender-month-view-day-selected': selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === selectedCalendarDate.getMonth() && selectedDate.getFullYear() === selectedCalendarDate.getFullYear(),
+            'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
+            'calender-month-view-day-holiday': holidays.includes(+day)
+        }"
+              >
+                {{ day }}
+              </div>
+
+              <div
+                *ngIf="day && day > 31"
+                class="calender-month-view-day calender-month-view-day-light text-sm"
+              >
+                {{ day - 31 }}
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex dfm-gap-16 align-items-center dfm-px-24">
+        <div class="d-flex align-self-center dfm-gap-8">
+          <div class="circle-24 dfm-bg-yellow"></div>
+          <span class="font-weight-medium">Public Holiday</span>
+        </div>
+        <div class="d-flex align-items-center dfm-gap-8">
+          <div class="circle-24 dfm-bg-color-primary"></div>
+          <span class="font-weight-medium">Selected</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="appointment-slot-divider" *ngIf="selectedDate"></div>
+
+    <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate">
+      <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-fit" *ngFor="let exam of exams">
+        <div class="d-flex flex-column gap-4 w-fit">
+          <div class="d-flex flex-column gap-1">
+            <div class="d-flex gap-2 align-items-center text-sm">
+              <span class="font-weight-medium">Exam Name: </span>
+              <span>{{ exam.exam }}</span>
+            </div>
+
+            <div class="d-flex gap-2 align-items-center text-sm">
+              <span class="font-weight-medium">Instructions: </span>
+              <span>Have an empty stomach 10 hours prior to the test</span>
+            </div>
+          </div>
+          <div class="time-slot-mv d-flex flex-column justify-content-between align-items-center gap-3 w-fit">
+            <div class="d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
+              <span class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128 text-nowrap"
+                    *ngFor="let slot of timeSlots"
+                    (click)="selectSlot(slot, exam.id)"
+                    [ngClass]="{ 'time-slot-selected-text': isSlotSelected(slot, exam.id) }"
+              >
+                {{ slot }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div>
+    <div class="d-flex justify-content-center align-items-center dfm-gap-16">
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">Back</dfm-button>
+
+      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv">
+        Back
+      </dfm-button>
+
+      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn"
+                  [disabled]="selectedTimeSlot.length !== exams.length">
+        Next
+      </dfm-button>
+
+      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv"
+                  [disabled]="selectedTimeSlot.length !== exams.length">
+        Next
+      </dfm-button>
+    </div>
+  </div>
+</div>
+
