@@ -31,10 +31,17 @@ export class ScheduleAppointmentService {
   }
 
   public setBasicDetails(reqData) {
+    console.log('in')
     this.basicDetails$$.next(reqData);
   }
 
   public get basicDetails$(): Observable<any> {
     return this.basicDetails$$.asObservable();
+  }
+
+  public resetDetails() {
+    this.examDetails$$.next({});
+    this.slotDetails$$.next({});
+    this.basicDetails$$.next({});
   }
 }
