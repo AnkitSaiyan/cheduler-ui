@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
       },
       {
         path: 'auth',
