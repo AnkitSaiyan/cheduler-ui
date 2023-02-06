@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
 import {SwUpdate} from "@angular/service-worker";
 import {from} from "rxjs";
+import {VersioningService} from "../../../core/services/versioning.service";
 
 @Component({
   selector: 'dfm-versioning',

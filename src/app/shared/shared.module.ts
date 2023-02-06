@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DesignSystemCoreModule, DesignSystemModule} from 'diflexmo-angular-design';
+import {DesignSystemModule} from 'diflexmo-angular-design';
 import {HeaderComponent} from './components/header/header.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {RouterModule} from '@angular/router';
