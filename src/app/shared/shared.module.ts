@@ -23,7 +23,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     CommonModule,
     DesignSystemModule,
-    DesignSystemCoreModule,
     RouterModule,
     TranslateModule.forRoot({
       loader: {
@@ -41,7 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SubHeaderComponent,
     DestroyableComponent,
     WeekdayToNamePipe,
-    JoinWithAndPipe
+    JoinWithAndPipe,
+    ConfirmActionModalComponent,
   ]
 })
 export class SharedModule {

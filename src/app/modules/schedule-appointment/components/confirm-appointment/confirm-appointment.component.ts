@@ -5,6 +5,10 @@ import {DestroyableComponent} from "../../../../shared/components/destroyable/de
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {takeUntil} from "rxjs";
+import {ModalService} from "../../../../core/services/modal.service";
+import {
+  ConfirmActionModalComponent, DialogData
+} from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -30,7 +34,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalSvc: ModalService
   ) {
     super();
   }
@@ -80,5 +85,20 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       }
     })
     // this.authService.isPending.next(this.isPending);
+  }
+
+  public cancelAppointment() {
+    const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
+      data: {
+        bodyText: 'Are you sure you want to cancel this appointment',
+      } as DialogData
+    })
+
+    modalRef.closed.pipe(takeUntil(this.destroy$$)).subscribe((result) => {
+      if (result) {
+        this.isCanceled = true;
+        this.isConfirmed = false
+      }
+    });
   }
 }

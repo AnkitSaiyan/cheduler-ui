@@ -1,11 +1,14 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AppointmentTimeDetailComponent } from './components/appointment-time-detail/appointment-time-detail.component';
-import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
-import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
-import { OverviewComponent } from './components/overview/overview.component';
-import { DashboardComponent } from './pages/dashboard.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {DashboardComponent} from './pages/dashboard.component';
 import {AuthGuard} from "../../core/gurads/auth.guard";
+import {OverviewComponent} from "../schedule-appointment/components/overview/overview.component";
+import {ExamDetailComponent} from "../schedule-appointment/components/exam-detail/exam-detail.component";
+import {
+  ConfirmAppointmentComponent
+} from "../schedule-appointment/components/confirm-appointment/confirm-appointment.component";
+import {BasicDetailComponent} from "../schedule-appointment/components/basic-detail/basic-detail.component";
+import {AppointmentSlotComponent} from "../schedule-appointment/components/appointment-slot/appointment-slot.component";
 
 const dashboardRoutes: Routes = [
   {
@@ -18,15 +21,19 @@ const dashboardRoutes: Routes = [
         component: OverviewComponent,
       },
       {
-        path: 'exam',
+        path: 'schedule/exam',
         component: ExamDetailComponent,
       },
       {
-        path: 'date-time',
-        component: AppointmentTimeDetailComponent,
+        path: 'schedule/slot',
+        component: AppointmentSlotComponent,
       },
       {
-        path: 'confirm-appointment',
+        path: 'schedule/basic-details',
+        component: BasicDetailComponent
+      },
+      {
+        path: 'schedule/confirm',
         component: ConfirmAppointmentComponent,
       },
       {
@@ -42,4 +49,5 @@ const dashboardRoutes: Routes = [
   imports: [RouterModule.forChild(dashboardRoutes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {
+}

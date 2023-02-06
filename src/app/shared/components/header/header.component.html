@@ -1,4 +1,4 @@
-<div class="nav-bar">
+<div class="nav-bar" [ngClass]="{ 'header-logged-in': isLoggedIn$ | async }">
   <div class="nav-logo pointer" routerLink="/">
     <img src="../../../../assets/images/Diflexmo_Logo.svg" alt="SCHEDULER" />
   </div>
@@ -14,7 +14,7 @@
 
     <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
 
-    <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule')">
+    <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/"> Home </dfm-button>
 
       <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
@@ -35,11 +35,19 @@
       </dfm-button>
     </ng-container>
 
-    <ng-container *ngIf="url.includes('schedule')">
+    <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
       <dfm-button color="link" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
         Register
       </dfm-button>
+      <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+        <span class="dfm-text-main-500 pointer">NL</span>
+        <span>|</span>
+        <span class="dfm-color-primary pointer">EN</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn$ | async">
       <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
         <span class="dfm-text-main-500 pointer">NL</span>
         <span>|</span>

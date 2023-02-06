@@ -7,10 +7,12 @@
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  width: 100%;
   background: var(--dfm-primary-lighter);
   padding: 16px 32px;
   min-height: 76px;
+  gap: 16px;
+  width: 100%;
+  transition: 150ms all linear;
   //padding: 10px 100px 10px 70px;
   //background-color: #f2f4f7;
   //background: var(--dfm-primary-lighter);
@@ -30,7 +32,15 @@
       color: var(--dfm-primary);
     }
   }
+
 }
+
+.header-logged-in {
+  width: calc(100% - 86px);
+  padding: 8px 32px;
+  min-height: 0;
+}
+
 .display-5 {
   font-weight: 500;
   font-size: 14px;

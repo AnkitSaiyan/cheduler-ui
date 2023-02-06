@@ -1,6 +1,6 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-import {filter, take, takeUntil} from 'rxjs';
+import {filter, Observable, take, takeUntil} from 'rxjs';
 import {
   ConfirmActionModalComponent,
   DialogData
@@ -22,13 +22,16 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     console.log(e);
   }
 
-  url!: string;
+  public url!: string;
+
+  public isLoggedIn$!: Observable<boolean>;
 
   constructor(private authService: AuthService, private routerStateSvc: RouterStateService) {
     super();
   }
 
   public ngOnInit(): void {
+    this.isLoggedIn$ = this.authService.isLoggedIn$
     this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url);
   }
 

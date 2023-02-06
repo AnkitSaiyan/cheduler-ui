@@ -1,10 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {Location} from '@angular/common';
-import {take, takeUntil} from 'rxjs';
 import {DestroyableComponent} from "../destroyable/destroyable.component";
-import {RouterStateService} from "../../../core/services/router-state.service";
 
 @Component({
   selector: 'dfm-sub-header',
