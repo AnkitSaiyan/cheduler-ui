@@ -14,13 +14,14 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {WeekdayToNamePipe} from "./pipes/weekday-to-name.pipe";
 import {JoinWithAndPipe} from "./pipes/join-with-and.pipe";
 import {ProgressBarComponent} from "./components/progress-bar/progress-bar.component";
+import {VersioningComponent} from './components/versioning/versioning.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SubHeaderComponent, SideNavComponent, DestroyableComponent, ConfirmActionModalComponent, WeekdayToNamePipe, JoinWithAndPipe, ProgressBarComponent],
+  declarations: [HeaderComponent, FooterComponent, SubHeaderComponent, SideNavComponent, DestroyableComponent, ConfirmActionModalComponent, WeekdayToNamePipe, JoinWithAndPipe, ProgressBarComponent, VersioningComponent],
   imports: [
     CommonModule,
     DesignSystemModule,
@@ -43,7 +44,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     WeekdayToNamePipe,
     JoinWithAndPipe,
     ConfirmActionModalComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    VersioningComponent
   ]
 })
 export class SharedModule {
