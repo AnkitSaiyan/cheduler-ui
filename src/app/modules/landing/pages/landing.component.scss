@@ -30,22 +30,22 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  //margin-top: 80px;
-  // border: 1px solid red;
-  padding: 24px;
+  padding: 32px;
+  width: 80%;
+
   .left-section {
-    width: 50%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     line-height: 45px;
-    gap: 10px;
+    gap: 8px;
     // border: 1px solid black;
   }
 
   .right-section {
-    width: 50%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -56,7 +56,8 @@
 
 }
 .weekly-main-container{
-  padding: 35px 25px;
+  width: 80%;
+  padding: 32px;
 }
 
 .location {
