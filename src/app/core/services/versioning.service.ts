@@ -18,8 +18,8 @@ export class VersioningService {
       this.swUpdate.checkForUpdate();
     }
 
-    // Check every 5 minutes if there is an update
-    this.interval$ = interval(5 * 60 * 1000).subscribe(() => {
+    // Check every 1 minutes if there is an update
+    this.interval$ = interval(60 * 1000).subscribe(() => {
       if (this.swUpdate.isEnabled) {
         this.swUpdate.checkForUpdate();
       }

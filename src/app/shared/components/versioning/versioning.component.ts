@@ -27,6 +27,16 @@ export class VersioningComponent implements OnInit {
       this.isWrongVersion = true;
       this.cd.markForCheck();
     });
+
+    this.swUpdate.activateUpdate().then(() => {
+      this.isWrongVersion = true;
+      this.cd.markForCheck();
+    });
+
+    this.swUpdate.available.pipe().subscribe(() => {
+      this.isWrongVersion = true;
+      this.cd.markForCheck();
+    });
   }
 
   public reload() {
