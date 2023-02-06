@@ -192,7 +192,7 @@ table, th, tr, td {
   .appointment-slot-sec-1{
     width:100%!important;
     margin: 0px!important;
-    padding: 0px 12px!important;
+    padding: 0px 0px!important;
   }
   .calender-month-view-day {
     transition: all 150ms linear;
@@ -261,6 +261,7 @@ table, th, tr, td {
   .time-slot-container {
     // border: 1px solid red;
     margin: 5px 0px 0px 0px !important;
+    padding: 15px;
   }
   .time-slot-btn {
     display: none;
@@ -330,8 +331,9 @@ table, th, tr, td {
     border:none
   }
   .appointment-slot-sec-2{
-    border: 1px solid red;
+    // border: 1px solid red;
     overflow-y:auto;
+    padding: 0px;
   }
 }
 

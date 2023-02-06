@@ -13,17 +13,7 @@
   gap: 16px;
   width: 100%;
   transition: 150ms all linear;
-  //padding: 10px 100px 10px 70px;
-  //background-color: #f2f4f7;
-  //background: var(--dfm-primary-lighter);
-  //position: fixed;
-  //width: 100%;
-  //margin: auto;
-  //top: 23px;
-  //left: 50%;
-  //right: 50%;
-  //transform: translate(-50%, -50%);
-  //height: 70px!important;
+
 
   .nav-logo {
     img[alt] {
@@ -132,7 +122,7 @@
   display: none;
 }
 .register-menu {
-  display: none;
+  display: block;
 }
 .lang-btn-mv{
   display: none;
@@ -148,6 +138,14 @@
 }
 .header-register-btn{
   display: none!important;
+}
+.already-section{
+  font-size: 13px;
+  font-weight: 500;
+}
+.login-text{
+  text-decoration: underline;
+  color: var(--dfm-primary);
 }
 // ======================Media Query for Mobile view=================
 @media (max-width: 812px) {
@@ -202,7 +200,7 @@
     margin: 0;
   }
   .register-menu {
-    display: block;
+    display: block!important;
   }
   .menu {
     display: flex;
@@ -241,6 +239,9 @@
 }
 .header-register-btn{
   display: block!important;
+}
+.register-btn-mv{
+  display: none!important;
 }
 
 @media (min-width: 320px) and (max-width: 374px){
