@@ -202,13 +202,15 @@ td {
 
 @media (min-width: 180px) and (max-width: 680px) {
   .landing-page {
-    padding: 24px;
+    padding: 20px;
+    // border: 1px solid green;
   }
 
   .radiology-section {
     // border: 1px solid red;
     width: 100%;
-    padding: 0px 10px;
+    padding: 10px 10px;
+    margin: 20px 0px 0px 0px!important;
   }
 
   .radiology-section .left-section {
@@ -222,7 +224,7 @@ td {
     // background-color: white;
     border-radius: 8px;
     padding: 0px 5px 8px 5px;
-    margin: 60px 0px 0px 0px!important;
+    margin: 0px 0px 0px 0px!important;
   }
   .schedule-button {
     display: none;
@@ -263,20 +265,25 @@ td {
   }
   .header-section {
   }
+  .weekly-main-container{
+    width: 100%;
+    padding: 10px 10px;
+  }
   .weekly-container .weekly-content-left {
     display: none;
   }
   .weekly-container .weekly-content-right {
     width: 100%;
     // border: 1px solid red;
-    padding: 0px 10px;
-    margin: 10px 0px 0px 0px;
+    // padding: 0px 10px;
+    margin: 0px 0px 0px 0px;
   }
   .weekly-container .weekly-content-right .opening-detail-table {
     width: 100%;
     // border: 1px solid black;
     padding: 10px;
     margin: 10px 0px 0px 0px;
+    box-shadow: none!important;
   }
   .weekly-container .weekly-content-right .opening-section-header {
     font-size:18px;

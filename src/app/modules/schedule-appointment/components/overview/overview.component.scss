@@ -12,6 +12,10 @@
 .sa-btn-mv{
   display: none!important;
 }
+.login-text{
+  text-decoration: underline;
+  text-decoration-color: var(--dfm-primary);
+}
 
 // ======================Media Query for Mobile view=================
 
@@ -23,6 +27,11 @@
 }
 
 @media (min-width: 180px) and (max-width: 680px) {
+  .overview-main-container{
+    width: 100%;
+    // border: 1px solid red;
+    margin: 20px 0px 0px 0px;
+  }
   .container.main {
     margin-top: 80px !important;
     width: 90%;

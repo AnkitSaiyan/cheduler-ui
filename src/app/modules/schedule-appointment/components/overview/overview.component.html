@@ -3,7 +3,7 @@
 
   <div class="d-flex align-items-center font-weight-medium dfm-gap-4">
     <span class="account-login-block">Already have an account?</span>
-    <dfm-button color="link" size="lg" routerLink="/auth/login"> Login </dfm-button>
+    <dfm-button color="link" size="lg" routerLink="/auth/login"> <span class="login-text">Login</span> </dfm-button>
   </div>
 
   <div class="overview-img-container">
@@ -18,5 +18,7 @@
     <dfm-button [color]="'primary'" [size]="'sm'" [routerLink]="(isLoggedIn$ | async) ? './schedule/exam' : '/schedule/exam'" class="sa-btn-mv"> Schedule Appointment </dfm-button>
   </div>
 
+  <div class="d-flex justify-content-center text-center">
   <span class="font-weight-semi-bold text-lg">Click above to schedule an appointment</span>
+</div>
 </div>

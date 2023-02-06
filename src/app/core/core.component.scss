@@ -23,6 +23,9 @@
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .content {
+   width: 100%!important;
+  }
   .body-content {
     margin-top: 50px;
     min-height: calc(100vh - 50px);
