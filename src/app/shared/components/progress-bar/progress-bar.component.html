@@ -54,3 +54,66 @@
     <span class="progress-bar-text">Confirm</span>
   </li>
 </ul>
+
+<!-- =================||Progress Bar for Mobile View||============== -->
+
+<div class="mobile-view-progress-bar">
+<ul class="progress-bar-container-mv">
+  <li class="progress-bar-item">
+    <div class="progress-bar-marker" [ngClass]="{
+      'progress-bar-marker-selected': url.includes('exam'),
+      'progress-bar-marker-completed': urlObj.exam < urlObj[url]
+    }">
+      <span *ngIf="urlObj.exam >= urlObj[url]">1</span>
+      <div class="progress-bar-tick-mark">
+        <dfm-icon name="check" *ngIf="urlObj.exam < urlObj[url]"></dfm-icon>
+      </div>
+    </div>
+    <span class="progress-bar-text">Select Exam</span>
+  </li>
+  <div class="progress-bar-line"></div>
+
+  <li class="progress-bar-item">
+    <div class="progress-bar-marker" [ngClass]="{
+      'progress-bar-marker-selected': url.includes('slot'),
+      'progress-bar-marker-completed': urlObj.slot < urlObj[url]
+    }">
+      <span *ngIf="urlObj.slot >= urlObj[url]">2</span>
+      <div class="progress-bar-tick-mark">
+        <dfm-icon name="check" *ngIf="urlObj.slot < urlObj[url]"></dfm-icon>
+      </div>
+    </div>
+    <span class="progress-bar-text">Select Slot</span>
+  </li>
+  <div class="progress-bar-line"></div>
+
+  <li class="progress-bar-item">
+    <div class="progress-bar-marker" [ngClass]="{
+      'progress-bar-marker-selected': url.includes('basic-details'),
+      'progress-bar-marker-completed': urlObj['basic-details'] < urlObj[url]
+    }">
+      <span *ngIf="urlObj['basic-details'] >= urlObj[url]">3</span>
+      <div class="progress-bar-tick-mark">
+        <dfm-icon name="check" *ngIf="urlObj['basic-details'] < urlObj[url]"></dfm-icon>
+      </div>
+    </div>
+    <span class="progress-bar-text">Basic Details</span>
+  </li>
+  <div class="progress-bar-line"></div>
+
+  <li class="progress-bar-item">
+    <div class="progress-bar-marker progress-bar-marker-completed" [ngClass]="{
+      'progress-bar-marker-selected': url.includes('confirm') && !confirmed,
+      'progress-bar-marker-completed': urlObj.confirm === urlObj[url] && confirmed
+    }">
+      <span *ngIf="urlObj.confirm >= urlObj[url] && !confirmed">4</span>
+      <div class="progress-bar-tick-mark">
+        <dfm-icon name="check" *ngIf="urlObj.confirm === urlObj[url] && confirmed"></dfm-icon>
+      </div>
+    </div>
+    <span class="progress-bar-text">Confirm</span>
+  </li>
+</ul>
+</div>
+<!-- =================||Progress Bar for Mobile View Ends Here||============== -->
+

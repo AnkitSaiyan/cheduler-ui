@@ -51,9 +51,54 @@
   border-color: var(--dfm-green);
   color: white;
 }
-
-@media (min-width: 180px) and (max-width: 680px) {
-.progress-bar-container{
-  width: 100%;
+.progress-bar-container-mv{
+  display: none;
 }
+@media (min-width: 180px) and (max-width: 680px) {
+  .mobile-view-progress-bar{
+    border: 1px solid red;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // padding: 50px;
+  }
+  .progress-bar-container-mv{
+    // border: 1px solid red;
+    display: flex!important;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px!important;
+    margin: 0px!important;
+    width: 100%!important;
+    // gap: 50px;
+    margin: 20px 0px 0px 0px!important;
+  }
+.progress-bar-item{
+  // border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+}
+.progress-bar-marker{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  // border: 1px solid red;
+}
+.progress-bar-line{
+  display: block;
+  // border: 1px solid red;
+  margin: 0px 5px;
+  width: 40px;
+}
+.progress-bar-container{
+  display: none;
+}
+.progress-bar-container-mv{
+  display: block;
+}
+// .progress-bar-text{
+//   display: none;
+// }
 }

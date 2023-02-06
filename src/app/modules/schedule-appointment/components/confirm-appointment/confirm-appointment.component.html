@@ -1,5 +1,5 @@
-<div class="d-flex flex-column align-items-center dfm-gap-24 dfm-p-16">
-  <div class="d-grid grid-cols-2 dfm-gap-24">
+<div class="main-container d-flex flex-column align-items-center dfm-gap-24 dfm-p-16">
+  <div class="appointment-container d-grid grid-cols-2 dfm-gap-24">
     <section class="confirm-details dfm-card dfm-p-24 flex-1">
       <div class="patient-details">
         <h5 class="font-weight-bold">Patient Details</h5>
@@ -55,11 +55,14 @@
 
 
       <div class="d-flex flex-column dfm-gap-8" *ngIf="isConfirmed">
-        <span class="font-weight-medium">Status</span>
+        <!-- <span class="font-weight-medium">Status</span>
 
         <dfm-badge color="gray" size="md">
           <span class="font-weight-medium">Pending</span>
-        </dfm-badge>
+        </dfm-badge> -->
+        <div class="appointment-status bg-warning">
+          <span>Appointment Status : Pending</span>
+        </div>
       </div>
     </section>
   </div>

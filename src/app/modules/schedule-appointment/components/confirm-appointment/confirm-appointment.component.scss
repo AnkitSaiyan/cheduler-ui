@@ -64,8 +64,24 @@
 .instructions-text-section ul{
   list-style-type: none;
 }
+.appointment-status{
+padding: 10px;
+max-width: 350px;
+color: #fff;
+border-radius: 8px;
+font-weight: 500;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .main-container{
+    // border: 1px solid red;
+    padding: 0px;
+  }
+  .appointment-container{
+    display: flex!important;
+    flex-direction: column!important;
+    width: 100%;
+  }
   .confirm-appointment {
     background-color: #fff;
   }
