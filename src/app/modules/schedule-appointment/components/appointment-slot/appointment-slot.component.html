@@ -29,7 +29,7 @@
                 *ngIf="day && day <= 31"
                 class="calender-month-view-day text-sm"
                 [ngClass]="{
-            'calender-month-view-day-selected': selectedDate?.getDate() === day && selectedDate.getMonth() === selectedCalendarDate.getMonth() && selectedDate.getFullYear() === selectedCalendarDate.getFullYear(),
+            'calender-month-view-day-selected': selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === selectedCalendarDate.getMonth() && selectedDate.getFullYear() === selectedCalendarDate.getFullYear(),
             'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
             'calender-month-view-day-holiday': holidays.includes(+day)
         }"
@@ -95,9 +95,9 @@
 
   <div>
     <div class="d-flex justify-content-center align-items-center dfm-gap-16">
-      <dfm-button color="secondary" size="lg" routerLink="/schedule/exam" class="cal-back-btn">Back</dfm-button>
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">Back</dfm-button>
 
-      <dfm-button color="secondary" size="sm" routerLink="/schedule/exam" class="cal-back-btn-mv">
+      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv">
         Back
       </dfm-button>
 

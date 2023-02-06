@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {RouterStateService} from "../../../../core/services/router-state.service";
+import {DestroyableComponent} from "../destroyable/destroyable.component";
+import {RouterStateService} from "../../../core/services/router-state.service";
 import {takeUntil} from "rxjs";
 
 @Component({
@@ -25,7 +25,12 @@ export class ProgressBarComponent extends DestroyableComponent implements OnInit
   }
 
   public ngOnInit(): void {
-    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url.split('/')[2]);
+    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => {
+      const urlArr = url.split('/');
+      if (urlArr?.length) {
+        this.url = urlArr[urlArr.length - 1];
+      }
+    });
     this.routerStateSvc.listenForQueryParamsChanges$().pipe(takeUntil(this.destroy$$)).subscribe((queryParams) => {
       this.confirmed = queryParams['c'];
     });

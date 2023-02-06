@@ -87,16 +87,16 @@
   </div>
 
   <div class="d-flex justify-content-center confirm-btn-section dfm-gap-16">
-    <dfm-button color="secondary" size="lg" routerLink="/schedule/basic-details" *ngIf="!isConfirmed && !isCanceled"
+    <dfm-button color="secondary" size="lg" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
                 class="back-btn"> Back
     </dfm-button>
-    <dfm-button color="secondary" size="sm" routerLink="/schedule/basic-details" *ngIf="!isConfirmed && !isCanceled"
+    <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
                 class="back-btn-mv"> Back
     </dfm-button>
-    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/schedule/overview" *ngIf="isCanceled" class="back-btn2"> Go to
+    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/" *ngIf="isCanceled" class="back-btn2"> Go to
       Dashboard
     </dfm-button>
-    <dfm-button color="primary" size="sm" routerLink="/schedule/overview" *ngIf="isCanceled" class="back-btn2-mv">
+    <dfm-button color="primary" size="sm" routerLink="../overview" *ngIf="isCanceled" class="back-btn2-mv">
       Back
     </dfm-button>
 

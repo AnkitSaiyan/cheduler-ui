@@ -9,7 +9,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing.module';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,6 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
     ExamDetailComponent,
     AppointmentSlotComponent,
     ConfirmAppointmentComponent,
-    ProgressBarComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })
