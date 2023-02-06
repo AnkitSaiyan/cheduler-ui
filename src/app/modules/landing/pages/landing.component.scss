@@ -32,6 +32,7 @@
   flex-direction: row;
   padding: 32px;
   width: 80%;
+  transition: 200ms all linear;
 
   .left-section {
     flex: 1;
@@ -40,7 +41,7 @@
     justify-content: space-between;
     align-items: flex-start;
     line-height: 45px;
-    gap: 8px;
+    gap: 16px;
     // border: 1px solid black;
   }
 
@@ -48,10 +49,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-  }
-  .right-section img {
-    object-fit: contain;
+
+    .right-section-img {
+      align-self: end;
+    }
   }
 
 }
@@ -125,6 +126,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  transition: all 200ms linear;
   // border: 1px solid red;
   .weekly-content-left {
     width: 50%;
@@ -192,6 +194,12 @@ td {
   display: none;
 }
 // ======================Media Query for Mobile view=================
+@media (max-width: 1280px) {
+  .radiology-section, .weekly-main-container {
+    width: 100%;
+  }
+}
+
 @media (min-width: 180px) and (max-width: 680px) {
   .landing-page {
     padding: 24px;
