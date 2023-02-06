@@ -29,7 +29,7 @@
                 *ngIf="day && day <= 31"
                 class="calender-month-view-day text-sm"
                 [ngClass]="{
-            'calender-month-view-day-selected': selectedDate.getDate() === day && selectedDate.getMonth() === selectedCalendarDate.getMonth() && selectedDate.getFullYear() === selectedCalendarDate.getFullYear(),
+            'calender-month-view-day-selected': selectedDate && selectedDate.getDate() === day && selectedDate.getMonth() === selectedCalendarDate.getMonth() && selectedDate.getFullYear() === selectedCalendarDate.getFullYear(),
             'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
             'calender-month-view-day-holiday': holidays.includes(+day)
         }"
