@@ -25,12 +25,12 @@
     <section class="dfm-card d-flex flex-column dfm-p-24 dfm-gap-16 flex-1">
       <h5 class="font-weight-bold">Appointment Details</h5>
 
-      <div class="d-flex align-items-center dfm-gap-8 font-weight-medium">
+      <div class="exams-section-mv d-flex align-items-center dfm-gap-8 font-weight-medium">
         <span>Exams: </span>
         <span *ngIf="examDetails?.exams?.length">{{ examDetails.exams | joinWithAnd : 'exam' }}</span>
       </div>
 
-      <div class="d-flex dfm-gap-16">
+      <div class="appointment-details-mv d-flex dfm-gap-16">
         <div class="d-flex align-items-center gap-2 font-weight-medium">
           <div style="width: 20px; height: 20px">
             <dfm-icon name="calendar-check-01"></dfm-icon>

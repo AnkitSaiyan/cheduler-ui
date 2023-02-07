@@ -77,6 +77,16 @@ font-weight: 500;
     // border: 1px solid red;
     padding: 0px;
   }
+  .patient-detail-container table td{
+    font-size: 14px;
+  }
+  .appointment-details-mv{
+    font-size: 14px;
+    flex-direction: column;
+  }
+  .exams-section-mv{
+    font-weight: 600;
+  }
   .appointment-container{
     display: flex!important;
     flex-direction: column!important;

@@ -30,14 +30,16 @@
     <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
       <div class="register-menu">
-      <dfm-button color="link" size="xl" leadingIcon="user-plus-01" class="button-design register-btn">
+      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn">
         Register
       </dfm-button>
+      <!--||========Add button for Mobile view statrts=======|| -->
       <dfm-button color="link" size="sm" leadingIcon="user-plus-01" class="register-btn-mv">
       </dfm-button>
+       <!--||========Add button for Mobile view ends=======|| -->
       <div class="sub-menu">
         <div class="sub-menu-items">
-        <dfm-button color="primary" size="sm" leadingIcon="" class="button-design register-btn" routerLink="/auth/register">
+        <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
           Register
         </dfm-button>
         <div class="already-section">

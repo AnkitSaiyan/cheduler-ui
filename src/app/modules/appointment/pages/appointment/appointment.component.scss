@@ -4,7 +4,7 @@
 .login-dashboard-content {
     // width: 100%;
     border-radius: 8px;
-    // border: 1px solid red;
+    margin: 0px 10px;
 }
 
 .upcoming-appointments-section {
@@ -101,7 +101,7 @@
     line-height: 28px;
     /* or 140% */
   
-    color: #531422 !important;
+    color:var(--dfm-primary) !important;
   }
 
 .sidebar-menu-items {
@@ -156,6 +156,7 @@
 .previous-appointment-container{
     // border: 1px solid red;
     padding: 20px;
+    margin: 0px 20px;
 }
 .previous-appointment-cards {
     display: flex;
@@ -213,7 +214,13 @@
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-.upcoming-appointments-section{
+    .login-dashboard-content {
+        margin: 0px 15px;
+    }
+    .previous-appointment-container{
+        margin: 0px 15px;
+    }
+    .upcoming-appointments-section{
     width: 100%;
     // border: 1px solid black;
 }
@@ -223,7 +230,7 @@
     align-items: flex-start;
 }
 .upcoming-text{
-    font-size: 16px!important;
+    font-size: 17px!important;
     // text-align: left;
     font-weight: 600;
     margin: 16px 0px 0px 0px!important;
@@ -288,7 +295,7 @@
 .previous-app-text{
     display: block!important;
     margin: 16px 0px 0px 0px;
-    color: #531422;
+    // color:var(--dfm-primary);
     // border: 1px solid red;
     font-weight: 600;
     font-size: 17px!important;

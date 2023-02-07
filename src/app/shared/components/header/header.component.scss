@@ -51,7 +51,7 @@
 .sub-menu {
   position: absolute;
   background-color: #fff;
-  top: 25px;
+  top: 50px;
   left: 50%;
   transform: translate(-50%, 0px);
   display: none;
@@ -147,6 +147,9 @@
   text-decoration: underline;
   color: var(--dfm-primary);
 }
+.register-btn-mv{
+  display: none;
+}
 // ======================Media Query for Mobile view=================
 @media (max-width: 812px) {
   .schedule-btn {
@@ -211,7 +214,7 @@
     // border: 1px solid black;
   }
   .sub-menu {
-    top: 40px;
+    top: 30px;
   }
   .lang-btn {
     max-width: 50px;
@@ -233,15 +236,15 @@
     display: none!important;
     font-size: 13px;
   }
+  .register-btn-mv{
+    display: block!important;
+  }
 }
 .header-login-btn{
   display: block!important;
 }
 .header-register-btn{
   display: block!important;
-}
-.register-btn-mv{
-  display: none!important;
 }
 
 @media (min-width: 320px) and (max-width: 374px){
