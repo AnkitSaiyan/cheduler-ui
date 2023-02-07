@@ -3,8 +3,12 @@
     "rewrite": "/index.html"
   },
 
-  "route": "/*",
-    "headers": {
-        "Cache-Control": "no-store"
+  "routes": [
+    {
+      "route": "/*",
+      "headers": {
+        "cache-control": "no-store"
+      }
     }
+  ]
 }
