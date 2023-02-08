@@ -49,7 +49,7 @@
       </div>
 
       <div class="instructions-text-section">
-        <span class="font-weight-medium">Instructions</span>
+        <span class="font-weight-medium">Instructions :</span>
         <span class="text-sm">*Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</span>
       </div>
 
@@ -57,11 +57,12 @@
       <div class="d-flex flex-column dfm-gap-8" *ngIf="isConfirmed">
         <!-- <span class="font-weight-medium">Status</span>
 
-        <dfm-badge color="gray" size="md">
-          <span class="font-weight-medium">Pending</span>
+        <dfm-badge size="sm">
+          <span class="appointment-status font-weight-medium">Pending</span>
         </dfm-badge> -->
-        <div class="appointment-status bg-warning">
-          <span>Appointment Status : Pending</span>
+        <div class="appointment-status">
+          <span>Appointment Status : <span class=" status-text bg-warning text-white">Pending</span></span>
+          <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
         </div>
       </div>
     </section>
@@ -96,7 +97,7 @@
     <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
                 class="back-btn-mv"> Back
     </dfm-button>
-    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/" *ngIf="isCanceled" class="back-btn2"> Go to
+    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/schedule/overview" *ngIf="isCanceled" class="back-btn2"> Go to
       Dashboard
     </dfm-button>
     <dfm-button color="primary" size="sm" routerLink="../overview" *ngIf="isCanceled" class="back-btn2-mv">

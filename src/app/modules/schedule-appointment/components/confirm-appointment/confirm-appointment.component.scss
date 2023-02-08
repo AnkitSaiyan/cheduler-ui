@@ -65,11 +65,22 @@
   list-style-type: none;
 }
 .appointment-status{
-padding: 10px;
-max-width: 350px;
-color: #fff;
-border-radius: 8px;
+padding: 10px 0px;
+max-width: 100%;
+color: black;
 font-weight: 500;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+// border: 1px solid red;
+gap: 8px;
+}
+.status-text{
+  padding: 5px;
+  border-radius: 8px;
+}
+.confirmation-message{
+  font-size: 13px;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
