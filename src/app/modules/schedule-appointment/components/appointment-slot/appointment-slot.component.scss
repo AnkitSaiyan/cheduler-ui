@@ -347,4 +347,22 @@ table, th, tr, td {
   .calendar-footer-section{
     padding: 10px!important;
   }
+  .time-slot-mobile{
+    border: 1px solid red;
+    background-color: red;
+  }
+  .calender-month-view-day{
+    width: 25px!important;
+    height: 25px!important;
+    line-height: 25px!important;
+  }
+  .month-title-mv{
+    font-size: 18px!important;
+  }
+  .calender-month-view-weekday th{
+    font-size: 12px!important;
+  }
+  .calendar-footer-text span{
+    font-size: 13px!important;
+  }
   }

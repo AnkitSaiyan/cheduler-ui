@@ -5,9 +5,9 @@
   gap: 16px;
 }
 
-.overview-img-container {
-
-}
+.overview-img-container img{
+  width: 200px;
+} 
 
 .sa-btn-mv{
   display: none!important;
@@ -87,5 +87,12 @@
   .account-login-block{
     font-size: 14px!important;
     // font-weight: 600!important;
+  }
+  .check-above-text{
+    font-size: 14px!important;
+  }
+  .account-login-block{
+    font-size: 11px!important;
+    font-weight: 600;
   }
 }

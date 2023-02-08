@@ -68,3 +68,11 @@
     font-size: 14px;
   }
 }
+
+
+// ====================Breakpoints for 320px devices===================
+@media (min-width: 320px) and (max-width: 374px){
+  .footer-right{
+    font-size: 12px;
+  }
+}

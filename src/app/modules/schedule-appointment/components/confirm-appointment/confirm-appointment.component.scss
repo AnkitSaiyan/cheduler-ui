@@ -82,6 +82,24 @@ gap: 8px;
 .confirmation-message{
   font-size: 13px;
 }
+.confirm-details{
+  // border: 1px solid red;
+  word-break: keep-all;
+}
+.exams-section-mv{
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+.appointment-details-mv{
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.time-section{
+  max-width: 250px!important;
+}
+.time-span{
+  word-break: break-all;
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .main-container{
@@ -307,5 +325,8 @@ gap: 8px;
   .value{
     font-size: 12px!important;
     font-weight: 600!important;
+  }
+  .confirm-details{
+    padding: 24px!important;
   }
 }

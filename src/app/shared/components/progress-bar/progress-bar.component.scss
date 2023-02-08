@@ -100,4 +100,34 @@
 // .progress-bar-text{
 //   display: none;
 // }
+.progress-bar-text {
+  font-size:12px!important;
+  font-weight: 500;
+  word-wrap: break-word!important;
+}
+.progress-bar-item{
+  padding: 0px!important;
+  margin: 0px 5px!important;
+}
+}
+
+
+@media (min-width: 320px) and (max-width: 374px){
+.progress-bar-marker{
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  // border: 1px solid red;
+}
+.progress-bar-item{
+  padding: 0px!important;
+  margin: 0px 2px!important;
+  // border: 1px solid red;
+
+}
+.progress-bar-text {
+  font-size:10px!important;
+  font-weight: 600;
+}
 }

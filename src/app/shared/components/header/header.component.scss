@@ -13,6 +13,7 @@
   gap: 16px;
   width: 100%;
   transition: 150ms all linear;
+  z-index: 9999;
 
 
   .nav-logo {
@@ -73,13 +74,12 @@
   font-size: 15px!important;
 }
 .register-menu:hover .sub-menu {
-  display: block !important;
+  display: none !important;
   z-index: 99999;
 }
 .login-link {
   text-decoration: underline;
   cursor: pointer;
-  color: #531422;
 }
 
 .language-color {
@@ -150,8 +150,15 @@
 .register-btn-mv{
   display: none;
 }
+.language-btn-mv{
+  display: none!important;
+}
 // ======================Media Query for Mobile view=================
 @media (max-width: 812px) {
+  .register-menu:hover .sub-menu {
+    display: block !important;
+    z-index: 99999;
+  }
   .schedule-btn {
     display: none;
   }

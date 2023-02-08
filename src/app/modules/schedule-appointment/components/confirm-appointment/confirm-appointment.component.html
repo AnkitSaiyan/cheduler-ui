@@ -25,7 +25,7 @@
     <section class="dfm-card d-flex flex-column dfm-p-24 dfm-gap-16 flex-1">
       <h5 class="font-weight-bold">Appointment Details</h5>
 
-      <div class="exams-section-mv d-flex align-items-center dfm-gap-8 font-weight-medium">
+      <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
         <span>Exams: </span>
         <span *ngIf="examDetails?.exams?.length">{{ examDetails.exams | joinWithAnd : 'exam' }}</span>
       </div>
@@ -39,12 +39,12 @@
           <span class="text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
         </div>
 
-        <div class="d-flex gap-2 font-weight-medium">
+        <div class="d-flex gap-2 font-weight-medium time-section">
           <div style="width: 20px; height: 20px">
             <dfm-icon name="clock"></dfm-icon>
           </div>
           <span>Time: </span>
-          <span class="text-nowrap" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
+          <span class="time-span" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
         </div>
       </div>
 
@@ -62,7 +62,7 @@
         </dfm-badge> -->
         <div class="appointment-status">
           <span>Appointment Status : <span class=" status-text bg-warning text-white">Pending</span></span>
-          <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
+          <span class="confirmation-message">We will notify you by email once your appointment has been confirmed.</span>
         </div>
       </div>
     </section>

@@ -89,17 +89,15 @@
   width: 80%;
   margin: 0;
 }
-.sidebar-mobile-view{
-  display: none;
-}
 
 
 @media (min-width: 180px) and (max-width: 680px) {
   .dfm-side-nav{
-    display: none!important;
+    position: fixed;
+    width: 100%;
+    min-height: 86px;
+    bottom: 0;
+    flex-direction: row;
   }
-  .sidebar-mobile-view{
-    display: block!important;
-    // position: absolute;
-  }
+
 }

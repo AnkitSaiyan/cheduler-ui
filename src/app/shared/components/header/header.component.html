@@ -25,17 +25,13 @@
       >
         Schedule Appointment
       </dfm-button>
+      <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+        <span class="dfm-text-main-500 pointer">NL</span>
+        <span>|</span>
+        <span class="dfm-color-primary pointer">EN</span>
+      </div>
     </ng-container>
-
-    <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
-      <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" routerLink="/auth/login">
-        Login
-      </dfm-button>
-      <div class="register-menu">
-      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn">
-        Register
-      </dfm-button>
+    <div class="register-menu">
       <!--||========Add button for Mobile view statrts=======|| -->
       <dfm-button color="link" size="sm" leadingIcon="user-plus-01" class="register-btn-mv">
       </dfm-button>
@@ -51,6 +47,19 @@
       </div>
       </div>
       </div>
+    <div class=" language-btn-mv d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+      <span class="dfm-text-main-500 pointer">NL</span>
+      <span>|</span>
+      <span class="dfm-color-primary pointer">EN</span>
+    </div>
+    <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
+      <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
+      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" routerLink="/auth/login">
+        Login
+      </dfm-button>
+      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
+        Register
+      </dfm-button>
       <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
         <span class="dfm-text-main-500 pointer">NL</span>
         <span>|</span>
