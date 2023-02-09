@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16">
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
-    <section class="d-flex flex-column dfm-gap-16 flex-1">
+    <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <dfm-input-dropdown
         [items]="physician"
         (searchInput)="searchInput($event)"
@@ -10,17 +10,17 @@
         [showDescription]="false"
         size="md"
       >
-        {{ items?.name }}
+        {{ physician }}
       </dfm-input-dropdown>
 
       <span class="select-exam-detail">Select exam(s) below</span>
 
       <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
         <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
-          <div class="d-flex dfm-gap-8">
+          <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
             <dfm-input-dropdown [items]="items" formControlName="examName" label="Exam*" placeholder="Select Exam"
                                 size="md">
-              {{ items?.name }}
+              {{ items }}
             </dfm-input-dropdown>
 
             <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"

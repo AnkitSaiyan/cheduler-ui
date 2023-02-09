@@ -1,14 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {takeUntil} from "rxjs";
-import {ModalService} from "../../../../core/services/modal.service";
-import {
-  ConfirmActionModalComponent, DialogData
-} from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs';
+import { ModalService } from '../../../../core/services/modal.service';
+import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
+import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -30,26 +29,32 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public isCanceled = false;
 
+  public isEdited = false;
+
+  appointmentId: any;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalSvc: ModalService
+    private modalSvc: ModalService,
+    private notificationSvc: NotificationDataService,
   ) {
     super();
   }
 
   public ngOnInit(): void {
     this.router.navigate([], {
-      queryParams: null
-    })
+      queryParams: null,
+    });
 
     this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
       this.basicDetails = basicDetails;
     });
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
+      console.log('examDetails: ', examDetails);
       this.examDetails = examDetails;
     });
 
@@ -68,7 +73,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     super.ngOnDestroy();
   }
 
-
   displayValue(value: any) {
     console.log('value: ', value);
   }
@@ -78,27 +82,103 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public confirmAppointment() {
-    this.isConfirmed = true;
     this.router.navigate([], {
       queryParams: {
         c: true,
-      }
-    })
+      },
+    });
     // this.authService.isPending.next(this.isPending);
+    this.scheduleAppointmentSvc.basicDetails$.subscribe((basicDetail: any) => {
+      console.log('basicDetail: ', basicDetail);
+      this.basicDetails = basicDetail;
+    });
+    this.scheduleAppointmentSvc.examDetails$.subscribe((examDetail: any) => {
+      console.log('examDetail: ', examDetail);
+      this.examDetails = examDetail;
+    });
+    this.scheduleAppointmentSvc.slotDetails$.subscribe((timeSlot: any) => {
+      console.log('timeSlot: ', timeSlot);
+      this.slotDetails = timeSlot;
+    });
+    console.log('this.slotDetails: ', this.slotDetails);
+
+    console.log('this.examDetails: ', this.examDetails);
+    console.log('this.basicDetails: ', this.basicDetails);
+
+    const requestData = {
+      ...this.basicDetails,
+      ...this.examDetails,
+      ExamList: [this.examDetails.id],
+      StartedAt: '10-10-2021',
+    };
+
+    console.log('requestData: ', requestData);
+
+    if (requestData) {
+      this.scheduleAppointmentSvc
+        .addAppointment(requestData)
+        .pipe(
+          map((response) => {
+            console.log('response', response);
+            this.appointmentId = response.id;
+            localStorage.setItem('appointmentId', this.appointmentId);
+            return response;
+          }),
+        )
+        .subscribe(() => {
+          this.isConfirmed = true;
+          this.notificationSvc.showNotification(`Appointment added successfully`);
+        });
+    }
+  }
+
+  editAppointment() {
+    this.isConfirmed = true;
+    this.isEdited = true;
+    if (!this.appointmentId) {
+      this.appointmentId = localStorage.getItem('appointmentId');
+    }
+
+    const requestData = {
+      ...this.basicDetails,
+      ...this.examDetails,
+      ExamList: [this.examDetails.id],
+      StartedAt: '10-10-2021',
+      appointmentId: this.appointmentId ? this.appointmentId : '',
+    };
+
+    console.log('requestData: ', requestData);
+
+    if (requestData) {
+      this.scheduleAppointmentSvc
+        .updateAppointment$(requestData)
+        .pipe(map((response) => response))
+        .subscribe(() => {
+          this.isConfirmed = true;
+          this.notificationSvc.showNotification(`Appointment updated successfully`);
+        });
+    }
   }
 
   public cancelAppointment() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
         bodyText: 'Are you sure you want to cancel this appointment',
-      } as DialogData
-    })
-
-    modalRef.closed.pipe(takeUntil(this.destroy$$)).subscribe((result) => {
-      if (result) {
-        this.isCanceled = true;
-        this.isConfirmed = false
-      }
+      } as DialogData,
     });
+
+    modalRef.closed
+      .pipe(
+        filter((res: boolean) => res),
+        switchMap(() => this.scheduleAppointmentSvc.cancelAppointment$(this.appointmentId)),
+        take(1),
+      )
+      .subscribe((result) => {
+        if (result) {
+          this.isCanceled = true;
+          this.isConfirmed = false;
+          this.notificationSvc.showNotification('Appointment canceled successfully');
+        }
+      });
   }
 }
