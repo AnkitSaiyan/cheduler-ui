@@ -104,6 +104,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 5;
   }
   .toggle-btn-mv{
     display: none;
@@ -127,9 +128,9 @@
     color:#fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px!important;
+    justify-content: space-between!important;
+    // align-items: center;
+    // gap: 20px!important;
     transition: 200ms min-width linear;
     display: none;
   }

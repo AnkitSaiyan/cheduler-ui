@@ -2,6 +2,9 @@
   td, th {
     padding: 16px 16px 16px 0;
     font-weight: 500;
+    word-break: break-all;
+    align-items: flex-start;
+    text-align: left;
   }
 }
 
@@ -104,6 +107,13 @@ gap: 8px;
   word-break:break-word;
   max-width:200px;
   text-align: left;
+  font-weight: 500;
+}
+.date-span{
+  font-weight: 500;
+}
+.time-text, .date-text{
+  font-weight: 600;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -120,6 +130,10 @@ gap: 8px;
   }
   .exams-section-mv{
     font-weight: 600;
+    flex-direction: column;
+  }
+  .exam-details{
+    font-weight: 500;
   }
   .appointment-container{
     display: flex!important;
@@ -297,6 +311,10 @@ gap: 8px;
   }
   .back-btn2-mv{
     display: block!important;
+  }
+  .time-span{
+    width:113px;
+    text-align: left;
   }
 }
 
