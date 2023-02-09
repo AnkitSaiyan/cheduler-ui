@@ -1,5 +1,5 @@
 <div class="dfm-side-nav" [ngClass]="{ 'dfm-side-nav-expanded': isExpanded }">
-  <div class="dfm-side-nav-item dfm-mb-32" (click)="toggleMenu()">
+  <div class=" toggle-btn-mv dfm-side-nav-item dfm-mb-32" (click)="toggleMenu()">
     <div class="dfm-side-nav-item-icon">
       <dfm-icon [name]="isExpanded ? 'x-close' : 'grid-01'"></dfm-icon>
     </div>
@@ -25,9 +25,19 @@
 
   <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('profile') }"
        (click)="!isExpanded ? navigate('profile') : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
-    <div class="dfm-side-nav-item-icon">
+    <!-- =================sub menu design for mobile view=============== -->
+       <div class="dfm-side-nav-item-icon">
       <dfm-icon name="user-01"></dfm-icon>
+      <div class="sub-menu-mv border-r-16">
+        <div class="sub-menu-items-mv">
+          <dfm-icon name="user-01"></dfm-icon>
+        </div>
+        <div class="sub-menu-items-mv">
+          <dfm-icon name="user-01"></dfm-icon>
+        </div>
+      </div>
     </div>
+    <!-- =================sub menu design for mobile view=============== -->
 
     <span *ngIf="isExpanded">My Account</span>
 
@@ -63,4 +73,7 @@
   To fill the gap on left after expanded menu.
   This will help retain the styling for other components
 -->
-<div style="width: 88px"></div>
+<div class="retain-div" style="width: 88px"></div>
+
+
+
