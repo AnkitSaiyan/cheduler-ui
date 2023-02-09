@@ -95,10 +95,15 @@ gap: 8px;
   flex-wrap: wrap;
 }
 .time-section{
-  max-width: 250px!important;
+  max-width: 350px!important;
+}
+.exam-span{
+  width: 152px!important;
 }
 .time-span{
-  word-break: break-all;
+  word-break:break-word;
+  max-width:200px;
+  text-align: left;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {

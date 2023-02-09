@@ -8,6 +8,7 @@
   //align-items: center;
   gap: 16px;
   transition: 200ms min-width linear;
+  z-index: 999999;
 }
 
 .dfm-side-nav-expanded {
@@ -96,6 +97,7 @@
     position: fixed;
     width: 100%;
     min-height: 86px;
+    min-width: 0px!important;
     bottom: 0;
     flex-direction: row;
   }

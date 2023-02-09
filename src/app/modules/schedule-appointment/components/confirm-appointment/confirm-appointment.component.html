@@ -26,7 +26,7 @@
       <h5 class="font-weight-bold">Appointment Details</h5>
 
       <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
-        <span>Exams: </span>
+        <span class="exam-span">Exams : </span>
         <span *ngIf="examDetails?.exams?.length">{{ examDetails.exams | joinWithAnd : 'exam' }}</span>
       </div>
 
@@ -35,7 +35,7 @@
           <div style="width: 20px; height: 20px">
             <dfm-icon name="calendar-check-01"></dfm-icon>
           </div>
-          <span>Date: </span>
+          <span>Date : </span>
           <span class="text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
         </div>
 
@@ -43,7 +43,7 @@
           <div style="width: 20px; height: 20px">
             <dfm-icon name="clock"></dfm-icon>
           </div>
-          <span>Time: </span>
+          <span>Time : </span>
           <span class="time-span" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
         </div>
       </div>
