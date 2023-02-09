@@ -158,8 +158,12 @@ table, th, tr, td {
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  * {
-    overflow-x: hidden;
+  // * {
+  //   overflow-x: hidden;
+  // }
+  .appointment-slot-container{
+    width: 100%!important;
+    // border: 1px solid red;
   }
   .basic-details-progress-bar {
     // border: 1px solid red;
@@ -184,6 +188,21 @@ table, th, tr, td {
     width: 30px;
     height: 2px;
     opacity: 1;
+  }
+  .appointment-slot-sec-1{
+    width:100%!important;
+    margin: 0px!important;
+    padding: 0px 0px!important;
+  }
+  .calender-month-view-day {
+    transition: all 150ms linear;
+    text-align: center;
+    width: 30px!important;
+    height: 30px!important;
+    border-radius: 50%;
+    vertical-align: middle;
+    line-height: 30px!important;
+    color: var(--dfm-main-400);
   }
   .calendar {
     padding: 10px 20px;
@@ -219,8 +238,8 @@ table, th, tr, td {
     // font-weight: 500;
   }
   .slot-timing-mv span {
-    width: 114px!important;
-    height: 100px!important;
+    width: 100px!important;
+    height: 30px!important;
     font-size: 13px!important;
     padding: 14px!important;
     font-weight: 500;
@@ -242,6 +261,7 @@ table, th, tr, td {
   .time-slot-container {
     // border: 1px solid red;
     margin: 5px 0px 0px 0px !important;
+    padding: 15px;
   }
   .time-slot-btn {
     display: none;
@@ -291,6 +311,30 @@ table, th, tr, td {
   .cal-back-btn{
     display: none!important;
   }
+  .calendar-mv{
+    display: flex!important;
+    flex-direction: column;
+  }
+  .appointment-slot-sec-1{
+    width: 250px;
+  }
+  .calendar-mv{
+    width: 100%;
+  }
+  .circle-24{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+  .appointment-slot-divider {
+    margin:0px !important;
+    border:none
+  }
+  .appointment-slot-sec-2{
+    // border: 1px solid red;
+    overflow-y:auto;
+    padding: 0px;
+  }
 }
 
 @media (min-width: 320px) and (max-width: 374px){
@@ -302,5 +346,23 @@ table, th, tr, td {
   }
   .calendar-footer-section{
     padding: 10px!important;
+  }
+  .time-slot-mobile{
+    border: 1px solid red;
+    background-color: red;
+  }
+  .calender-month-view-day{
+    width: 25px!important;
+    height: 25px!important;
+    line-height: 25px!important;
+  }
+  .month-title-mv{
+    font-size: 18px!important;
+  }
+  .calender-month-view-weekday th{
+    font-size: 12px!important;
+  }
+  .calendar-footer-text span{
+    font-size: 13px!important;
   }
   }

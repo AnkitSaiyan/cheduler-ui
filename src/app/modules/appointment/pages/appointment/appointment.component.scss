@@ -4,7 +4,7 @@
 .login-dashboard-content {
     // width: 100%;
     border-radius: 8px;
-    // border: 1px solid red;
+    margin: 0px 10px;
 }
 
 .upcoming-appointments-section {
@@ -101,7 +101,7 @@
     line-height: 28px;
     /* or 140% */
   
-    color: #531422 !important;
+    color:var(--dfm-primary) !important;
   }
 
 .sidebar-menu-items {
@@ -156,23 +156,25 @@
 .previous-appointment-container{
     // border: 1px solid red;
     padding: 20px;
+    margin: 0px 50px;
 }
 .previous-appointment-cards {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between!important;
     align-items: center;
     gap: 20px;
 }
 
 .card-item {
-    padding: 20px;
+    padding: 20px 40px;
     // box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     background-color: var(--dfm-body-bg);
+    border: 1px solid lightgrey;
 }
 
 .previous-appointments-date-time {
@@ -211,9 +213,33 @@
 .upcoming-text{
     font-weight: 600;
 }
+.appointment-status{
+    padding: 10px 0px;
+    max-width: 100%;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // border: 1px solid red;
+    gap: 8px;
+    }
+    .status-text{
+      padding: 5px;
+      border-radius: 8px;
+    }
+    .confirmation-message{
+      font-size: 13px;
+    }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-.upcoming-appointments-section{
+    .login-dashboard-content {
+        margin: 0px 15px;
+    }
+    .previous-appointment-container{
+        margin: 0px 15px;
+    }
+    .upcoming-appointments-section{
     width: 100%;
     // border: 1px solid black;
 }
@@ -223,7 +249,7 @@
     align-items: flex-start;
 }
 .upcoming-text{
-    font-size: 16px!important;
+    font-size: 17px!important;
     // text-align: left;
     font-weight: 600;
     margin: 16px 0px 0px 0px!important;
@@ -288,7 +314,7 @@
 .previous-app-text{
     display: block!important;
     margin: 16px 0px 0px 0px;
-    color: #531422;
+    // color:var(--dfm-primary);
     // border: 1px solid red;
     font-weight: 600;
     font-size: 17px!important;

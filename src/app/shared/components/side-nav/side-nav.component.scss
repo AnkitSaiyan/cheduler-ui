@@ -89,3 +89,15 @@
   width: 80%;
   margin: 0;
 }
+
+
+@media (min-width: 180px) and (max-width: 680px) {
+  .dfm-side-nav{
+    position: fixed;
+    width: 100%;
+    min-height: 86px;
+    bottom: 0;
+    flex-direction: row;
+  }
+
+}

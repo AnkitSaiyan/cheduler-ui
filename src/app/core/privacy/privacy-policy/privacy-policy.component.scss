@@ -1,6 +1,11 @@
 *{
     font-family: 'Montserrat';
   }
+  .main-container{
+    width: 75%!important;
+    margin: auto;
+    text-align: justify;
+  }
   .text-primary{
     color: var(--dfm-primary) !important;
 }

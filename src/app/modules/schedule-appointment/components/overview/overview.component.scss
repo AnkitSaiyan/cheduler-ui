@@ -5,12 +5,16 @@
   gap: 16px;
 }
 
-.overview-img-container {
-
-}
+.overview-img-container img{
+  width: 200px;
+} 
 
 .sa-btn-mv{
   display: none!important;
+}
+.login-text{
+  text-decoration: underline;
+  text-decoration-color: var(--dfm-primary);
 }
 
 // ======================Media Query for Mobile view=================
@@ -23,6 +27,11 @@
 }
 
 @media (min-width: 180px) and (max-width: 680px) {
+  .overview-main-container{
+    width: 100%;
+    // border: 1px solid red;
+    margin: 20px 0px 0px 0px;
+  }
   .container.main {
     margin-top: 80px !important;
     width: 90%;
@@ -34,6 +43,12 @@
   }
   .sa-btn-mv{
     display: none!important;
+  }
+  .link-section {
+    align-items: flex-start;
+  }
+  .account-login-block{
+    font-size: 15px;
   }
 }
 
@@ -72,5 +87,12 @@
   .account-login-block{
     font-size: 14px!important;
     // font-weight: 600!important;
+  }
+  .check-above-text{
+    font-size: 14px!important;
+  }
+  .account-login-block{
+    font-size: 11px!important;
+    font-weight: 600;
   }
 }

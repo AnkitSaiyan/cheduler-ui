@@ -121,7 +121,7 @@
 }
 .register-user {
   text-decoration: underline;
-  text-decoration-color: #531422;
+  text-decoration-color:var(--dfm-primary);
 }
 .or-section {
   display: flex;
@@ -179,6 +179,11 @@
     background-color: #fff;
     padding: 0;
     margin: 0;
+  }
+  .register-form {
+    transition: all linear 200ms;
+    padding:0px 10px;
+    width: 100%;
   }
   .nav-main-container {
     background-color:var(--dfm-primary-lighter)!important;
@@ -241,7 +246,7 @@
   }
   .register-user {
     text-decoration: underline;
-    text-decoration-color: #531422;
+    text-decoration-color:var(--dfm-primary);
   }
   .right-section-header {
     font-size: 25px;
@@ -300,5 +305,8 @@
   }
   .header-register-btn{
     display: block!important;
+  }
+  .register-mobile-view{
+    margin: 30px 0px 30px 0px;
   }
 }
