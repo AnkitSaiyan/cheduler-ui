@@ -3,7 +3,7 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from "../../../../shared/models/calendar.model.";
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {takeUntil} from "rxjs";
+import {BehaviorSubject, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -32,6 +32,10 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public exams: any[] = [];
 
+  private timeSlots$$: BehaviorSubject<any[]>;
+
+  public filteredSlots$$: BehaviorSubject<any[]>;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -39,6 +43,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     private route: ActivatedRoute
   ) {
     super();
+    this.timeSlots$$ = new BehaviorSubject<any[]>([]);
+    this.filteredSlots$$ = new BehaviorSubject<any[]>([]);
   }
 
   public ngOnInit(): void {
@@ -50,6 +56,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       } else {
         this.updateCalendarDays();
       }
+      this.timeSlots$$.next(slotDetails);
+      this.filteredSlots$$.next(slotDetails);
     });
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {

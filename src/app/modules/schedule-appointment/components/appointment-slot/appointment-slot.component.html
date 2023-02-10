@@ -61,7 +61,7 @@
       </div>
     </section>
 
-    <div class="appointment-slot-divider" *ngIf="selectedDate"></div>
+    <div class="appointment-slot-divider"></div>
 
     <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate">
       <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-fit" *ngFor="let exam of exams">
@@ -79,13 +79,13 @@
           </div>
           <section>
           <div class="time-slot-mv d-flex flex-column justify-content-between align-items-center gap-3 w-fit">
-            <div class="d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-              <span class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128 text-nowrap"
+            <div class="d-flex align-items-center gap-3 flex-wrap slot-timing-mv" *ngIf="filteredSlots$$ | async as timeSlots">
+              <span class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128 text-nowrap cursor-pointer"
                     *ngFor="let slot of timeSlots"
                     (click)="selectSlot(slot, exam.id)"
                     [ngClass]="{ 'time-slot-selected-text': isSlotSelected(slot, exam.id) }"
               >
-                {{ slot }}
+                {{ slot.start }} &nbsp; - &nbsp; {{ slot.end }}
               </span>
             </div>
           </div>
