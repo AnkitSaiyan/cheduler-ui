@@ -2,9 +2,14 @@
   td, th {
     padding: 16px 16px 16px 0;
     font-weight: 500;
+    word-break: break-all;
+    align-items: flex-start;
+    text-align: left;
   }
 }
-
+.table-title{
+  font-weight: 600!important;
+}
 
 .time-slot-btn-mv {
   display: none;
@@ -95,10 +100,28 @@ gap: 8px;
   flex-wrap: wrap;
 }
 .time-section{
-  max-width: 250px!important;
+  max-width: 350px!important;
 }
 .time-span{
-  word-break: break-all;
+  word-break:break-word;
+  max-width:202px;
+  text-align: left;
+  font-weight: 500;
+}
+.date-span{
+  font-weight: 500;
+}
+.time-text, .date-text{
+  font-weight: 600;
+}
+.exams-text, .instructions-text{
+  font-weight: 600!important;
+}
+.text-primary{
+  color: var(--dfm-primary)!important;
+}
+.exam-span{
+  width: 145px;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -113,8 +136,15 @@ gap: 8px;
     font-size: 14px;
     flex-direction: column;
   }
+  .exam-span{
+    width: 152px!important;
+  }
   .exams-section-mv{
     font-weight: 600;
+    flex-direction: column;
+  }
+  .exam-details{
+    font-weight: 500;
   }
   .appointment-container{
     display: flex!important;
@@ -292,6 +322,10 @@ gap: 8px;
   }
   .back-btn2-mv{
     display: block!important;
+  }
+  .time-span{
+    width:113px;
+    text-align: left;
   }
 }
 

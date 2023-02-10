@@ -22,7 +22,11 @@ body {
 
 
 // Custom styling classes
-
+.hoverable-btn:hover{
+  background-color: var(--dfm-primary);
+  color: #fff!important;
+  border-radius: 8px;
+}
 .border-r-8 {
   border-radius: 8px;
 }
@@ -30,7 +34,9 @@ body {
 .border-r-16 {
   border-radius: 16px;
 }
-
+.text-primary{
+  color: var(--dfm-primary)!important;
+}
 .text-lite-gray{
   color: #697586;
 }
