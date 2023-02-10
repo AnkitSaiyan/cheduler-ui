@@ -55,4 +55,24 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .footer-sec-2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text{
+    font-size: 14px;
+  }
+  .footer-right{
+    font-size: 14px;
+  }
+}
+
+
+// ====================Breakpoints for 320px devices===================
+@media (min-width: 320px) and (max-width: 374px){
+  .footer-right{
+    font-size: 12px;
+  }
 }

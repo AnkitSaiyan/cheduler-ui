@@ -26,6 +26,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public holidays = [8, 22];
 
+  public timeSlots: string[] = ['10:30-10:45', '11:00-11:15', '11:30-11:45', '11:45-12:00', '12:15-12:30', '13:00-13:15', '13:30-13:45', '14:00-14:15', '13:45-14:00'];
 
   public selectedTimeSlot: any[] = [];
 

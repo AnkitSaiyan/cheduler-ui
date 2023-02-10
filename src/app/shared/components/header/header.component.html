@@ -4,15 +4,7 @@
   </div>
 
   <div class="nav-items-right">
-    <div class="register-menu">
-      <div class="d-flex flex-row justify-content-between gap-2 align-items-center">
-        <div routerLink="/auth/login" style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 50px; height:25px; line-height:25px; text-align: center;" class="header-login-btn"><span>Login</span></div>
-        <div routerLink="/auth/register"style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: #531422; font-size: 13px; border: 1px solid #531422; border-radius: 6px; font-weight: 500; color: #f4e3cf; width: 70px; height:25px; line-height:25px; text-align: center;"class="header-register-btn"><span>Register</span></div>
-      </div>
-
-    </div>
-
-    <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div>
+    <!-- <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div> -->
 
     <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/"> Home </dfm-button>
@@ -33,11 +25,39 @@
       >
         Schedule Appointment
       </dfm-button>
+      <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+        <span class="dfm-text-main-500 pointer">NL</span>
+        <span>|</span>
+        <span class="dfm-color-primary pointer">EN</span>
+      </div>
     </ng-container>
-
+    <div class="register-menu">
+      <!--||========Add button for Mobile view statrts=======|| -->
+      <dfm-button color="link" size="sm" leadingIcon="user-plus-01" class="register-btn-mv">
+      </dfm-button>
+       <!--||========Add button for Mobile view ends=======|| -->
+      <div class="sub-menu">
+        <div class="sub-menu-items">
+        <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
+          Register
+        </dfm-button>
+        <div class="already-section">
+          <span>Existing User?</span><span routerLink="/auth/login" class="pointer login-text">Login</span>
+        </div>
+      </div>
+      </div>
+      </div>
+    <div class=" language-btn-mv d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
+      <span class="dfm-text-main-500 pointer">NL</span>
+      <span>|</span>
+      <span class="dfm-color-primary pointer">EN</span>
+    </div>
     <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> Home </dfm-button>
-      <dfm-button color="link" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
+      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" routerLink="/auth/login">
+        Login
+      </dfm-button>
+      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
         Register
       </dfm-button>
       <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">

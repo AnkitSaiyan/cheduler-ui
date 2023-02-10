@@ -1,5 +1,5 @@
-<div class="d-flex flex-column align-items-center dfm-gap-24 dfm-p-16">
-  <div class="d-grid grid-cols-2 dfm-gap-24">
+<div class="main-container d-flex flex-column align-items-center dfm-gap-24 dfm-p-16">
+  <div class="appointment-container d-grid grid-cols-2 dfm-gap-24">
     <section class="confirm-details dfm-card dfm-p-24 flex-1">
       <div class="patient-details">
         <h5 class="font-weight-bold">Patient Details</h5>
@@ -25,12 +25,12 @@
     <section class="dfm-card d-flex flex-column dfm-p-24 dfm-gap-16 flex-1">
       <h5 class="font-weight-bold">Appointment Details</h5>
 
-      <div class="d-flex align-items-center dfm-gap-8 font-weight-medium">
+      <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
         <span>Exams: </span>
         <span>{{ examDetails.exam }}</span>
       </div>
 
-      <div class="d-flex dfm-gap-16">
+      <div class="appointment-details-mv d-flex dfm-gap-16">
         <div class="d-flex align-items-center gap-2 font-weight-medium">
           <div style="width: 20px; height: 20px">
             <dfm-icon name="calendar-check-01"></dfm-icon>
@@ -39,27 +39,31 @@
           <span class="text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
         </div>
 
-        <div class="d-flex gap-2 font-weight-medium">
+        <div class="d-flex gap-2 font-weight-medium time-section">
           <div style="width: 20px; height: 20px">
             <dfm-icon name="clock"></dfm-icon>
           </div>
           <span>Time: </span>
-          <span class="text-nowrap" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
+          <span class="time-span" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
         </div>
       </div>
 
       <div class="instructions-text-section">
-        <span class="font-weight-medium">Instructions</span>
+        <span class="font-weight-medium">Instructions :</span>
         <span class="text-sm">*Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</span>
       </div>
 
 
       <div class="d-flex flex-column dfm-gap-8" *ngIf="isConfirmed">
-        <span class="font-weight-medium">Status</span>
+        <!-- <span class="font-weight-medium">Status</span>
 
-        <dfm-badge color="gray" size="md">
-          <span class="font-weight-medium">Pending</span>
-        </dfm-badge>
+        <dfm-badge size="sm">
+          <span class="appointment-status font-weight-medium">Pending</span>
+        </dfm-badge> -->
+        <div class="appointment-status">
+          <span>Appointment Status : <span class=" status-text bg-warning text-white">Pending</span></span>
+          <span class="confirmation-message">We will notify you by email once your appointment has been confirmed.</span>
+        </div>
       </div>
     </section>
   </div>
@@ -93,7 +97,7 @@
     <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
                 class="back-btn-mv"> Back
     </dfm-button>
-    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/" *ngIf="isCanceled" class="back-btn2"> Go to
+    <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/schedule/overview" *ngIf="isCanceled" class="back-btn2"> Go to
       Dashboard
     </dfm-button>
     <dfm-button color="primary" size="sm" routerLink="../overview" *ngIf="isCanceled" class="back-btn2-mv">

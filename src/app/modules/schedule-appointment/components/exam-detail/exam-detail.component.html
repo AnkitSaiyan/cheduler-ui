@@ -1,4 +1,4 @@
-<div class="d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16">
+<div class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16">
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <dfm-input-dropdown
@@ -12,6 +12,11 @@
       >
         {{ physician }}
       </dfm-input-dropdown>
+      <!-- ===============||Comments Section added for mobile view============|| -->
+      <section class="comments-mv">
+        <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+      </section>
+      <!-- ===============||Comments Section added for mobile view ends============|| -->
 
       <span class="select-exam-detail">Select exam(s) below</span>
 
@@ -34,18 +39,18 @@
         <div class="add-exam-btn">
         </div>
       </div>
-
-      <div class="d-flex align-items-center dfm-gap-8 pointer" (click)="addExam()">
+      <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
         <div style="width: 24px; height: 24px;" class="dfm-bg-color-primary text-white rounded-circle"><dfm-icon name="plus"></dfm-icon></div>
         <dfm-button color="link" size="sm">
           Click to add more exam
         </dfm-button>
       </div>
     </section>
-
-    <section>
+<!-- ===============||Comments Section added for Desktop view============|| -->
+    <section class="comments-btn">
       <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
     </section>
+    <!-- ===============||Comments Section added for Desktop view ends============|| -->
 
     <!--Right Section Ends Here=================-->
   </form>

@@ -1,9 +1,9 @@
 <div class="overview-main-container d-flex flex-column align-items-center bg-white border-r-16">
   <h5 class="dfm-color-primary font-weight-medium">Hello User!</h5>
 
-  <div class="d-flex align-items-center font-weight-medium dfm-gap-4">
+  <div class="link-section d-flex align-items-center font-weight-medium dfm-gap-4">
     <span class="account-login-block">Already have an account?</span>
-    <dfm-button color="link" size="lg" routerLink="/auth/login"> Login </dfm-button>
+    <dfm-button color="link" size="lg" routerLink="/auth/login"> <span class="login-text">Login</span> </dfm-button>
   </div>
 
   <div class="overview-img-container">
@@ -18,5 +18,7 @@
     <dfm-button [color]="'primary'" [size]="'sm'" [routerLink]="(isLoggedIn$ | async) ? './schedule/exam' : '/schedule/exam'" class="sa-btn-mv"> Schedule Appointment </dfm-button>
   </div>
 
-  <span class="font-weight-semi-bold text-lg">Click above to schedule an appointment</span>
+  <div class="d-flex justify-content-center text-center">
+  <span class="font-weight-semi-bold text-lg check-above-text">Click above to schedule an appointment</span>
+</div>
 </div>

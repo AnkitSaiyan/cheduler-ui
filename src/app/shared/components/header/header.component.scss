@@ -13,17 +13,8 @@
   gap: 16px;
   width: 100%;
   transition: 150ms all linear;
-  //padding: 10px 100px 10px 70px;
-  //background-color: #f2f4f7;
-  //background: var(--dfm-primary-lighter);
-  //position: fixed;
-  //width: 100%;
-  //margin: auto;
-  //top: 23px;
-  //left: 50%;
-  //right: 50%;
-  //transform: translate(-50%, -50%);
-  //height: 70px!important;
+  z-index: 9999;
+
 
   .nav-logo {
     img[alt] {
@@ -61,7 +52,7 @@
 .sub-menu {
   position: absolute;
   background-color: #fff;
-  top: 25px;
+  top: 50px;
   left: 50%;
   transform: translate(-50%, 0px);
   display: none;
@@ -83,13 +74,12 @@
   font-size: 15px!important;
 }
 .register-menu:hover .sub-menu {
-  display: block !important;
+  display: none !important;
   z-index: 99999;
 }
 .login-link {
   text-decoration: underline;
   cursor: pointer;
-  color: #531422;
 }
 
 .language-color {
@@ -132,7 +122,7 @@
   display: none;
 }
 .register-menu {
-  display: none;
+  display: block;
 }
 .lang-btn-mv{
   display: none;
@@ -149,8 +139,26 @@
 .header-register-btn{
   display: none!important;
 }
+.already-section{
+  font-size: 13px;
+  font-weight: 500;
+}
+.login-text{
+  text-decoration: underline;
+  color: var(--dfm-primary);
+}
+.register-btn-mv{
+  display: none;
+}
+.language-btn-mv{
+  display: none!important;
+}
 // ======================Media Query for Mobile view=================
 @media (max-width: 812px) {
+  .register-menu:hover .sub-menu {
+    display: block !important;
+    z-index: 99999;
+  }
   .schedule-btn {
     display: none;
   }
@@ -170,6 +178,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 10px!important;
     // margin: 11px 0px 0px 0px;
   }
 
@@ -201,7 +210,7 @@
     margin: 0;
   }
   .register-menu {
-    display: block;
+    display: block!important;
   }
   .menu {
     display: flex;
@@ -212,7 +221,7 @@
     // border: 1px solid black;
   }
   .sub-menu {
-    top: 40px;
+    top: 30px;
   }
   .lang-btn {
     max-width: 50px;
@@ -231,8 +240,11 @@
     display: block;
   }
   .lang-btn-mv{
-    display: block!important;
+    display: none!important;
     font-size: 13px;
+  }
+  .register-btn-mv{
+    display: block!important;
   }
 }
 .header-login-btn{

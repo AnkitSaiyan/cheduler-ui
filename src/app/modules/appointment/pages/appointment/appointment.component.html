@@ -1,6 +1,6 @@
-<div class="login-dashboard-content">
+<div class="login-dashboard-content mt-4">
     <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
-      <div class="upcoming-appointments-details border-r bg-white shadow-sm">
+      <div class="upcoming-appointments-details bg-white shadow-sm border-r-16">
         <span class="display-3 upcoming-text">Upcoming Appointments</span>
         <span class="display-4 appointment-exam-text"
           >Exam: {{upcommingAppointments[0].exam}} <span class="text-gray"></span>
@@ -32,15 +32,19 @@
           <span class="display-4 instruction-desk-view" style="font-weight: 600;">*Have an empty stomach 10 hours prior to the test</span>
         </div>
         <div class="lab-confirmation-status">
-          <div class="bg-warning pending-status">
+          <!-- <div class="bg-warning pending-status">
             <span class="display-4">Appointment Status : pending</span>
+          </div> -->
+          <div class="appointment-status">
+            <span>Appointment Status : <span class=" status-text bg-warning text-white">Pending</span></span>
+            <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container previous-appointment-container mt-4 bg-white border-r">  
+  <div class="previous-appointment-container mt-4 bg-white border-r-16">  
   <div class="previous-appointment-title">
       <span class="display-4 previous-app-text">Previous Appointments</span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
