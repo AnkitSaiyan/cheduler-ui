@@ -7,7 +7,9 @@
     text-align: left;
   }
 }
-
+.table-title{
+  font-weight: 600!important;
+}
 
 .time-slot-btn-mv {
   display: none;
@@ -112,8 +114,14 @@ gap: 8px;
 .time-text, .date-text{
   font-weight: 600;
 }
+.exams-text, .instructions-text{
+  font-weight: 600!important;
+}
 .text-primary{
   color: var(--dfm-primary)!important;
+}
+.exam-span{
+  width: 145px;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {

@@ -136,6 +136,11 @@
 .header-register-btn{
   display: none!important;
 }
+.hoverable-btn:hover{
+  background-color: var(--dfm-primary);
+  color: #fff!important;
+  border-radius: 8px;
+}
 // ======================Media Query for Mobile view=================
 @media (max-width: 1024px) {
   .login-main-container{

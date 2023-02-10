@@ -36,9 +36,9 @@
 
   .left-section {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
     // align-items: flex-start;
     // line-height: 15px;
     gap: 0px;
@@ -132,9 +132,10 @@
     width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 55px 0px 0px 0px;
     .schedule-image {
+      margin: 0px 40px;
     }
   }
   .weekly-content-right {
@@ -262,12 +263,17 @@ td {
     font-size: 16px;
     font-weight: 600;
     line-height: 26px;
+    margin: 0px!important;
   }
   .radiology-section .left-section .p-data {
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
+    margin: 0px!important;
     // margin: 5px 0px 0px 0px;
+  }
+  .sc-btn{
+    margin: 0px!important;
   }
   .header-section {
   }
@@ -328,4 +334,9 @@ td {
   .radiology-section .left-section .sub-header {
     font-size: 16px;
   }
+  th,
+td{
+  font-size: 13px;
+  font-weight: 500;
+}
 }

@@ -1,92 +1,169 @@
 <div class="login-dashboard-content mt-4">
-    <div class="upcoming-appointments-section">
-      <div class="upcoming-appointments-details border-r bg-white shadow-sm border-r-16">
-        <span class="display-3 upcoming-text">Upcoming Appointments</span>
-        <span class="display-4 appointment-exam-text"
-          >Exam: Levering stuenzolen <span class="text-gray"></span>
-          <hr class="bg-lite-gray appointment-hr-mv" /> 
-        </span>
-        <div class="display-5 upcoming-appointments-date-time">
-          <div class=" d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>Date : 12 November, 2022</span>
-          </div>
-          <div class=" d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+  <div class="upcoming-appointments-section">
+    <div class="upcoming-appointments-details border-r bg-white shadow-sm border-r-16">
+      <span class="display-3 upcoming-text">Upcoming Appointments</span>
+      <span class="display-4 appointment-exam-text"
+        >Exam: Levering stuenzolen <span class="text-gray"></span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+      <div class="display-5 upcoming-appointments-date-time">
+        <div class="d-flex flex-row justify-content-start gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>Date : 12 November, 2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-start gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>Time : 12:30</span>
         </div>
-        </div>
-        <div class="appointment-exam-text-mv">
-          <span class=" appointment-exam-text-mv text-primary"
-          >Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
-          <span>
-          <hr class="bg-lite-gray appointment-hr-mv" /> 
+      </div>
+      <div class="appointment-exam-text-mv">
+        <span class="appointment-exam-text-mv text-primary">Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
+        <span>
+          <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
-        </div>
-        <div class="instructions-text-section-mv d-flex justify-content-between">
-          <span class="instruction-text text-primary">Instructions:</span>
-          <span>*Have an empty stomach 10 hours prior to the test</span>
-        </div>
-         
-        <div class="instruction-details">
-          <span class="display-4" style="font-weight: 600;">Instructions :</span>
-          <span class="display-4 instruction-desk-view" style="font-weight: 600;">*Have an empty stomach 10 hours prior to the test</span>
-        </div>
-        <div class="lab-confirmation-status">
-          <!-- <div class="bg-warning pending-status">
+      </div>
+      <div class="instructions-text-section-mv d-flex justify-content-between">
+        <span class="instruction-text text-primary">Instructions:</span>
+        <span>*Have an empty stomach 10 hours prior to the test</span>
+      </div>
+
+      <div class="instruction-details">
+        <span class="display-4" style="font-weight: 600">Instructions :</span>
+        <span class="display-4 instruction-desk-view" style="font-weight: 600">*Have an empty stomach 10 hours prior to the test</span>
+      </div>
+      <div class="lab-confirmation-status">
+        <!-- <div class="bg-warning pending-status">
             <span class="display-4">Appointment Status : pending</span>
           </div> -->
-          <div class="appointment-status">
-            <span>Appointment Status : <span class=" status-text bg-warning text-white">Pending</span></span>
-            <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
-          </div>
+        <div class="appointment-status">
+          <span>Appointment Status : <span class="status-text bg-warning text-white">Pending</span></span>
+          <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
+        </div>
+        <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+          <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+          <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="previous-appointment-container mt-4 bg-white border-r-16">
+  <div class="previous-appointment-title">
+    <span class="display-4 previous-app-text">Previous Appointments</span>
+    <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
+    <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" (click)="viewAll = !viewAll">{{ viewAll ? 'Hide' : 'View All' }} </dfm-button>
+  </div>
+  <div class="previous-appointment-cards d-flex justify-content-center mt-3">
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+    </div>
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+    </div>
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+    </div>
+  </div>
+  <div class="previous-appointment-cards d-flex justify-content-center mt-3" *ngIf="viewAll">
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+    </div>
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
+    </div>
+    <div class="card-item">
+      <div class="display-5 previous-appointments-date-time">
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+          <span>12 November,2022</span>
+        </div>
+        <div class="d-flex flex-row justify-content-between gap-2">
+          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+          <span>12:30</span>
+        </div>
+      </div>
+      <span class="display-5">Exam: Levering Stuenzolean</span>
+      <span class="display-5"
+        >Status: <span class="text-success">Completed</span>
+        <hr class="bg-lite-gray appointment-hr-mv" />
+      </span>
     </div>
   </div>
 
-  <div class="previous-appointment-container mt-4 bg-white border-r-16">  
-  <div class="previous-appointment-title">
-      <span class="display-4 previous-app-text">Previous Appointments</span>
-      <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-      <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
-    </div>
-    <div class="previous-appointment-cards d-flex justify-content-center mt-3">
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span></div>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div>
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span></div>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div>
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span></div>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div>
-    </div>
-  
-    <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
+  <!-- <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
       <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
           <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
@@ -114,6 +191,5 @@
         <span class="display-5">Exam: Levering Stuenzolean</span>
         <span class="display-5">Status: <span class="text-success">Completed</span></span>
       </div>
-    </div>
-  </div>
-  
+    </div> -->
+</div>

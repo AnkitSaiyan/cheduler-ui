@@ -8,16 +8,22 @@
 }
 
 .sub-header-sub-container {
-  padding: 24px;
+  padding: 20px;
   max-width: 85%;
 
   .sub-header-img-container {
     display: flex;
-    justify-content: center;
+    justify-content: end;
+    img{
+      width: 305px;
+    }
   }
 }
 .welcome-text{
-  font-size: 19px!important;
+  font-size: 31px!important;
+}
+.schedule-text{
+  font-size: 24px!important;
 }
 
 
