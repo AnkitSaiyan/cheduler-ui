@@ -30,7 +30,9 @@ body {
 .border-r-16 {
   border-radius: 16px;
 }
-
+.text-primary{
+  color: var(--dfm-primary)!important;
+}
 .text-lite-gray{
   color: #697586;
 }

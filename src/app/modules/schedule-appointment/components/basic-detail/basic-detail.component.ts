@@ -14,6 +14,7 @@ import {takeUntil} from "rxjs";
 export class BasicDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
   displayBasicDetails: boolean = false;
   public basicDetailsForm!: FormGroup;
+  authSvc: any;
 
   constructor(
     private authService: AuthService,
@@ -54,5 +55,10 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
     this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
     this.router.navigate(['../confirm'], {relativeTo: this.route});
+  }
+  logInUser(){
+    this.authSvc.login$().pipe().subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 }

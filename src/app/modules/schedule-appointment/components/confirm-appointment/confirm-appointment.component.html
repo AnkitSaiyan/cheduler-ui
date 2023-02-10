@@ -6,15 +6,15 @@
         <div class="patient-detail-container">
           <table>
             <tr>
-              <td>Name :</td>
+              <td class="text-primary">Name :</td>
               <td>{{ basicDetails?.firstname | titlecase }} {{ basicDetails?.lastname }}</td>
             </tr>
             <tr>
-              <td>Email :</td>
+              <td class="text-primary">Email :</td>
               <td>{{ basicDetails?.email }}</td>
             </tr>
             <tr>
-              <td>Phone No. :</td>
+              <td class="text-primary">Phone No. :</td>
               <td>{{ basicDetails?.phone }}</td>
             </tr>
           </table>
@@ -26,7 +26,7 @@
       <h5 class="font-weight-bold">Appointment Details</h5>
 
       <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
-        <span class="exam-span">Exams : </span>
+        <span class="exam-span text-primary">Exams : </span>
         <span class="exam-details" *ngIf="examDetails?.exams?.length">{{ examDetails.exams | joinWithAnd : 'exam' }}</span>
       </div>
 
@@ -36,7 +36,7 @@
             <dfm-icon name="calendar-check-01"></dfm-icon>
           </div>
           <span class="date-text">Date : </span>
-          <span class="date-span text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
+          <span class="date-span  text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
         </div>
 
         <div class="d-flex gap-2 font-weight-medium time-section">
@@ -49,7 +49,7 @@
       </div>
 
       <div class="instructions-text-section">
-        <span class="font-weight-medium">Instructions :</span>
+        <span class="font-weight-medium text-primary">Instructions :</span>
         <span class="text-sm">*Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</span>
       </div>
 

@@ -100,12 +100,9 @@ gap: 8px;
 .time-section{
   max-width: 350px!important;
 }
-.exam-span{
-  width: 152px!important;
-}
 .time-span{
   word-break:break-word;
-  max-width:200px;
+  max-width:202px;
   text-align: left;
   font-weight: 500;
 }
@@ -114,6 +111,9 @@ gap: 8px;
 }
 .time-text, .date-text{
   font-weight: 600;
+}
+.text-primary{
+  color: var(--dfm-primary)!important;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
@@ -127,6 +127,9 @@ gap: 8px;
   .appointment-details-mv{
     font-size: 14px;
     flex-direction: column;
+  }
+  .exam-span{
+    width: 152px!important;
   }
   .exams-section-mv{
     font-weight: 600;

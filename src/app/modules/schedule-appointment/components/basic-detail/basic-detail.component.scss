@@ -1,5 +1,8 @@
 .basic-details-form {
-  padding: 40px;
+  padding:60px;
+}
+.dfm-card{
+  width: 50%;
 }
 
 .select-exam-bar-mv{
@@ -16,6 +19,18 @@
 
 .basic-next-btn-mv{
   display: none!important;
+}
+.text-primary{
+  color: var(--dfm-primary)!important;
+}
+.or-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 12px 12px 12px 12px;
+  // gap: 3px;
 }
 
 // ======================Media Query for Mobile view=================
