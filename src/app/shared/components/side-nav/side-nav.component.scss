@@ -106,15 +106,19 @@
     align-items: center;
     z-index: 5;
   }
+
   .toggle-btn-mv{
     display: none;
   }
+
   .dfm-side-nav-sub-menu{
     display: none;
   }
+
   .dfm-side-nav-item-icon{
     position: relative;
   }
+
   .sub-menu-mv{
     position: absolute;
     bottom: 70px;
@@ -134,9 +138,11 @@
     transition: 200ms min-width linear;
     display: none;
   }
+
   .dfm-side-nav-item-icon:hover .sub-menu-mv{
     display: block!important;
   }
+
   .sub-menu-items-mv{
     width: 30px;
     height: 30px;
