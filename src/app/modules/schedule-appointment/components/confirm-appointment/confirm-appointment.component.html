@@ -108,7 +108,7 @@
       [color]="'primary'"
       [size]="'lg'"
       [disabled]="checkBoxStatus()"
-      (click)="confirmAppointment()"
+      (click)="editAppointment()"
       class="confirm-btn"
       *ngIf="!isConfirmed && !isCanceled && !isEdited"
     >
@@ -118,7 +118,7 @@
       [color]="'primary'"
       [size]="'sm'"
       [disabled]="checkBoxStatus()"
-      (click)="confirmAppointment()"
+      (click)="editAppointment()"
       class="confirm-btn-mv"
       *ngIf="!isConfirmed && !isCanceled && !isEdited"
     >
@@ -126,7 +126,7 @@
     </dfm-button>
 
 
-    <dfm-button
+    <!-- <dfm-button
       [color]="'primary'"
       [size]="'lg'"
       [disabled]="checkBoxStatus()"
@@ -134,7 +134,7 @@
       class="confirm-btn"
     >
       update
-    </dfm-button>
+    </dfm-button> -->
     <dfm-button
       [color]="'primary'"
       [size]="'sm'"
