@@ -1,17 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { NotificationType } from 'diflexmo-angular-design';
-import { takeUntil } from 'rxjs';
-import { ModalService } from 'src/app/core/services/modal.service';
-import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
-import { NotificationDataService } from '../../services/notification-data.service';
-
-export interface DialogData {
-  titleText: string;
-  bodyText: string;
-  confirmButtonText: string;
-  cancelButtonText: string;
-}
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {NotificationType} from 'diflexmo-angular-design';
+import {ModalService} from 'src/app/core/services/modal.service';
+import {DestroyableComponent} from 'src/app/shared/components/destroyable/destroyable.component';
+import {NotificationDataService} from '../../services/notification-data.service';
+import {DialogData} from "../../../shared/components/confirm-action-modal/confirm-action-modal.component";
 
 @Component({
   selector: 'dfm-forgot-password',
@@ -47,11 +40,11 @@ export class ForgotPasswordComponent extends DestroyableComponent implements OnI
   }
 
   public close(result: boolean) {
-    if (result){
-        if(this.forgotPasswordControl.invalid){
-            this.notificationService.showNotification("Please enter email first",NotificationType.WARNING)
-            return;
-        }
+    if (result) {
+      if (this.forgotPasswordControl.invalid) {
+        this.notificationService.showNotification("Please enter email first", NotificationType.WARNING)
+        return;
+      }
     }
     this.dialogSvc.close(result);
   }

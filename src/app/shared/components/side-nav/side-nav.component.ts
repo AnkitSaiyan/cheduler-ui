@@ -16,6 +16,7 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public url!: string;
 
   public isExpanded: boolean = false;
+  public window = window;
 
   constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService, private router: Router, private modalSvc: ModalService) {
     super();
@@ -44,12 +45,14 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
       .subscribe((result) => this.authSvc.logout$());
   }
 
-  public navigate(route: 'dashboard' | 'profile' | 'appointment' | 'privacy') {
-    if (this.url.includes(route)) {
+  public navigateTo(route: ['dashboard'] | ['appointment'] | ['account', 'profile'] | ['account', 'privacy']) {
+    console.log(route);
+
+    if (this.url.includes(route.length === 2 ? route[1] : route[0])) {
       return;
     }
 
-    this.router.navigate(['/', route]);
+    this.router.navigate(['/', ...route]);
 
     if (this.isExpanded) {
       this.toggleMenu();
