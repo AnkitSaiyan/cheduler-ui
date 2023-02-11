@@ -1,4 +1,4 @@
-<div class="nav-bar" [ngClass]="{ 'header-logged-in': isLoggedIn$ | async }">
+<div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
   <div class="nav-logo pointer" routerLink="/">
     <img src="../../../../assets/images/Diflexmo_Logo.svg" alt="SCHEDULER" />
   </div>

@@ -13,8 +13,8 @@ const routes: Routes = [
     canActivateChild: [AuthGuard]
   },
   {
-    path: 'profile',
-    loadChildren: async () => (await import('../profile/profile.module')).ProfileModule,
+    path: 'account',
+    loadChildren: async () => (await import('../account/account.module')).AccountModule,
     canActivateChild: [AuthGuard]
   },
 ];

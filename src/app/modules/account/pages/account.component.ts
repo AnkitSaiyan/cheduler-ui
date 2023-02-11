@@ -19,11 +19,11 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'dfm-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'dfm-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
 })
-export class ProfileComponent extends DestroyableComponent implements OnInit, OnDestroy {
+export class AccountComponent extends DestroyableComponent implements OnInit, OnDestroy {
   isrevokedPermission: boolean = false;
   public userForm!: FormGroup;
 

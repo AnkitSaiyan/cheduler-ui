@@ -10,16 +10,14 @@ import {AuthService} from "../../../core/services/auth.service";
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  items: any = [
+  public items: any = [
     {
       name: 'EN',
       value: 'EN',
-      discription: '',
     },
     {
       name: 'NL',
       value: 'NL',
-      discription: '',
     }
   ];
 
