@@ -1,6 +1,17 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, combineLatest, map, Observable, of, startWith, switchMap, tap} from "rxjs";
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  startWith,
+  Subject,
+  switchMap,
+  tap
+} from "rxjs";
 import {
   AddAppointmentRequestData,
   Appointment, AppointmentSlot,
@@ -10,14 +21,15 @@ import {BaseResponse} from 'src/app/shared/models/base-response.model';
 import {Exam} from 'src/app/shared/models/exam.model';
 import {Physician} from 'src/app/shared/models/physician.model';
 import {environment} from 'src/environments/environment';
+import {ExamDetails, SlotDetails} from "../../shared/models/local-storage-data.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScheduleAppointmentService {
-  private examDetails$$ = new BehaviorSubject<any>({});
+  private examDetails$$ = new BehaviorSubject<ExamDetails>({} as ExamDetails);
 
-  private slotDetails$$ = new BehaviorSubject<any>({});
+  private slotDetails$$ = new BehaviorSubject<SlotDetails>({} as SlotDetails);
 
   private basicDetails$$ = new BehaviorSubject<any>({});
 
@@ -29,36 +41,40 @@ export class ScheduleAppointmentService {
 
   private refreshExams$$ = new BehaviorSubject<any>({});
 
+  private refreshAppointment$$ = new Subject<void>();
+
   constructor(private http: HttpClient) {
   }
 
-  public setExamDetails(reqData) {
-    console.log('reqData: ', reqData);
+  public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
-    // this.examDetails$$.next(reqData);
   }
 
-  public get examDetails$(): Observable<any> {
-    const examDetails = localStorage.getItem('examDetails');
-    if (examDetails) {
-      return of(JSON.parse(examDetails));
+  public get examDetails$(): Observable<ExamDetails> {
+    if (!this.examDetails$$.value?.physician || !this.examDetails$$.value?.exams) {
+      const examDetails = localStorage.getItem('examDetails');
+      if (examDetails) {
+        this.examDetails$$.next(JSON.parse(examDetails))
+      }
     }
 
-    return of({});
+    return this.examDetails$$.asObservable();
   }
 
-  public setSlotDetails(reqData) {
+  public setSlotDetails(reqData: SlotDetails) {
     localStorage.setItem('slotDetails', JSON.stringify(reqData));
   }
 
 
-  public get slotDetails$(): Observable<any> {
-    const slotDetails = localStorage.getItem('slotDetails');
-    if (slotDetails) {
-      return of(JSON.parse(slotDetails));
+  public get slotDetails$(): Observable<SlotDetails> {
+    if (this.slotDetails$$.value?.selectedDate) {
+      const slotDetails = localStorage.getItem('slotDetails');
+      if (slotDetails) {
+        this.slotDetails$$.next(JSON.parse(slotDetails));
+      }
     }
 
-    return of({});
+    return this.slotDetails$$.asObservable();
   }
 
 
@@ -78,19 +94,20 @@ export class ScheduleAppointmentService {
     localStorage.removeItem('examDetails');
     localStorage.removeItem('slotDetails');
     localStorage.removeItem('basicDetails');
+    this.examDetails$$.next({} as ExamDetails)
+    this.slotDetails$$.next({} as SlotDetails);
+    this.basicDetails$$.next({});
     // this.examDetails$$.next({});
     // this.slotDetails$$.next({});
     // this.basicDetails$$.next({});
   }
 
-  public addAppointment(requestData): Observable<AddAppointmentRequestData> {
-    console.log('requestData: ', requestData);
-    console.log("called");
-
+  public addAppointment(requestData): Observable<Appointment> {
     return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`,
       requestData
     ).pipe(
       map(response => response.data),
+      tap(() => this.refreshAppointment$$.next())
     )
   }
 
@@ -145,27 +162,45 @@ export class ScheduleAppointmentService {
     )
   }
 
-  public cancelAppointment$(appointmentId: Number) {
-    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`, '').pipe(
+  public cancelAppointment$(appointmentId: number): Observable<boolean> {
+    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`, '').pipe(
       map((response) => response.data),
+      tap(() => this.refreshAppointment$$.next())
     );
   }
 
   public updateAppointment$(requestData) {
     const {appointmentId, ...restData} = requestData;
-    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`, restData).pipe(
+    return this.http.put<BaseResponse<number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`, restData).pipe(
       map((response) => response.data),
     );
   }
 
-  public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot> {
-    return this.http.post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData).pipe(
-      map((res) => {
-        if (res?.data && Array.isArray(res.data)) {
-          return res.data[0];
-        }
-        res?.data;
-      }),
+  public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot[]> {
+    return this.http.post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData).pipe(
+      map((res) => res?.data),
     )
+  }
+
+  public getAppointmentByID$(appointmentID: number): Observable<Appointment> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('id', appointmentID);
+
+    return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
+      switchMap(() => {
+        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`, {params: queryParams}).pipe(
+          map((response) => {
+            if (Array.isArray(response.data)) {
+              return response.data[0];
+            }
+            return response.data as Appointment;
+          }),
+          catchError((e) => {
+            console.log('error', e);
+            return of({} as Appointment);
+          }),
+        )
+      }),
+    );
   }
 }

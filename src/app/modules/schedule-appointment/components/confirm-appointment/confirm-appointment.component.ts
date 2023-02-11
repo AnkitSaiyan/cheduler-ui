@@ -4,7 +4,7 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BehaviorSubject, filter, map, switchMap, take, takeUntil} from 'rxjs';
+import {BehaviorSubject, filter, combineLatest, of, switchMap, take, takeUntil} from 'rxjs';
 import {ModalService} from '../../../../core/services/modal.service';
 import {
   ConfirmActionModalComponent,
@@ -12,6 +12,8 @@ import {
 } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
 import {NotificationDataService} from 'src/app/core/services/notification-data.service';
 import {DatePipe} from "@angular/common";
+import {Appointment} from "../../../../shared/models/appointment.model";
+import {ExamDetails, SlotDetails} from "../../../../shared/models/local-storage-data.model";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -24,21 +26,22 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public basicDetails!: any;
 
-  public examDetails!: any;
+  public examDetails!: ExamDetails;
 
-  public slotDetails!: any;
+  public slotDetails!: SlotDetails;
 
-  public isConfirmed = false;
-
-  public isCanceled = false;
-
-  public isEdited = false;
 
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
 
   public exams$$ = new BehaviorSubject<any>(null);
 
-  appointmentId: any;
+  public appointment$$ = new BehaviorSubject<Appointment | null>(null);
+
+  public appointmentId$$ = new BehaviorSubject<number | null>(null);
+
+  public loading$$ = new BehaviorSubject(true);
+
+  public slots: string[] = []
 
   constructor(
     private authService: AuthService,
@@ -53,13 +56,37 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public ngOnInit(): void {
-    this.appointmentId = localStorage.getItem('appointmentId')
-    this.router.navigate([], {
-      queryParams: this.appointmentId ? { c: true } : null,
+    const appointmentId = localStorage.getItem('appointmentId');
+    if (appointmentId) {
+      this.appointmentId$$.next(+appointmentId);
+    }
+
+    combineLatest([this.appointmentId$$]).pipe(
+      switchMap(([id]) => {
+        if (id) {
+          return this.scheduleAppointmentSvc.getAppointmentByID$(+id);
+        }
+        return of({});
+      }),
+      takeUntil(this.destroy$$)
+    ).subscribe((appointment) => {
+      this.appointment$$.next(appointment as Appointment);
+
+      this.router.navigate([], {
+        queryParams: this.appointment$$.value?.id ? {c: true} : null,
+        replaceUrl: true
+      });
+
+      this.loading$$.next(false);
+
+      console.log(appointment);
+    }, (err) => {
+      this.loading$$.next(false);
+      this.appointment$$.next(null);
     });
 
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      console.log('examDetails: ', examDetails);
       this.examDetails = examDetails;
     });
 
@@ -78,6 +105,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     this.scheduleAppointmentSvc.slotDetails$.pipe(takeUntil(this.destroy$$)).subscribe((slotDetails) => {
       this.slotDetails = slotDetails;
+      if (slotDetails.selectedSlots) {
+        const slotValues = Object.values(slotDetails.selectedSlots);
+
+        if (slotValues?.length) {
+          this.slots = slotValues.map((slot) => (slot as string).split('-')?.map((time) => time.slice(0, -3)).join(' - '))
+        }
+      }
     });
   }
 
@@ -85,41 +119,16 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     super.ngOnDestroy();
   }
 
-  displayValue(value: any) {
-    console.log('value: ', value);
-  }
-
   public checkBoxStatus() {
     return !(Boolean(this.referDoctorCheckbox.value) && Boolean(this.consentCheckbox.value));
   }
 
   public confirmAppointment() {
-    this.router.navigate([], {
-      queryParams: {
-        c: true,
-      },
-    });
-
-    // this.authService.isPending.next(this.isPending);
-    // this.scheduleAppointmentSvc.basicDetails$.subscribe((basicDetail: any) => {
-    //   console.log('basicDetail: ', basicDetail);
-    //   this.basicDetails = basicDetail;
+    // this.router.navigate([], {
+    //   queryParams: {
+    //     c: true,
+    //   },
     // });
-    //
-    // this.scheduleAppointmentSvc.examDetails$.subscribe((examDetail: any) => {
-    //   console.log('examDetail: ', examDetail);
-    //   this.examDetails = examDetail;
-    // });
-    //
-    // this.scheduleAppointmentSvc.slotDetails$.subscribe((timeSlot: any) => {
-    //   console.log('timeSlot: ', timeSlot);
-    //   this.slotDetails = timeSlot;
-    // });
-    //
-    // console.log('this.slotDetails: ', this.slotDetails);
-    //
-    // console.log('this.examDetails: ', this.examDetails);
-    // console.log('this.basicDetails: ', this.basicDetails);
 
     const requestData = {
       ...this.basicDetails,
@@ -133,45 +142,14 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     if (requestData) {
       this.scheduleAppointmentSvc
         .addAppointment(requestData)
-        .pipe(
-          map((response) => {
-            console.log('response', response);
-            this.appointmentId = response.id;
-            localStorage.setItem('appointmentId', this.appointmentId);
-            return response;
-          }),
-        )
-        .subscribe(() => this.notificationSvc.showNotification(`Appointment added successfully`));
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe((res) => {
+          localStorage.setItem('appointmentId', res?.id.toString());
+          this.appointmentId$$.next(res?.id);
+          this.notificationSvc.showNotification(`Appointment added successfully`)
+        });
     }
   }
-
-  // editAppointment() {
-  //   this.isConfirmed = true;
-  //   this.isEdited = true;
-  //   if (!this.appointmentId) {
-  //     this.appointmentId = localStorage.getItem('appointmentId');
-  //   }
-  //
-  //   const requestData = {
-  //     ...this.basicDetails,
-  //     ...this.examDetails,
-  //     ExamList: [this.examDetails.id],
-  //     StartedAt: '10-10-2021',
-  //     appointmentId: this.appointmentId ? this.appointmentId : '',
-  //   };
-  //
-  //   console.log('requestData: ', requestData);
-  //
-  //   if (requestData) {
-  //     this.scheduleAppointmentSvc
-  //       .updateAppointment$(requestData)
-  //       .pipe(map((response) => response))
-  //       .subscribe(() => {
-  //         this.isConfirmed = true;
-  //         this.notificationSvc.showNotification(`Appointment updated successfully`);
-  //       });
-  //   }
-  // }
 
   public cancelAppointment() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
@@ -183,14 +161,16 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     modalRef.closed
       .pipe(
         filter((res: boolean) => res),
-        switchMap(() => this.scheduleAppointmentSvc.cancelAppointment$(this.appointmentId)),
+        switchMap(() => {
+          if (this.appointment$$.value?.id) {
+            return this.scheduleAppointmentSvc.cancelAppointment$(+this.appointment$$.value.id)
+          }
+          return of({});
+        }),
         take(1),
       )
-      .subscribe((result) => {
-        if (result) {
-          console.log(result);
-          this.isCanceled = true;
-          this.isConfirmed = false;
+      .subscribe((res) => {
+        if (res) {
           this.notificationSvc.showNotification('Appointment canceled successfully');
         }
       });

@@ -7,6 +7,7 @@ import {BehaviorSubject, map, takeUntil} from 'rxjs';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
 import {KeyValue} from "@angular/common";
 import {NameValue} from "../../../../shared/models/name-value.model";
+import {ExamDetails} from "../../../../shared/models/local-storage-data.model";
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -110,7 +111,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     const examDetails = {
       ...this.examForm.value,
       exams: this.examForm.value.exams.map((exam) => exam.exam)
-    };
+    } as ExamDetails;
 
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 

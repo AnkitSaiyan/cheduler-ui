@@ -17,6 +17,11 @@ const routes: Routes = [
     loadChildren: async () => (await import('../account/account.module')).AccountModule,
     canActivateChild: [AuthGuard]
   },
+  {
+    path: '**',
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

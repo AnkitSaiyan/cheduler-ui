@@ -7,6 +7,7 @@ import {BehaviorSubject, debounceTime, filter, switchMap, take, takeUntil} from 
 import {ActivatedRoute, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
 import {AppointmentSlot, Slot} from "../../../../shared/models/appointment.model";
+import {SlotDetails} from "../../../../shared/models/local-storage-data.model";
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -94,10 +95,10 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         fromDate: dateString, toDate: dateString, exams: [...this.examsDetails.exams]
       })
     }), takeUntil(this.destroy$$)).subscribe((appointmentSlot) => {
-      this.appointmentSlots$$.next(appointmentSlot);
+      this.appointmentSlots$$.next(appointmentSlot[0]);
       this.examIdToAppointmentSlots = {};
 
-      appointmentSlot.slots.forEach((slot) => {
+      appointmentSlot[0]?.slots?.forEach((slot) => {
         if (!this.examIdToAppointmentSlots[slot.examId]) {
           this.examIdToAppointmentSlots[slot.examId] = [];
         }
@@ -159,8 +160,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     const slotDetails = {
       selectedDate: this.selectedDate$$.value,
       selectedSlots: this.selectedTimeSlot,
-
-    };
+    } as SlotDetails;
 
     this.scheduleAppointmentSvc.setSlotDetails(slotDetails);
     this.router.navigate(['../basic-details'], {relativeTo: this.route});
