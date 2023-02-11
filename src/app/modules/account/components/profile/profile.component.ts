@@ -7,9 +7,8 @@ import {Router} from "@angular/router";
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {filter, take, takeUntil} from "rxjs";
 import {
-  ConfirmActionModalComponent
+  ConfirmActionModalComponent, DialogData
 } from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
-import {DialogData} from "../../pages/account.component";
 
 @Component({
   selector: 'dfm-account',
@@ -43,46 +42,6 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
       email: [userDetails?.email, [Validators.required]],
       phone: [userDetails?.phone, [Validators.required]],
     })
-  }
-
-  checkRevokeStatus() {
-    const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
-      data: {
-        bodyText: 'Are you sure you want to revoke  access to your personal information for this lab?',
-        confirmButtonText: 'Proceed',
-      } as DialogData,
-    });
-
-    modalRef.closed
-      .pipe(
-        filter((res: boolean) => res),
-        take(1),
-      )
-      .subscribe(() => {
-        this.isrevokedPermission = true;
-        this.notificationSvc.showNotification('Absence deleted successfully');
-        return this.isrevokedPermission;
-      });
-  }
-
-  displayDeletePopup() {
-    const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
-      data: {
-        bodyText: 'Are you sure you want to delete your account?',
-        confirmButtonText: 'Delete',
-      } as DialogData,
-    });
-
-    modalRef.closed
-      .pipe(
-        filter((res: boolean) => res),
-        take(1),
-      )
-      .subscribe(() => {
-        this.notificationSvc.showNotification('Account deleted successfully');
-        localStorage.clear();
-        this.router.navigate(['/auth/login']);
-      });
   }
 
   public saveDetails() {

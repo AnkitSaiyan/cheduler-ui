@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
-  ConfirmActionModalComponent
+  ConfirmActionModalComponent, DialogData
 } from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
-import {DialogData} from "../../pages/account.component";
 import {filter, take} from "rxjs";
 import {ModalService} from "../../../../core/services/modal.service";
 import {NotificationDataService} from "../../../../core/services/notification-data.service";
@@ -20,7 +19,8 @@ export class PrivacyComponent implements OnInit {
     private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
     private router: Router,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }

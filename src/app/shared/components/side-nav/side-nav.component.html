@@ -6,7 +6,7 @@
   </div>
 
   <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('dashboard') }"
-       (click)="navigate('dashboard')">
+       (click)="navigateTo(['dashboard'])">
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="home-03"></dfm-icon>
     </div>
@@ -15,7 +15,7 @@
   </div>
 
   <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }"
-       (click)="navigate('appointment')">
+       (click)="navigateTo(['appointment'])">
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="calendar"></dfm-icon>
     </div>
@@ -23,8 +23,8 @@
     <span *ngIf="isExpanded">Appointment</span>
   </div>
 
-  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('profile') }"
-       (click)="!isExpanded ? navigate('profile') : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
+  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('account') }"
+       (click)="!isExpanded ? navigateTo(['account', 'profile']) : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
     <!-- =================sub menu design for mobile view=============== -->
        <div class="dfm-side-nav-item-icon">
       <dfm-icon name="user-01"></dfm-icon>
@@ -48,14 +48,14 @@
   </div>
 
   <div #myAccount class="dfm-side-nav-sub-menu"
-       [ngClass]="{ 'dfm-side-nav-sub-menu-show': isExpanded && url.includes('profile') }">
+       [ngClass]="{ 'dfm-side-nav-sub-menu-show': isExpanded && url.includes('account/profile') }">
     <div class="dfm-side-nav-item-wo-icon" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('profile') }"
-         (click)="navigate('profile'); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
+         (click)="navigateTo(['account', 'profile']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
       <span>Profile</span>
     </div>
 
     <div class="dfm-side-nav-item-wo-icon" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('privacy') }"
-         (click)="navigate('privacy'); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
+         (click)="navigateTo(['account', 'privacy']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
       <span>Privacy</span>
     </div>
   </div>

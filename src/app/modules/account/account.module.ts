@@ -7,8 +7,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {PrivacyComponent} from "./components/privacy/privacy.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 
-
-
 @NgModule({
   declarations: [
     AccountComponent,
