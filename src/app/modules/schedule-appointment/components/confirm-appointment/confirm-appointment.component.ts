@@ -1,13 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, switchMap, take, takeUntil } from 'rxjs';
-import { ModalService } from '../../../../core/services/modal.service';
-import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
-import { NotificationDataService } from 'src/app/core/services/notification-data.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BehaviorSubject, filter, map, switchMap, take, takeUntil} from 'rxjs';
+import {ModalService} from '../../../../core/services/modal.service';
+import {
+  ConfirmActionModalComponent,
+  DialogData
+} from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
+import {NotificationDataService} from 'src/app/core/services/notification-data.service';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -17,7 +20,6 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
 export class ConfirmAppointmentComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public referDoctorCheckbox = new FormControl('', []);
   public consentCheckbox = new FormControl('', []);
-  displayBasicDetails: boolean = false;
 
   public basicDetails!: any;
 
@@ -30,6 +32,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public isCanceled = false;
 
   public isEdited = false;
+
+  public examIdToName: { [key: number]: { name: string; info: string } } = {};
+
+  public exams$$ = new BehaviorSubject<any>(null);
 
   appointmentId: any;
 
@@ -49,24 +55,27 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       queryParams: null,
     });
 
-    this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
-      this.basicDetails = basicDetails;
-    });
-
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       console.log('examDetails: ', examDetails);
       this.examDetails = examDetails;
     });
 
+    this.scheduleAppointmentSvc.exams$
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((exams) => {
+        exams.filter((exam) => this.examDetails?.exams?.indexOf((exam.id)) !== -1).forEach((exam) => {
+          this.examIdToName[+exam.id] = {name: exam.name, info: exam.info};
+        });
+        this.exams$$.next(exams);
+      });
+
+    this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
+      this.basicDetails = basicDetails;
+    });
+
     this.scheduleAppointmentSvc.slotDetails$.pipe(takeUntil(this.destroy$$)).subscribe((slotDetails) => {
       this.slotDetails = slotDetails;
     });
-
-    this.authService.isLoggedInUser.subscribe((user: boolean) => {
-      user === true ? (this.displayBasicDetails = false) : (this.displayBasicDetails = true);
-    });
-
-    this.displayBasicDetails = !Boolean(localStorage.getItem('user'));
   }
 
   public override ngOnDestroy() {

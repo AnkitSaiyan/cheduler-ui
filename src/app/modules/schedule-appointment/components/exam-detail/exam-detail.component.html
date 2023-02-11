@@ -1,4 +1,5 @@
-<div class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16">
+<div
+  class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16">
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <dfm-input-dropdown
@@ -23,13 +24,13 @@
       <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
         <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
           <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-            <dfm-input-dropdown [items]="items" formControlName="examName" label="Exam*" placeholder="Select Exam"
+            <dfm-input-dropdown [items]="items" formControlName="exam" label="Exam*" placeholder="Select Exam"
                                 size="md">
               {{ items }}
             </dfm-input-dropdown>
 
             <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-              (click)="removeExam(i);"
+                 (click)="removeExam(i);"
             >
               <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
             </div>
@@ -40,17 +41,19 @@
         </div>
       </div>
       <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
-        <div style="width: 24px; height: 24px;" class="dfm-bg-color-primary text-white rounded-circle"><dfm-icon name="plus"></dfm-icon></div>
+        <div style="width: 24px; height: 24px;" class="dfm-bg-color-primary text-white rounded-circle">
+          <dfm-icon name="plus"></dfm-icon>
+        </div>
         <dfm-button color="link" size="sm">
           Click to add more exam
         </dfm-button>
       </div>
     </section>
-<!-- ===============||Comments Section added for Desktop view============|| -->
+    <!-- ===============||Comments Section added for Desktop view============|| -->
     <section class="comments-btn">
       <div class="comments-section">
-      <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
-    </div>
+        <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+      </div>
     </section>
     <!-- ===============||Comments Section added for Desktop view ends============|| -->
 
@@ -61,7 +64,8 @@
     Next
   </dfm-button>
 
-  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid">
+  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv"
+              [disabled]="examForm.invalid">
     Next
   </dfm-button>
 </div>

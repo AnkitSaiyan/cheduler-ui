@@ -1,4 +1,5 @@
-<div class="d-flex flex-column justify-content-center align-items-center form-container-mv dfm-gap-24 dfm-p-24 border-r-16">
+<div
+  class="d-flex flex-column justify-content-center align-items-center form-container-mv dfm-gap-24 dfm-p-24 border-r-16">
   <form class="form-mv dfm-card basic-details-form" [formGroup]="basicDetailsForm">
     <div class="form-group-container d-flex justify-content-center gap-4">
       <div class="form-group">
@@ -10,27 +11,31 @@
                    formControlName="patientLname"></dfm-input>
       </div>
     </div>
+
     <div class="form-group-container d-flex justify-content-center gap-4 mt-3">
       <div class="form-group">
-        <dfm-input type="email" size="sm" label="Email*" placeholder="Enter Email" formControlName="patientEmail"></dfm-input>
+        <dfm-input type="email" size="sm" label="Email*" placeholder="Enter Email"
+                   formControlName="patientEmail"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="number" size="sm" label="Phone Number*" placeholder="Enter Phone Number" formControlName="patientTel"></dfm-input>
+        <dfm-input type="number" size="sm" label="Phone Number*" placeholder="Enter Phone Number"
+                   formControlName="patientTel"></dfm-input>
       </div>
     </div>
-    <section class="register-btn-section">
+
+    <section class="register-btn-section" *ngIf="(isLoggedIn$ | async) ===  false">
       <div class="or-section">
         <div>
-          <hr class="bg-gray" width="100px" />
+          <hr class="bg-gray" width="100px"/>
         </div>
         <div><span>&nbsp; or &nbsp; </span></div>
         <div>
-          <hr class="bg-gray" width="100px" />
+          <hr class="bg-gray" width="100px"/>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-center">
-      <span>Already have an account <span class="text-primary pointer underline-primary"  routerLink="/auth/login">Login</span></span>
-    </div>
+        <span>Already have an account <span class="text-primary pointer underline-primary" routerLink="/auth/login">Login</span></span>
+      </div>
     </section>
 
     <!--    <div class="or-section mt-10">-->

@@ -8,6 +8,7 @@ import {DesignSystemCoreModule} from 'diflexmo-angular-design';
 import {AppRoutingModule} from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ServiceWorkerModule} from "@angular/service-worker";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import {ServiceWorkerModule} from "@angular/service-worker";
     NgbModule
   ],
   bootstrap: [AppComponent],
+  providers: [DatePipe]
 })
 export class AppModule {
 }

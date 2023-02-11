@@ -1,23 +1,23 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
-import { BehaviorSubject, filter, map, switchMap, takeUntil } from 'rxjs';
-import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
+import {BehaviorSubject, map, takeUntil} from 'rxjs';
+import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import {KeyValue} from "@angular/common";
+import {NameValue} from "../../../../shared/models/name-value.model";
 
 @Component({
   selector: 'dfm-exam-detail',
   templateUrl: './exam-detail.component.html',
   styleUrls: ['./exam-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExamDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  examForm!: FormGroup;
-  displayRemoveLogo: boolean = false;
-  displayExamDetails: boolean = false;
-
-  public filteredPhysicians$$: BehaviorSubject<any[]>;
-  public filteredExams$$: BehaviorSubject<any[]>;
+  public examForm!: FormGroup;
+  public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
+  public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
 
   constructor(
     private fb: FormBuilder,
@@ -25,16 +25,19 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private router: Router,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
+    private cdr: ChangeDetectorRef
   ) {
     super();
-    this.filteredPhysicians$$ = new BehaviorSubject<any[]>([]);
-    this.filteredExams$$ = new BehaviorSubject<any[]>([]);
   }
 
   public ngOnInit(): void {
+    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
+      this.createForm(examDetails);
+    });
+
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
+        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id}))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -43,22 +46,10 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({ name, id }) => ({ name, value: id }))),
+        map((exams) => exams.map(({name, id}) => ({name: `${id} - ${name}`, value: id}))),
         takeUntil(this.destroy$$),
       )
-      .subscribe((exams) => {
-        console.log('exams: ', exams);
-        this.filteredExams$$.next(exams);
-      });
-
-    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      this.createForm(examDetails);
-    });
-
-    this.authService.isLoggedInUser.subscribe((user: boolean) => {
-      user === true ? (this.displayExamDetails = false) : (this.displayExamDetails = true);
-    });
-    this.displayExamDetails = !Boolean(localStorage.getItem('user'));
+      .subscribe((exams) => this.filteredExams$$.next(exams));
   }
 
   override ngOnDestroy() {
@@ -66,8 +57,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   private createForm(examDetails?) {
+    console.log(examDetails);
     this.examForm = this.fb.group({
-      physician: [examDetails?.physician ?? examDetails.physician, [Validators.required]],
+      physician: [+examDetails?.physician ?? '', [Validators.required]],
       exams: this.fb.array([]),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });
@@ -75,9 +67,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     const fa = this.examForm.get('exams') as FormArray;
 
     if (examDetails && examDetails?.exams?.length) {
-      console.log(examDetails);
       examDetails.exams.forEach((exam) => {
-        fa.push(this.newExam(exam));
+        fa.push(this.newExam(+exam));
       });
     } else {
       fa.push(this.newExam());
@@ -88,17 +79,14 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     return this.examForm.get('exams') as FormArray;
   }
 
-  private newExam(exam?): FormGroup {
+  private newExam(exam?: number): FormGroup {
     return this.fb.group({
-      examName: [exam?.id, [Validators.required]],
+      exam: [exam, [Validators.required]],
     });
   }
 
   public addExam() {
-    console.log('newExam(): ', this.examForm.controls['exams']['value'][0].examName);
-    console.log('Adding a exam');
     this.examCount().push(this.newExam());
-    this.displayRemoveLogo = true;
   }
 
   public removeExam(i: number) {
@@ -108,7 +96,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public searchInput(physycianName: string) {
-    console.log('physycianName: ', physycianName);
   }
 
   public resetForm() {
@@ -116,27 +103,17 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public saveExamDetails() {
-
-    if (this.examForm.valid) {
-      
-      console.log('function called 156');
-
-      this.examForm.value.exams.map((selectedExam) =>
-        this.filteredExams$$.pipe(map((response) => response)).subscribe((examData) => {
-          const exams = {
-            id: selectedExam?.examName,
-            exam: examData.find((item) => {
-              return item?.value === selectedExam.examName;
-            })?.name,
-            doctorId: this.examForm.controls["physician"].value
-          };
-          console.log('exams: ', exams);
-          this.scheduleAppointmentSvc.setExamDetails(exams);
-
-        }),
-      );
-
-      this.router.navigate(['../slot'], { relativeTo: this.route });
+    if (this.examForm.invalid) {
+      return;
     }
+
+    const examDetails = {
+      ...this.examForm.value,
+      exams: this.examForm.value.exams.map((exam) => exam.exam)
+    };
+
+    this.scheduleAppointmentSvc.setExamDetails(examDetails);
+
+    this.router.navigate(['../slot'], {relativeTo: this.route});
   }
 }

@@ -49,3 +49,34 @@ export interface AddAppointmentRequestData {
   endedAt?: Date | null;
   id?: number;
 }
+
+export interface Slot {
+  start: string;
+  end: string;
+  examId: number;
+}
+
+export interface AppointmentSlot {
+  title: string;
+  start: string;
+  end: string;
+  workStatus: WorkStatusesEnum;
+  workStatusText: WorkStatuses;
+  isAvailable: boolean;
+  slots: Slot[];
+}
+
+export type WorkStatuses = 'Working' | 'Holiday' | 'Off' | 'Past';
+
+export enum WorkStatusesEnum {
+  Working = 1,
+  Holiday,
+  Off,
+  Past
+}
+
+export interface AppointmentSlotsRequestData {
+  fromDate: string;
+  toDate: string;
+  exams: number[];
+}

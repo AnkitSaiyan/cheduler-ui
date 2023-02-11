@@ -27,7 +27,7 @@
 
       <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
         <span class="exam-span text-primary exams-text">Exams: </span>
-        <span class="exam-details">{{ examDetails.exam }}</span>
+        <span class="exam-details" *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'name' }}</span>
       </div>
 
       <div class="appointment-details-mv d-flex dfm-gap-16">
@@ -36,7 +36,7 @@
             <dfm-icon name="calendar-check-01" style="color:#4E2267"></dfm-icon>
           </div>
           <span class="date-text dfm-color-primary">Date : </span>
-          <span class="date-span  text-nowrap">{{ slotDetails?.date | date : 'longDate' }}</span>
+          <span class="date-span  text-nowrap">{{ slotDetails?.selectedDate | date : 'longDate' }}</span>
         </div>
 
         <div class="d-flex gap-2 font-weight-medium time-section">
@@ -44,13 +44,13 @@
             <dfm-icon name="clock"style="color:#4E2267"></dfm-icon>
           </div>
           <span class="time-text dfm-color-primary">Time : </span>
-          <span class="time-span" *ngIf="slotDetails?.slots">{{ slotDetails?.slots | joinWithAnd : 'slot' }}</span>
+          <span class="time-span" *ngIf="slotDetails?.selectedSlots">{{ slotDetails?.selectedSlots | objectTOArray | sliceStringArray : -3 : 0 : '-' | joinWithAnd }}</span>
         </div>
       </div>
 
       <div class="instructions-text-section">
         <span class="font-weight-medium text-primary instructions-text">Instructions :</span>
-        <span class="text-sm">*Have an empty stomach 10 hours prior to the test (Levering stuenzolen)</span>
+        <span class="font-weight-medium" *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'info' }}</span>
       </div>
 
 

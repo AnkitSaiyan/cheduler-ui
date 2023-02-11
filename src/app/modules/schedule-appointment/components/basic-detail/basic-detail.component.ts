@@ -4,7 +4,7 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {takeUntil} from "rxjs";
+import {Observable, takeUntil} from "rxjs";
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -12,9 +12,10 @@ import {takeUntil} from "rxjs";
   styleUrls: ['./basic-detail.component.scss']
 })
 export class BasicDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  displayBasicDetails: boolean = false;
+  // displayBasicDetails: boolean = false;
   public basicDetailsForm!: FormGroup;
-  authSvc: any;
+
+  public isLoggedIn$!: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
@@ -26,17 +27,17 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     super();
   }
 
-  ngOnInit(): void {
-    this.createForm();
+  public ngOnInit(): void {
     this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
-      if (basicDetails) {
         this.createForm(basicDetails);
-      }
     });
-    this.displayBasicDetails = Boolean(localStorage.getItem('user'))
-    this.authService.isLoggedInUser.subscribe((user: boolean) => {
-      (user === true) ? this.displayBasicDetails = false : this.displayBasicDetails = true;
-    })
+
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+
+    // this.displayBasicDetails = Boolean(localStorage.getItem('user'))
+    // this.authService.isLoggedInUser.subscribe((user: boolean) => {
+    //   (user === true) ? this.displayBasicDetails = false : this.displayBasicDetails = true;
+    // })
   }
 
   private createForm(basicDetails?) {
@@ -56,8 +57,9 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
     this.router.navigate(['../confirm'], {relativeTo: this.route});
   }
+
   logInUser(){
-    this.authSvc.login$().pipe().subscribe(() => {
+    this.authService.login$().pipe().subscribe(() => {
       this.router.navigate(['/dashboard']);
     });
   }

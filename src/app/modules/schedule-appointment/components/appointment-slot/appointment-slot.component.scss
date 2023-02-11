@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 24px;
   width: 80%;
   margin: auto;
@@ -13,16 +14,17 @@
   flex-direction: column;
   gap: 16px;
   padding: 24px;
+  flex: 1;
   transition: all linear 100ms;
 }
 
 .appointment-slot-sec-1 {
-  width: 512px;
+  max-width: 512px;
 }
 
 .appointment-slot-sec-2 {
   overflow-y: auto;
-  max-height: 440px;
+  //max-height: 440px;
 }
 
 table, th, tr, td {
@@ -34,6 +36,11 @@ table, th, tr, td {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.slot-timing {
+  max-height: 128px;
+  overflow-y: auto;
 }
 
 .calender-month-view {
@@ -76,9 +83,9 @@ table, th, tr, td {
 
   .calender-month-view-day-hover:hover {
     cursor: pointer;
-    background: var(--dfm-main-200);
-    border-color: var(--dfm-main-200);
-    color: black;
+    //background: var(--dfm-main-200);
+    //border-color: var(--dfm-main-200);
+    //color: black;
   }
 
   .calender-month-view-day-selected {
@@ -112,12 +119,25 @@ table, th, tr, td {
   background: var(--dfm-main-100);
   border-radius: 10px;
   padding: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 128px;
+  flex: 1;
   transition: 200ms all ease-in-out;
 
   &:hover {
-  //  background: var(--dfm-main-200);
-  //  color: var(--dfm-primary);
+    //background: var(--dfm-main-200);
+    //color: var(--dfm-primary);
     cursor: pointer;
+  }
+}
+
+.time-slot-disabled-text {
+  color: darkgray;
+
+  &:hover {
+    cursor: text;
   }
 }
 
@@ -276,7 +296,7 @@ table, th, tr, td {
   .time-slot-mv {
     display: flex;
     flex-direction: column;
-    align-items: center!important;
+    //align-items: center!important;
     max-height: 210px;
     flex-wrap: wrap;
     margin: 0px !important;
@@ -319,6 +339,7 @@ table, th, tr, td {
     width: 250px;
   }
   .calendar-mv{
+    gap: 8px;
     width: 100%;
   }
   .circle-24{

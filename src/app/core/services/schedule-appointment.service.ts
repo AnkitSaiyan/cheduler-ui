@@ -1,11 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, map, Observable, of, startWith, switchMap, tap} from "rxjs";
-import { AddAppointmentRequestData, Appointment } from 'src/app/shared/models/appointment.model';
-import { BaseResponse } from 'src/app/shared/models/base-response.model';
-import { Exam } from 'src/app/shared/models/exam.model';
-import { Physician } from 'src/app/shared/models/physician.model';
-import { environment } from 'src/environments/environment';
+import {
+  AddAppointmentRequestData,
+  Appointment, AppointmentSlot,
+  AppointmentSlotsRequestData
+} from 'src/app/shared/models/appointment.model';
+import {BaseResponse} from 'src/app/shared/models/base-response.model';
+import {Exam} from 'src/app/shared/models/exam.model';
+import {Physician} from 'src/app/shared/models/physician.model';
+import {environment} from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +24,7 @@ export class ScheduleAppointmentService {
   private appointment$$ = new BehaviorSubject<any>({});
 
   private upcommingAppointments$$ = new BehaviorSubject<any>({});
-  
+
   private refreshPhysicians$$ = new BehaviorSubject<any>({});
 
   private refreshExams$$ = new BehaviorSubject<any>({});
@@ -30,57 +34,60 @@ export class ScheduleAppointmentService {
 
   public setExamDetails(reqData) {
     console.log('reqData: ', reqData);
-    this.examDetails$$.next(reqData);
+    localStorage.setItem('examDetails', JSON.stringify(reqData));
+    // this.examDetails$$.next(reqData);
   }
 
   public get examDetails$(): Observable<any> {
-    return this.examDetails$$.asObservable();
+    const examDetails = localStorage.getItem('examDetails');
+    if (examDetails) {
+      return of(JSON.parse(examDetails));
+    }
+
+    return of({});
   }
 
   public setSlotDetails(reqData) {
-    console.log('reqData: ', reqData);
-    this.slotDetails$$.next(reqData);
+    localStorage.setItem('slotDetails', JSON.stringify(reqData));
   }
-
-  // public get slotDetails$(): Observable<any> {
-
-  //   return this.slotDetails$$.asObservable();
-  // }
 
 
   public get slotDetails$(): Observable<any> {
-    return combineLatest([this.slotDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchSlots()));
-  }
+    const slotDetails = localStorage.getItem('slotDetails');
+    if (slotDetails) {
+      return of(JSON.parse(slotDetails));
+    }
 
-  private fetchSlots(): Observable<Appointment[]> {
-    return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/test/slots`)
-      .pipe(map((response) => response.data));
+    return of({});
   }
-
 
 
   public setBasicDetails(reqData) {
-    console.log('reqData: ', reqData);
-    console.log('in')
-    this.basicDetails$$.next(reqData);
+    localStorage.setItem('basicDetails', JSON.stringify(reqData));
   }
 
   public get basicDetails$(): Observable<any> {
-    return this.basicDetails$$.asObservable();
+    const basicDetails = localStorage.getItem('basicDetails');
+    if (basicDetails) {
+      return of(JSON.parse(basicDetails));
+    }
+    return of({});
   }
 
   public resetDetails() {
-    this.examDetails$$.next({});
-    this.slotDetails$$.next({});
-    this.basicDetails$$.next({});
+    localStorage.removeItem('examDetails');
+    localStorage.removeItem('slotDetails');
+    localStorage.removeItem('basicDetails');
+    // this.examDetails$$.next({});
+    // this.slotDetails$$.next({});
+    // this.basicDetails$$.next({});
   }
 
   public addAppointment(requestData): Observable<AddAppointmentRequestData> {
     console.log('requestData: ', requestData);
     console.log("called");
-    
-    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`, 
+
+    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`,
       requestData
     ).pipe(
       map(response => response.data),
@@ -107,7 +114,7 @@ export class ScheduleAppointmentService {
       .pipe(map((response) => response.data));
   }
 
-  
+
   public get physicians$(): Observable<Physician[]> {
     return combineLatest([this.refreshPhysicians$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllPhysicians()));
   }
@@ -117,7 +124,6 @@ export class ScheduleAppointmentService {
   }
 
 
-  
   public get exams$(): Observable<Exam[]> {
     return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllExams()));
   }
@@ -128,25 +134,38 @@ export class ScheduleAppointmentService {
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
     console.log("examId", examID)
-    // return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => of(this.exams.find((exam) => +exam.id === +examID))));
+    // return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => of(this.examsDetails.find((exam) => +exam.id === +examID))));
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", examID);
     return this.http.get<BaseResponse<Exam>>(`${environment.serverBaseUrl}/exam/${examID}`).pipe(
       map(response => response.data),
-      tap(()=>{this.refreshExams$$.next('')})
+      tap(() => {
+        this.refreshExams$$.next('')
+      })
     )
   }
 
   public cancelAppointment$(appointmentId: Number) {
-    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`,'').pipe(
+    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`, '').pipe(
       map((response) => response.data),
     );
   }
 
   public updateAppointment$(requestData) {
     const {appointmentId, ...restData} = requestData;
-    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`,restData).pipe(
+    return this.http.put<BaseResponse<Number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`, restData).pipe(
       map((response) => response.data),
     );
+  }
+
+  public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot> {
+    return this.http.post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData).pipe(
+      map((res) => {
+        if (res?.data && Array.isArray(res.data)) {
+          return res.data[0];
+        }
+        res?.data;
+      }),
+    )
   }
 }

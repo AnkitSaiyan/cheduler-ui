@@ -1,6 +1,6 @@
-import { UserType } from './user.model';
-import { PracticeAvailability } from './practice.model';
-import { NameValue } from '../components/search-modal.component';
+import {UserType} from './user.model';
+import {PracticeAvailability} from './practice.model';
+import {NameValue} from "./name-value.model";
 
 export interface AddStaffRequestData {
   firstname: string;

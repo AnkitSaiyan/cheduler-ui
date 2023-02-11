@@ -15,13 +15,15 @@ import {WeekdayToNamePipe} from "./pipes/weekday-to-name.pipe";
 import {JoinWithAndPipe} from "./pipes/join-with-and.pipe";
 import {ProgressBarComponent} from "./components/progress-bar/progress-bar.component";
 import {VersioningComponent} from './components/versioning/versioning.component';
+import {ObjectToArrayPipe} from "./pipes/object-to-array.pipe";
+import {SliceStringArrayPipe} from "./pipes/slice-string-array.pipe";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SubHeaderComponent, SideNavComponent, DestroyableComponent, ConfirmActionModalComponent, WeekdayToNamePipe, JoinWithAndPipe, ProgressBarComponent, VersioningComponent],
+  declarations: [HeaderComponent, FooterComponent, SubHeaderComponent, SideNavComponent, DestroyableComponent, ConfirmActionModalComponent, WeekdayToNamePipe, JoinWithAndPipe, ProgressBarComponent, VersioningComponent, ObjectToArrayPipe, SliceStringArrayPipe],
   imports: [
     CommonModule,
     DesignSystemModule,
@@ -45,7 +47,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     JoinWithAndPipe,
     ConfirmActionModalComponent,
     ProgressBarComponent,
-    VersioningComponent
+    VersioningComponent,
+    ObjectToArrayPipe,
+    SliceStringArrayPipe
   ]
 })
 export class SharedModule {
