@@ -68,7 +68,7 @@
     </section>
   </div>
 
-  <div class="checkbox-section w-fit" *ngIf="isCanceled === false && isConfirmed === false">
+  <div class="checkbox-section w-fit" *ngIf="!appointmentId">
     <div class="w-fit">
       <dfm-checkbox
         label="I have an application from my referring GP, doctor specialist or dentist.*"
@@ -91,10 +91,10 @@
   </div>
 
   <div class="d-flex justify-content-center confirm-btn-section dfm-gap-16">
-    <dfm-button color="secondary" size="lg" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
+    <dfm-button color="secondary" size="lg" routerLink="../basic-details" *ngIf="!appointmentId"
                 class="back-btn"> Back
     </dfm-button>
-    <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!isConfirmed && !isCanceled"
+    <dfm-button color="secondary" size="sm" routerLink="../basic-details" *ngIf="!appointmentId"
                 class="back-btn-mv"> Back
     </dfm-button>
     <dfm-button color="primary" size="lg" leadingIcon="chevron-left" routerLink="/schedule/overview" *ngIf="isCanceled" class="back-btn2"> Go to
@@ -108,9 +108,9 @@
       [color]="'primary'"
       [size]="'lg'"
       [disabled]="checkBoxStatus()"
-      (click)="editAppointment()"
+      (click)="confirmAppointment()"
       class="confirm-btn"
-      *ngIf="!isConfirmed && !isCanceled && !isEdited"
+      *ngIf="!appointmentId"
     >
       Confirm
     </dfm-button>
@@ -118,49 +118,31 @@
       [color]="'primary'"
       [size]="'sm'"
       [disabled]="checkBoxStatus()"
-      (click)="editAppointment()"
+      (click)="confirmAppointment()"
       class="confirm-btn-mv"
-      *ngIf="!isConfirmed && !isCanceled && !isEdited"
-    >
-      Confirm
-    </dfm-button>
-
-
-    <!-- <dfm-button
-      [color]="'primary'"
-      [size]="'lg'"
-      [disabled]="checkBoxStatus()"
-      (click)="editAppointment()"
-      class="confirm-btn"
-    >
-      update
-    </dfm-button> -->
-    <dfm-button
-      [color]="'primary'"
-      [size]="'sm'"
-      [disabled]="checkBoxStatus()"
-      (click)="editAppointment()"
-      class="confirm-btn-mv"
-      *ngIf="isEdited"
+      *ngIf="!appointmentId"
     >
       Confirm
     </dfm-button>
   </div>
 
-  <div class="pending-section-button d-flex justify-content-center dfm-gap-16" *ngIf="isConfirmed">
+  <div class="pending-section-button d-flex justify-content-center dfm-gap-16" *ngIf="appointmentId">
     <dfm-button [color]="'secondary'" [size]="'lg'" (click)="isConfirmed = true" class="mx-3 edit-btn"
                 routerLink="/schedule/slot">
       Edit Appointment
     </dfm-button>
+
     <dfm-button [color]="'secondary'" [size]="'sm'" (click)="isConfirmed = true" class="mx-3 edit-btn-mv"
                 routerLink="/schedule/slot">
       Edit
     </dfm-button>
+
     <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
       Cancel Appointment
     </dfm-button>
+
     <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
-                (click)="isCanceled = true; isConfirmed = false">
+                (click)="cancelAppointment()">
       Cancel
     </dfm-button>
   </div>
