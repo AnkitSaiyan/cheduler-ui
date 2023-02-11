@@ -121,7 +121,8 @@ gap: 8px;
   color: var(--dfm-primary)!important;
 }
 .exam-span{
-  width: 145px;
+  // width: 145px;
+  white-space: nowrap;
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {

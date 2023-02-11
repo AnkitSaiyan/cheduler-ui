@@ -1,0 +1,69 @@
+.profile-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.my-profile-footer-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.revoke-btn-mv{
+    display: none;
+}
+.remove-enable-btn-mv{
+    display: none;
+}
+.privacy-delete-btn-mv{
+    display: none;
+}
+
+
+// ======================Media Query for Mobile view=================
+@media (min-width: 180px) and (max-width: 680px) {
+.profile-footer{
+    padding: 15px;
+}
+.profile-footer-text{
+    font-size: 13.5px;
+}
+.my-profile-footer{
+    width: 100%!important;
+    padding: 10px!important;
+}
+.privacy-text-div{
+    width: 100%!important;
+}
+.lab-section-mv{
+    gap: 30px!important;
+    margin: 10px 0px 0px 0px;
+}
+.remove-enable-btn{
+    display: none;
+}
+.revoke-btn{
+    display: none;
+}
+.remove-enable-btn-mv{
+    display: block;
+}
+.revoke-btn-mv{
+    display: block;
+}
+.privacy-delete-btn{
+    display: none;
+}
+.privacy-delete-btn-mv{
+    display: block;
+}
+.delete-button-section{
+    width: 100%!important;
+    padding: 10px!important;
+}
+}
+
+
+
+@media (min-width: 320px) and (max-width: 374px){}

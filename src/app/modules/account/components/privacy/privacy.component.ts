@@ -6,6 +6,7 @@ import {filter, take} from "rxjs";
 import {ModalService} from "../../../../core/services/modal.service";
 import {NotificationDataService} from "../../../../core/services/notification-data.service";
 import {Router} from "@angular/router";
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'dfm-privacy',
@@ -19,6 +20,7 @@ export class PrivacyComponent implements OnInit {
     private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
     private router: Router,
+    private authService: AuthService
   ) {
   }
 
@@ -60,7 +62,7 @@ export class PrivacyComponent implements OnInit {
       )
       .subscribe(() => {
         this.notificationSvc.showNotification('Account deleted successfully');
-        localStorage.clear();
+        this.authService.logout$;
         this.router.navigate(['/auth/login']);
       });
   }
