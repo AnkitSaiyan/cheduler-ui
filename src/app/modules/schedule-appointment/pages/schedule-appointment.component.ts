@@ -11,12 +11,22 @@ import {takeUntil} from "rxjs";
 export class ScheduleAppointmentComponent extends DestroyableComponent implements OnInit, DestroyableComponent {
   public url!: string;
 
+  public status!: string;
+
   constructor(private routerStateSvc: RouterStateService) {
     super();
+
+    this.routerStateSvc.listenForQueryParamsChanges$().pipe(takeUntil(this.destroy$$)).subscribe((queryParams) => {
+      this.status = queryParams['s'];
+      console.log(queryParams)
+    });
   }
 
   public ngOnInit(): void {
-    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url);
+    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => {
+      console.log(url)
+      this.url = url
+    });
   }
 
   public override ngOnDestroy() {

@@ -18,7 +18,7 @@ export class ProgressBarComponent extends DestroyableComponent implements OnInit
     confirm: 3,
   }
 
-  public confirmed = false;
+  public status: string = '';
 
   constructor(private routerStateSvc: RouterStateService) {
     super();
@@ -31,8 +31,9 @@ export class ProgressBarComponent extends DestroyableComponent implements OnInit
         this.url = urlArr[urlArr.length - 1];
       }
     });
+
     this.routerStateSvc.listenForQueryParamsChanges$().pipe(takeUntil(this.destroy$$)).subscribe((queryParams) => {
-      this.confirmed = queryParams['c'];
+      this.status = queryParams['s'];
     });
   }
 

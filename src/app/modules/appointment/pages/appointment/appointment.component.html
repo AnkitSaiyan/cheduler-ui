@@ -4,7 +4,7 @@
         <span class="display-3 upcoming-text">Upcoming Appointments</span>
         <span class="display-4 appointment-exam-text"
           >Exam: {{upcommingAppointments[0].exam}} <span class="text-gray"></span>
-          <hr class="bg-lite-gray appointment-hr-mv" /> 
+          <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
         <div class="display-5 upcoming-appointments-date-time">
           <div class=" d-flex flex-row justify-content-start gap-2">
@@ -37,7 +37,7 @@
       <div class="lab-confirmation-status">
         <div class="appointment-status">
           <span>Appointment Status : <span class="status-text bg-warning text-white">Pending</span></span>
-          <span class="confirmation-message">We will notify you by email once your appointment will be confirmed.</span>
+          <span class="confirmation-message">We will notify you by email once your appointment will be status.</span>
         </div>
         <div class="status-btn d-flex flex-row justify-content-start align-items-start">
           <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
@@ -86,7 +86,7 @@
 
       </div>
 
-   <!-- 
+   <!--
       <div class="card-item" >
         <div class="display-5 previous-appointments-date-time">
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{completedAppointments[2].startedAt | date:"dd, MMMM, yyyy"}}</span></div>
@@ -152,7 +152,7 @@
       </span>
       </div> -->
     </div>
-  
+
     <!-- <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
       <div class="card-item">
         <div class="display-5 previous-appointments-date-time">

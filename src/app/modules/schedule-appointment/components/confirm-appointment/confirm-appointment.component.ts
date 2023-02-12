@@ -4,7 +4,7 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BehaviorSubject, filter, combineLatest, of, switchMap, take, takeUntil} from 'rxjs';
+import {BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil} from 'rxjs';
 import {ModalService} from '../../../../core/services/modal.service';
 import {
   ConfirmActionModalComponent,
@@ -14,6 +14,7 @@ import {NotificationDataService} from 'src/app/core/services/notification-data.s
 import {DatePipe} from "@angular/common";
 import {Appointment} from "../../../../shared/models/appointment.model";
 import {ExamDetails, SlotDetails} from "../../../../shared/models/local-storage-data.model";
+import {AppointmentStatus} from "../../../../shared/models/status";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -41,7 +42,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public loading$$ = new BehaviorSubject(true);
 
+  public isLoggedIn$!: Observable<boolean>;
+
   public slots: string[] = []
+
+  public appointmentStatusEnum = AppointmentStatus;
 
   constructor(
     private authService: AuthService,
@@ -61,21 +66,37 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       this.appointmentId$$.next(+appointmentId);
     }
 
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+
     combineLatest([this.appointmentId$$]).pipe(
       switchMap(([id]) => {
         if (id) {
           return this.scheduleAppointmentSvc.getAppointmentByID$(+id);
         }
-        return of({});
+        return of({} as Appointment);
       }),
       takeUntil(this.destroy$$)
     ).subscribe((appointment) => {
       this.appointment$$.next(appointment as Appointment);
 
-      this.router.navigate([], {
-        queryParams: this.appointment$$.value?.id ? {c: true} : null,
-        replaceUrl: true
-      });
+      if (appointment?.id) {
+        let s: string;
+        switch (appointment.approval) {
+          case AppointmentStatus.Cancelled:
+            s = 'c';
+            break;
+          case AppointmentStatus.Approved:
+            s = 'a';
+            break;
+          default:
+            s = 'p';
+        }
+
+        this.router.navigate([], {
+          queryParams: {s},
+          replaceUrl: true
+        });
+      }
 
       this.loading$$.next(false);
 

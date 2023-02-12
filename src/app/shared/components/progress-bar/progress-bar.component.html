@@ -1,4 +1,4 @@
-<ul class="progress-bar-container">
+<ul class="progress-bar-container" *ngIf="!['c', 'a'].includes(status)">
   <li class="progress-bar-item">
     <div class="progress-bar-marker" [ngClass]="{
       'progress-bar-marker-selected': url.includes('exam'),
@@ -43,12 +43,12 @@
 
   <li class="progress-bar-item">
     <div class="progress-bar-marker progress-bar-marker-completed" [ngClass]="{
-      'progress-bar-marker-selected': url.includes('confirm') && !confirmed,
-      'progress-bar-marker-completed': urlObj.confirm === urlObj[url] && confirmed
+      'progress-bar-marker-selected': url.includes('confirm') && !status,
+      'progress-bar-marker-completed': urlObj.confirm === urlObj[url] && status
     }">
-      <span *ngIf="urlObj.confirm >= urlObj[url] && !confirmed">4</span>
+      <span *ngIf="urlObj.confirm >= urlObj[url] && !status">4</span>
       <div class="progress-bar-tick-mark">
-        <dfm-icon name="check" *ngIf="urlObj.confirm === urlObj[url] && confirmed"></dfm-icon>
+        <dfm-icon name="check" *ngIf="urlObj.confirm === urlObj[url] && status"></dfm-icon>
       </div>
     </div>
     <span class="progress-bar-text">Confirm</span>
@@ -103,12 +103,12 @@
 
   <li class="progress-bar-item">
     <div class="progress-bar-marker progress-bar-marker-completed" [ngClass]="{
-      'progress-bar-marker-selected': url.includes('confirm') && !confirmed,
-      'progress-bar-marker-completed': urlObj.confirm === urlObj[url] && confirmed
+      'progress-bar-marker-selected': url.includes('confirm') && !status,
+      'progress-bar-marker-completed': urlObj.confirm === urlObj[url] && status
     }">
-      <span *ngIf="urlObj.confirm >= urlObj[url] && !confirmed">4</span>
+      <span *ngIf="urlObj.confirm >= urlObj[url] && !status">4</span>
       <div class="progress-bar-tick-mark">
-        <dfm-icon name="check" *ngIf="urlObj.confirm === urlObj[url] && confirmed"></dfm-icon>
+        <dfm-icon name="check" *ngIf="urlObj.confirm === urlObj[url] && status"></dfm-icon>
       </div>
     </div>
     <span class="progress-bar-text">Confirm</span>
