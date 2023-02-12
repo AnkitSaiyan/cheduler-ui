@@ -48,6 +48,9 @@ export class ScheduleAppointmentService {
 
   public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
+    this.examDetails$$.next(reqData);
+    localStorage.removeItem('slotDetails');
+    this.slotDetails$$.next({} as SlotDetails);
   }
 
   public get examDetails$(): Observable<ExamDetails> {
@@ -63,13 +66,16 @@ export class ScheduleAppointmentService {
 
   public setSlotDetails(reqData: SlotDetails) {
     localStorage.setItem('slotDetails', JSON.stringify(reqData));
+    this.slotDetails$$.next(reqData);
   }
 
 
   public get slotDetails$(): Observable<SlotDetails> {
-    if (this.slotDetails$$.value?.selectedDate) {
+    if (!this.slotDetails$$.value?.selectedDate) {
       const slotDetails = localStorage.getItem('slotDetails');
+      console.log(slotDetails);
       if (slotDetails) {
+        console.log(JSON.parse(slotDetails))
         this.slotDetails$$.next(JSON.parse(slotDetails));
       }
     }
@@ -80,6 +86,7 @@ export class ScheduleAppointmentService {
 
   public setBasicDetails(reqData) {
     localStorage.setItem('basicDetails', JSON.stringify(reqData));
+    this.basicDetails$$.next(reqData);
   }
 
   public get basicDetails$(): Observable<any> {
@@ -146,7 +153,7 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllExams(): Observable<Exam[]> {
-    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/exam?pageNo=1`).pipe(map((response) => response.data));
+    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data));
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
@@ -183,12 +190,12 @@ export class ScheduleAppointmentService {
   }
 
   public getAppointmentByID$(appointmentID: number): Observable<Appointment> {
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append('id', appointmentID);
+    // let queryParams = new HttpParams();
+    // queryParams = queryParams.append('id', appointmentID);
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`, {params: queryParams}).pipe(
+        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment/${appointmentID}`).pipe(
           map((response) => {
             if (Array.isArray(response.data)) {
               return response.data[0];

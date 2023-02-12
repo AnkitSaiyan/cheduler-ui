@@ -130,11 +130,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
 
+    const time = Object.values(this.slotDetails.selectedSlots)[0].split('-')[0].split(':');
+    // console.log(time);
     const requestData = {
       ...this.basicDetails,
       doctorId: this.examDetails.physician,
       examList: this.examDetails.exams,
-      startedAt: this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')
+      startedAt: this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd') + ' ' + time[0] + ':' + time[1]
     };
 
     console.log('requestData: ', requestData);

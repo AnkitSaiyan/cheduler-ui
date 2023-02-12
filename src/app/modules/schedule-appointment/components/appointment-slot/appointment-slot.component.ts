@@ -25,9 +25,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public today: Date = new Date();
 
-  public availableDays = [17, 18, 19, 20, 21, 26, 27];
+  public availableDays = [17, 18, 19, 20, 21, 26, 27, 15, 23, 24, 26, 25, 22];
 
-  public holidays = [8, 22];
+  public holidays = [8];
 
   public selectedTimeSlot: { [key: number]: string } = {};
 
@@ -50,6 +50,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public ngOnInit(): void {
+    this.getCalendarSlots();
+
     this.scheduleAppointmentSvc.slotDetails$.pipe(takeUntil(this.destroy$$)).subscribe((slotDetails) => {
       console.log(slotDetails);
 
@@ -177,7 +179,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   public isSlotAvailable(slot: any) {
     let isAvailable = true;
 
-    console.log(this.selectedTimeSlot);
     Object.entries(this.selectedTimeSlot).forEach(([key, value]) => {
       const timeString = slot.start + '-' + slot.end;
       if (+key !== +slot.examId && timeString === value) {
@@ -186,5 +187,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     });
 
     return isAvailable;
+  }
+
+  private getCalendarSlots() {
+    const year = this.selectedDate$$.value?.getFullYear();
+    const month = this.selectedDate$$.value?.getMonth();
+    // const fromDate = new Date(, this.selectedDate$$.value?.getDate())
+    // this.scheduleAppointmentSvc.getSlots$()
   }
 }

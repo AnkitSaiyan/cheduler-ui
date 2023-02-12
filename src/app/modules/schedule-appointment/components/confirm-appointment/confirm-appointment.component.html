@@ -114,10 +114,8 @@
     <dfm-button
       [color]="'primary'"
       [size]="'lg'"
-      [disabled]="checkBoxStatus()"
       (click)="confirmAppointment()"
       class="confirm-btn"
-      *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
     >
       Confirm
     </dfm-button>

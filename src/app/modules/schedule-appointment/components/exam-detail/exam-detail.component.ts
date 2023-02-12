@@ -113,6 +113,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       exams: this.examForm.value.exams.map((exam) => exam.exam)
     } as ExamDetails;
 
+    console.log(examDetails);
+
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
     this.router.navigate(['../slot'], {relativeTo: this.route});

@@ -41,7 +41,7 @@
                 *ngIf="day && day > 31"
                 class="calender-month-view-day calender-month-view-day-light text-sm"
               >
-                {{ day - 31 }}
+                {{ ' ' }}
               </div>
             </td>
           </tr>
@@ -61,7 +61,7 @@
       </div>
     </section>
 
-    <div class="appointment-slot-divider"></div>
+    <div *ngIf="selectedDate$$.value" class="appointment-slot-divider"></div>
 
     <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate$$.value">
       <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100"
