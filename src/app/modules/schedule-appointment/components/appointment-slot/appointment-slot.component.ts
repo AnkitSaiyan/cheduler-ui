@@ -3,11 +3,11 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from "../../../../shared/models/calendar.model.";
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {BehaviorSubject, debounceTime, filter, switchMap, take, takeUntil} from "rxjs";
+import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
-import {AppointmentSlot, Slot} from "../../../../shared/models/appointment.model";
-import {SlotDetails} from "../../../../shared/models/local-storage-data.model";
+import {AppointmentSlot, Slot, WorkStatusesEnum} from "../../../../shared/models/appointment.model";
+import {ExamDetails, SlotDetails} from "../../../../shared/models/local-storage-data.model";
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -15,29 +15,34 @@ import {SlotDetails} from "../../../../shared/models/local-storage-data.model";
   styleUrls: ['./appointment-slot.component.scss'],
 })
 export class AppointmentSlotComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  public selectedDate$$ = new BehaviorSubject<Date | null>(null);
+
+  public appointmentSlots$$ = new BehaviorSubject<AppointmentSlot | null>(null);
+
+  public selectedCalendarDate$$ = new BehaviorSubject<Date>(new Date());
+
   public weekdayEnum = Weekday;
 
   public daysInMonthMatrix: number[][] = [];
 
-  public selectedDate$$ = new BehaviorSubject<Date | null>(null);
-
-  public selectedCalendarDate: Date = new Date();
-
   public today: Date = new Date();
 
-  public availableDays = [17, 18, 19, 20, 21, 26, 27, 15, 23, 24, 26, 25, 22];
+  public availableDays: number[] = [];
 
-  public holidays = [8];
+  public pastDays: number[] = [];
+
+  public holidays: number[] = [];
+
+  public offDays: number[] = [];
 
   public selectedTimeSlot: { [key: number]: string } = {};
 
-  public examsDetails: any = {};
+  public examsDetails: ExamDetails = {} as ExamDetails;
 
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
 
   public examIdToAppointmentSlots: { [key: number]: Slot[] } = {};
 
-  public appointmentSlots$$ = new BehaviorSubject<AppointmentSlot | null>(null);
 
   constructor(
     private authService: AuthService,
@@ -52,13 +57,17 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   public ngOnInit(): void {
     this.getCalendarSlots();
 
+    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
+      this.examsDetails = examDetails;
+    });
+
     this.scheduleAppointmentSvc.slotDetails$.pipe(takeUntil(this.destroy$$)).subscribe((slotDetails) => {
       console.log(slotDetails);
 
       if (slotDetails?.selectedDate) {
         const date = new Date(slotDetails.selectedDate);
         this.selectedDate$$.next(date);
-        this.selectedCalendarDate = date;
+        this.selectedCalendarDate$$.next(date);
       }
 
       if (slotDetails?.selectedSlots) {
@@ -69,27 +78,44 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       this.updateCalendarDays();
     });
 
-    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      this.examsDetails = examDetails;
-    });
-
     this.scheduleAppointmentSvc.exams$
       .pipe(takeUntil(this.destroy$$))
       .subscribe((exams) => exams.forEach((exam) => {
         this.examIdToName[+exam.id] = {name: exam.name, info: exam.info};
       }));
 
-    // this.scheduleAppointmentSvc.slotDetails$.subscribe((slotDetails) => {
-    //   if (slotDetails?.date) {
-    //     this.selectedCalendarDate = new Date(slotDetails.date);
-    //     this.updateCalendarDays();
-    //     this.selectedDate$$ = new Date(slotDetails.date);
-    //   } else {
-    //     this.updateCalendarDays();
-    //   }
-    //   this.timeSlots$$.next(slotDetails);
-    //   this.filteredSlots$$.next(slotDetails);
-    // });
+    this.selectedCalendarDate$$.asObservable().pipe(
+      debounceTime(0),
+      filter((date) => !!date),
+      switchMap((date) => {
+        this.availableDays = [];
+        this.offDays = [];
+        this.holidays = [];
+        this.pastDays = [];
+
+        const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
+        const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
+        const exams = this.examsDetails.exams;
+        return this.scheduleAppointmentSvc.getSlots$({fromDate, toDate, exams})
+      })
+    ).subscribe((appointmentSlot) => {
+      appointmentSlot.forEach((appointmentSlot) => {
+        const day = +appointmentSlot.start.slice(-2);
+        switch (appointmentSlot.workStatus) {
+          case WorkStatusesEnum.Holiday:
+            this.holidays.push(day);
+            break;
+          case WorkStatusesEnum.Working:
+            this.availableDays.push(day);
+            break;
+          case WorkStatusesEnum.Off:
+            this.offDays.push(day);
+            break;
+          case WorkStatusesEnum.Past:
+            this.pastDays.push(day);
+        }
+      });
+    });
 
     this.selectedDate$$.asObservable().pipe(debounceTime(0), filter((date) => !!date), switchMap((date) => {
       const dateString = this.getDateString(date);
@@ -115,22 +141,22 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public changeMonth(offset: number) {
-    const year = this.selectedCalendarDate.getFullYear();
-    const month = this.selectedCalendarDate.getMonth();
+    const year = this.selectedCalendarDate$$.value.getFullYear();
+    const month = this.selectedCalendarDate$$.value.getMonth();
 
     // checking if prev or next month has today's date
-    if (getDaysOfMonth(year, month + offset) < this.selectedCalendarDate.getDate()) {
-      this.selectedCalendarDate.setDate(1);
+    if (getDaysOfMonth(year, month + offset) < this.selectedCalendarDate$$.value.getDate()) {
+      this.selectedCalendarDate$$.value.setDate(1);
     }
 
-    this.selectedCalendarDate.setMonth(this.selectedCalendarDate.getMonth() + offset);
+    this.selectedCalendarDate$$.value.setMonth(this.selectedCalendarDate$$.value.getMonth() + offset);
 
     // if selected month is today's month then selected today's date by default
-    if (this.selectedCalendarDate.getMonth() === new Date().getMonth()) {
-      new Date(this.selectedCalendarDate.setDate(new Date().getDate()));
+    if (this.selectedCalendarDate$$.value.getMonth() === new Date().getMonth()) {
+      new Date(this.selectedCalendarDate$$.value.setDate(new Date().getDate()));
     }
 
-    this.selectedCalendarDate = new Date(this.selectedCalendarDate);
+    this.selectedCalendarDate$$.next(new Date(this.selectedCalendarDate$$.value));
 
     this.updateCalendarDays();
 
@@ -138,7 +164,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   private updateCalendarDays() {
-    this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate);
+    this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
   }
 
   public toggleSlotSelection(slot: Slot) {
@@ -154,7 +180,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public selectDate(day: number) {
-    this.selectedDate$$.next(new Date(this.selectedCalendarDate.getFullYear(), this.selectedCalendarDate.getMonth(), day));
+    this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
     this.selectedTimeSlot = {};
   }
 
@@ -194,5 +220,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     const month = this.selectedDate$$.value?.getMonth();
     // const fromDate = new Date(, this.selectedDate$$.value?.getDate())
     // this.scheduleAppointmentSvc.getSlots$()
+  }
+
+  private getLastDayOfMonth(date: Date): number {
+    return new Date(new Date(new Date(date).setMonth(date.getMonth() + 1)).setDate(0)).getDate();
   }
 }

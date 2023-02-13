@@ -113,6 +113,7 @@
                 *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
                 class="back-btn-mv"> Back
     </dfm-button>
+
     <dfm-button color="primary" size="lg" leadingIcon="chevron-left"
                 [routerLink]=" (isLoggedIn$ | async) ? ['/'] : ['/schedule/overview']"
                 *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled"

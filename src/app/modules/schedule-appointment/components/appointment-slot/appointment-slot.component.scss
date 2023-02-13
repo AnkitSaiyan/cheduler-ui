@@ -47,6 +47,7 @@ table, th, tr, td {
   transition: all 150ms linear;
   width: 100%;
   height: 100%;
+  position: relative;
 
   th, td {
     padding: 4px;
@@ -80,33 +81,40 @@ table, th, tr, td {
     line-height: 40px;
     color: var(--dfm-main-400);
   }
+}
 
-  .calender-month-view-day-hover:hover {
-    cursor: pointer;
-    //background: var(--dfm-main-200);
-    //border-color: var(--dfm-main-200);
-    //color: black;
-  }
+.calender-month-view-day-hover:hover {
+  cursor: pointer;
+  //background: var(--dfm-main-200);
+  //border-color: var(--dfm-main-200);
+  //color: black;
+}
 
-  .calender-month-view-day-selected {
-    color: white !important;
-    background: var(--dfm-primary);
-  }
 
-  .calender-month-view-day-available {
-    border: 1px solid var(--dfm-main-600);
-    color: var(--dfm-main-600);
-  }
+.calender-month-view-day-available {
+  border: 1px solid var(--dfm-main-600);
+  color: var(--dfm-main-600) !important;
+}
 
-  .calender-month-view-day-holiday {
-    border: none;
-    color: black;
-    background: var(--dfm-yellow);
-  }
+.calender-month-view-day-holiday {
+  border: none;
+  color: var(--dfm-main-600) !important;
+  background: var(--dfm-yellow);
+}
 
-  .calender-month-view-day-light {
-    color: var(--dfm-main-300);
-  }
+.calender-month-view-day-off {
+  border: none;
+  color: var(--dfm-main-600) !important;
+  background: var(--dfm-main-300);
+}
+
+.calender-month-view-day-selected {
+  color: white !important;
+  background: var(--dfm-primary);
+}
+
+.calender-month-view-day-light {
+  color: var(--dfm-main-300);
 }
 
 .appointment-slot-divider {
@@ -140,6 +148,7 @@ table, th, tr, td {
     cursor: text;
   }
 }
+
 
 .time-slot-selected-text {
   background: var(--dfm-primary);
@@ -175,6 +184,11 @@ table, th, tr, td {
   display: none!important;
 }
 
+@media (max-width: 1280px) {
+  .appointment-slot-container {
+    width: 100%;
+  }
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {

@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../../core/services/auth.service";
 import {RouterStateService} from "../../../core/services/router-state.service";
 import {DestroyableComponent} from "../destroyable/destroyable.component";
-import {filter, take, takeUntil} from "rxjs";
+import {filter, interval, take, takeUntil} from "rxjs";
 import {Router} from "@angular/router";
 import {ModalService} from "../../../core/services/modal.service";
 import {ConfirmActionModalComponent, DialogData} from "../confirm-action-modal/confirm-action-modal.component";
@@ -24,6 +24,8 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
 
   public ngOnInit(): void {
     this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url);
+
+    interval(0).pipe(takeUntil(this.destroy$$)).subscribe(() => this.checkWindowWidth())
   }
 
   public override ngOnDestroy() {
@@ -61,5 +63,11 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
 
   public toggleMenu(elementRef?: HTMLDivElement) {
     this.isExpanded = !this.isExpanded;
+  }
+
+  private checkWindowWidth() {
+    if (this.window.innerWidth <= 680 && this.isExpanded) {
+      this.isExpanded = false;
+    }
   }
 }
