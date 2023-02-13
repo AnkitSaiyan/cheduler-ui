@@ -12,6 +12,8 @@ export class AuthService {
 
   private refreshLoginStatus$$ = new Subject<void>();
 
+  private readonly userToken = '843YHRF47YF43H7843J78D3N78F3UMDSMDJ89398RUF3F8M4I';
+
   constructor(private router: Router, private scheduleAppointmentSvc: ScheduleAppointmentService) {
   }
 
@@ -22,7 +24,7 @@ export class AuthService {
   }
 
   private saveToLocalStorage() {
-    localStorage.setItem('user', 'true');
+    localStorage.setItem('user', this.userToken);
   }
 
   public logout$(redirect = true): Observable<{}> {
@@ -34,6 +36,7 @@ export class AuthService {
 
   public clearLocalStorage() {
     localStorage.removeItem('user');
+    this.scheduleAppointmentSvc.resetDetails();
   }
 
   private navigateToAuth$(redirect: boolean): Observable<{}> {
