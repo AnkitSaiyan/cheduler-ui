@@ -3,7 +3,7 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from "../../../../shared/models/calendar.model.";
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil} from "rxjs";
+import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
 import {AppointmentSlot, Slot, WorkStatusesEnum} from "../../../../shared/models/appointment.model";
@@ -87,12 +87,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.selectedCalendarDate$$.asObservable().pipe(
       debounceTime(0),
       filter((date) => !!date),
+      tap(() => this.resetCalendarData()),
       switchMap((date) => {
-        this.availableDays = [];
-        this.offDays = [];
-        this.holidays = [];
-        this.pastDays = [];
-
         const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
         const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
         const exams = this.examsDetails.exams;
@@ -224,5 +220,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   private getLastDayOfMonth(date: Date): number {
     return new Date(new Date(new Date(date).setMonth(date.getMonth() + 1)).setDate(0)).getDate();
+  }
+
+  private resetCalendarData() {
+    this.availableDays = [];
+    this.offDays = [];
+    this.holidays = [];
+    this.pastDays = [];
+    this.selectedTimeSlot = {};
+    this.examIdToAppointmentSlots = {};
   }
 }
