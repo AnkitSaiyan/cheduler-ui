@@ -194,6 +194,10 @@ td {
 .opening-section-header-mv{
   display: none;
 }
+
+.opening-days td {
+  font-size: 12px!important;
+}
 // ======================Media Query for Mobile view=================
 @media (max-width: 1280px) {
   .radiology-section, .weekly-main-container {

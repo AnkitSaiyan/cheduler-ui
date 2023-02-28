@@ -1,9 +1,9 @@
 <div class="landing-page d-flex flex-column align-items-center dfm-gap-32 dfm-p-32">
-  <div class="radiology-section bg-white border-r-16">
+  <div class="radiology-section bg-white border-r-16" *ngIf="info$$ | async as siteDetails">
     <div class="left-section">
-      <h3 class=" welcome-text m-0">Welcome to Radiology</h3>
-      <div class="sub-header mt-4">Appointment Scheduling made easy</div>
-      <p class="p-data mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+      <h3 class=" welcome-text m-0">{{(siteDetails['heading'])}}</h3>
+      <div class="sub-header mt-4">{{(siteDetails['subHeading'])}}</div>
+      <p class="p-data mt-3">{{(siteDetails['bodyText'])}}</p>
       <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule/overview">
         Schedule Appointment
       </dfm-button> -->
@@ -45,35 +45,16 @@
         <div class="opening-detail-table shadow-sm">
           <span class="opening-section-header">Opening days</span>
           <span class="opening-section-header-mv mx-2"> Opening days</span>
-          <table class="mt-2">
-            <tr>
-              <th>Monday</th>
-              <td>17:30 - 23:40</td>
+          <table class="mt-2 opening-days">
+            <tr *ngFor="let item of weekDay;let i = index;">
+              <th *ngIf="i > 0"> {{days[i]}}</th>
+              <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
-            <tr>
-              <th>Tuesday</th>
-              <td>Closed</td>
+            <tr *ngFor="let item of weekDay;let i = index;">
+              <th *ngIf="i === 0">{{days[i]}}</th>
+              <td *ngIf="i ===0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
-            <tr>
-              <th>Wednesday</th>
-              <td>09:15 - 12:40, 13:00 - 20:30</td>
-            </tr>
-            <tr>
-              <th>Thursday</th>
-              <td>08:00 - 12:45</td>
-            </tr>
-            <tr>
-              <th>Friday</th>
-              <td>Closed</td>
-            </tr>
-            <tr>
-              <th>Saturday</th>
-              <td>Closed</td>
-            </tr>
-            <tr>
-              <th>Sunday</th>
-              <td>Closed</td>
-            </tr>
+            <ng-template #elseBlock>Closed</ng-template>
           </table>
         </div>
       </div>

@@ -1,24 +1,37 @@
-<div class="login-dashboard-content mt-4">
-    <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
-      <div class="upcoming-appointments-details bg-white shadow-sm border-r-16">
-        <span class="display-3 upcoming-text">Upcoming Appointments</span>
-        <span class="display-4 appointment-exam-text"
-          >Exam: {{upcommingAppointments[0].exam}} <span class="text-gray"></span>
+<div class="login-dashboard-content mt-4 bg-white border-r-16">
+  <span class="display-3 upcoming-text">No Appointments Scheduled </span>
+  <div class="status-btn d-flex flex-row justify-content-start align-items-start mt-3">
+    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Schedule Appointment </dfm-button>
+  </div>
+</div>
+
+<div class="login-dashboard-content mt-4 bg-white border-r-16">
+  <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
+    <div class="upcoming-appointments-details">
+      <span class="display-3 upcoming-text">Upcoming Appointments</span>
+
+      <!-- {{ upcommingAppointments | json }} -->
+      <div *ngFor="let item of upcommingAppointments">
+        <span  class="display-4 appointment-exam-text"
+          >Exam: {{item.exam.name }} <span class="text-gray"></span>
           <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
         <div class="display-5 upcoming-appointments-date-time">
-          <div class=" d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>Date : {{upcommingAppointments[0].startedAt | date:"dd, MMMM, yyyy"}}</span>
+          <div class="d-flex flex-row justify-content-start gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+            <span>Date : {{ item.startedAt | date : 'dd, MMMM, yyyy' }}</span>
           </div>
-          <div class=" d-flex flex-row justify-content-start gap-2">
+          <div class="d-flex flex-row justify-content-start gap-2">
             <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>Time : {{upcommingAppointments[0].startedAt |date: 'hh:mm'}}</span>
-        </div>
-        <!-- <div class="d-flex flex-row justify-content-start gap-2">
+            <span>Time : {{ item.startedAt | date : 'hh:mm' }}</span>
+          </div>
+          <!-- <div class="d-flex flex-row justify-content-start gap-2">
           <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>Time : 12:30</span>
         </div> -->
+        </div>
       </div>
+
       <div class="appointment-exam-text-mv">
         <span class="appointment-exam-text-mv text-primary">Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
         <span>
@@ -52,41 +65,57 @@
 
 <div class="previous-appointment-container mt-4 bg-white border-r-16">
   <div class="previous-appointment-title">
-      <span class="display-4 previous-app-text">Previous Appointments</span>
-      <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-      <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
-        <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length>3" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
+    <span class="display-4 previous-app-text">Previous Appointments</span>
+    <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
+    <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
+      <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
+        >{{ viewAll ? 'Hide' : 'View All' }}
+      </dfm-button>
+    </div>
+  </div>
+  <div
+    class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3"
+    *ngIf="filteredCompletedAppointments$$ | async as completedAppointments"
+  >
+    <div *ngFor="let appointment of completedAppointments; let i = index">
+      <div class="card-item" *ngIf="i < 4">
+        <div class="display-5 previous-appointments-date-time">
+          <div class="d-flex flex-row justify-content-between gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+            <span>{{ appointment.startedAt | date : 'dd, MMMM, yyyy' }}</span>
+          </div>
+          <div class="d-flex flex-row justify-content-between gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+            <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
+          </div>
+        </div>
+        <span class="display-5">Exam: {{ appointment.exam }}</span>
+        <span class="display-5"
+          >Status: <span class="text-success">Completed</span>
+          <hr class="bg-lite-gray appointment-hr-mv" />
+        </span>
+      </div>
+
+      <div class="card-item" *ngIf="viewAll && i > 4">
+        <div class="display-5 previous-appointments-date-time">
+          <div class="d-flex flex-row justify-content-between gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
+            <span>{{ appointment.startedAt | date : 'dd, MMMM, yyyy' }}</span>
+          </div>
+          <div class="d-flex flex-row justify-content-between gap-2">
+            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
+            <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
+          </div>
+        </div>
+        <span class="display-5">Exam: {{ appointment.exam }}</span>
+        <span class="display-5"
+          >Status: <span class="text-success">Completed</span>
+          <hr class="bg-lite-gray appointment-hr-mv" />
+        </span>
       </div>
     </div>
-    <div class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3" *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
-      <div *ngFor="let appointment of completedAppointments; let i = index;">
-          <div class="card-item" *ngIf="i<4">
-            <div class="display-5 previous-appointments-date-time">
-              <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{appointment.startedAt | date:"dd, MMMM, yyyy"}}</span></div>
-              <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-              <span>{{appointment.startedAt | date: 'hh:mm'}}</span></div>
-            </div>
-            <span class="display-5">Exam: {{appointment.exam}}</span>
-            <span class="display-5">Status: <span class="text-success">Completed</span>
-              <hr class="bg-lite-gray appointment-hr-mv" />
-            </span>
-          </div>
 
-        <div class="card-item" *ngIf="viewAll && i>4">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{appointment.startedAt | date:"dd, MMMM, yyyy"}}</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>{{appointment.startedAt | date: 'hh:mm'}}</span></div>
-        </div>
-        <span class="display-5">Exam: {{appointment.exam}}</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div>
-
-      </div>
-
-   <!--
+    <!--
       <div class="card-item" >
         <div class="display-5 previous-appointments-date-time">
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{completedAppointments[2].startedAt | date:"dd, MMMM, yyyy"}}</span></div>
@@ -98,7 +127,7 @@
         <hr class="bg-lite-gray appointment-hr-mv" />
       </span>
       </div> -->
-      <!-- <div class="card-item">
+    <!-- <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
@@ -151,9 +180,9 @@
         <hr class="bg-lite-gray appointment-hr-mv" />
       </span>
       </div> -->
-    </div>
+  </div>
 
-    <!-- <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
+  <!-- <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
       <div class="card-item">
         <div class="display-5 previous-appointments-date-time">
           <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
