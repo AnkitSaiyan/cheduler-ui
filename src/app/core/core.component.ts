@@ -1,20 +1,17 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {filter, Observable, take, takeUntil} from 'rxjs';
-import {
-  ConfirmActionModalComponent,
-  DialogData
-} from '../shared/components/confirm-action-modal/confirm-action-modal.component';
-import {AuthService} from './services/auth.service';
-import {ModalService} from './services/modal.service';
-import {NotificationDataService} from './services/notification-data.service';
-import {RouterStateService} from "./services/router-state.service";
-import {DestroyableComponent} from "../shared/components/destroyable/destroyable.component";
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, Observable, take, takeUntil } from 'rxjs';
+import { ConfirmActionModalComponent, DialogData } from '../shared/components/confirm-action-modal/confirm-action-modal.component';
+import { AuthService } from './services/auth.service';
+import { ModalService } from './services/modal.service';
+import { NotificationDataService } from './services/notification-data.service';
+import { RouterStateService } from './services/router-state.service';
+import { DestroyableComponent } from '../shared/components/destroyable/destroyable.component';
 
 @Component({
   selector: 'dfm-core',
   templateUrl: './core.component.html',
-  styleUrls: ['./core.component.scss']
+  styleUrls: ['./core.component.scss'],
 })
 export class CoreComponent extends DestroyableComponent implements OnInit, OnDestroy {
   @HostListener('window:scroll', ['$event'])
@@ -31,8 +28,11 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
   }
 
   public ngOnInit(): void {
-    this.isLoggedIn$ = this.authService.isLoggedIn$
-    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => this.url = url);
+    this.isLoggedIn$ = this.authService.isLoggedIn$;
+    this.routerStateSvc
+      .listenForUrlChange$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((url) => (this.url = url));
   }
 
   public override ngOnDestroy() {

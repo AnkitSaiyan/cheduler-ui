@@ -1,17 +1,20 @@
 <div class="d-flex flex-column">
-  <section class="footer-sec-1" *ngIf="url === '/'">
-    <div class="footer-items col-md-4 footer-text d-flex flex-row justify-content-center align-items-center gap-3">
-      <div style="width: 25px; height: 25px"><dfm-icon name="marker-pin-01"></dfm-icon></div>
-      <span class="footer-text">Lorem ipsum dolor sit amet, <br />consectetur adipiscing elit,</span>
-    </div>
+  <section  *ngIf="url === '/'">
+    <div class="footer-sec-1" *ngIf="siteDetails$$ | async as siteDetails">
+      <div class="footer-items col-md-4 footer-text d-flex flex-row justify-content-center align-items-center gap-3">
+        <div style="width: 25px; height: 25px"><dfm-icon name="marker-pin-01"></dfm-icon></div>
+        <span class="footer-text">{{ siteDetails['data']?.address }}</span>
+      </div>
 
-    <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
-      <div style="width: 25px; height: 25px"><dfm-icon name="phone"></dfm-icon></div><span class="footer-text">22 11 34 56</span>
-    </div>
+      <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
+        <div style="width: 25px; height: 25px"><dfm-icon name="phone"></dfm-icon></div>
+        <span class="footer-text">{{ siteDetails['data']?.telephone }}</span>
+      </div>
 
-    <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
-      <div style="width: 25px; height: 25px"><dfm-icon name="mail-01"></dfm-icon></div>
-      <span class="footer-text">radiology@gmail.com</span>
+      <div class="footer-items col-md-4 d-flex flex-row justify-content-center align-items-center gap-3">
+        <div style="width: 25px; height: 25px"><dfm-icon name="mail-01"></dfm-icon></div>
+        <span class="footer-text">{{ siteDetails['data']?.email }}</span>
+      </div>
     </div>
   </section>
 
