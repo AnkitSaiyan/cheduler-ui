@@ -16,13 +16,13 @@
 <!--          </div>-->
 
           <thead class="calender-month-view-weekday">
-          <th>{{ weekdayEnum.SUN | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.WED | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.THU | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.FRI | weekdayToName : true | uppercase }}</th>
-          <th>{{ weekdayEnum.SAT | weekdayToName : true | uppercase }}</th>
+          <th>{{ weekdayEnum.SUN | weekdayToName : true | uppercase |translate }}</th>
+          <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase |translate}}</th>
+          <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase |translate}}</th>
+          <th>{{ weekdayEnum.WED | weekdayToName : true | uppercase |translate}}</th>
+          <th>{{ weekdayEnum.THU | weekdayToName : true | uppercase |translate}}</th>
+          <th>{{ weekdayEnum.FRI | weekdayToName : true | uppercase |translate}}</th>
+          <th>{{ weekdayEnum.SAT | weekdayToName : true | uppercase |translate}}</th>
           </thead>
 
           <tbody>
@@ -57,17 +57,17 @@
       <div class="d-flex dfm-gap-16 align-items-center dfm-px-24">
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
           <div class="circle-24 calender-month-view-day-holiday"></div>
-          <span class="font-weight-medium">Holiday</span>
+          <span class="font-weight-medium">{{"Holiday" | translate}}</span>
         </div>
 
         <div class="d-flex align-items-center dfm-gap-8">
           <div class="circle-24 calender-month-view-day-off"></div>
-          <span class="font-weight-medium">Off Day</span>
+          <span class="font-weight-medium">{{"OffDay" |translate}}</span>
         </div>
 
         <div class="d-flex align-items-center dfm-gap-8">
           <div class="circle-24 dfm-bg-color-primary"></div>
-          <span class="font-weight-medium">Selected</span>
+          <span class="font-weight-medium">{{"Selected" | translate}}</span>
         </div>
       </div>
     </section>
@@ -80,12 +80,12 @@
         <div class="d-flex flex-column gap-1">
           <div class="d-flex flex-column gap-1">
             <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
-              <span class="font-weight-medium">Exam Name: </span>
+              <span class="font-weight-medium">{{"ExamName" | translate}}: </span>
               <span>{{ examIdToName[exam]?.name }}</span>
             </div>
 
             <div class="d-flex gap-2 align-items-start text-sm">
-              <span class="font-weight-medium">Instructions: </span>
+              <span class="font-weight-medium">{{"Instructions" | translate}}: </span>
               <span>{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}</span>
             </div>
           </div>
@@ -93,9 +93,9 @@
           <ng-container *ngIf="appointmentSlots$$ | async as appointment">
             <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
               <div class="text-sm d-flex gap-2">
-                <span class="font-weight-medium">Slots </span>
+                <span class="font-weight-medium">{{"Slots" | translate}} </span>
                 <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
-                <span *ngIf="!examIdToAppointmentSlots[exam]">: No slot found for selected date</span>
+                <span *ngIf="!examIdToAppointmentSlots[exam]">:{{"NoSlotFound" | translate}}</span>
               </div>
 
               <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
@@ -120,20 +120,20 @@
 
   <div>
     <div class="d-flex justify-content-center align-items-center dfm-gap-16">
-      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">Back</dfm-button>
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">{{"Back" | translate}}</dfm-button>
 
       <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv">
-        Back
+        {{"Back" | translate}}
       </dfm-button>
 
       <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn"
                   [disabled]="!isFormValid()">
-        Next
+        {{"Next" | translate}}
       </dfm-button>
 
       <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv"
                   [disabled]="!isFormValid()">
-        Next
+                  {{"Next" | translate}}
       </dfm-button>
     </div>
   </div>

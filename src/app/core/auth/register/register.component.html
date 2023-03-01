@@ -1,10 +1,10 @@
 <div class="register-mobile-view d-flex flex-column justify-content-center align-items-center dfm-gap-16">
   <section class="d-flex flex-column align-items-center dfm-gap-8">
-    <h2 class="font-weight-semi-bold">Register</h2>
+    <h2 class="font-weight-semi-bold">{{"Register" | translate}}</h2>
     <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">
-      <span class="new-user">Existing user?</span> &nbsp;
+      <span class="new-user">{{"ExistingUser" | translate}}?</span> &nbsp;
       <div class="register-user">
-        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login">Login</dfm-button>
+        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login">{{"Login" | translate}}</dfm-button>
       </div>
     </div>
   </section>
@@ -14,8 +14,8 @@
       <dfm-input
         type="text"
         size="sm"
-        label="Email*"
-        placeholder="Enter Email"
+        label="{{'Email' | translate}}*"
+        placeholder="{{'EnterEmail' | translate}}"
         [disabled]="false"
         icon="mail-05"
         [isInvalid]="false"
@@ -28,8 +28,8 @@
       <dfm-input
         type="text"
         size="sm"
-        label="Password*"
-        placeholder="Enter Password"
+        label="{{'Password' | translate}}*"
+        placeholder="{{'EnterPassword' | translate}}"
         [disabled]="false"
         [isInvalid]="false"
         [readonly]="false"
@@ -41,8 +41,8 @@
       <dfm-input
         type="text"
         size="sm"
-        label="Confirm Password*"
-        placeholder="Confirm Password"
+        label="{{'ConfirmPassword' | translate}}*"
+        placeholder="{{'ConfirmPassword' | translate}}"
         [disabled]="false"
         [isInvalid]="false"
         [readonly]="false"
@@ -55,8 +55,8 @@
       <dfm-input
         type="text"
         size="sm"
-        label="Phone number*"
-        placeholder="Enter Phone Number"
+        label="{{'PhoneNumber' | translate}}*"
+        placeholder="{{'EnterPhoneNumber' | translate}}"
         [disabled]="false"
         [isInvalid]="false"
         [readonly]="false"
@@ -68,20 +68,20 @@
 
   <section class="register-btn-section">
     <div class="d-flex justify-content-center text-center">
-      <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> Register</dfm-button>
+      <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> {{"Register" | translate}}</dfm-button>
     </div>
     <div class="or-section">
       <div>
         <hr class="bg-gray" width="100px" />
       </div>
-      <div><span>&nbsp; or &nbsp; </span></div>
+      <div><span>&nbsp; {{"Or" | translate}} &nbsp; </span></div>
       <div>
         <hr class="bg-gray" width="100px" />
       </div>
     </div>
 
     <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule/overview">
-      Schedule Appointment
+      {{"ScheduleAppointment" | translate}}
     </dfm-button>
   </section>
 </div>

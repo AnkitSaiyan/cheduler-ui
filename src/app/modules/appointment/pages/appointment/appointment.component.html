@@ -1,18 +1,18 @@
 <div class="login-dashboard-content mt-4">
     <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
       <div class="upcoming-appointments-details bg-white shadow-sm border-r-16">
-        <span class="display-3 upcoming-text">Upcoming Appointments</span>
+        <span class="display-3 upcoming-text">{{"UpcomingAppointments" | translate}}</span>
         <span class="display-4 appointment-exam-text"
-          >Exam: {{upcommingAppointments[0].exam}} <span class="text-gray"></span>
+          >{{"Exam" | translate}}: {{upcommingAppointments[0].exam}} <span class="text-gray"></span>
           <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
         <div class="display-5 upcoming-appointments-date-time">
           <div class=" d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>Date : {{upcommingAppointments[0].startedAt | date:"dd, MMMM, yyyy"}}</span>
+            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{"Date" | translate}} : {{upcommingAppointments[0].startedAt | date:"dd, MMMM, yyyy"}}</span>
           </div>
           <div class=" d-flex flex-row justify-content-start gap-2">
             <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>Time : {{upcommingAppointments[0].startedAt |date: 'hh:mm'}}</span>
+          <span>{{"Time" | translate}} : {{upcommingAppointments[0].startedAt |date: 'hh:mm'}}</span>
         </div>
         <!-- <div class="d-flex flex-row justify-content-start gap-2">
           <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
@@ -20,30 +20,30 @@
         </div> -->
       </div>
       <div class="appointment-exam-text-mv">
-        <span class="appointment-exam-text-mv text-primary">Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
+        <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}}: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
         <span>
           <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
       </div>
       <div class="instructions-text-section-mv d-flex justify-content-between">
-        <span class="instruction-text text-primary">Instructions:</span>
+        <span class="instruction-text text-primary">{{"Instructions" | translate}}:</span>
         <span>*Have an empty stomach 10 hours prior to the test</span>
       </div>
 
       <div class="instruction-details">
-        <span class="display-4" style="font-weight: 600">Instructions :</span>
+        <span class="display-4" style="font-weight: 600">{{"Instructions" | translate}} :</span>
         <span class="display-4 instruction-desk-view" style="font-weight: 600">*Have an empty stomach 10 hours prior to the test</span>
       </div>
       <div class="lab-confirmation-status">
         <div class="appointment-status">
-          <span>Appointment Status : <span class="status-text bg-warning text-white">Pending</span></span>
-          <span class="confirmation-message">We will notify you by email once your appointment will be status.</span>
+          <span>{{"AppointmentStatus" | translate}} : <span class="status-text bg-warning text-white">{{"Pending" | translate}}</span></span>
+          <span class="confirmation-message">{{"WeWillNotifyYou" | translate}}.</span>
         </div>
         <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-          <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-          <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+          <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> {{"Edit" | translate}} </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> {{"Cancel" | translate}} </dfm-button>
+          <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> {{"Edit" | translate}} </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> {{"Cancel" | translate}} </dfm-button>
         </div>
       </div>
     </div>
@@ -52,10 +52,10 @@
 
 <div class="previous-appointment-container mt-4 bg-white border-r-16">
   <div class="previous-appointment-title">
-      <span class="display-4 previous-app-text">Previous Appointments</span>
+      <span class="display-4 previous-app-text">{{"PreviousAppointments" | translate}}</span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
       <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
-        <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length>3" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
+        <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length>3" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"ViewAll"}} </dfm-button>
       </div>
     </div>
     <div class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3" *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">

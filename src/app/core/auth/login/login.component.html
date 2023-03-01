@@ -1,10 +1,10 @@
 <div class="login-main-container d-flex flex-column justify-content-center align-items-center dfm-gap-16">
   <section class="d-flex flex-column align-items-center dfm-gap-8">
-    <h2 class="font-weight-semi-bold">Sign in</h2>
+    <h2 class="font-weight-semi-bold">{{"SignIn" | translate}}</h2>
     <div class="right-subheader-section d-flex justify-content-center align-items-center">
-      <span class="new-user">New user?</span>&nbsp;
+      <span class="new-user">{{"NewUser" | translate}}?</span>&nbsp;
       <div class="register-user">
-        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">Register </dfm-button>
+        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/register">{{"Register" | translate}} </dfm-button>
       </div>
     </div>
   </section>
@@ -14,8 +14,8 @@
       <dfm-input
         type="text"
         size="sm"
-        label="Email*"
-        placeholder="Enter Email"
+        label="{{'Email' | translate}}*"
+        placeholder="{{'EnterEmail' | translate}}"
         icon="mail-05"
       >
       </dfm-input>
@@ -25,8 +25,8 @@
       <dfm-input
         [type]="ipType"
         size="sm"
-        label="Password*"
-        placeholder="Enter Password"
+        label="{{'Password' | translate}}*"
+        placeholder="{{'EnterPassword' | translate}}"
         [disabled]="false"
         [isInvalid]="false"
         [readonly]="false"
@@ -36,25 +36,25 @@
       </dfm-input>
     </div>
     <div class="forgot-password" routerLink="../forgot">
-      <dfm-button color="link" [size]="'lg'"> Forgot Password </dfm-button>
+      <dfm-button color="link" [size]="'lg'"> {{"ForgotPassword" | translate}} </dfm-button>
     </div>
   </section>
 
   <section class="d-flex justify-content-center flex-column align-items-center">
     <div class="text-center">
-      <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> Sign in </dfm-button>
+      <dfm-button [color]="'primary'" [size]="'lg'" (click)="logInUser()"> {{"SignIn" | translate}} </dfm-button>
     </div>
 
     <div class="or-section">
       <div>
         <hr class="bg-gray" width="100px" />
       </div>
-      <div><span>&nbsp; or &nbsp; </span></div>
+      <div><span>&nbsp; {{"Or" | translate}} &nbsp; </span></div>
       <div>
         <hr class="bg-gray" width="100px" />
       </div>
     </div>
 
-    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule/overview"> Schedule Appointment </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" routerLink="/schedule/overview"> {{"ScheduleAppointment" | translate}} </dfm-button>
   </section>
 </div>

@@ -2,19 +2,19 @@
   <div class="appointment-container d-grid grid-cols-2 dfm-gap-24">
     <section class="confirm-details dfm-card dfm-p-24 flex-1">
       <div class="patient-details">
-        <h5 class="font-weight-bold">Patient Details</h5>
+        <h5 class="font-weight-bold">{{"PatientDetails" | translate}}</h5>
         <div class="patient-detail-container">
           <table>
             <tr>
-              <td class="text-primary table-titl text-nowrape">Name :</td>
+              <td class="text-primary table-title text-nowrape">{{"Name" | translate}} :</td>
               <td>{{ basicDetails?.patientFname | titlecase }} {{ basicDetails?.patientLname }}</td>
             </tr>
             <tr>
-              <td class="text-primary table-title text-nowrap">Email :</td>
+              <td class="text-primary table-title text-nowrap">{{"Email" | translate}} :</td>
               <td>{{ basicDetails?.patientEmail }}</td>
             </tr>
             <tr>
-              <td class="text-primary table-title text-nowrap">Phone No. :</td>
+              <td class="text-primary table-title text-nowrap">{{"PhoneNo" | translate}}. :</td>
               <td>{{ basicDetails?.patientTel }}</td>
             </tr>
           </table>
@@ -23,10 +23,10 @@
     </section>
 
     <section class="dfm-card d-flex flex-column dfm-p-24 dfm-gap-16 flex-1">
-      <h5 class="font-weight-bold">Appointment Details</h5>
+      <h5 class="font-weight-bold">{{"AppointmentDetails" | translate}}</h5>
 
       <div class="exams-section-mv d-flex align-items-start dfm-gap-8 font-weight-medium">
-        <span class="exam-span text-primary exams-text">Exams&nbsp;:&nbsp;</span>
+        <span class="exam-span text-primary exams-text">{{"Exams" | translate}}&nbsp;:&nbsp;</span>
         <span class="exam-details"
               *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'name' }}</span>
       </div>
@@ -36,7 +36,7 @@
           <div style="width: 20px; height: 20px">
             <dfm-icon name="calendar-check-01" style="color:#4E2267"></dfm-icon>
           </div>
-          <span class="date-text dfm-color-primary text-nowrap">Date : </span>
+          <span class="date-text dfm-color-primary text-nowrap">{{"Date" | translate}} : </span>
           <span class="date-span  text-nowrap">{{ slotDetails?.selectedDate | date : 'longDate' }}</span>
         </div>
 
@@ -44,13 +44,13 @@
           <div style="width: 20px; height: 20px" class="clock-icon">
             <dfm-icon name="clock" style="color:#4E2267"></dfm-icon>
           </div>
-          <span class="time-text dfm-color-primary text-nowrap">Time : </span>
+          <span class="time-text dfm-color-primary text-nowrap">{{"Time" | translate}} : </span>
           <span class="time-span" *ngIf="slots.length">{{ slots | joinWithAnd }}</span>
         </div>
       </div>
 
       <div class="instructions-text-section">
-        <span class="font-weight-medium text-primary instructions-text">Instructions&nbsp;:&nbsp;</span>
+        <span class="font-weight-medium text-primary instructions-text">{{"Instructions" | translate}}&nbsp;:&nbsp;</span>
         <span class="font-weight-medium"
               *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'info' }}</span>
       </div>
@@ -64,19 +64,19 @@
         </dfm-badge> -->
         <div class="appointment-status">
           <div class="d-flex gap-2 align-items-center">
-            <span class="font-weight-semi-bold text-primary">Status&nbsp;:&nbsp;</span>
+            <span class="font-weight-semi-bold text-primary">{{"Status" | translate}}&nbsp;:&nbsp;</span>
             <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Pending" color="gray" size="lg">
-              Pending
+              {{"Pending" | translate}}
             </dfm-badge>
             <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Cancelled" color="primary"
-                       size="lg">Cancelled
+                       size="lg">{{"Cancelled" | translate}}
             </dfm-badge>
             <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Approved" color="success"
-                       size="lg">Cancelled
+                       size="lg">{{"Cancelled" | translate}}
             </dfm-badge>
           </div>
           <span
-            class="confirmation-message">We will notify you by email once your appointment has been status.</span>
+            class="confirmation-message">{{"WeWillNotifyYou" |translate}}</span>
         </div>
       </div>
     </section>
@@ -85,7 +85,7 @@
   <div class="checkbox-section w-fit" *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false">
     <div class="w-fit">
       <dfm-checkbox
-        label="I have an application from my referring GP, doctor specialist or dentist.*"
+        label="{{'IhaveAnApplicationFromMyReferring' | translate}}.*"
         size="sm"
         class="w-fit"
         [formControl]="referDoctorCheckbox"
@@ -95,7 +95,7 @@
 
     <div class="w-fit">
       <dfm-checkbox
-        label="I hereby give consent to store my personal information.*"
+        label="{{'IherebyGiveConsentToStore' | translate}}.*"
         size="sm"
         class="w-fit"
         [formControl]="consentCheckbox"
@@ -107,22 +107,21 @@
   <div class="d-flex justify-content-center confirm-btn-section dfm-gap-16">
     <dfm-button color="secondary" size="lg" routerLink="../basic-details"
                 *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
-                class="back-btn"> Back
+                class="back-btn">{{"Back" | translate}}
     </dfm-button>
     <dfm-button color="secondary" size="sm" routerLink="../basic-details"
                 *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
-                class="back-btn-mv"> Back
+                class="back-btn-mv"> {{"Back" | translate}}
     </dfm-button>
 
     <dfm-button color="primary" size="lg" leadingIcon="chevron-left"
                 [routerLink]=" (isLoggedIn$ | async) ? ['/'] : ['/schedule/overview']"
                 *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled"
-                class="back-btn2"> Go to
-      Dashboard
+                class="back-btn2">{{"GoToDashboard" | translate}}
     </dfm-button>
     <dfm-button color="primary" size="sm" routerLink="../overview"
                 *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled" class="back-btn2-mv">
-      Back
+      {{"Back" | translate}}
     </dfm-button>
 
     <dfm-button
@@ -133,7 +132,7 @@
       class="confirm-btn"
       *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
     >
-      Confirm
+      {{"Confirm" | translate}}
     </dfm-button>
     <dfm-button
       [color]="'primary'"
@@ -143,7 +142,7 @@
       class="confirm-btn-mv"
       *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
     >
-      Confirm
+      {{"Confirm" | translate}}
     </dfm-button>
   </div>
 
@@ -151,21 +150,21 @@
        *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
     <dfm-button [color]="'secondary'" [size]="'lg'" class="mx-3 edit-btn"
                 routerLink="/schedule/slot">
-      Edit Appointment
+      {{"EditAppointment" | translate}}
     </dfm-button>
 
     <dfm-button [color]="'secondary'" [size]="'sm'" class="mx-3 edit-btn-mv"
                 routerLink="/schedule/slot">
-      Edit
+      {{"Edit" | translate}}
     </dfm-button>
 
     <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
-      Cancel Appointment
+      {{"CancelAppointment" | translate}}
     </dfm-button>
 
     <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
                 (click)="cancelAppointment()">
-      Cancel
+      {{"Cancel" | translate}}
     </dfm-button>
   </div>
 </div>
