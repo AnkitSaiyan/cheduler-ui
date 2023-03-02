@@ -35,8 +35,8 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public logout() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        titleText: 'Logout Confirmation',
-        bodyText: 'Are you sure you want to logout the session?',
+        titleText: 'LogoutConfirmation',
+        bodyText: 'Areyousurewanttologout',
         cancelButtonText: 'Cancel',
         confirmButtonText: 'Logout'
       } as DialogData

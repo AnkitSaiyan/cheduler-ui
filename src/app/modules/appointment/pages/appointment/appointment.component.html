@@ -55,7 +55,7 @@
       <span class="display-4 previous-app-text">{{"PreviousAppointments" | translate}}</span>
       <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
       <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
-        <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length>3" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"ViewAll"}} </dfm-button>
+        <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length>3" (click)="viewAll = !viewAll">{{(viewAll)?"Hide":"View All"}} </dfm-button>
       </div>
     </div>
     <div class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3" *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
@@ -66,8 +66,8 @@
               <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
               <span>{{appointment.startedAt | date: 'hh:mm'}}</span></div>
             </div>
-            <span class="display-5">Exam: {{appointment.exam}}</span>
-            <span class="display-5">Status: <span class="text-success">Completed</span>
+            <span class="display-5">{{"Exam" | translate}}: {{appointment.exam}}</span>
+            <span class="display-5">{{"Status" | translate}}: <span class="text-success">{{"Completed" | translate}}</span>
               <hr class="bg-lite-gray appointment-hr-mv" />
             </span>
           </div>
@@ -78,8 +78,8 @@
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
           <span>{{appointment.startedAt | date: 'hh:mm'}}</span></div>
         </div>
-        <span class="display-5">Exam: {{appointment.exam}}</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
+        <span class="display-5">{{"Exam" | translate}}: {{appointment.exam}}</span>
+        <span class="display-5">Status: <span class="text-success">{{"Completed" | translate}}</span>
         <hr class="bg-lite-gray appointment-hr-mv" />
       </span>
       </div>
