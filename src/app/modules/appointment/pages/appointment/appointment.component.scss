@@ -3,8 +3,8 @@
 }
 .login-dashboard-content {
     // width: 100%;
-    border-radius: 8px;
-    margin: 0px 10px;
+    margin: 0px 50px;
+    padding:20px;
 }
 
 .upcoming-appointments-section {
@@ -36,18 +36,17 @@
 }
 
 .upcoming-appointments-details {
-    padding: 5px;
     // border-radius: 8px;
     // box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px 30px;
+    // padding: 20px 30px;
     gap: 20px;
     // border: 1px solid red;
     font-weight: 600;
-    width: 70%;
+    width: 100%;
 }
 
 .upcoming-appointments-date-time {
