@@ -16,7 +16,7 @@
       </dfm-input-dropdown>
       <!-- ===============||Comments Section added for mobile view============|| -->
       <section class="comments-mv">
-        <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+        <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
       </section>
       <!-- ===============||Comments Section added for mobile view ends============|| -->
 
@@ -41,7 +41,7 @@
         <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
           <dfm-icon name="plus"></dfm-icon>
         </div>
-        <dfm-button color="link" size="sm"> {{"ClickToAddMoreExam" | translate}}</dfm-button>
+        <dfm-button color="link" size="sm"> <span>{{"ClickToAddMoreExam" | translate}}</span></dfm-button>
       </div>
     </section>
     <!-- ===============||Comments Section added for Desktop view============|| -->

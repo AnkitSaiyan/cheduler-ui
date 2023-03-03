@@ -19,7 +19,9 @@
   </section>
 
   <section class="footer-sec-2" [ngClass]="{ 'dfm-bg-primary-lighter': url.includes('auth') }">
-    <span class="pointer underline-primary font-weight-medium text-sm" routerLink="/privacy/policy">{{"PrivacyAndCookies" | translate}}</span>
-    <span class="footer-right font-weight-semi-bold">{{"PoweredByDiflexmo" | translate}}</span>
+    <div class="privacy-footer-mv w-100 d-flex flex-row justify-content-between align-items-center" [ngClass]="{ 'login-footer': url.includes('dashboard' || 'appointment' || 'profile' || 'privacy') }">
+    <span class="footer-left pointer underline-primary font-weight-medium text-sm" routerLink="/privacy/policy">Privacy Policy and Cookies</span>
+    <span class="footer-right font-weight-semi-bold">Powered by Diflexmo Scheduling System</span>
+  </div>
   </section>
 </div>

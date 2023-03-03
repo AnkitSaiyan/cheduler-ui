@@ -55,7 +55,7 @@
 
 .sub-menu {
   position: absolute;
-  background-color: #fff;
+  background-color: var(--dfm-primary-lighter);
   top: 50px;
   left: 50%;
   transform: translate(-50%, 0px);
@@ -65,6 +65,7 @@
   border-radius: 8px;
   min-width: 100px;
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .sub-menu .sub-menu-items {

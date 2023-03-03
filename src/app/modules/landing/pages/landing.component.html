@@ -47,11 +47,11 @@
           <span class="opening-section-header-mv mx-2"> {{"OpeningDays" | translate}}</span>
           <table class="mt-2 opening-days">
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i > 0"> {{days[i]}}</th>
+              <th *ngIf="i > 0"> {{days[i] | translate}}</th>
               <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i === 0">{{days[i]}}</th>
+              <th *ngIf="i === 0">{{days[i] | translate}}</th>
               <td *ngIf="i ===0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
             <ng-template #elseBlock>{{"Closed" | translate}}</ng-template>
