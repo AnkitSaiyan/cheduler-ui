@@ -16,6 +16,7 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public url!: string;
 
   public isExpanded: boolean = false;
+  public isVisibleSubMenu: boolean = false;
   public window = window;
 
   constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService, private router: Router, private modalSvc: ModalService) {

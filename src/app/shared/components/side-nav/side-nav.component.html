@@ -28,12 +28,12 @@
        (click)="!isExpanded && window.innerWidth > 680 ? navigateTo(['account', 'profile']) : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
     <!-- =================sub menu design for mobile view=============== -->
     <div class="dfm-side-nav-item-icon">
-      <dfm-icon name="user-01"></dfm-icon>
-      <div class="sub-menu-mv border-r-16">
-        <div class="sub-menu-items-mv" routerLink="/account">
+      <dfm-icon name="user-01" (click)="isVisibleSubMenu = !isVisibleSubMenu"></dfm-icon>
+      <div class="sub-menu-mv border-r-16" *ngIf="isVisibleSubMenu">
+        <div class="sub-menu-items-mv" routerLink="/account" (click)="isVisibleSubMenu = false">
           <dfm-icon name="user-01"></dfm-icon>
         </div>
-        <div class="sub-menu-items-mv" routerLink="/account/privacy">
+        <div class="sub-menu-items-mv" routerLink="/account/privacy" (click)="isVisibleSubMenu = false">
           <dfm-icon name="key-01"></dfm-icon>
         </div>
       </div>

@@ -1,14 +1,14 @@
 <div class="login-dashboard-content mt-4 bg-white border-r-16">
-  <span class="display-3 upcoming-text">No Appointments Scheduled </span>
+  <span class="display-3 upcoming-text">{{"NoAppointmentsScheduled" | translate}} </span>
   <div class="status-btn d-flex flex-row justify-content-start align-items-start mt-3">
-    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Schedule Appointment </dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> {{"ScheduleAppointment" | translate}} </dfm-button>
   </div>
 </div>
 
 <div class="login-dashboard-content mt-4 bg-white border-r-16">
   <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
     <div class="upcoming-appointments-details">
-      <span class="display-3 upcoming-text">Upcoming Appointments</span>
+      <span class="display-3 upcoming-text">{{"UpcomingAppointments" | translate}}</span>
 
       <!-- {{ upcommingAppointments | json }} -->
       <div *ngFor="let item of upcommingAppointments">
@@ -65,7 +65,7 @@
 
 <div class="previous-appointment-container mt-4 bg-white border-r-16">
   <div class="previous-appointment-title">
-    <span class="display-4 previous-app-text">Previous Appointments</span>
+    <span class="display-4 previous-app-text">{{"PreviousAppointments" | translate}}</span>
     <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
     <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
       <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
@@ -89,9 +89,9 @@
             <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
           </div>
         </div>
-        <span class="display-5">Exam: {{ appointment.exam }}</span>
+        <span class="display-5">{{"Exam" | translate}}: {{ appointment.exam }}</span>
         <span class="display-5"
-          >Status: <span class="text-success">Completed</span>
+          >Status: <span class="text-success">{{"Completed" | translate}}</span>
           <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
       </div>
@@ -107,9 +107,9 @@
             <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
           </div>
         </div>
-        <span class="display-5">Exam: {{ appointment.exam }}</span>
+        <span class="display-5">{{"Exam" | translate}}: {{ appointment.exam }}</span>
         <span class="display-5"
-          >Status: <span class="text-success">Completed</span>
+          >{{"Status" | translate}}: <span class="text-success">{{"Completed" | translate}}</span>
           <hr class="bg-lite-gray appointment-hr-mv" />
         </span>
       </div>

@@ -183,7 +183,6 @@ table, th, tr, td {
 .cal-back-btn-mv{
   display: none!important;
 }
-
 @media (max-width: 1280px) {
   .appointment-slot-container {
     width: 100%;
@@ -282,6 +281,20 @@ table, th, tr, td {
     align-items: center!important;
     justify-content: center;
     overflow-y: hidden;
+  }
+  .slot-timing-mv{
+    &::-webkit-scrollbar{
+    display: block!important;
+  }
+  &::-webkit-scrollbar-track{
+    background-color: var(--dfm-primary-lighter);
+    border-radius:16px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: var(--dfm-primary);
+    width: 30px;
+    height: 2px!important;
+  }
   }
   .time-detail {
     max-width: 300px !important;
