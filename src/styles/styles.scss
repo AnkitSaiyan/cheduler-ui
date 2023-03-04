@@ -159,6 +159,10 @@ dfm-footer {
   }
 
 }
+::selection {
+  background-color: var(--dfm-primary);
+  color: #fff;
+}
 .register-menu{
   dfm-button{
     // border: 1px solid red!important;
@@ -316,7 +320,10 @@ dfm-notification {
 
 
 @media (min-width: 180px) and (max-width: 680px) {
-dfm-progress-bar{
-  width: 100%;
-}
+  dfm-progress-bar {
+    width: 100%;
+  }
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
 }

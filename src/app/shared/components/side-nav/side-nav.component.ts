@@ -16,6 +16,7 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public url!: string;
 
   public isExpanded: boolean = false;
+  public isVisibleSubMenu: boolean = false;
   public window = window;
 
   constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService, private router: Router, private modalSvc: ModalService) {
@@ -35,8 +36,8 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public logout() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        titleText: 'Logout Confirmation',
-        bodyText: 'Are you sure you want to logout the session?',
+        titleText: 'LogoutConfirmation',
+        bodyText: 'Areyousurewanttologout',
         cancelButtonText: 'Cancel',
         confirmButtonText: 'Logout'
       } as DialogData

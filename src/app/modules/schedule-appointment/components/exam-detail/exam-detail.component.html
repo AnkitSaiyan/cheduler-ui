@@ -1,12 +1,13 @@
 <div
-  class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16">
+  class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16"
+>
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <dfm-input-dropdown
         [items]="physician"
         (searchInput)="searchInput($event)"
-        label="Referring Physician*"
-        placeholder="Enter physician name"
+        label="{{ 'ReferringPhysician' | translate }}*"
+        placeholder="{{ 'EnterPhysicianName' | translate }}"
         formControlName="physician"
         [showDescription]="false"
         size="md"
@@ -15,44 +16,38 @@
       </dfm-input-dropdown>
       <!-- ===============||Comments Section added for mobile view============|| -->
       <section class="comments-mv">
-        <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+        <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
       </section>
       <!-- ===============||Comments Section added for mobile view ends============|| -->
 
-      <span class="select-exam-detail">Select exam(s) below</span>
+      <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
 
       <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
         <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
           <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-            <dfm-input-dropdown [items]="items" formControlName="exam" label="Exam*" placeholder="Select Exam"
-                                size="md">
+            <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}}*" placeholder="{{'SelectExam' | translate}}" size="md">
               {{ items }}
             </dfm-input-dropdown>
 
-            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer"
-                 (click)="removeExam(i);"
-            >
+            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" (click)="removeExam(i)">
               <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
             </div>
           </div>
         </div>
 
-        <div class="add-exam-btn">
-        </div>
+        <div class="add-exam-btn"></div>
       </div>
       <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
-        <div style="width: 24px; height: 24px;" class="dfm-bg-color-primary text-white rounded-circle">
+        <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
           <dfm-icon name="plus"></dfm-icon>
         </div>
-        <dfm-button color="link" size="sm">
-          Click to add more exam
-        </dfm-button>
+        <dfm-button color="link" size="sm"> <span>{{"ClickToAddMoreExam" | translate}}</span></dfm-button>
       </div>
     </section>
     <!-- ===============||Comments Section added for Desktop view============|| -->
     <section class="comments-btn">
       <div class="comments-section">
-        <dfm-text-area formControlName="comments" [label]="'Comments'" [placeholder]="'Enter Comments'"></dfm-text-area>
+        <dfm-text-area formControlName="comments" label="{{'Comments' | translate}}" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
       </div>
     </section>
     <!-- ===============||Comments Section added for Desktop view ends============|| -->
@@ -60,12 +55,7 @@
     <!--Right Section Ends Here=================-->
   </form>
 
-  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid">
-    Next
-  </dfm-button>
+  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid"> {{"Next" | translate}} </dfm-button>
 
-  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv"
-              [disabled]="examForm.invalid">
-    Next
-  </dfm-button>
+  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid"> {{"Next" | translate}} </dfm-button>
 </div>

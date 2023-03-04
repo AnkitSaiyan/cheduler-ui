@@ -14,11 +14,11 @@
         class="button-design schedule-button"
         routerLink="/schedule/overview"
       >
-        Schedule Appointment
+        {{"ScheduleAppointment"  | translate}}
       </dfm-button>
     </div>
       <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule/overview">
-        Schedule Appointment
+        {{"ScheduleAppointment"  | translate}}
       </dfm-button>
     </div>
 
@@ -43,18 +43,18 @@
 
       <div class="weekly-content-right">
         <div class="opening-detail-table shadow-sm">
-          <span class="opening-section-header">Opening days</span>
-          <span class="opening-section-header-mv mx-2"> Opening days</span>
+          <span class="opening-section-header">{{"OpeningDays" | translate}}</span>
+          <span class="opening-section-header-mv mx-2"> {{"OpeningDays" | translate}}</span>
           <table class="mt-2 opening-days">
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i > 0"> {{days[i]}}</th>
+              <th *ngIf="i > 0"> {{days[i] | translate}}</th>
               <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i === 0">{{days[i]}}</th>
+              <th *ngIf="i === 0">{{days[i] | translate}}</th>
               <td *ngIf="i ===0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
-            <ng-template #elseBlock>Closed</ng-template>
+            <ng-template #elseBlock>{{"Closed" | translate}}</ng-template>
           </table>
         </div>
       </div>
