@@ -48,6 +48,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public appointmentStatusEnum = AppointmentStatus;
 
+  siteDetails$$: BehaviorSubject<any>;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -58,9 +60,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private datePipe: DatePipe,
   ) {
     super();
+    this.siteDetails$$ = new BehaviorSubject<any[]>([]);
   }
 
   public ngOnInit(): void {
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+
     const appointmentId = localStorage.getItem('appointmentId');
     if (appointmentId) {
       this.appointmentId$$.next(+appointmentId);

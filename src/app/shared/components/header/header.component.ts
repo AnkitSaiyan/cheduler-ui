@@ -31,25 +31,33 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   public url!: string;
 
   public isLoggedIn$!: Observable<boolean>;
-  siteDetails$$: BehaviorSubject<any>
 
-  constructor(private routerStateSvc: RouterStateService, private authSvc: AuthService, private translateService: TranslateService, private landingService: LandingService) {
+  siteDetails$$: BehaviorSubject<any>;
+
+  constructor(
+    private routerStateSvc: RouterStateService,
+    private authSvc: AuthService,
+    private translateService: TranslateService,
+    private landingService: LandingService,
+  ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
- 
+    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
+      this.ngOnInit();
+    });
   }
 
   public ngOnInit(): void {
-    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
-      console.log('appointments upcomming: ', res);
-      this.siteDetails$$.next(res);
-    });
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
 
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.routerStateSvc
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((url) => (this.url = url));
+      .subscribe((url) => {
+        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+        this.url = url;
+      });
   }
 
   changeLangauge(value) {

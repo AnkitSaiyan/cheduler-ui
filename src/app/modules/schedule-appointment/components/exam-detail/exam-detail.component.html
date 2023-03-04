@@ -3,7 +3,8 @@
 >
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
-      <dfm-input-dropdown
+      <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
+      <dfm-input-dropdown *ngIf="physicianEnale['data'].doctorReferringConsent === 0"
         [items]="physician"
         (searchInput)="searchInput($event)"
         label="{{ 'ReferringPhysician' | translate }}*"
@@ -14,6 +15,7 @@
       >
         {{ physician }}
       </dfm-input-dropdown>
+    </ng-container>
       <!-- ===============||Comments Section added for mobile view============|| -->
       <section class="comments-mv">
         <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>

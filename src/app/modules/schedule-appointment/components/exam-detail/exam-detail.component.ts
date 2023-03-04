@@ -1,24 +1,25 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
-import {BehaviorSubject, map, takeUntil} from 'rxjs';
-import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
-import {KeyValue} from "@angular/common";
-import {NameValue} from "../../../../shared/models/name-value.model";
-import {ExamDetails} from "../../../../shared/models/local-storage-data.model";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
+import { BehaviorSubject, map, takeUntil } from 'rxjs';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import { KeyValue } from '@angular/common';
+import { NameValue } from '../../../../shared/models/name-value.model';
+import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-exam-detail',
   templateUrl: './exam-detail.component.html',
   styleUrls: ['./exam-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public examForm!: FormGroup;
   public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
   public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
+  siteDetails$$: BehaviorSubject<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -26,19 +27,22 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private router: Router,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     super();
+    this.siteDetails$$ = new BehaviorSubject<any[]>([]);
   }
 
   public ngOnInit(): void {
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.createForm(examDetails);
     });
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id}))),
+        map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -47,7 +51,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({name, id}) => ({name: `${id} - ${name}`, value: id}))),
+        map((exams) => exams.map(({ name, id }) => ({ name: `${name}`, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((exams) => this.filteredExams$$.next(exams));
@@ -96,8 +100,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     }
   }
 
-  public searchInput(physycianName: string) {
-  }
+  public searchInput(physycianName: string) {}
 
   public resetForm() {
     this.examForm.reset();
@@ -110,13 +113,13 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     const examDetails = {
       ...this.examForm.value,
-      exams: this.examForm.value.exams.map((exam) => exam.exam)
+      exams: this.examForm.value.exams.map((exam) => exam.exam),
     } as ExamDetails;
 
     console.log(examDetails);
 
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
-    this.router.navigate(['../slot'], {relativeTo: this.route});
+    this.router.navigate(['../slot'], { relativeTo: this.route });
   }
 }
