@@ -17,6 +17,7 @@ export class OverviewComponent implements OnInit {
   constructor(private authSvc: AuthService, public sharedService: LandingService) {}
 
   ngOnInit(): void {
+    // localStorage.removeItem('examDetails');
     this.sharedService.siteDetails$
       .pipe(
         map((exams) => {
