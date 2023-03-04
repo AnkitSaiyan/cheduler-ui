@@ -1,6 +1,7 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
   <div class="nav-logo pointer" routerLink="/"  *ngIf="siteDetails$$ | async as siteDetails">
-    <img src="{{base64Start + siteDetails['data']?.logo}}" alt="CHEDULER"/>
+    <img *ngIf="siteDetails['data']?.logo" src="{{base64Start + siteDetails['data']?.logo}}" alt="CHEDULER"/>
+    <img *ngIf="!siteDetails['data']?.logo" src="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"/>
   </div>
 
   <div class="nav-items-right">

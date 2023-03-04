@@ -83,8 +83,8 @@
   </div>
 
   <div class="checkbox-section w-fit" *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false">
-    <div class="w-fit">
-      <dfm-checkbox
+    <div class="w-fit" *ngIf="siteDetails$$ | async as enanbleDoctor">
+      <dfm-checkbox *ngIf="enanbleDoctor['data'].doctorReferringConsent === 0"
         label="{{'IhaveAnApplicationFromMyReferring' | translate}}.*"
         size="sm"
         class="w-fit"
