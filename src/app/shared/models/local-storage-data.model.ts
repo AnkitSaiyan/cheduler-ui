@@ -7,5 +7,5 @@ export interface SlotDetails {
   selectedDate: Date | null;
   selectedSlots: {
     [key: number]: string
-  }
+  };
 }
