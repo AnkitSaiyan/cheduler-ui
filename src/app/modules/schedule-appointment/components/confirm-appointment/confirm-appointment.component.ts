@@ -162,21 +162,18 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
 
-    let time;
     const examList: any = [];
-    console.log(this.slotDetails.selectedSlots);
     Object.keys(this.slotDetails.selectedSlots).forEach((res) => {
-      time = Object.values(this.slotDetails.selectedSlots[res].slot.split('-')[0].split(':'));
+      const startTime = Object.values(this.slotDetails.selectedSlots[res].slot.split('-')[0].split(':'));
+      const endTime = Object.values(this.slotDetails.selectedSlots[res].slot.split('-')[1].split(':'));
       examList.push({
         examId: this.slotDetails.selectedSlots[res].examId,
-        startedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${time[0]}:${time[1]}`,
-        endedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${time[0]}:${time[1]}`,
+        startedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${startTime[0]}:${startTime[1]}`,
+        endedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${endTime[0]}:${endTime[1]}`,
         userList: this.slotDetails.selectedSlots[res].userList,
         roomList: this.slotDetails.selectedSlots[res].roomList,
       });
     });
-
-    // console.log(time);
     const requestData = {
       ...this.basicDetails,
       doctorId: this.examDetails.physician,
