@@ -3,7 +3,14 @@
     <section class="appointment-slot-sec-1" [ngClass]="{ 'flex-1': selectedDate$$.value }">
       <div class="dfm-card d-flex flex-column align-items-center dfm-gap-16 dfm-p-24">
         <div class="appointment-slot-calendar-header">
-          <dfm-button #prevButton trailingIcon="chevron-left" color="link" size="sm" [disabled]="selectedCalendarDate$$.value.getMonth() <= today.getMonth()" (click)="prevButton.disabled ? $event.preventDefault() : changeMonth(-1)"></dfm-button>
+          <dfm-button
+            #prevButton
+            trailingIcon="chevron-left"
+            color="link"
+            size="sm"
+            [disabled]="selectedCalendarDate$$.value.getMonth() <= today.getMonth()"
+            (click)="prevButton.disabled ? $event.preventDefault() : changeMonth(-1)"
+          ></dfm-button>
 
           <h5 class="month-title-mv font-weight-semi-bold m-0">{{ selectedCalendarDate$$ | async | date : 'MMMM yyyy' }}</h5>
 
@@ -11,45 +18,46 @@
         </div>
 
         <table class="calender-month-view">
-<!--          <div class="position-absolute" style="top: 0; bottom: 0; left: 0; right: 0;">-->
-<!--            <div class="block-loader"></div>-->
-<!--          </div>-->
+          <!--          <div class="position-absolute" style="top: 0; bottom: 0; left: 0; right: 0;">-->
+          <!--            <div class="block-loader"></div>-->
+          <!--          </div>-->
 
           <thead class="calender-month-view-weekday">
-          <th>{{ weekdayEnum.SUN | weekdayToName : true | uppercase |translate }}</th>
-          <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase |translate}}</th>
-          <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase |translate}}</th>
-          <th>{{ weekdayEnum.WED | weekdayToName : true | uppercase |translate}}</th>
-          <th>{{ weekdayEnum.THU | weekdayToName : true | uppercase |translate}}</th>
-          <th>{{ weekdayEnum.FRI | weekdayToName : true | uppercase |translate}}</th>
-          <th>{{ weekdayEnum.SAT | weekdayToName : true | uppercase |translate}}</th>
+            <th>{{ weekdayEnum.SUN | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.WED | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.THU | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.FRI | weekdayToName : true | uppercase | translate }}</th>
+            <th>{{ weekdayEnum.SAT | weekdayToName : true | uppercase | translate }}</th>
           </thead>
 
           <tbody>
-          <tr *ngFor="let days of daysInMonthMatrix;">
-            <td class="calender-month-view-day-cell" *ngFor="let day of days">
-              <div
-                (click)="availableDays.includes(+day) ? selectDate(day) : $event.preventDefault()"
-                *ngIf="day && day <= 31"
-                class="calender-month-view-day text-sm"
-                [ngClass]="{
-            'calender-month-view-day-selected': selectedDate$$.value && selectedDate$$.value?.getDate() === day && selectedDate$$.value?.getMonth() === selectedCalendarDate$$.value.getMonth() && selectedDate$$.value?.getFullYear() === selectedCalendarDate$$.value.getFullYear(),
-            'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
-            'calender-month-view-day-holiday': holidays.includes(+day),
-            'calender-month-view-day-off': offDays.includes(+day)
-        }"
-              >
-                {{ day }}
-              </div>
+            <tr *ngFor="let days of daysInMonthMatrix">
+              <td class="calender-month-view-day-cell" *ngFor="let day of days">
+                <div
+                  (click)="availableDays.includes(+day) ? selectDate(day) : $event.preventDefault()"
+                  *ngIf="day && day <= 31"
+                  class="calender-month-view-day text-sm"
+                  [ngClass]="{
+                    'calender-month-view-day-selected':
+                      selectedDate$$.value &&
+                      selectedDate$$.value?.getDate() === day &&
+                      selectedDate$$.value?.getMonth() === selectedCalendarDate$$.value.getMonth() &&
+                      selectedDate$$.value?.getFullYear() === selectedCalendarDate$$.value.getFullYear(),
+                    'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
+                    'calender-month-view-day-holiday': holidays.includes(+day),
+                    'calender-month-view-day-off': offDays.includes(+day)
+                  }"
+                >
+                  {{ day }}
+                </div>
 
-              <div
-                *ngIf="day && day > 31"
-                class="calender-month-view-day calender-month-view-day-light text-sm"
-              >
-                {{ ' ' }}
-              </div>
-            </td>
-          </tr>
+                <div *ngIf="day && day > 31" class="calender-month-view-day calender-month-view-day-light text-sm">
+                  {{ ' ' }}
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -57,17 +65,17 @@
       <div class="d-flex dfm-gap-16 align-items-center dfm-px-24 calendar-footer-text-container-mv">
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
           <div class="circle-24 calender-month-view-day-holiday"></div>
-          <span class="font-weight-medium">{{"Holiday" | translate}}</span>
+          <span class="font-weight-medium">{{ 'Holiday' | translate }}</span>
         </div>
 
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
           <div class="circle-24 calender-month-view-day-off"></div>
-          <span class="font-weight-medium off-day">{{"OffDay" |translate}}</span>
+          <span class="font-weight-medium off-day">{{ 'OffDay' | translate }}</span>
         </div>
 
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
           <div class="circle-24 dfm-bg-color-primary"></div>
-          <span class="font-weight-medium">{{"Selected" | translate}}</span>
+          <span class="font-weight-medium">{{ 'Selected' | translate }}</span>
         </div>
       </div>
     </section>
@@ -75,67 +83,107 @@
     <div *ngIf="selectedDate$$.value" class="appointment-slot-divider"></div>
 
     <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate$$.value">
-      <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100"
-           *ngFor="let exam of examsDetails.exams">
-        <div class="d-flex flex-column gap-1">
+      <ng-container *ngIf="!isSlotCombinable ; else elseBlock">
+        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails.exams">
           <div class="d-flex flex-column gap-1">
-            <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
-              <span class="font-weight-medium">{{"ExamName" | translate}}: </span>
-              <span>{{ examIdToName[exam]?.name }}</span>
-            </div>
-
-            <div class="d-flex gap-2 align-items-start text-sm">
-              <span class="font-weight-medium">{{"Instructions" | translate}}: </span>
-              <span>{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}</span>
-            </div>
-          </div>
-
-          <ng-container *ngIf="appointmentSlots$$ | async as appointment">
-            <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
-              <div class="text-sm d-flex gap-2">
-                <span class="font-weight-medium">{{"Slots" | translate}} </span>
-                <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
-                <span *ngIf="!examIdToAppointmentSlots[exam]">:{{"NoSlotFound" | translate}}</span>
+            <div class="d-flex flex-column gap-1">
+              <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
+                <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
+                <span>{{ examIdToName[exam]?.name }}</span>
               </div>
 
-              <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-                <div
-                  class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
-                  *ngFor="let slot of examIdToAppointmentSlots[exam]"
-                  (click)="toggleSlotSelection(slot)"
-                  [ngClass]="{
-                    'time-slot-disabled-text': !isSlotAvailable(slot),
-                    'time-slot-selected-text': selectedTimeSlot[exam]?.slot === (slot.start + '-' + slot.end)
-                  }"
-                >
-                  {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+              <div class="d-flex gap-2 align-items-start text-sm">
+                <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
+                <span>{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}</span>
+              </div>
+            </div>
+
+            <ng-container *ngIf="appointmentSlots$$ | async as appointment">
+              <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
+                <div class="text-sm d-flex gap-2">
+                  <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
+                  <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
+                  <span *ngIf="!examIdToAppointmentSlots[exam]">:{{ 'NoSlotFound' | translate }}</span>
+                </div>
+
+                <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
+                  <div
+                    class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
+                    *ngFor="let slot of examIdToAppointmentSlots[exam]"
+                    (click)="toggleSlotSelection(slot)"
+                    [ngClass]="{
+                      'time-slot-disabled-text': !isSlotAvailable(slot),
+                      'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
+                    }"
+                  >
+                    {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                  </div>
                 </div>
               </div>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </div>
-      </div>
+      </ng-container>
+      
+      <ng-template #elseBlock>
+        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" >
+          <div class="d-flex flex-column gap-1">
+            <div class="d-flex flex-column gap-1">
+              <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
+                <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
+                <span *ngFor="let exam of examsDetails.exams; let i =index">  {{ examIdToName[exam]?.name }} {{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+              </div>
+
+              <div class="d-flex gap-2 align-items-start text-sm">
+                <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
+                <span *ngFor="let exam of examsDetails.exams; let i =index">{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+              </div>
+            </div>
+
+            <ng-container *ngIf="appointmentSlots$$ | async as appointment">
+              <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
+                <div class="text-sm d-flex gap-2">
+                  <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
+                  <span *ngIf="examIdToAppointmentSlots[+examsDetails.exams[0]]">({{ examIdToAppointmentSlots[+examsDetails.exams[0]]?.length }})</span>
+                  <span *ngIf="!examIdToAppointmentSlots[+examsDetails.exams[0]]">:{{ 'NoSlotFound' | translate }}</span>
+                </div>
+
+                <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
+                  <div
+                    class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
+                    *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
+                    (click)="toggleSlotSelectionCombinable(slot)"
+                    [ngClass]="{
+                      'time-slot-disabled-text': !isSlotAvailable(slot),
+                      'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
+                    }"
+                  >
+                    {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-template>
     </section>
   </div>
 
   <div>
     <div class="d-flex justify-content-center align-items-center dfm-gap-16">
-      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">{{"Back" | translate}}</dfm-button>
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">{{ 'Back' | translate }}</dfm-button>
 
       <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv">
-        {{"Back" | translate}}
+        {{ 'Back' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn"
-                  [disabled]="!isFormValid()">
-        {{"Next" | translate}}
+      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid()">
+        {{ 'Next' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv"
-                  [disabled]="!isFormValid()">
-                  {{"Next" | translate}}
+      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid()">
+        {{ 'Next' | translate }}
       </dfm-button>
     </div>
   </div>
 </div>
-

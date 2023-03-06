@@ -43,6 +43,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public examIdToAppointmentSlots: { [key: number]: ModifiedSlot[] } = {};
 
+  public isSlotCombinable: boolean = false;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -55,6 +57,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public ngOnInit(): void {
     this.getCalendarSlots();
+    const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
+    this.isSlotCombinable = siteData['data']['isSlotsCombinable'];
+    console.log(this.isSlotCombinable);
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examsDetails = examDetails;
@@ -205,6 +210,25 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     console.log(this.selectedTimeSlot);
   }
 
+  public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
+    console.log(this.selectedTimeSlot);
+    console.log(slot);
+    Object.keys(this.examIdToAppointmentSlots).forEach((res) => {
+      if (this.selectedTimeSlot[res]?.slot === `${this.examIdToAppointmentSlots[res].start}-${this.examIdToAppointmentSlots[res].end}`) {
+        console.log('in')
+        this.selectedTimeSlot[res] = { slot: '', roomList: [], userList: [], examId: res };
+      } else {
+        let index = this.examIdToAppointmentSlots[res].findIndex(x => x.start === slot.start && x.end === slot.end);
+        this.selectedTimeSlot[res] = {
+          slot: `${this.examIdToAppointmentSlots[res][index].start}-${this.examIdToAppointmentSlots[res][index].end}`,
+          examId: res,
+          roomList: this.examIdToAppointmentSlots[res][index]?.roomList ?? [],
+          userList: this.examIdToAppointmentSlots[res][index]?.userList ?? [],
+        };
+      }
+    });
+  }
+
   public selectDate(day: number) {
     this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
     this.selectedTimeSlot = {};
@@ -225,6 +249,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public isFormValid(): boolean {
+    if (this.isSlotCombinable) {
+      return Object.values(this.selectedTimeSlot).every((value) => value);
+    }
     return (
       Object.values(this.selectedTimeSlot).every((value) => value) && Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length
     );
