@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from "../../../../shared/models/calendar.model.";
-import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
-import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
-import {DatePipe} from "@angular/common";
-import {AppointmentSlot, Slot, WorkStatusesEnum} from "../../../../shared/models/appointment.model";
-import {ExamDetails, SlotDetails} from "../../../../shared/models/local-storage-data.model";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
+import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import { BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
+import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -35,21 +35,20 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public offDays: number[] = [];
 
-  public selectedTimeSlot: { [key: number]: string } = {};
+  public selectedTimeSlot: { [key: number]: any } = {};
 
   public examsDetails: ExamDetails = {} as ExamDetails;
 
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
 
-  public examIdToAppointmentSlots: { [key: number]: Slot[] } = {};
-
+  public examIdToAppointmentSlots: { [key: number]: ModifiedSlot[] } = {};
 
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {
     super();
   }
@@ -62,8 +61,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     });
 
     this.scheduleAppointmentSvc.slotDetails$.pipe(takeUntil(this.destroy$$)).subscribe((slotDetails) => {
-      console.log(slotDetails);
-
       if (slotDetails?.selectedDate) {
         const date = new Date(slotDetails.selectedDate);
         this.selectedDate$$.next(date);
@@ -71,65 +68,91 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       }
 
       if (slotDetails?.selectedSlots) {
-        console.log('in', slotDetails.selectedSlots)
-        this.selectedTimeSlot = {...slotDetails.selectedSlots};
+        console.log('in', slotDetails.selectedSlots);
+        this.selectedTimeSlot = { ...slotDetails.selectedSlots };
       }
 
       this.updateCalendarDays();
     });
 
-    this.scheduleAppointmentSvc.exams$
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((exams) => exams.forEach((exam) => {
-        this.examIdToName[+exam.id] = {name: exam.name, info: exam.info};
-      }));
+    this.scheduleAppointmentSvc.exams$.pipe(takeUntil(this.destroy$$)).subscribe((exams) =>
+      exams.forEach((exam) => {
+        this.examIdToName[+exam.id] = { name: exam.name, info: exam.info };
+      }),
+    );
 
-    this.selectedCalendarDate$$.asObservable().pipe(
-      debounceTime(0),
-      filter((date) => !!date),
-      tap(() => this.resetCalendarData()),
-      switchMap((date) => {
-        const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
-        const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
-        const exams = this.examsDetails.exams;
-        return this.scheduleAppointmentSvc.getSlots$({fromDate, toDate, exams})
-      })
-    ).subscribe((appointmentSlot) => {
-      appointmentSlot.forEach((appointmentSlot) => {
-        const day = +appointmentSlot.start.slice(-2);
-        switch (appointmentSlot.workStatus) {
-          case WorkStatusesEnum.Holiday:
-            this.holidays.push(day);
-            break;
-          case WorkStatusesEnum.Working:
-            this.availableDays.push(day);
-            break;
-          case WorkStatusesEnum.Off:
-            this.offDays.push(day);
-            break;
-          case WorkStatusesEnum.Past:
-            this.pastDays.push(day);
-        }
+    this.selectedCalendarDate$$
+      .asObservable()
+      .pipe(
+        debounceTime(0),
+        filter((date) => !!date),
+        tap(() => this.resetCalendarData()),
+        switchMap((date) => {
+          const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
+          const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
+          const { exams } = this.examsDetails;
+          return this.scheduleAppointmentSvc.getSlots$({ fromDate, toDate, exams });
+        }),
+      )
+      .subscribe((appointmentSlot) => {
+        appointmentSlot.forEach((appointmentSlot) => {
+          const day = +appointmentSlot.start.slice(-2);
+          switch (appointmentSlot.workStatus) {
+            case WorkStatusesEnum.Holiday:
+              this.holidays.push(day);
+              break;
+            case WorkStatusesEnum.Working:
+              this.availableDays.push(day);
+              break;
+            case WorkStatusesEnum.Off:
+              this.offDays.push(day);
+              break;
+            case WorkStatusesEnum.Past:
+              this.pastDays.push(day);
+          }
+        });
       });
-    });
 
-    this.selectedDate$$.asObservable().pipe(debounceTime(0), filter((date) => !!date), switchMap((date) => {
-      const dateString = this.getDateString(date);
-      return this.scheduleAppointmentSvc.getSlots$({
-        fromDate: dateString, toDate: dateString, exams: [...this.examsDetails.exams]
-      })
-    }), takeUntil(this.destroy$$)).subscribe((appointmentSlot) => {
-      this.appointmentSlots$$.next(appointmentSlot[0]);
-      this.examIdToAppointmentSlots = {};
+    this.selectedDate$$
+      .asObservable()
+      .pipe(
+        debounceTime(0),
+        filter((date) => !!date),
+        switchMap((date) => {
+          const dateString = this.getDateString(date);
+          return this.scheduleAppointmentSvc.getSlots$({
+            fromDate: dateString,
+            toDate: dateString,
+            exams: [...this.examsDetails.exams],
+          });
+        }),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe((appointmentSlot) => {
+        console.log(appointmentSlot);
+        this.appointmentSlots$$.next(appointmentSlot[0]);
+        this.examIdToAppointmentSlots = {};
 
-      appointmentSlot[0]?.slots?.forEach((slot) => {
-        if (!this.examIdToAppointmentSlots[slot.examId]) {
-          this.examIdToAppointmentSlots[slot.examId] = [];
-        }
+        appointmentSlot[0]?.slots?.forEach((slot) => {
+          slot['exams'].forEach((element) => {
+            let index = slot['exams'].findIndex((x) => x.examId === element.examId);
 
-        this.examIdToAppointmentSlots[slot.examId].push(slot);
+            if (!this.examIdToAppointmentSlots[element.examId]) {
+              this.examIdToAppointmentSlots[element.examId] = [];
+            }
+            const tempSlot: ModifiedSlot = {
+              end: slot.end,
+              start: slot.start,
+              examId: slot.exams[index].examId,
+              roomList: slot.exams[index].roomId,
+              userList: slot.exams[index].userId,
+              exams: [],
+            };
+            this.examIdToAppointmentSlots[element.examId].push(tempSlot);
+          });
+        });
+        console.log(this.examIdToAppointmentSlots);
       });
-    });
   }
 
   public override ngOnDestroy() {
@@ -149,6 +172,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     // if selected month is today's month then selected today's date by default
     if (this.selectedCalendarDate$$.value.getMonth() === new Date().getMonth()) {
+      // eslint-disable-next-line no-new
       new Date(this.selectedCalendarDate$$.value.setDate(new Date().getDate()));
     }
 
@@ -163,16 +187,22 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
   }
 
-  public toggleSlotSelection(slot: Slot) {
+  public toggleSlotSelection(slot: ModifiedSlot) {
+    console.log(slot);
     if (!this.isSlotAvailable(slot)) {
       return;
     }
-
-    if (this.selectedTimeSlot[slot.examId] === slot.start + '-' + slot.end) {
-      this.selectedTimeSlot[slot.examId] = ''
+    if (this.selectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
+      this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
     } else {
-      this.selectedTimeSlot[slot.examId] = slot.start + '-' + slot.end;
+      this.selectedTimeSlot[slot.examId] = {
+        slot: `${slot.start}-${slot.end}`,
+        examId: slot.examId,
+        roomList: slot?.roomList ?? [],
+        userList: slot?.userList ?? [],
+      };
     }
+    console.log(this.selectedTimeSlot);
   }
 
   public selectDate(day: number) {
@@ -187,7 +217,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     } as SlotDetails;
 
     this.scheduleAppointmentSvc.setSlotDetails(slotDetails);
-    this.router.navigate(['../basic-details'], {relativeTo: this.route});
+    this.router.navigate(['../basic-details'], { relativeTo: this.route });
   }
 
   public getDateString(date: Date | null, format = 'yyyy-MM-dd'): string {
@@ -195,15 +225,16 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public isFormValid(): boolean {
-    return Object.values(this.selectedTimeSlot).every((value) => value) && Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length
+    return (
+      Object.values(this.selectedTimeSlot).every((value) => value) && Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length
+    );
   }
 
-  public isSlotAvailable(slot: any) {
+  public isSlotAvailable(slot: ModifiedSlot) {
     let isAvailable = true;
-
     Object.entries(this.selectedTimeSlot).forEach(([key, value]) => {
-      const timeString = slot.start + '-' + slot.end;
-      if (+key !== +slot.examId && timeString === value) {
+      const timeString = `${slot.start}-${slot.end}`;
+      if (+key !== slot.examId && timeString === value.slot) {
         isAvailable = false;
       }
     });
