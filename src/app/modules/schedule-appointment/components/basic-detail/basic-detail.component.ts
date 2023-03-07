@@ -17,6 +17,8 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
   public isLoggedIn$!: Observable<boolean>;
 
+  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -43,9 +45,9 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   private createForm(basicDetails?) {
     this.basicDetailsForm = this.fb.group({
       patientFname: [basicDetails?.patientFname, [Validators.required]],
-      patientLname: [basicDetails?.patientLname, []],
+      patientLname: [basicDetails?.patientLname, [Validators.required]],
       patientTel: [basicDetails?.patientTel, [Validators.required]],
-      patientEmail: [basicDetails?.patientEmail, [Validators.required]]
+      patientEmail: [basicDetails?.patientEmail, []]
     })
   }
 
@@ -62,5 +64,21 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     this.authService.login$().pipe().subscribe(() => {
       this.router.navigate(['/dashboard']);
     });
+  }
+
+  public handleEmailInput(e: Event): void {
+    const inputText = (e.target as HTMLInputElement).value;
+
+    if (!inputText) {
+      return;
+    }
+
+    if (!inputText.match(this.EMAIL_REGEX)) {
+      this.basicDetailsForm.get('patientEmail')?.setErrors({
+        email: true,
+      });
+    } else {
+      this.basicDetailsForm.get('patientEmail')?.setErrors(null);
+    }
   }
 }

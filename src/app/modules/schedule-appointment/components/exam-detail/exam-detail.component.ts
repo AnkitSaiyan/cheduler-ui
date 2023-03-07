@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
-import { BehaviorSubject, map, takeUntil } from 'rxjs';
-import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { KeyValue } from '@angular/common';
-import { NameValue } from '../../../../shared/models/name-value.model';
-import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
+import {BehaviorSubject, map, takeUntil} from 'rxjs';
+import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import {KeyValue} from '@angular/common';
+import {NameValue} from '../../../../shared/models/name-value.model';
+import {ExamDetails} from '../../../../shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -42,7 +42,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
+        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id}))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -51,7 +51,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({ name, id }) => ({ name: `${name}`, value: id }))),
+        map((exams) => exams.map(({name, id}) => ({name: `${name}`, value: id}))),
         takeUntil(this.destroy$$),
       )
       .subscribe((exams) => this.filteredExams$$.next(exams));
@@ -64,7 +64,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private createForm(examDetails?) {
     console.log(examDetails);
     this.examForm = this.fb.group({
-      physician: [+examDetails?.physician ?? '', [Validators.required]],
+      physician: [!!examDetails?.physician ? examDetails.physician : '', [Validators.required]],
       exams: this.fb.array([]),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });
@@ -100,14 +100,17 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     }
   }
 
-  public searchInput(physycianName: string) {}
+  public searchInput(physycianName: string) {
+  }
 
   public resetForm() {
     this.examForm.reset();
   }
 
   public saveExamDetails() {
+    console.log(this.examForm.value);
     if (this.examForm.invalid) {
+      this.examForm.markAllAsTouched();
       return;
     }
 
@@ -120,6 +123,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
-    this.router.navigate(['../slot'], { relativeTo: this.route });
+    this.router.navigate(['../slot'], {relativeTo: this.route});
   }
 }

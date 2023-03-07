@@ -32,6 +32,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public isLoggedIn$!: Observable<boolean>;
 
+  public selectedLang: string = 'en-BE'
+
   siteDetails$$: BehaviorSubject<any>;
 
   constructor(
@@ -60,17 +62,19 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
       });
   }
 
-  changeLangauge(value) {
-    if (value == 'en-BE') {
+  changeLanguage(value) {
+    if (value === 'en-BE') {
       console.log('inn1');
       this.translateService.setTranslation(value, defaultLanguage);
       this.translateService.setDefaultLang(value);
       // eslint-disable-next-line eqeqeq
-    } else if (value == 'nl-BE') {
+    } else if (value === 'nl-BE') {
       console.log('inn2');
       this.translateService.setTranslation(value, dutchLangauge);
       this.translateService.setDefaultLang(value);
     }
+
+    this.selectedLang = value;
   }
 
   public override ngOnDestroy() {

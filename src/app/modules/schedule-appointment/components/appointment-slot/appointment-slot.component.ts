@@ -45,6 +45,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public isSlotCombinable: boolean = false;
 
+  public loadingSlots$$ = new BehaviorSubject(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -123,6 +125,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       .pipe(
         debounceTime(0),
         filter((date) => !!date),
+        tap(() => this.loadingSlots$$.next(true)),
         switchMap((date) => {
           const dateString = this.getDateString(date);
           return this.scheduleAppointmentSvc.getSlots$({
@@ -133,30 +136,34 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         }),
         takeUntil(this.destroy$$),
       )
-      .subscribe((appointmentSlot) => {
-        console.log(appointmentSlot);
-        this.appointmentSlots$$.next(appointmentSlot[0]);
-        this.examIdToAppointmentSlots = {};
+      .subscribe({
+        next: (appointmentSlot) => {
+          console.log(appointmentSlot);
+          this.appointmentSlots$$.next(appointmentSlot[0]);
+          this.examIdToAppointmentSlots = {};
 
-        appointmentSlot[0]?.slots?.forEach((slot) => {
-          slot['exams'].forEach((element) => {
-            let index = slot['exams'].findIndex((x) => x.examId === element.examId);
+          appointmentSlot[0]?.slots?.forEach((slot) => {
+            slot['exams'].forEach((element) => {
+              let index = slot['exams'].findIndex((x) => x.examId === element.examId);
 
-            if (!this.examIdToAppointmentSlots[element.examId]) {
-              this.examIdToAppointmentSlots[element.examId] = [];
-            }
-            const tempSlot: ModifiedSlot = {
-              end: slot.end,
-              start: slot.start,
-              examId: slot.exams[index].examId,
-              roomList: slot.exams[index].roomId,
-              userList: slot.exams[index].userId,
-              exams: [],
-            };
-            this.examIdToAppointmentSlots[element.examId].push(tempSlot);
+              if (!this.examIdToAppointmentSlots[element.examId]) {
+                this.examIdToAppointmentSlots[element.examId] = [];
+              }
+              const tempSlot: ModifiedSlot = {
+                end: slot.end,
+                start: slot.start,
+                examId: slot.exams[index].examId,
+                roomList: slot.exams[index].roomId,
+                userList: slot.exams[index].userId,
+                exams: [],
+              };
+              this.examIdToAppointmentSlots[element.examId].push(tempSlot);
+            });
           });
-        });
-        console.log(this.examIdToAppointmentSlots);
+          console.log(this.examIdToAppointmentSlots);
+          this.loadingSlots$$.next(false);
+        },
+        error: () => this.loadingSlots$$.next(false),
       });
   }
 
@@ -250,7 +257,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public isFormValid(): boolean {
     if (this.isSlotCombinable) {
-      return Object.values(this.selectedTimeSlot).every((value) => value);
+      return !!Object.values(this.selectedTimeSlot).length;
     }
     return (
       Object.values(this.selectedTimeSlot).every((value) => value) && Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length

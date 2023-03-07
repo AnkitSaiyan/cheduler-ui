@@ -1,6 +1,6 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
   <div class="nav-logo pointer" routerLink="/"  *ngIf="siteDetails$$ | async as siteDetails">
-    <img *ngIf="siteDetails['data']?.logo" src="{{base64Start + siteDetails['data']?.logo}}" alt="CHEDULER"/>
+    <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo" src="{{base64Start + siteDetails['data']?.logo}}" alt="CHEDULER"/>
     <img *ngIf="!siteDetails['data']?.logo" src="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"/>
   </div>
 
@@ -74,9 +74,9 @@
     </ng-container>
 
     <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
-      <span class="dfm-text-main-500 pointer" (click)="changeLangauge('nl-BE')">NL</span>
+      <span class="dfm-text-main-500 pointer" [ngClass]="{'dfm-color-primary': selectedLang === 'nl-BE'}" (click)="changeLanguage('nl-BE')">NL</span>
       <span>|</span>
-      <span class="dfm-color-primary pointer" (click)="changeLangauge('en-BE')">EN</span>
+      <span class="dfm-text-main-500 pointer" [ngClass]="{'dfm-color-primary': selectedLang === 'en-BE'}" (click)="changeLanguage('en-BE')">EN</span>
     </div>
   </div>
 </div>
