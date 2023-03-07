@@ -4,13 +4,13 @@
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
-        <dfm-input-dropdown *ngIf="physicianEnale?.doctorReferringConsent === 1"
+        <dfm-input-dropdown *ngIf="physicianEnale?.doctorReferringConsent === 0"
           [items]="physician"
           (searchInput)="searchInput($event)"
-          label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 1  ? '*' : '' }}"
+          label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0  ? '*' : '' }}"
           placeholder="{{ 'EnterPhysicianName' | translate }}"
           formControlName="physician"
-          [required]="physicianEnale?.doctorReferringConsent === 1"
+          [required]="physicianEnale?.doctorReferringConsent === 0"
           [showDescription]="false"
           size="md"
         >
