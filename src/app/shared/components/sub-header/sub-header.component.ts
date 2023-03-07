@@ -7,19 +7,6 @@ import {DestroyableComponent} from "../destroyable/destroyable.component";
   styleUrls: ['./sub-header.component.scss']
 })
 export class SubHeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  items: any = [
-    {
-      name: 'EN',
-      value: 'EN',
-      discription: '',
-    },
-    {
-      name: 'NL',
-      value: 'NL',
-      discription: '',
-    }
-  ];
-
   constructor() {
     super();
   }
