@@ -16,7 +16,7 @@
       <div class="form-group">
         <dfm-input type="email" size="sm" label="{{'Email' | translate}}" placeholder="{{'EnterEmail' | translate }}"
                    formControlName="patientEmail" (focusout)="handleEmailInput($event)"></dfm-input>
-        <small *ngIf="basicDetailsForm.get('patientEmail')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}</small>
+        <small *ngIf="basicDetailsForm.get('patientEmail')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}.</small>
       </div>
 
       <div class="">

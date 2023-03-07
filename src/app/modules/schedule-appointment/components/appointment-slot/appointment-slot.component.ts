@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
 import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
+import {SiteSettings} from "../../../../shared/models/site-management.model";
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -59,9 +60,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public ngOnInit(): void {
     this.getCalendarSlots();
-    const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
-    this.isSlotCombinable = siteData['data']['isSlotsCombinable'];
-    console.log(this.isSlotCombinable);
+    const siteData: SiteSettings = JSON.parse(localStorage.getItem('siteDetails') || '');
+    this.isSlotCombinable = siteData?.isSlotsCombinable;
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examsDetails = examDetails;
@@ -128,6 +128,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         tap(() => this.loadingSlots$$.next(true)),
         switchMap((date) => {
           const dateString = this.getDateString(date);
+          this.resetSlots();
           return this.scheduleAppointmentSvc.getSlots$({
             fromDate: dateString,
             toDate: dateString,
@@ -294,5 +295,11 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.pastDays = [];
     this.selectedTimeSlot = {};
     this.examIdToAppointmentSlots = {};
+  }
+
+  private resetSlots() {
+    this.selectedTimeSlot = {};
+    this.examIdToAppointmentSlots = {};
+    this.appointmentSlots$$.next(null);
   }
 }

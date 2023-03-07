@@ -4,17 +4,18 @@
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
       <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
-      <dfm-input-dropdown *ngIf="physicianEnale['data'].doctorReferringConsent === 0"
-        [items]="physician"
-        (searchInput)="searchInput($event)"
-        label="{{ 'ReferringPhysician' | translate }}*"
-        placeholder="{{ 'EnterPhysicianName' | translate }}"
-        formControlName="physician"
-        [showDescription]="false"
-        size="md"
-      >
-        {{ physician }}
-      </dfm-input-dropdown>
+        <dfm-input-dropdown *ngIf="physicianEnale?.doctorReferringConsent === 1"
+          [items]="physician"
+          (searchInput)="searchInput($event)"
+          label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 1  ? '*' : '' }}"
+          placeholder="{{ 'EnterPhysicianName' | translate }}"
+          formControlName="physician"
+          [required]="physicianEnale?.doctorReferringConsent === 1"
+          [showDescription]="false"
+          size="md"
+        >
+          {{ physician }}
+        </dfm-input-dropdown>
     </ng-container>
       <!-- ===============||Comments Section added for mobile view============|| -->
       <section class="comments-mv">
@@ -27,7 +28,7 @@
       <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
         <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
           <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-            <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}}*" placeholder="{{'SelectExam' | translate}}" size="md">
+            <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}} *" placeholder="{{'SelectExam' | translate}}" size="md">
               {{ items }}
             </dfm-input-dropdown>
 

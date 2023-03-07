@@ -14,8 +14,8 @@
     <span *ngIf="isExpanded">{{"Dashboard" | translate}}</span>
   </div>
 
-  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }"
-       (click)="navigateTo(['appointment'])">
+  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }">
+<!--    (click)="$event.stopPropagation(); navigateTo(['appointment'])"-->
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="calendar"></dfm-icon>
     </div>

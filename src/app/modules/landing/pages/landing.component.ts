@@ -23,7 +23,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
     this.info$$ = new BehaviorSubject<any[]>([]);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       localStorage.setItem('siteDetails', JSON.stringify(res));
       this.landingService.siteFooterDetails$$.next(res);

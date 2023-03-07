@@ -98,7 +98,7 @@
               </div>
             </div>
 
-            <ng-container *ngIf="appointmentSlots$$ | async as appointment">
+            <ng-container>
               <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
                 <div class="text-sm d-flex gap-2">
                   <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
@@ -140,7 +140,7 @@
               </div>
             </div>
 
-            <ng-container *ngIf="appointmentSlots$$ | async as appointment">
+            <ng-container>
               <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
                 <div class="text-sm d-flex gap-2">
                   <span class="font-weight-medium">{{ 'Slots' | translate }}: </span>

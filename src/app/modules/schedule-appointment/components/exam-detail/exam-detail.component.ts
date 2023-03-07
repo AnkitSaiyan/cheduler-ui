@@ -36,6 +36,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
 
+    console.log(this.siteDetails$$.value);
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.createForm(examDetails);
     });
@@ -64,7 +66,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private createForm(examDetails?) {
     console.log(examDetails);
     this.examForm = this.fb.group({
-      physician: [!!examDetails?.physician ? examDetails.physician : '', [Validators.required]],
+      physician: [!!examDetails?.physician ? examDetails.physician : '', []],
       exams: this.fb.array([]),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });

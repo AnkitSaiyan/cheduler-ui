@@ -10,6 +10,7 @@
 .sub-header-sub-container {
   padding: 20px;
   max-width: 85%;
+  width: 85%;
 
   .sub-header-img-container {
     display: flex;
@@ -39,7 +40,7 @@
 @media (min-width: 180px) and (max-width: 680px) {
   .sub-header-main-container {
     display: none;
-  
+
   }
   .home-menu {
     display: none;

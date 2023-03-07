@@ -1,9 +1,9 @@
 <div class="landing-page d-flex flex-column align-items-center dfm-gap-32 dfm-p-32">
   <div class="radiology-section bg-white border-r-16" *ngIf="info$$ | async as siteDetails">
     <div class="left-section">
-      <h3 class=" welcome-text m-0">{{(siteDetails['heading'])}}</h3>
-      <div class="sub-header mt-4">{{(siteDetails['subHeading'])}}</div>
-      <p class="p-data mt-3">{{(siteDetails['bodyText'])}}</p>
+      <h3 class=" welcome-text m-0">{{ siteDetails['heading'] ?? 'Welcome to Radiology' }}</h3>
+      <div class="sub-header mt-4">{{ siteDetails['subHeading'] ?? 'Schedule your appointment with us' }}</div>
+      <p class="p-data mt-3">{{ siteDetails['bodyText'] ?? 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?' }}</p>
       <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule/overview">
         Schedule Appointment
       </dfm-button> -->
