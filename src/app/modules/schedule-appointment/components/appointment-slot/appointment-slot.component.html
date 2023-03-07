@@ -103,7 +103,8 @@
                 <div class="text-sm d-flex gap-2">
                   <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
                   <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
-                  <span *ngIf="!examIdToAppointmentSlots[exam]">{{ 'NoSlotFound' | translate }}</span>
+                  <span *ngIf="!examIdToAppointmentSlots[exam] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
+                  <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span>
                 </div>
 
                 <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
@@ -150,7 +151,7 @@
                 </div>
 
                 <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-                  <div
+                    <div
                     class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
                     *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
                     (click)="toggleSlotSelectionCombinable(slot)"

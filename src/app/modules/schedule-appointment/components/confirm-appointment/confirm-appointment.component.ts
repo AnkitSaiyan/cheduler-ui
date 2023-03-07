@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { Appointment } from '../../../../shared/models/appointment.model';
 import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
 import { AppointmentStatus } from '../../../../shared/models/status';
+import {SiteSettings} from "../../../../shared/models/site-management.model";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -44,7 +45,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public appointmentStatusEnum = AppointmentStatus;
 
-  siteDetails$$: BehaviorSubject<any>;
+  public siteDetails$$: BehaviorSubject<SiteSettings>;
 
   constructor(
     private authService: AuthService,
@@ -56,11 +57,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private datePipe: DatePipe,
   ) {
     super();
-    this.siteDetails$$ = new BehaviorSubject<any[]>([]);
+    this.siteDetails$$ = new BehaviorSubject<any>(null);
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+
+    console.log(this.siteDetails$$.value);
 
     const appointmentId = localStorage.getItem('appointmentId');
     if (appointmentId) {
@@ -152,7 +155,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public checkBoxStatus() {
-    return !(Boolean(this.referDoctorCheckbox.value) && Boolean(this.consentCheckbox.value));
+    if (this.siteDetails$$.value?.doctorReferringConsent === 1) {
+      return !this.referDoctorCheckbox.value && !this.consentCheckbox.value;
+    }
+
+    return !this.consentCheckbox.value;
   }
 
   public confirmAppointment() {

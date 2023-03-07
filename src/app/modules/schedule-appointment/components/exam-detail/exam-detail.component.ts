@@ -8,6 +8,7 @@ import {DestroyableComponent} from '../../../../shared/components/destroyable/de
 import {KeyValue} from '@angular/common';
 import {NameValue} from '../../../../shared/models/name-value.model';
 import {ExamDetails} from '../../../../shared/models/local-storage-data.model';
+import {SiteSettings} from "../../../../shared/models/site-management.model";
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -34,7 +35,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
     console.log(this.siteDetails$$.value);
 

@@ -18,6 +18,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { VersioningComponent } from './components/versioning/versioning.component';
 import { ObjectToArrayPipe } from './pipes/object-to-array.pipe';
 import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
+import {DashIfNothingPipe} from "./pipes/dash-if-nothing.pipe";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     VersioningComponent,
     ObjectToArrayPipe,
     SliceStringArrayPipe,
+    DashIfNothingPipe
   ],
   imports: [
     CommonModule,
@@ -65,6 +67,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ObjectToArrayPipe,
     SliceStringArrayPipe,
     TranslateModule,
+    DashIfNothingPipe
   ],
 })
 export class SharedModule {}

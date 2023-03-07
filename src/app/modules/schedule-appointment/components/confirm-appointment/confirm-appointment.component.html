@@ -11,11 +11,11 @@
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"Email" | translate}} :</td>
-              <td>{{ basicDetails?.patientEmail }}</td>
+              <td>{{ basicDetails?.patientEmail | dashIfNothing}}</td>
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"PhoneNo" | translate}}. :</td>
-              <td>{{ basicDetails?.patientTel }}</td>
+              <td>{{ basicDetails?.patientTel | dashIfNothing }}</td>
             </tr>
           </table>
         </div>
@@ -84,7 +84,7 @@
 
   <div class="checkbox-section w-fit" *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false">
     <div class="w-fit" *ngIf="siteDetails$$ | async as enanbleDoctor">
-      <dfm-checkbox *ngIf="enanbleDoctor['data'].doctorReferringConsent === 0"
+      <dfm-checkbox *ngIf="enanbleDoctor?.doctorReferringConsent === 0"
         label="{{'IhaveAnApplicationFromMyReferring' | translate}}.*"
         size="sm"
         class="w-fit"
