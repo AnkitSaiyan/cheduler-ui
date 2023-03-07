@@ -14,7 +14,7 @@
 
     <div class="form-group-container d-flex justify-content-center gap-4 mt-3">
       <div class="form-group">
-        <dfm-input type="email" size="sm" label="{{'Email' | translate}}" placeholder="{{'EnterEmail' | translate }}"
+        <dfm-input type="email" size="sm" label="{{'Email' | translate}} *" placeholder="{{'EnterEmail' | translate }}"
                    formControlName="patientEmail" (focusout)="handleEmailInput($event)"></dfm-input>
         <small *ngIf="basicDetailsForm.get('patientEmail')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}.</small>
       </div>

@@ -6,7 +6,6 @@
       <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
         <dfm-input-dropdown *ngIf="+physicianEnale?.doctorReferringConsent === 0"
           [items]="physician"
-          (searchInput)="searchInput($event)"
           label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0  ? '*' : '' }}"
           placeholder="{{ 'EnterPhysicianName' | translate }}"
           formControlName="physician"

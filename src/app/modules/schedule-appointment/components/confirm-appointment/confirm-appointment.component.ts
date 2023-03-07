@@ -13,6 +13,7 @@ import { Appointment } from '../../../../shared/models/appointment.model';
 import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
 import { AppointmentStatus } from '../../../../shared/models/status';
 import {SiteSettings} from "../../../../shared/models/site-management.model";
+import {LandingService} from "../../../../core/services/landing.service";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -55,6 +56,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
     private datePipe: DatePipe,
+    private landingSvc: LandingService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -125,6 +127,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         .forEach((exam) => {
           this.examIdToName[+exam.id] = { name: exam.name, info: exam.info };
         });
+
+      console.log(this.examIdToName);
       this.exams$$.next(exams);
     });
 

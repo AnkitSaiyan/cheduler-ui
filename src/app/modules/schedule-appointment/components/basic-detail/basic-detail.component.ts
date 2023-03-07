@@ -4,7 +4,8 @@ import {AuthService} from 'src/app/core/services/auth.service';
 import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
-import {Observable, takeUntil} from "rxjs";
+import {BehaviorSubject, Observable, takeUntil} from "rxjs";
+import {SiteSettings} from "../../../../shared/models/site-management.model";
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -24,14 +25,14 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     private fb: FormBuilder,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     super();
   }
 
   public ngOnInit(): void {
     this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
-        this.createForm(basicDetails);
+      this.createForm(basicDetails);
     });
 
     this.isLoggedIn$ = this.authService.isLoggedIn$;
@@ -47,7 +48,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       patientFname: [basicDetails?.patientFname, [Validators.required]],
       patientLname: [basicDetails?.patientLname, [Validators.required]],
       patientTel: [basicDetails?.patientTel, [Validators.required]],
-      patientEmail: [basicDetails?.patientEmail, []]
+      patientEmail: [basicDetails?.patientEmail, [Validators.required]]
     })
   }
 
@@ -60,7 +61,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     this.router.navigate(['../confirm'], {relativeTo: this.route});
   }
 
-  logInUser(){
+  logInUser() {
     this.authService.login$().pipe().subscribe(() => {
       this.router.navigate(['/dashboard']);
     });

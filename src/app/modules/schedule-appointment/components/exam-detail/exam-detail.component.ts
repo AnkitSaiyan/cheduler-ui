@@ -45,7 +45,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id}))),
+        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -54,7 +54,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({name, id}) => ({name: `${name}`, value: id}))),
+        map((exams) => exams.map(({name, id, info}) => ({name: `${name}`, value: id, description: info}))),
         takeUntil(this.destroy$$),
       )
       .subscribe((exams) => this.filteredExams$$.next(exams));
@@ -87,9 +87,10 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     return this.examForm.get('exams') as FormArray;
   }
 
-  private newExam(exam?: number): FormGroup {
+  private newExam(exam?: number, info?: string): FormGroup {
     return this.fb.group({
       exam: [exam, [Validators.required]],
+      info: [info, []]
     });
   }
 
@@ -101,9 +102,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     if (this.examCount().length > 1) {
       this.examCount().removeAt(i);
     }
-  }
-
-  public searchInput(physycianName: string) {
   }
 
   public resetForm() {
