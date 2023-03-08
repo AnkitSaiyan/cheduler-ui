@@ -17,7 +17,10 @@ export class ScheduleAppointmentComponent extends DestroyableComponent implement
     super();
 
     this.routerStateSvc.listenForQueryParamsChanges$().pipe(takeUntil(this.destroy$$)).subscribe((queryParams) => {
-      this.status = queryParams['s'];
+      if (queryParams) {
+        this.status = queryParams['s'];
+      }
+
       console.log(queryParams)
     });
   }

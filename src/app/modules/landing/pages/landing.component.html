@@ -1,9 +1,9 @@
 <div class="landing-page d-flex flex-column align-items-center dfm-gap-32 dfm-p-32">
   <div class="radiology-section bg-white border-r-16" *ngIf="info$$ | async as siteDetails">
     <div class="left-section">
-      <h3 class=" welcome-text m-0">{{(siteDetails['heading'])}}</h3>
-      <div class="sub-header mt-4">{{(siteDetails['subHeading'])}}</div>
-      <p class="p-data mt-3">{{(siteDetails['bodyText'])}}</p>
+      <h3 class=" welcome-text m-0">{{ siteDetails['heading'] ?? 'Welcome to Radiology' }}</h3>
+      <div class="sub-header mt-4">{{ siteDetails['subHeading'] ?? 'Schedule your appointment with us' }}</div>
+      <p class="p-data mt-3">{{ siteDetails['bodyText'] ?? 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?' }}</p>
       <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule/overview">
         Schedule Appointment
       </dfm-button> -->
@@ -14,11 +14,11 @@
         class="button-design schedule-button"
         routerLink="/schedule/overview"
       >
-        Schedule Appointment
+        {{"ScheduleAppointment"  | translate}}
       </dfm-button>
     </div>
       <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule/overview">
-        Schedule Appointment
+        {{"ScheduleAppointment"  | translate}}
       </dfm-button>
     </div>
 
@@ -43,18 +43,19 @@
 
       <div class="weekly-content-right">
         <div class="opening-detail-table shadow-sm">
-          <span class="opening-section-header">Opening days</span>
-          <span class="opening-section-header-mv mx-2"> Opening days</span>
+          <span class="opening-section-header">{{"OpeningDays" | translate}}</span>
+          <span class="opening-section-header-mv mx-2"> {{"OpeningDays" | translate}}</span>
           <table class="mt-2 opening-days">
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i > 0"> {{days[i]}}</th>
+              <th *ngIf="i > 0"> {{days[i] | translate}}</th>
               <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
+              <!-- <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item.split('-')[0] | date: 'HH-MM'}}{{item.split('-')[1] | date: 'HH-MM'}}</span></td> -->
             </tr>
             <tr *ngFor="let item of weekDay;let i = index;">
-              <th *ngIf="i === 0">{{days[i]}}</th>
+              <th *ngIf="i === 0">{{days[i] | translate}}</th>
               <td *ngIf="i ===0"><span *ngIf="item ; else elseBlock">{{item}}</span></td>
             </tr>
-            <ng-template #elseBlock>Closed</ng-template>
+            <ng-template #elseBlock>{{"Closed" | translate}}</ng-template>
           </table>
         </div>
       </div>

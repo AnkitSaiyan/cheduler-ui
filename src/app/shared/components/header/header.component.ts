@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterStateService } from '../../../core/services/router-state.service';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { TranslateService } from '@ngx-translate/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
+import defaultLanguage from '../../../../assets/i18n/en-BE.json';
+import dutchLangauge from '../../../../assets/i18n/nl-BE.json';
+import { RouterStateService } from '../../../core/services/router-state.service';
 import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { LandingService } from 'src/app/core/services/landing.service';
@@ -28,24 +32,49 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public isLoggedIn$!: Observable<boolean>;
 
-  public siteDetails$$: BehaviorSubject<any[]>;
+  public selectedLang: string = 'en-BE'
 
-  constructor(private routerStateSvc: RouterStateService, private authSvc: AuthService, private landingService: LandingService) {
+  siteDetails$$: BehaviorSubject<any>;
+
+  constructor(
+    private routerStateSvc: RouterStateService,
+    private authSvc: AuthService,
+    private translateService: TranslateService,
+    private landingService: LandingService,
+  ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
+    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
+      this.ngOnInit();
+    });
   }
 
   public ngOnInit(): void {
-    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
-      console.log('appointments upcomming: ', res);
-      this.siteDetails$$.next(res);
-    });
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
 
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.routerStateSvc
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((url) => (this.url = url));
+      .subscribe((url) => {
+        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+        this.url = url;
+      });
+  }
+
+  changeLanguage(value) {
+    if (value === 'en-BE') {
+      console.log('inn1');
+      this.translateService.setTranslation(value, defaultLanguage);
+      this.translateService.setDefaultLang(value);
+      // eslint-disable-next-line eqeqeq
+    } else if (value === 'nl-BE') {
+      console.log('inn2');
+      this.translateService.setTranslation(value, dutchLangauge);
+      this.translateService.setDefaultLang(value);
+    }
+
+    this.selectedLang = value;
   }
 
   public override ngOnDestroy() {

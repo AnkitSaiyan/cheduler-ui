@@ -3,22 +3,24 @@
   <form class="form-mv dfm-card basic-details-form" [formGroup]="basicDetailsForm">
     <div class="form-group-container d-flex justify-content-center gap-4">
       <div class="form-group">
-        <dfm-input type="text" size="sm" label="First Name*" placeholder="Enter First Name"
+        <dfm-input type="text" size="sm" label="{{'FirstName' | translate}} *" placeholder="{{'EnterFirstName' | translate}}"
                    formControlName="patientFname"></dfm-input>
       </div>
       <div class="">
-        <dfm-input type="text" size="sm" label="Last Name" placeholder="Enter Last Name"
+        <dfm-input type="text" size="sm" label="{{'LastName' | translate}} *" placeholder="{{'EnterLastName' | translate}}"
                    formControlName="patientLname"></dfm-input>
       </div>
     </div>
 
     <div class="form-group-container d-flex justify-content-center gap-4 mt-3">
       <div class="form-group">
-        <dfm-input type="email" size="sm" label="Email*" placeholder="Enter Email"
-                   formControlName="patientEmail"></dfm-input>
+        <dfm-input type="email" size="sm" label="{{'Email' | translate}} *" placeholder="{{'EnterEmail' | translate }}"
+                   formControlName="patientEmail" (focusout)="handleEmailInput($event)"></dfm-input>
+        <small *ngIf="basicDetailsForm.get('patientEmail')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}.</small>
       </div>
+
       <div class="">
-        <dfm-input type="number" size="sm" label="Phone Number*" placeholder="Enter Phone Number"
+        <dfm-input type="number" size="sm" label="{{'PhoneNumber' | translate}} *" placeholder="{{'EnterPhoneNumber' | translate}}"
                    formControlName="patientTel"></dfm-input>
       </div>
     </div>
@@ -28,13 +30,13 @@
         <div>
           <hr class="bg-gray" width="100px"/>
         </div>
-        <div><span>&nbsp; or &nbsp; </span></div>
+        <div><span>&nbsp; {{"Or" | translate}} &nbsp; </span></div>
         <div>
           <hr class="bg-gray" width="100px"/>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-center">
-        <span>Already have an account <span class="text-primary pointer underline-primary" routerLink="/auth/login">Login</span></span>
+        <span>{{"AlreadyHaveAnAccount" | translate}}? <span class="text-primary pointer underline-primary" routerLink="/auth/login">{{"Login" | translate}}</span></span>
       </div>
     </section>
 
@@ -57,13 +59,13 @@
   </form>
 
   <div class="d-flex justify-content-center dfm-gap-16">
-    <dfm-button color="secondary" size="lg" routerLink="../slot" class="basic-back-btn"> Back</dfm-button>
-    <dfm-button color="secondary" size="sm" routerLink="../slot" class="basic-back-btn-mv"> Back</dfm-button>
+    <dfm-button color="secondary" size="lg" routerLink="../slot" class="basic-back-btn"> {{"Back" | translate}}</dfm-button>
+    <dfm-button color="secondary" size="sm" routerLink="../slot" class="basic-back-btn-mv"> {{"Back" | translate}}</dfm-button>
     <dfm-button color="primary" size="lg" (click)="saveBasicDetails()" class="basic-next-btn"
-                [disabled]="basicDetailsForm.invalid"> Next
+                [disabled]="basicDetailsForm.invalid"> {{"Next" | translate}}
     </dfm-button>
     <dfm-button color="primary" size="sm" (click)="saveBasicDetails()" class="basic-next-btn-mv"
-                [disabled]="basicDetailsForm.invalid"> Next
+                [disabled]="basicDetailsForm.invalid"> {{"Next" | translate}}
     </dfm-button>
   </div>
 </div>

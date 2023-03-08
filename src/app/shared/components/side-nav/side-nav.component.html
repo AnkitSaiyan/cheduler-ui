@@ -11,16 +11,16 @@
       <dfm-icon name="home-03"></dfm-icon>
     </div>
 
-    <span *ngIf="isExpanded">Dashboard</span>
+    <span *ngIf="isExpanded">{{"Dashboard" | translate}}</span>
   </div>
 
-  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }"
-       (click)="navigateTo(['appointment'])">
+  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }">
+<!--    (click)="$event.stopPropagation(); navigateTo(['appointment'])"-->
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="calendar"></dfm-icon>
     </div>
 
-    <span *ngIf="isExpanded">Appointment</span>
+    <span *ngIf="isExpanded">{{"Appointment" | translate}}</span>
   </div>
 
   <div #myAccountContainer class="dfm-side-nav-item"
@@ -28,19 +28,19 @@
        (click)="!isExpanded && window.innerWidth > 680 ? navigateTo(['account', 'profile']) : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
     <!-- =================sub menu design for mobile view=============== -->
     <div class="dfm-side-nav-item-icon">
-      <dfm-icon name="user-01"></dfm-icon>
-      <div class="sub-menu-mv border-r-16">
-        <div class="sub-menu-items-mv" routerLink="/account">
+      <dfm-icon name="user-01" (click)="isVisibleSubMenu = !isVisibleSubMenu"></dfm-icon>
+      <div class="sub-menu-mv border-r-16" *ngIf="isVisibleSubMenu">
+        <div class="sub-menu-items-mv" routerLink="/account" (click)="isVisibleSubMenu = false">
           <dfm-icon name="user-01"></dfm-icon>
         </div>
-        <div class="sub-menu-items-mv" routerLink="/account/privacy">
+        <div class="sub-menu-items-mv" routerLink="/account/privacy" (click)="isVisibleSubMenu = false">
           <dfm-icon name="key-01"></dfm-icon>
         </div>
       </div>
     </div>
     <!-- =================sub menu design for mobile view ends here=============== -->
 
-    <span *ngIf="isExpanded">My Account</span>
+    <span *ngIf="isExpanded">{{"MyAccount" | translate}}</span>
 
     <div class="dfm-side-nav-item-icon rotate-z-0" *ngIf="isExpanded"
          [ngClass]="{ 'rotate-z-180': myAccount.className.includes('dfm-side-nav-sub-menu-show') }">
@@ -53,12 +53,12 @@
        [ngClass]="{ 'dfm-side-nav-sub-menu-show': isExpanded && url.includes('account/profile') }">
     <div class="dfm-side-nav-item-wo-icon" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('profile') }"
          (click)="navigateTo(['account', 'profile']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
-      <span>Profile</span>
+      <span>{{"Profile" | translate}}</span>
     </div>
 
     <div class="dfm-side-nav-item-wo-icon" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('privacy') }"
          (click)="navigateTo(['account', 'privacy']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
-      <span>Privacy</span>
+      <span>{{"Privacy" | translate}}</span>
     </div>
   </div>
 
@@ -67,7 +67,7 @@
       <dfm-icon name="log-out-04"></dfm-icon>
     </div>
 
-    <span *ngIf="isExpanded">Logout</span>
+    <span *ngIf="isExpanded">{{"Logout" | translate}}</span>
   </div>
 </div>
 

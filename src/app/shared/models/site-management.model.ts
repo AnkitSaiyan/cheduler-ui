@@ -1,28 +1,24 @@
-export interface SiteManagement {
-  id: number;
-  name: string;
-  logo: any;
-  disableAppointment: boolean;
-  disableWarningText: string | null;
-  introductoryText: string;
-  doctorReferringConsent: 0 | 1;
+export interface SiteSettings {
   address: string;
-  email: string;
-  telephone: number;
   cancelAppointmentTime: number;
-  file?: null | File;
+  disableAppointment: boolean;
+  disableWarningText: string;
+  doctorReferringConsent: 0 | 1;
+  email: string;
+  file: File;
+  introductoryText: string;
+  isSlotsCombinable: boolean;
+  logo: string;
+  name: string;
+  reminderTime: number;
+  telephone: number;
 }
 
-export interface SiteManagementRequestData {
-  name: string;
-  disableAppointment: boolean;
-  disableWarningText: string | null;
-  introductoryText: string;
-  doctorReferringConsent: 0 | 1;
-  cancelAppointmentTime: number;
-  address: string;
-  email: string;
-  telephone: number;
-  file?: null | File | Blob;
-  id?: number;
+
+export interface IntroductoryText {
+  heading: string;
+  subHeading: string;
+  bodyText: string;
 }
+
+

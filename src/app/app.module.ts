@@ -3,15 +3,21 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CoreModule} from './core/core.module';
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DesignSystemCoreModule} from 'diflexmo-angular-design';
 import {AppRoutingModule} from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ServiceWorkerModule} from "@angular/service-worker";
 import {DatePipe} from "@angular/common";
 import { HeaderInterceptor } from './core/http/header.interceptor';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import{TranslateModule,TranslateLoader } from '@ngx-translate/core';
 
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -23,7 +29,15 @@ import { HeaderInterceptor } from './core/http/header.interceptor';
     HttpClientModule,
     DesignSystemCoreModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   bootstrap: [AppComponent],
   providers: [
@@ -35,5 +49,4 @@ import { HeaderInterceptor } from './core/http/header.interceptor';
     },
   ]
 })
-export class AppModule {
-}
+export class AppModule {}

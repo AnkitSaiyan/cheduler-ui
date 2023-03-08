@@ -20,18 +20,21 @@ export class FooterComponent extends DestroyableComponent implements OnInit, OnD
   constructor(private landingService: LandingService, private authSvc: AuthService, private routerStateSvc: RouterStateService) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
+    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
+      this.ngOnInit();
+    });
   }
 
   public ngOnInit(): void {
-    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
-      console.log('appointments upcomming: ', res);
-      this.siteDetails$$.next(res);
-    });
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
 
     this.routerStateSvc
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((url) => (this.url = url));
+      .subscribe((url) => {
+        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+        this.url = url;
+      });
     this.isUserLoggedIn$ = this.authSvc.isLoggedIn$;
   }
 

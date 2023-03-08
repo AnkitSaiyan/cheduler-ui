@@ -30,7 +30,7 @@ export class PrivacyComponent implements OnInit {
   public checkRevokeStatus() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Are you sure you want to revoke  access to your personal information for this lab?',
+        bodyText: 'Areyousurewantorevokeaccess',
         confirmButtonText: 'Proceed',
       } as DialogData,
     });
@@ -50,7 +50,7 @@ export class PrivacyComponent implements OnInit {
   public displayDeletePopup() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Are you sure you want to delete your account?',
+        bodyText: 'Areyousurewanttodelete',
         confirmButtonText: 'Delete',
       } as DialogData,
     });

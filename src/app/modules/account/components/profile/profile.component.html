@@ -1,27 +1,27 @@
 <div class="main-container d-flex flex-column align-items-center dfm-p-32 dfm-gap-16">
   <section class=" form-v d-flex flex-column dfm-gap-16">
     <header class="text-left">
-      <h5 class="font-weight-semi-bold m-0 my-profile">My Profile</h5>
+      <h5 class="font-weight-semi-bold m-0 my-profile">{{"MyProfile" | translate}}</h5>
     </header>
 
     <form [formGroup]="userForm" class="my-profile-section dfm-card w-fit">
       <div class="form-group-container d-flex justify-content-center p-3 gap-4">
         <div class="form-group">
-          <dfm-input formControlName="firstname" type="text" size="sm" label="First Name*"
-                     placeholder="First Name"></dfm-input>
+          <dfm-input formControlName="firstname" type="text" size="sm" label="{{'FirstName' | translate}}*"
+                     placeholder="{{'EnterFirstName' | translate}}"></dfm-input>
         </div>
         <div class="form-group">
-          <dfm-input formControlName="lastname" type="text" size="sm" label="Name*" placeholder="Enter Last Name"></dfm-input>
+          <dfm-input formControlName="lastname" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
         </div>
       </div>
       <div class="form-group-container d-flex justify-content-center p-3 gap-4">
         <div class="form-group">
-          <dfm-input formControlName="email" type="email" size="sm" label="Email*"
-                     placeholder="Email"></dfm-input>
+          <dfm-input formControlName="email" type="email" size="sm" label="{{'Email' | translate}}*"
+                     placeholder="{{'EnterEmail' | translate}}"></dfm-input>
         </div>
         <div class="form-group">
-          <dfm-input formControlName="phone" type="number" size="sm" label="Phone Number*"
-                     placeholder="Phone"></dfm-input>
+          <dfm-input formControlName="phone" type="number" size="sm" label="{{'PhoneNumber' | translate}}*"
+                     placeholder="{{'EnterTelephone' | translate}}"></dfm-input>
         </div>
       </div>
     </form>
@@ -30,10 +30,10 @@
   <section>
     <div class="d-flex justify-content-center mt-3">
       <dfm-button [color]="'primary'" [size]="'lg'" class="save-change-btn" (click)="saveDetails()"
-                  [disabled]="userForm.invalid"> Save Changes
+                  [disabled]="userForm.invalid"> {{"SaveChanges" | translate}}
       </dfm-button>
       <dfm-button [color]="'primary'" [size]="'sm'" class="save-change-btn-mv" (click)="saveDetails()"
-                  [disabled]="userForm.invalid"> Save Changes
+                  [disabled]="userForm.invalid"> {{"SaveChanges" | translate}}
       </dfm-button>
     </div>
   </section>

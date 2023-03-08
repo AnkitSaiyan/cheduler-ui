@@ -5,20 +5,22 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {BehaviorSubject, map, takeUntil} from 'rxjs';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
-import {KeyValue} from "@angular/common";
-import {NameValue} from "../../../../shared/models/name-value.model";
-import {ExamDetails} from "../../../../shared/models/local-storage-data.model";
+import {KeyValue} from '@angular/common';
+import {NameValue} from '../../../../shared/models/name-value.model';
+import {ExamDetails} from '../../../../shared/models/local-storage-data.model';
+import {SiteSettings} from "../../../../shared/models/site-management.model";
 
 @Component({
   selector: 'dfm-exam-detail',
   templateUrl: './exam-detail.component.html',
   styleUrls: ['./exam-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public examForm!: FormGroup;
   public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
   public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
+  siteDetails$$: BehaviorSubject<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -26,19 +28,24 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private router: Router,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     super();
+    this.siteDetails$$ = new BehaviorSubject<any[]>([]);
   }
 
   public ngOnInit(): void {
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+
+    console.log(this.siteDetails$$.value);
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.createForm(examDetails);
     });
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id}))),
+        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -47,7 +54,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({name, id}) => ({name: `${id} - ${name}`, value: id}))),
+        map((exams) => exams.map(({name, id, info}) => ({name: `${name}`, value: id, description: info}))),
         takeUntil(this.destroy$$),
       )
       .subscribe((exams) => this.filteredExams$$.next(exams));
@@ -60,7 +67,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private createForm(examDetails?) {
     console.log(examDetails);
     this.examForm = this.fb.group({
-      physician: [+examDetails?.physician ?? '', [Validators.required]],
+      physician: [!!examDetails?.physician ? examDetails.physician : '', []],
       exams: this.fb.array([]),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });
@@ -80,9 +87,10 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     return this.examForm.get('exams') as FormArray;
   }
 
-  private newExam(exam?: number): FormGroup {
+  private newExam(exam?: number, info?: string): FormGroup {
     return this.fb.group({
       exam: [exam, [Validators.required]],
+      info: [info, []]
     });
   }
 
@@ -96,21 +104,20 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     }
   }
 
-  public searchInput(physycianName: string) {
-  }
-
   public resetForm() {
     this.examForm.reset();
   }
 
   public saveExamDetails() {
+    console.log(this.examForm.value);
     if (this.examForm.invalid) {
+      this.examForm.markAllAsTouched();
       return;
     }
 
     const examDetails = {
       ...this.examForm.value,
-      exams: this.examForm.value.exams.map((exam) => exam.exam)
+      exams: this.examForm.value.exams.map((exam) => exam.exam),
     } as ExamDetails;
 
     console.log(examDetails);

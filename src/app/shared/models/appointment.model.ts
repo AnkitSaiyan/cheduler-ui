@@ -54,6 +54,18 @@ export interface Slot {
   start: string;
   end: string;
   examId: number;
+  userList?: number[];
+  roomList?: number[];
+  exams: any[];
+}
+
+export interface ModifiedSlot {
+  start: string;
+  end: string;
+  examId: number;
+  userList?: number[];
+  roomList?: number[];
+  exams: any[];
 }
 
 export interface AppointmentSlot {
