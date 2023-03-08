@@ -1,71 +1,90 @@
-<div class="login-dashboard-content mt-4 bg-white border-r-16">
-  <span class="display-3 upcoming-text">No Appointments Scheduled </span>
-  <div class="status-btn d-flex flex-row justify-content-start align-items-start mt-3">
-    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Schedule Appointment </dfm-button>
+<div class="login-dashboard-content overview-main-container mt-4 bg-white border-r-16" *ngIf="!isAppointemntScheduled">
+  <div class="overview-img-container text-center py-2">
+    <img src="../../../../../assets/images/online_calendar_new.png" alt="calendar-image" class="object-fit-contain" />
+  </div>
+
+  <div class="d-flex justify-content-center text-center py-2">
+    <span class="font-weight-semi-bold text-lg check-above-text">Your appointments will appear here</span>
+  </div>
+
+  <div class="d-flex justify-content-center py-2">
+    <dfm-button [color]="'primary'" [size]="'lg'" [routerLink]="(isLoggedIn$ | async) ? './dashboard' : '/dashboard'" class="sa-btn">
+      Go to Dashboard
+    </dfm-button>
+  </div>
+
+  <div class="d-flex justify-content-center py-2">
+    <dfm-button [color]="'primary'" [size]="'sm'" [routerLink]="(isLoggedIn$ | async) ? './dashboard' : '/dashboard'" class="sa-btn-mv">
+      Go to Dashboard
+    </dfm-button>
   </div>
 </div>
 
-<div class="login-dashboard-content mt-4 bg-white border-r-16">
+<div class="login-dashboard-content bg-white border-r-16" *ngIf="isAppointemntScheduled">
+  <div class="heading-div upcoming-text">Upcoming Appointment</div>
+
   <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
     <div class="upcoming-appointments-details">
-      <span class="display-3 upcoming-text">Upcoming Appointments</span>
-
       <!-- {{ upcommingAppointments | json }} -->
-      <div *ngFor="let item of upcommingAppointments">
-        <span  class="display-4 appointment-exam-text"
-          >Exam: {{item.exam.name }} <span class="text-gray"></span>
-          <hr class="bg-lite-gray appointment-hr-mv" />
-        </span>
-        <div class="display-5 upcoming-appointments-date-time">
-          <div class="d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
-            <span>Date : {{ item.startedAt | date : 'dd, MMMM, yyyy' }}</span>
+      <div *ngFor="let item of upcommingAppointments" class="display-boxes mb-4">
+        <div class="top-section-appointment">
+          <div class="top-section-one">
+            <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
+            <br />
+            <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
           </div>
-          <div class="d-flex flex-row justify-content-start gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-            <span>Time : {{ item.startedAt | date : 'hh:mm' }}</span>
+          <div class="top-section-two">
+            <div>
+              <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+              <span>{{ item.id }}</span>
+            </div>
+            <div>
+              <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+              <span class="pending-status-text">{{ item.statusText }}</span>
+            </div>
           </div>
-          <!-- <div class="d-flex flex-row justify-content-start gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>Time : 12:30</span>
-        </div> -->
         </div>
-      </div>
 
-      <div class="appointment-exam-text-mv">
-        <span class="appointment-exam-text-mv text-primary">Exam: Levering stuenzolen<span class="text-gray">|</span>Maatname</span>
-        <span>
-          <hr class="bg-lite-gray appointment-hr-mv" />
-        </span>
-      </div>
-      <div class="instructions-text-section-mv d-flex justify-content-between">
-        <span class="instruction-text text-primary">Instructions:</span>
-        <span>*Have an empty stomach 10 hours prior to the test</span>
-      </div>
+        <div class="flex-item-row">
+          <div *ngFor="let exam of item.exams" class="exam-section">
+            <div class="mb-3">
+              <span class="appointment-exam-text mb-1">Exam: {{ exam.name }} </span>
+            </div>
 
-      <div class="instruction-details">
-        <span class="display-4" style="font-weight: 600">Instructions :</span>
-        <span class="display-4 instruction-desk-view" style="font-weight: 600">*Have an empty stomach 10 hours prior to the test</span>
-      </div>
-      <div class="lab-confirmation-status">
-        <div class="appointment-status">
-          <span>Appointment Status : <span class="status-text bg-warning text-white">Pending</span></span>
-          <span class="confirmation-message">We will notify you by email once your appointment will be status.</span>
+            <div class="mb-3">
+              <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+            </div>
+
+            <div class="appointment-exam-text-mv mb-3">
+              <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+            </div>
+            <div class="instructions-text-section-mv mb-3">
+              <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+            </div>
+
+            <div class="mb-3">
+              <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+            </div>
+            <div class="lab-confirmation-status">
+              <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+                <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+                <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+                <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+                <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-          <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-          <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-          <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>
 </div>
 
-<div class="previous-appointment-container mt-4 bg-white border-r-16">
+<div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="previous-appointment-title">
-    <span class="display-4 previous-app-text">Previous Appointments</span>
+    <div class="heading-div previous-app-text">Previous Appointments</div>
+
     <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
     <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
       <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
@@ -77,41 +96,109 @@
     class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3"
     *ngIf="filteredCompletedAppointments$$ | async as completedAppointments"
   >
-    <div *ngFor="let appointment of completedAppointments; let i = index">
-      <div class="card-item" *ngIf="i < 4">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
-            <span>{{ appointment.startedAt | date : 'dd, MMMM, yyyy' }}</span>
+    <div class="upcoming-appointments-details">
+      <div *ngFor="let item of completedAppointments; let i = index" class="display-boxes mb-4">
+        <div *ngIf="i < 4">
+          <div class="top-section-appointment">
+            <div class="top-section-one">
+              <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
+              <br />
+              <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
+            </div>
+            <div class="top-section-two">
+              <div>
+                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                <span>{{ item.id }}</span>
+              </div>
+              <div>
+                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                <span class="completed-status-text">{{ item.statusText }}</span>
+              </div>
+            </div>
           </div>
-          <div class="d-flex flex-row justify-content-between gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-            <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
-          </div>
-        </div>
-        <span class="display-5">Exam: {{ appointment.exam }}</span>
-        <span class="display-5"
-          >Status: <span class="text-success">Completed</span>
-          <hr class="bg-lite-gray appointment-hr-mv" />
-        </span>
-      </div>
 
-      <div class="card-item" *ngIf="viewAll && i > 4">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
-            <span>{{ appointment.startedAt | date : 'dd, MMMM, yyyy' }}</span>
-          </div>
-          <div class="d-flex flex-row justify-content-between gap-2">
-            <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-            <span>{{ appointment.startedAt | date : 'hh:mm' }}</span>
+          <div class="flex-item-row">
+            <div *ngFor="let exam of item.exams" class="exam-section">
+              <div class="mb-3">
+                <span class="appointment-exam-text mb-3">Exam: {{ exam.name }} </span>
+              </div>
+
+              <div class="mb-3">
+                <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+              </div>
+
+              <div class="appointment-exam-text-mv mb-3">
+                <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+              </div>
+              <div class="instructions-text-section-mv mb-3">
+                <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+              </div>
+
+              <div class="mb-3">
+                <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+              </div>
+              <div class="lab-confirmation-status">
+                <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+                  <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+                  <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+                  <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+                  <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <span class="display-5">Exam: {{ appointment.exam }}</span>
-        <span class="display-5"
-          >Status: <span class="text-success">Completed</span>
-          <hr class="bg-lite-gray appointment-hr-mv" />
-        </span>
+
+        <div *ngIf="viewAll && i > 3">
+          <div class="top-section-appointment">
+            <div class="top-section-one">
+              <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
+              <br />
+              <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
+            </div>
+            <div class="top-section-two">
+              <div>
+                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                <span>{{ item.id }}</span>
+              </div>
+              <div>
+                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                <span class="completed-status-text">{{ item.statusText }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-item-row">
+            <div *ngFor="let exam of item.exams" class="exam-section">
+              <div class="mb-3">
+                <span class="appointment-exam-text mb-1">Exam: {{ exam.name }} </span>
+              </div>
+
+              <div class="mb-3">
+                <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+              </div>
+
+              <div class="appointment-exam-text-mv mb-3">
+                <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+              </div>
+              <div class="instructions-text-section-mv mb-3">
+                <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+              </div>
+
+              <div class="mb-3">
+                <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+              </div>
+              <div class="lab-confirmation-status">
+                <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+                  <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+                  <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+                  <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+                  <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
