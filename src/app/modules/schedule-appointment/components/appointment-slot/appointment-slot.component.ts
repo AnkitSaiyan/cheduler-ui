@@ -60,9 +60,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public ngOnInit(): void {
     this.getCalendarSlots();
-    const siteData: SiteSettings = JSON.parse(localStorage.getItem('siteDetails') || '');
-    this.isSlotCombinable = siteData?.isSlotsCombinable;
-
+    const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
+    this.isSlotCombinable = siteData['data']?.isSlotsCombinable;
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examsDetails = examDetails;
     });
