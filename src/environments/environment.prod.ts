@@ -5,6 +5,6 @@ interface Environment {
 
 export const environment = {
   production: true,
-  serverBaseUrl: "https://diflexmo-scheduler-api-dev.azurewebsites.net/api"
+  serverBaseUrl: "https://diflexmo-scheduler-api-uat.azurewebsites.net/api"
 
 };
