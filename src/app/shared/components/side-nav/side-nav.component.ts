@@ -49,8 +49,6 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   }
 
   public navigateTo(route: ['dashboard'] | ['appointment'] | ['account', 'profile'] | ['account', 'privacy']) {
-    console.log(route);
-
     if (this.url.includes(route.length === 2 ? route[1] : route[0])) {
       return;
     }

@@ -64,12 +64,10 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   changeLanguage(value) {
     if (value === 'en-BE') {
-      console.log('inn1');
       this.translateService.setTranslation(value, defaultLanguage);
       this.translateService.setDefaultLang(value);
       // eslint-disable-next-line eqeqeq
     } else if (value === 'nl-BE') {
-      console.log('inn2');
       this.translateService.setTranslation(value, dutchLangauge);
       this.translateService.setDefaultLang(value);
     }

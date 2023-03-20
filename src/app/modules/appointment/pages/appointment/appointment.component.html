@@ -69,10 +69,10 @@
         </div>
         <div class="lab-confirmation-status">
           <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-            <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn" (click)="editAppointment(item)"> Edit </dfm-button>
+            <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3" (click)="cancelAppointment(item.id)"> Cancel </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv" (click)="editAppointment(item)"> Edit </dfm-button>
+            <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)"> Cancel </dfm-button>
           </div>
         </div>
         <!-- </div> -->

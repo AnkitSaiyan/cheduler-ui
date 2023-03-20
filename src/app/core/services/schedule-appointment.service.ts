@@ -29,6 +29,10 @@ import {ExamDetails, SlotDetails} from "../../shared/models/local-storage-data.m
 export class ScheduleAppointmentService {
   private examDetails$$ = new BehaviorSubject<ExamDetails>({} as ExamDetails);
 
+  public editDetails$$ = new BehaviorSubject<any>({});
+
+  public editData$$ = new BehaviorSubject<any>({});
+
   private slotDetails$$ = new BehaviorSubject<SlotDetails>({} as SlotDetails);
 
   private basicDetails$$ = new BehaviorSubject<any>({});
@@ -73,9 +77,7 @@ export class ScheduleAppointmentService {
   public get slotDetails$(): Observable<SlotDetails> {
     if (!this.slotDetails$$.value?.selectedDate) {
       const slotDetails = localStorage.getItem('slotDetails');
-      console.log(slotDetails);
       if (slotDetails) {
-        console.log(JSON.parse(slotDetails))
         this.slotDetails$$.next(JSON.parse(slotDetails));
       }
     }
@@ -158,7 +160,6 @@ export class ScheduleAppointmentService {
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
-    console.log("examId", examID)
     // return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => of(this.examsDetails.find((exam) => +exam.id === +examID))));
     let queryParams = new HttpParams();
     queryParams = queryParams.append("id", examID);

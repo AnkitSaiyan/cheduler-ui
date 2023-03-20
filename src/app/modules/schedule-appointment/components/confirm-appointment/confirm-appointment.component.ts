@@ -12,8 +12,8 @@ import { DatePipe } from '@angular/common';
 import { Appointment } from '../../../../shared/models/appointment.model';
 import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
 import { AppointmentStatus } from '../../../../shared/models/status';
-import {SiteSettings} from "../../../../shared/models/site-management.model";
-import {LandingService} from "../../../../core/services/landing.service";
+import { SiteSettings } from '../../../../shared/models/site-management.model';
+import { LandingService } from '../../../../core/services/landing.service';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -48,6 +48,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public siteDetails$$: BehaviorSubject<SiteSettings>;
 
+  public editData: any;
+
+  public edit: boolean = false;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -56,7 +60,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
     private datePipe: DatePipe,
-    private landingSvc: LandingService
+    private landingSvc: LandingService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -65,7 +69,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
-    console.log(this.siteDetails$$.value);
+    if (localStorage.getItem('appointmentDetails')) {
+      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      if (this.editData) {
+        this.edit = true;
+      }
+    }
 
     const appointmentId = localStorage.getItem('appointmentId');
     if (appointmentId) {
@@ -108,8 +117,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           }
 
           this.loading$$.next(false);
-
-          console.log(appointment);
         },
         (err) => {
           this.loading$$.next(false);
@@ -128,7 +135,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           this.examIdToName[+exam.id] = { name: exam.name, info: exam.info };
         });
 
-      console.log(this.examIdToName);
       this.exams$$.next(exams);
     });
 
@@ -142,7 +148,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         const slotValues = Object.values(slotDetails.selectedSlots);
 
         if (slotValues?.length) {
-          console.log(slotValues);
           this.slots = slotValues.map((slot) =>
             (slot['slot'] as string)
               .split('-')
@@ -191,14 +196,29 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       examDetails: examList,
     };
     if (requestData) {
-      this.scheduleAppointmentSvc
-        .addAppointment(requestData)
-        .pipe(takeUntil(this.destroy$$))
-        .subscribe((res) => {
-          localStorage.setItem('appointmentId', res?.id.toString());
-          this.appointmentId$$.next(res?.id);
-          this.notificationSvc.showNotification(`Appointment added successfully`);
-        });
+      if (this.edit) {
+        requestData['appointmentId'] = JSON.parse(localStorage.getItem('appointmentDetails') || '')['id'];
+        this.scheduleAppointmentSvc
+          .updateAppointment$(requestData)
+          .pipe(takeUntil(this.destroy$$))
+          .subscribe((res) => {
+            // localStorage.setItem('appointmentId', res?['id'].toString());
+            // this.appointmentId$$.next(res?['id']);
+            localStorage.removeItem('appointmentDetails');
+            this.notificationSvc.showNotification(`Appointment updated successfully`);
+            this.router.navigate(['/appointment']);
+          });
+      } else {
+        this.scheduleAppointmentSvc
+          .addAppointment(requestData)
+          .pipe(takeUntil(this.destroy$$))
+          .subscribe((res) => {
+            localStorage.setItem('appointmentId', res?.id.toString());
+            localStorage.removeItem('appointmentDetails');
+            this.appointmentId$$.next(res?.id);
+            this.notificationSvc.showNotification(`Appointment added successfully`);
+          });
+      }
     }
   }
 
