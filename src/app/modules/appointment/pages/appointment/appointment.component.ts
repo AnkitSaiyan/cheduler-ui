@@ -7,6 +7,7 @@ import { ModalService } from '../../../../core/services/modal.service';
 import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { Router } from '@angular/router';
+import { ExamDetails } from 'src/app/shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment',
@@ -102,8 +103,20 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   editAppointment(item: any) {
     // const examDetails = {};
     // examDetails['appointmentId'] = item['id'];
-    this.scheduleAppointmentService.editDetails$$.next({ isEdit: true, id: item.id });
-    // localStorage.setItem('editDetails', JSON.stringify(examDetails));
-    this.router.navigate(['/dashboard/schedule/slot']);
+    this.scheduleAppointmentService
+      .getAppointmentByID$(item.id)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((appointment) => {
+        const editData = appointment;
+        const exams: ExamDetails = {
+          exams: editData['exams'] ? editData['exams'].map((exam) => exam.id) : [],
+          physician: editData['physicianId'] ? editData['physicianId'] : '',
+          comments: editData['comments'] ? editData['comments'] : '',
+        };
+        this.scheduleAppointmentSvc.setExamDetails(exams);
+        localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+        this.scheduleAppointmentService.editDetails$$.next({ isEdit: true, id: item.id });
+        this.router.navigate(['/dashboard/schedule/slot']);
+      });
   }
 }

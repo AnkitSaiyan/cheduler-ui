@@ -61,33 +61,35 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     super();
   }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.getCalendarSlots();
 
     const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
     this.isSlotCombinable = siteData.data?.isSlotsCombinable;
-    this.scheduleAppointmentSvc.editDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      if (!this.editData) {
-        if (examDetails?.isEdit) {
-          this.scheduleAppointmentSvc
-            .getAppointmentByID$(examDetails.id)
-            .pipe(takeUntil(this.destroy$$))
-            .subscribe((appointment) => {
-              this.editData = appointment;
-              const exams: ExamDetails = {
-                exams: this.editData.exams.map((exam) => exam.id),
-                physician: this.editData.physicianId,
-                comments: this.editData.comments,
-              };
 
-              this.scheduleAppointmentSvc.setExamDetails(exams);
-
-              // this.scheduleAppointmentSvc.editData$$.next(appointment);
-              this.editData = localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
-            });
-        }
-      }
-    });
+    if (localStorage.getItem('appointmentDetails')) {
+      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+    }
+    // this.scheduleAppointmentSvc.editDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
+    //   if (!this.editData) {
+    //     if (examDetails?.isEdit) {
+    //       this.scheduleAppointmentSvc
+    //         .getAppointmentByID$(examDetails.id)
+    //         .pipe(takeUntil(this.destroy$$))
+    //         .subscribe((appointment) => {
+    //           this.editData = appointment;
+    //           const exams: ExamDetails = {
+    //             exams: this.editData.exams.map((exam) => exam.id),
+    //             physician: this.editData.physicianId,
+    //             comments: this.editData.comments,
+    //           };
+    //           this.scheduleAppointmentSvc.setExamDetails(exams);
+    //           // this.scheduleAppointmentSvc.editData$$.next(appointment);
+    //           this.editData = localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+    //         });
+    //     }
+    //   }
+    // });
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examsDetails = examDetails;
@@ -143,6 +145,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               this.pastDays.push(day);
           }
         });
+        if (this.editData) {
+          this.selectDate(new Date(this.editData['exams'][0].startedAt).getDate());
+        }
       });
 
     this.selectedDate$$
@@ -263,6 +268,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public selectDate(day: number) {
+    console.log('in');
     this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
     this.selectedTimeSlot = {};
   }
