@@ -1,6 +1,7 @@
 export interface ExamDetails {
   physician: number;
   exams: number[];
+  comments?: string;
 }
 
 export interface SlotDetails {

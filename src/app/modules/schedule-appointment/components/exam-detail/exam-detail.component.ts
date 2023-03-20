@@ -1,14 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
-import {BehaviorSubject, map, takeUntil} from 'rxjs';
-import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
-import {KeyValue} from '@angular/common';
-import {NameValue} from '../../../../shared/models/name-value.model';
-import {ExamDetails} from '../../../../shared/models/local-storage-data.model';
-import {SiteSettings} from "../../../../shared/models/site-management.model";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
+import { BehaviorSubject, map, takeUntil } from 'rxjs';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import { KeyValue } from '@angular/common';
+import { NameValue } from '../../../../shared/models/name-value.model';
+import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
+import { SiteSettings } from '../../../../shared/models/site-management.model';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -18,9 +18,14 @@ import {SiteSettings} from "../../../../shared/models/site-management.model";
 })
 export class ExamDetailComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public examForm!: FormGroup;
+
   public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
+
   public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
+
   siteDetails$$: BehaviorSubject<any>;
+
+  editData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -36,16 +41,30 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
-
-    console.log(this.siteDetails$$.value);
-
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      this.createForm(examDetails);
+      if (localStorage.getItem('appointmentDetails')) {
+        this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+        this.createForm(examDetails, true);
+        console.log(this.editData);
+        const examData = {
+          comments: this.editData.comments,
+          physician: this.editData.physicianId,
+        };
+        this.examForm.patchValue(examData);
+        const items = this.examForm.get('exams') as FormArray;
+        this.removeExam(0);
+        this.editData.exams.forEach((element, index) => {
+          this.addExam();
+          items.at(index).patchValue({ exam: element.id });
+        });
+      } else {
+        this.createForm(examDetails, false);
+      }
     });
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({firstname, id}) => ({name: firstname, value: id }))),
+        map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((staffs) => {
@@ -54,7 +73,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({name, id, info}) => ({name: `${name}`, value: id, description: info}))),
+        map((exams) => exams.map(({ name, id, info }) => ({ name: `${name}`, value: id, description: info }))),
         takeUntil(this.destroy$$),
       )
       .subscribe((exams) => this.filteredExams$$.next(exams));
@@ -64,22 +83,22 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     super.ngOnDestroy();
   }
 
-  private createForm(examDetails?) {
-    console.log(examDetails);
+  private createForm(examDetails?, isEdit?) {
     this.examForm = this.fb.group({
       physician: [!!examDetails?.physician ? examDetails.physician : '', []],
       exams: this.fb.array([]),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });
 
-    const fa = this.examForm.get('exams') as FormArray;
-
-    if (examDetails && examDetails?.exams?.length) {
-      examDetails.exams.forEach((exam) => {
-        fa.push(this.newExam(+exam));
-      });
-    } else {
-      fa.push(this.newExam());
+    if (!isEdit) {
+      const fa = this.examForm.get('exams') as FormArray;
+      if (examDetails && examDetails?.exams?.length) {
+        examDetails.exams.forEach((exam) => {
+          fa.push(this.newExam(+exam));
+        });
+      } else {
+        fa.push(this.newExam());
+      }
     }
   }
 
@@ -90,7 +109,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private newExam(exam?: number, info?: string): FormGroup {
     return this.fb.group({
       exam: [exam, [Validators.required]],
-      info: [info, []]
+      info: [info, []],
     });
   }
 
@@ -109,7 +128,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public saveExamDetails() {
-    console.log(this.examForm.value);
+    // this.editData = {};
     if (this.examForm.invalid) {
       this.examForm.markAllAsTouched();
       return;
@@ -120,10 +139,19 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       exams: this.examForm.value.exams.map((exam) => exam.exam),
     } as ExamDetails;
 
-    console.log(examDetails);
+    if (this.editData) {
+      this.editData['physicianId'] = this.examForm.controls['physician'].value;
+      this.editData['comments'] = this.examForm.controls['comments'].value;
+      const exams: any = [];
+      this.examForm.value.exams.forEach((element) => {
+        exams.push({ id: element.exam });
+      });
+      this.editData.exams = exams;
+      localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
+    }
 
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
-    this.router.navigate(['../slot'], {relativeTo: this.route});
+    this.router.navigate(['../slot'], { relativeTo: this.route });
   }
 }

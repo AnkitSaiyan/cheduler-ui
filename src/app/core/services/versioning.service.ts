@@ -7,7 +7,6 @@ import {interval} from 'rxjs';
 })
 export class VersioningService {
   constructor(private swUpdate: SwUpdate) {
-    console.log('cons versioning services');
     if (window.location.hostname === 'localhost') {
       return;
     }
