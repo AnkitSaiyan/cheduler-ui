@@ -211,7 +211,7 @@
   "Pending": "In behandeling",
   "EditAppointment": "Bewerk afspraak",
   "CancelAppointment": "Annuleer je afspraak",
-  "GoToDashboard": "Go To Dashboard NL",
+  "GoToDashboard": "Ga naar het dashboard",
   "IhaveAnApplicationFromMyReferring" : "Ik heb een aanvraag van mijn verwijzende huisdokter, dokter, specialist of tandarts",
   "IherebyGiveConsentToStore" : "Ik geef hierbij toestemming om mijn persoonlijke gegevens op te slaan",
   "SignIn":"Schrijf je in",
@@ -235,7 +235,7 @@
   "Proceed" :"Ga verder",
   "LogoutConfirmation" : "Bevestiging Uitloggen",
   "Areyousurewanttologout":"Ben je zeker dat je uit deze sessie wil loggen?",
-  "Hide" : "Hide NL",
+  "Hide" : "Verbergen",
   "PrivacyPolicy" : "Privacy beleid",
   "MyAccount" : "Mijn Account",
   "Labswithaccesstoyourpersonalinformation" : "Labo's met toegang tot uw persoonlijke gegevens",
@@ -253,5 +253,7 @@
   "November" :"November",
   "December" :"December",
   "NoAppointmentsScheduled" : "Geen afspraken gepland",
-  "LoadingSlots": "Sleuven laden"
+  "LoadingSlots": "Sleuven laden",
+  "PrivacyPolicyAndCookies" : "Privacy & cookies beleid",
+  "YourAppointmentsWillAppearHere" : "Uw afspraak verschijnt hier"
 }

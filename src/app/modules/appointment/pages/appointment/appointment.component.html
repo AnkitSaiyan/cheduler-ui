@@ -4,24 +4,24 @@
   </div>
 
   <div class="d-flex justify-content-center text-center py-2">
-    <span class="font-weight-semi-bold text-lg check-above-text">Your appointments will appear here</span>
+    <span class="font-weight-semi-bold text-lg check-above-text">{{"YourAppointmentsWillAppearHere" | translate}}</span>
   </div>
 
   <div class="d-flex justify-content-center py-2">
     <dfm-button [color]="'primary'" [size]="'lg'" [routerLink]="(isLoggedIn$ | async) ? './dashboard' : '/dashboard'" class="sa-btn">
-      Go to Dashboard
+      {{"GoToDashboard" | translate}}
     </dfm-button>
   </div>
 
   <div class="d-flex justify-content-center py-2">
     <dfm-button [color]="'primary'" [size]="'sm'" [routerLink]="(isLoggedIn$ | async) ? './dashboard' : '/dashboard'" class="sa-btn-mv">
-      Go to Dashboard
+      {{"GoToDashboard" | translate}}
     </dfm-button>
   </div>
 </div>
 
 <div class="login-dashboard-content bg-white border-r-16" *ngIf="isAppointemntScheduled">
-  <div class="heading-div upcoming-text">Upcoming Appointment</div>
+  <div class="heading-div upcoming-text">{{"UpcomingAppointments" | translate}}</div>
 
   <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
     <div class="upcoming-appointments-details">
@@ -40,7 +40,7 @@
             </div>
             <div>
               <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-              <span class="pending-status-text">{{ item.statusText }}</span>
+              <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
             </div>
           </div>
         </div>
@@ -48,31 +48,31 @@
         <div class="flex-item-row">
           <div *ngFor="let exam of item.exams" class="exam-section">
             <div class="mb-3">
-              <span class="appointment-exam-text mb-1">Exam: {{ exam.name }} </span>
+              <span class="appointment-exam-text mb-1">{{"Exam" | translate}}: {{ exam.name }} </span>
             </div>
 
             <div class="mb-3">
-              <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+              <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
             </div>
 
             <div class="appointment-exam-text-mv mb-3">
-              <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+              <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}}: {{ exam.exam }} </span>
             </div>
             <div class="instructions-text-section-mv mb-3">
-              <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+              <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}}: {{ exam.info }}</span>
             </div>
 
             <div class="mb-3">
-              <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+              <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
             </div>
           </div>
         </div>
         <div class="lab-confirmation-status">
           <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn" (click)="editAppointment(item)"> Edit </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3" (click)="cancelAppointment(item.id)"> Cancel </dfm-button>
-            <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv" (click)="editAppointment(item)"> Edit </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)"> Cancel </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn" (click)="editAppointment(item)"> {{"Edit" | translate}} </dfm-button>
+            <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3" (click)="cancelAppointment(item.id)"> {{"Cancel" | translate}} </dfm-button>
+            <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv" (click)="editAppointment(item)"> {{"Edit" | translate}} </dfm-button>
+            <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)"> {{"Cancel" | translate}} </dfm-button>
           </div>
         </div>
         <!-- </div> -->
@@ -83,12 +83,12 @@
 
 <div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="previous-appointment-title">
-    <div class="heading-div previous-app-text">Previous Appointments</div>
+    <div class="heading-div previous-app-text">{{"PreviousAppointments" | translate}}</div>
 
     <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
     <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
       <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
-        >{{ viewAll ? 'Hide' : 'View All' }}
+        >{{ viewAll ? ('Hide' | translate) : ('ViewAll' | translate) }}
       </dfm-button>
     </div>
   </div>
@@ -112,7 +112,7 @@
               </div>
               <div>
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-                <span class="completed-status-text">{{ item.statusText }}</span>
+                <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
               </div>
             </div>
           </div>
@@ -120,22 +120,22 @@
           <div class="flex-item-row">
             <div *ngFor="let exam of item.exams" class="exam-section">
               <div class="mb-3">
-                <span class="appointment-exam-text mb-3">Exam: {{ exam.name }} </span>
+                <span class="appointment-exam-text mb-3">{{"Exam" | translate}}: {{ exam.name }} </span>
               </div>
 
               <div class="mb-3">
-                <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
               </div>
 
               <div class="appointment-exam-text-mv mb-3">
-                <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+                <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}}: {{ exam.exam }} </span>
               </div>
               <div class="instructions-text-section-mv mb-3">
-                <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+                <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}}: {{ exam.info }}</span>
               </div>
 
               <div class="mb-3">
-                <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+                <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
               </div>
               <!-- <div class="lab-confirmation-status">
                 <div class="status-btn d-flex flex-row justify-content-start align-items-start">
@@ -163,7 +163,7 @@
               </div>
               <div>
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-                <span class="completed-status-text">{{ item.statusText }}</span>
+                <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
               </div>
             </div>
           </div>
@@ -171,22 +171,22 @@
           <div class="flex-item-row">
             <div *ngFor="let exam of item.exams" class="exam-section">
               <div class="mb-3">
-                <span class="appointment-exam-text mb-1">Exam: {{ exam.name }} </span>
+                <span class="appointment-exam-text mb-1">{{"Exam" | translate}}: {{ exam.name }} </span>
               </div>
 
               <div class="mb-3">
-                <span style="width: 20px; height: 20px">Time : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
               </div>
 
               <div class="appointment-exam-text-mv mb-3">
-                <span class="appointment-exam-text-mv text-primary">Exam: {{ exam.exam }} </span>
+                <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}}: {{ exam.exam }} </span>
               </div>
               <div class="instructions-text-section-mv mb-3">
-                <span class="instruction-text text-primary ellipse-class">Instructions: {{ exam.info }}</span>
+                <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}}: {{ exam.info }}</span>
               </div>
 
               <div class="mb-3">
-                <span style="font-weight: 600" class="ellipse-class">Instructions : {{ exam.info }}</span>
+                <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
               </div>
               <!-- <div class="lab-confirmation-status">
                 <div class="status-btn d-flex flex-row justify-content-start align-items-start">
