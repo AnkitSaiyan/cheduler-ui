@@ -64,8 +64,10 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   public ngOnInit() {
     this.getCalendarSlots();
 
-    const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
-    this.isSlotCombinable = siteData.data?.isSlotsCombinable;
+    if (localStorage.getItem('siteDetails')) {
+      const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
+      this.isSlotCombinable = siteData.data?.isSlotsCombinable;
+    }
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
@@ -256,7 +258,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       if (this.selectedTimeSlot[res]?.slot === `${this.examIdToAppointmentSlots[res].start}-${this.examIdToAppointmentSlots[res].end}`) {
         this.selectedTimeSlot[res] = { slot: '', roomList: [], userList: [], examId: res };
       } else {
-        let index = this.examIdToAppointmentSlots[res].findIndex((x) => x.start === slot.start && x.end === slot.end);
+        const index = this.examIdToAppointmentSlots[res].findIndex((x) => x.start === slot.start && x.end === slot.end);
         this.selectedTimeSlot[res] = {
           slot: `${this.examIdToAppointmentSlots[res][index].start}-${this.examIdToAppointmentSlots[res][index].end}`,
           examId: res,
@@ -278,6 +280,10 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       selectedDate: this.selectedDate$$.value,
       selectedSlots: this.selectedTimeSlot,
     } as SlotDetails;
+    // for (let i = 0; i < this.editData.exams.length; i++) {
+    //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    //   this.editData.exmas[i].startedAt = this.selectedDate$$.value + ' ';
+    // }
 
     this.scheduleAppointmentSvc.setSlotDetails(slotDetails);
     this.router.navigate(['../basic-details'], { relativeTo: this.route });

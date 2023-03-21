@@ -29,4 +29,11 @@ export class OverviewComponent implements OnInit {
       .subscribe();
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
   }
+
+  removeEditStorage(){
+    localStorage.removeItem('appointmentDetails');
+    localStorage.removeItem('examDetails');
+    localStorage.removeItem('slotDetails');
+    localStorage.removeItem('basicDetails');
+  }
 }
