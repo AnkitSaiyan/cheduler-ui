@@ -40,7 +40,7 @@
             </div>
             <div>
               <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-              <span class="pending-status-text">{{ item.statusText | translate }}</span>
+              <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
               </div>
               <div>
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-                <span class="completed-status-text">{{ item.statusText | translate }}</span>
+                <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@
               </div>
               <div>
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-                <span class="completed-status-text">{{ item.statusText | translate }}</span>
+                <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span>
               </div>
             </div>
           </div>

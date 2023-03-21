@@ -84,7 +84,7 @@
 
     <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate$$.value">
       <ng-container *ngIf="!isSlotCombinable ; else elseBlock">
-        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails.exams">
+        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails.exams ; let i = index;">
           <div class="d-flex flex-column gap-1">
             <div class="d-flex flex-column gap-1">
               <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
@@ -95,6 +95,11 @@
               <div class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
                 <span>{{ examIdToName[exam]?.info ?? 'Have an empty stomach 10 hours prior to the test' }}</span>
+              </div>
+
+              <div *ngIf="editData" class="d-flex gap-2 align-items-start text-sm">
+                <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
+                <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>
               </div>
             </div>
 
@@ -138,6 +143,11 @@
               <div class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
                 <span *ngFor="let exam of examsDetails.exams; let i =index">{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+              </div>
+
+              <div *ngIf="editData" class="d-flex gap-2 align-items-start text-sm">
+                <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
+                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
             </div>
 
