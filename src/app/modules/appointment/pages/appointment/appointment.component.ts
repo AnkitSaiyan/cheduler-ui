@@ -1,8 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { ModalService } from '../../../../core/services/modal.service';
+import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
+import { NotificationDataService } from 'src/app/core/services/notification-data.service';
+import { Router } from '@angular/router';
+import { ExamDetails } from 'src/app/shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment',
@@ -26,7 +31,14 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
 
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  constructor(private scheduleAppointmentService: ScheduleAppointmentService, private authSvc: AuthService) {
+  constructor(
+    private scheduleAppointmentService: ScheduleAppointmentService,
+    private authSvc: AuthService,
+    private modalSvc: ModalService,
+    private notificationSvc: NotificationDataService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+    private router: Router,
+  ) {
     super();
     this.appointments$$ = new BehaviorSubject<any[]>([]);
     this.filteredAppointments$$ = new BehaviorSubject<any[]>([]);
@@ -42,7 +54,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         return;
       }
       this.isAppointemntScheduled = true;
-      console.log('Upcoming: ', appointments);
       this.appointments$$.next(appointments);
       this.filteredAppointments$$.next(appointments);
     });
@@ -53,7 +64,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         return;
       }
       this.isAppointemntScheduled = true;
-      console.log('completed: ', completedAppointments);
       this.completedAppointments$$.next(completedAppointments);
       this.filteredCompletedAppointments$$.next(completedAppointments);
     });
@@ -62,5 +72,51 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   monthName(date) {
     const d = new Date(date);
     return this.monthNames[d.getMonth()];
+  }
+
+  cancelAppointment(id: number) {
+    const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
+      data: {
+        bodyText: 'Are you sure you want to cancel this appointment',
+      } as DialogData,
+    });
+
+    modalRef.closed
+      .pipe(
+        filter((res: boolean) => res),
+        switchMap(() => {
+          if (id) {
+            return this.scheduleAppointmentSvc.cancelAppointment$(+id);
+          }
+          return of({});
+        }),
+        take(1),
+      )
+      .subscribe((res) => {
+        if (res) {
+          this.notificationSvc.showNotification('Appointment canceled successfully');
+          this.ngOnInit();
+        }
+      });
+  }
+
+  editAppointment(item: any) {
+    // const examDetails = {};
+    // examDetails['appointmentId'] = item['id'];
+    this.scheduleAppointmentService
+      .getAppointmentByID$(item.id)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((appointment) => {
+        const editData = appointment;
+        const exams: ExamDetails = {
+          exams: editData['exams'] ? editData['exams'].map((exam) => exam.id) : [],
+          physician: editData['physicianId'] ? editData['physicianId'] : '',
+          comments: editData['comments'] ? editData['comments'] : '',
+        };
+        this.scheduleAppointmentSvc.setExamDetails(exams);
+        localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+        this.scheduleAppointmentService.editDetails$$.next({ isEdit: true, id: item.id });
+        this.router.navigate(['/dashboard/schedule/slot']);
+      });
   }
 }

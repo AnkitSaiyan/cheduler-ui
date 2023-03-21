@@ -8,7 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
 import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
-import {SiteSettings} from "../../../../shared/models/site-management.model";
+import { SiteSettings } from '../../../../shared/models/site-management.model';
+import { Exam } from 'src/app/shared/models/exam.model';
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -48,6 +49,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public loadingSlots$$ = new BehaviorSubject(false);
 
+  public editData: any;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -58,10 +61,36 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     super();
   }
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.getCalendarSlots();
+
     const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
-    this.isSlotCombinable = siteData['data']?.isSlotsCombinable;
+    this.isSlotCombinable = siteData.data?.isSlotsCombinable;
+
+    if (localStorage.getItem('appointmentDetails')) {
+      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+    }
+    // this.scheduleAppointmentSvc.editDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
+    //   if (!this.editData) {
+    //     if (examDetails?.isEdit) {
+    //       this.scheduleAppointmentSvc
+    //         .getAppointmentByID$(examDetails.id)
+    //         .pipe(takeUntil(this.destroy$$))
+    //         .subscribe((appointment) => {
+    //           this.editData = appointment;
+    //           const exams: ExamDetails = {
+    //             exams: this.editData.exams.map((exam) => exam.id),
+    //             physician: this.editData.physicianId,
+    //             comments: this.editData.comments,
+    //           };
+    //           this.scheduleAppointmentSvc.setExamDetails(exams);
+    //           // this.scheduleAppointmentSvc.editData$$.next(appointment);
+    //           this.editData = localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+    //         });
+    //     }
+    //   }
+    // });
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examsDetails = examDetails;
     });
@@ -74,7 +103,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       }
 
       if (slotDetails?.selectedSlots) {
-        console.log('in', slotDetails.selectedSlots);
         this.selectedTimeSlot = { ...slotDetails.selectedSlots };
       }
 
@@ -117,6 +145,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               this.pastDays.push(day);
           }
         });
+        if (this.editData) {
+          this.selectDate(new Date(this.editData['exams'][0].startedAt).getDate());
+        }
       });
 
     this.selectedDate$$
@@ -128,6 +159,13 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         switchMap((date) => {
           const dateString = this.getDateString(date);
           this.resetSlots();
+          if (this.editData) {
+            return this.scheduleAppointmentSvc.getSlots$({
+              fromDate: dateString,
+              toDate: dateString,
+              exams: this.editData.exams.map((exam) => exam.id),
+            });
+          }
           return this.scheduleAppointmentSvc.getSlots$({
             fromDate: dateString,
             toDate: dateString,
@@ -138,7 +176,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       )
       .subscribe({
         next: (appointmentSlot) => {
-          console.log(appointmentSlot);
           this.appointmentSlots$$.next(appointmentSlot[0]);
           this.examIdToAppointmentSlots = {};
 
@@ -160,7 +197,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               this.examIdToAppointmentSlots[element.examId].push(tempSlot);
             });
           });
-          console.log(this.examIdToAppointmentSlots);
           this.loadingSlots$$.next(false);
         },
         error: () => this.loadingSlots$$.next(false),
@@ -200,7 +236,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public toggleSlotSelection(slot: ModifiedSlot) {
-    console.log(slot);
     if (!this.isSlotAvailable(slot)) {
       return;
     }
@@ -214,18 +249,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         userList: slot?.userList ?? [],
       };
     }
-    console.log(this.selectedTimeSlot);
   }
 
   public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
-    console.log(this.selectedTimeSlot);
-    console.log(slot);
     Object.keys(this.examIdToAppointmentSlots).forEach((res) => {
       if (this.selectedTimeSlot[res]?.slot === `${this.examIdToAppointmentSlots[res].start}-${this.examIdToAppointmentSlots[res].end}`) {
-        console.log('in')
         this.selectedTimeSlot[res] = { slot: '', roomList: [], userList: [], examId: res };
       } else {
-        let index = this.examIdToAppointmentSlots[res].findIndex(x => x.start === slot.start && x.end === slot.end);
+        let index = this.examIdToAppointmentSlots[res].findIndex((x) => x.start === slot.start && x.end === slot.end);
         this.selectedTimeSlot[res] = {
           slot: `${this.examIdToAppointmentSlots[res][index].start}-${this.examIdToAppointmentSlots[res][index].end}`,
           examId: res,
@@ -237,6 +268,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public selectDate(day: number) {
+    console.log('in');
     this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
     this.selectedTimeSlot = {};
   }
