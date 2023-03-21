@@ -252,6 +252,8 @@
   "November" :"November",
   "December" :"December",
   "NoAppointmentsScheduled" : "No Appointments Scheduled",
-  "LoadingSlots": "Loading Slots"
+  "LoadingSlots": "Loading Slots",
+  "PrivacyPolicyAndCookies" : "Privacy Policy and Cookies"
+
 }
 
