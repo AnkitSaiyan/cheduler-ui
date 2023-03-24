@@ -1,7 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
-import { AddAppointmentRequestData, Appointment, AppointmentSlot, AppointmentSlotsRequestData } from 'src/app/shared/models/appointment.model';
+import {
+  AddAppointmentRequestData,
+  Appointment,
+  AppointmentDaysRequestData,
+  AppointmentSlot,
+  AppointmentSlotsRequestData,
+} from 'src/app/shared/models/appointment.model';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { Exam } from 'src/app/shared/models/exam.model';
 import { Physician } from 'src/app/shared/models/physician.model';
@@ -165,9 +171,15 @@ export class ScheduleAppointmentService {
       .pipe(map((response) => response.data));
   }
 
-  public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot[]> {
+  public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot> {
     return this.http
-      .post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData)
+      .post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData)
+      .pipe(map((res) => res?.data));
+  }
+
+  public getCalendarDays$(requestData: AppointmentDaysRequestData): Observable<AppointmentSlot[]> {
+    return this.http
+      .post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/days`, requestData)
       .pipe(map((res) => res?.data));
   }
 
@@ -193,3 +205,8 @@ export class ScheduleAppointmentService {
     );
   }
 }
+
+
+
+
+

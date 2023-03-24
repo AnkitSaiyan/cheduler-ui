@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, switchMap, take, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
@@ -127,7 +127,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
           const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
           const { exams } = this.examsDetails;
-          return this.scheduleAppointmentSvc.getSlots$({ fromDate, toDate, exams });
+          return this.scheduleAppointmentSvc.getCalendarDays$({ fromDate, toDate, exams });
         }),
       )
       .subscribe((appointmentSlot) => {
@@ -163,14 +163,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           this.resetSlots();
           if (this.editData) {
             return this.scheduleAppointmentSvc.getSlots$({
-              fromDate: dateString,
-              toDate: dateString,
+              date: dateString,
               exams: this.editData.exams.map((exam) => exam.id),
             });
           }
           return this.scheduleAppointmentSvc.getSlots$({
-            fromDate: dateString,
-            toDate: dateString,
+            date: dateString,
             exams: [...this.examsDetails.exams],
           });
         }),
@@ -178,26 +176,21 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       )
       .subscribe({
         next: (appointmentSlot) => {
-          this.appointmentSlots$$.next(appointmentSlot[0]);
+          this.appointmentSlots$$.next(appointmentSlot);
           this.examIdToAppointmentSlots = {};
 
-          appointmentSlot[0]?.slots?.forEach((slot) => {
-            slot['exams'].forEach((element) => {
-              let index = slot['exams'].findIndex((x) => x.examId === element.examId);
-
-              if (!this.examIdToAppointmentSlots[element.examId]) {
-                this.examIdToAppointmentSlots[element.examId] = [];
-              }
-              const tempSlot: ModifiedSlot = {
-                end: slot.end,
-                start: slot.start,
-                examId: slot.exams[index].examId,
-                roomList: slot.exams[index].roomId,
-                userList: slot.exams[index].userId,
-                exams: [],
-              };
-              this.examIdToAppointmentSlots[element.examId].push(tempSlot);
-            });
+          appointmentSlot?.slots?.forEach((slot: any) => {
+            if (!this.examIdToAppointmentSlots[slot.examId]) {
+              this.examIdToAppointmentSlots[slot.examId] = [];
+            }
+            const tempSlot: any = {
+              end: slot.end,
+              start: slot.start,
+              examId: slot.examId,
+              roomList: slot.rooms,
+              userList: slot.users,
+            };
+            this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
           });
           this.loadingSlots$$.next(false);
         },
@@ -303,15 +296,33 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public isSlotAvailable(slot: ModifiedSlot) {
-    let isAvailable = true;
-    Object.entries(this.selectedTimeSlot).forEach(([key, value]) => {
-      const timeString = `${slot.start}-${slot.end}`;
-      if (+key !== slot.examId && timeString === value.slot) {
-        isAvailable = false;
-      }
+    return !Object.values(this.selectedTimeSlot)?.some((value) => {
+      const firstSlot = value.slot.split('-');
+      return slot.examId !== value.examId && this.checkTimeRangeOverlapping(firstSlot[0], firstSlot[1], slot.start, slot.end);
     });
+  }
 
-    return isAvailable;
+  private checkTimeRangeOverlapping(start1: string, end1: string, start2: string, end2: string): boolean {
+    // debugger
+    const a = this.timeToNumber(start1);
+    const b = this.timeToNumber(end1);
+
+    const c = this.timeToNumber(start2);
+    const d = this.timeToNumber(end2);
+
+    return !(b <= c || d <= a);
+  }
+
+  private timeToNumber(timeString: string): number {
+    if (timeString && timeString.includes(':')) {
+      const timeInNo = +timeString.split(':').join('');
+
+      if (!Number.isNaN(timeInNo)) {
+        return timeInNo;
+      }
+    }
+
+    return 0;
   }
 
   private getCalendarSlots() {
@@ -340,3 +351,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.appointmentSlots$$.next(null);
   }
 }
+
+function timeToNumber(start1: string) {
+  throw new Error('Function not implemented.');
+}
+
+

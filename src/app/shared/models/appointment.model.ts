@@ -69,12 +69,14 @@ export interface ModifiedSlot {
 }
 
 export interface AppointmentSlot {
+  date: string;
+  workStatus: number;
+  workStatusText: string;
+  isAvailable: boolean;
+  isCombined: boolean;
   title: string;
   start: string;
   end: string;
-  workStatus: WorkStatusesEnum;
-  workStatusText: WorkStatuses;
-  isAvailable: boolean;
   slots: Slot[];
 }
 
@@ -88,7 +90,17 @@ export enum WorkStatusesEnum {
 }
 
 export interface AppointmentSlotsRequestData {
+  date: string;
+  exams: number[];
+}
+export interface AppointmentDaysRequestData {
   fromDate: string;
   toDate: string;
   exams: number[];
 }
+
+
+
+
+
+
