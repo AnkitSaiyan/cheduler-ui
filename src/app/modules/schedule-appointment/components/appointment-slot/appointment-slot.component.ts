@@ -179,20 +179,40 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           this.appointmentSlots$$.next(appointmentSlot);
           this.examIdToAppointmentSlots = {};
 
-          appointmentSlot?.slots?.forEach((slot: any) => {
-            if (!this.examIdToAppointmentSlots[slot.examId]) {
-              this.examIdToAppointmentSlots[slot.examId] = [];
-            }
-            const tempSlot: any = {
-              end: slot.end,
-              start: slot.start,
-              examId: slot.examId,
-              roomList: slot.rooms,
-              userList: slot.users,
-            };
-            this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
-          });
+          const { examIdToSlots } = this.getModifiedSlotData(appointmentSlot?.slots, appointmentSlot?.isCombined);
+          this.examIdToAppointmentSlots = { ...examIdToSlots };
+
+          // appointmentSlot?.slots?.forEach((slot: any) => {
+          //   if (!this.examIdToAppointmentSlots[slot.examId]) {
+          //     this.examIdToAppointmentSlots[slot.examId] = [];
+          //   }
+          //   if (appointmentSlot.isCombined) {
+          //     slot.exams.forEach((exam) => {
+          //       const tempSlot: any = {
+          //         end: slot.end,
+          //         start: slot.start,
+          //         exams: slot.exams,
+          //         examId: exam.examId,
+          //         roomList: exam.rooms,
+          //         userList: exam.users,
+          //       };
+          //       this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
+          //     });
+          //   } else {
+          //     slot.exams.forEach((exam) => {
+          //       const tempSlot: any = {
+          //         end: exam.end,
+          //         start: exam.start,
+          //         examId: exam.examId,
+          //         roomList: exam.rooms,
+          //         userList: exam.users,
+          //       };
+          //       this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
+          //     });
+          //   }
+          // });
           this.loadingSlots$$.next(false);
+          console.log(this.examIdToAppointmentSlots);
         },
         error: () => this.loadingSlots$$.next(false),
       });
@@ -230,6 +250,63 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
   }
 
+  private getModifiedSlotData(
+    slots: Slot[],
+    isCombinable: boolean,
+  ): {
+    newSlots: any[];
+    examIdToSlots: {
+      [key: number]: any[];
+    };
+  } {
+    if (!slots?.length) {
+      return { examIdToSlots: {}, newSlots: [] };
+    }
+
+    const newSlots: any[] = [];
+    const examIdToSlotsMap: { [key: number]: any[] } = {};
+    const uniqueSlots = new Set<string>();
+
+    slots.forEach((slot) => {
+      const slotString = `${slot.start}-${slot.end}`;
+
+      if (!uniqueSlots.has(slotString)) {
+        slot?.exams?.forEach((exam: any) => {
+          let newSlot;
+          if (isCombinable) {
+            newSlot = {
+              start: slot.start,
+              end: slot.end,
+              exams: slot.exams,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          } else {
+            newSlot = {
+              start: exam.start,
+              end: exam.end,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          }
+
+          if (!examIdToSlotsMap[+exam.examId]) {
+            examIdToSlotsMap[+exam.examId] = [];
+          }
+
+          examIdToSlotsMap[+exam.examId].push(newSlot);
+          newSlots.push(newSlot);
+        });
+
+        uniqueSlots.add(slotString);
+      }
+    });
+
+    return { newSlots, examIdToSlots: examIdToSlotsMap };
+  }
+
   public toggleSlotSelection(slot: ModifiedSlot) {
     if (!this.isSlotAvailable(slot)) {
       return;
@@ -238,28 +315,31 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
     } else {
       this.selectedTimeSlot[slot.examId] = {
+        ...slot,
+        slot: `${slot.start}-${slot.end}`,
+        examId: slot.examId,
+        roomList: slot?.roomList ?? [],
+        userList: slot?.userList ?? [],
+      };
+      console.log(this.selectedTimeSlot, slot);
+    }
+  }
+
+  public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
+    if (!this.isSlotAvailable(slot)) {
+      return;
+    }
+    if (this.selectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
+      this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
+    } else {
+      this.selectedTimeSlot[slot.examId] = {
+        ...slot,
         slot: `${slot.start}-${slot.end}`,
         examId: slot.examId,
         roomList: slot?.roomList ?? [],
         userList: slot?.userList ?? [],
       };
     }
-  }
-
-  public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
-    Object.keys(this.examIdToAppointmentSlots).forEach((res) => {
-      if (this.selectedTimeSlot[res]?.slot === `${this.examIdToAppointmentSlots[res].start}-${this.examIdToAppointmentSlots[res].end}`) {
-        this.selectedTimeSlot[res] = { slot: '', roomList: [], userList: [], examId: res };
-      } else {
-        const index = this.examIdToAppointmentSlots[res].findIndex((x) => x.start === slot.start && x.end === slot.end);
-        this.selectedTimeSlot[res] = {
-          slot: `${this.examIdToAppointmentSlots[res][index].start}-${this.examIdToAppointmentSlots[res][index].end}`,
-          examId: res,
-          roomList: this.examIdToAppointmentSlots[res][index]?.roomList ?? [],
-          userList: this.examIdToAppointmentSlots[res][index]?.userList ?? [],
-        };
-      }
-    });
   }
 
   public selectDate(day: number) {
@@ -355,5 +435,18 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 function timeToNumber(start1: string) {
   throw new Error('Function not implemented.');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
