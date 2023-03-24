@@ -222,8 +222,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           },
     };
 
-    console.log(requestData);
-    return;
     if (requestData) {
       if (this.edit) {
         requestData['appointmentId'] = JSON.parse(localStorage.getItem('appointmentDetails') || '')['id'];
