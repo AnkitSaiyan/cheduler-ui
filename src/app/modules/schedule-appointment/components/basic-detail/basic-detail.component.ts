@@ -74,6 +74,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
 
+
     this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
     this.router.navigate(['../confirm'], { relativeTo: this.route });
   }
@@ -103,3 +104,9 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     }
   }
 }
+
+
+
+
+
+

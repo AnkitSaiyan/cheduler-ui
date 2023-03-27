@@ -31,9 +31,12 @@ export class OverviewComponent implements OnInit {
   }
 
   removeEditStorage(){
-    localStorage.removeItem('appointmentDetails');
-    localStorage.removeItem('examDetails');
-    localStorage.removeItem('slotDetails');
     localStorage.removeItem('basicDetails');
+    localStorage.removeItem('examDetails');
+    // localStorage.removeItem('user');
+    localStorage.removeItem('slotDetails');
+    localStorage.removeItem('edit');
   }
 }
+
+

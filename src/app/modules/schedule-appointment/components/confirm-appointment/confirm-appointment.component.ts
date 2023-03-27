@@ -157,6 +157,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         }
       }
     });
+
+    if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
+      this.confirmAppointment();
+    }
   }
 
   public override ngOnDestroy() {
@@ -223,8 +227,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     };
 
     if (requestData) {
-      if (this.edit) {
-        requestData['appointmentId'] = JSON.parse(localStorage.getItem('appointmentDetails') || '')['id'];
+      if (this.edit || localStorage.getItem('appointmentId')) {
+        requestData['appointmentId'] = localStorage.getItem('appointmentId');
         this.scheduleAppointmentSvc
           .updateAppointment$(requestData)
           .pipe(takeUntil(this.destroy$$))
@@ -233,7 +237,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             // this.appointmentId$$.next(res?['id']);
             localStorage.removeItem('appointmentDetails');
             this.notificationSvc.showNotification(`Appointment updated successfully`);
-            this.router.navigate(['/appointment']);
+            // this.router.navigate(['/appointment']);
+            localStorage.removeItem('edit');
           });
       } else {
         this.scheduleAppointmentSvc
@@ -269,6 +274,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       )
       .subscribe((res) => {
         if (res) {
+          this.removeLocalStorage();
           this.notificationSvc.showNotification('Appointment canceled successfully');
         }
       });
@@ -289,7 +295,42 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       day: new Date(date).getDate(),
     };
   }
+
+  private removeLocalStorage() {
+    localStorage.removeItem('basicDetails');
+    localStorage.removeItem('examDetails');
+    localStorage.removeItem('slotDetails');
+    localStorage.removeItem('edit');
+  }
+
+  public onEdit() {
+    localStorage.setItem('edit', 'true');
+  }
+
+  public onAddNewAppointment() {
+    this.removeLocalStorage();
+    localStorage.removeItem('appointmentId');
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
