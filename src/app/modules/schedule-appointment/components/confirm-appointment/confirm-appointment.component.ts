@@ -52,6 +52,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public edit: boolean = false;
 
+  public isEdit$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -64,6 +66,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
+    if (localStorage.getItem('edit')) {
+      this.isEdit$$.next(true);
+    }
   }
 
   public ngOnInit(): void {
@@ -158,9 +163,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       }
     });
 
-    if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
-      this.confirmAppointment();
-    }
+    // if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
+    //   this.confirmAppointment();
+    // }
   }
 
   public override ngOnDestroy() {
@@ -239,6 +244,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             this.notificationSvc.showNotification(`Appointment updated successfully`);
             // this.router.navigate(['/appointment']);
             localStorage.removeItem('edit');
+            this.isEdit$$.next(false);
           });
       } else {
         this.scheduleAppointmentSvc
@@ -304,6 +310,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
+
+
 
 
 

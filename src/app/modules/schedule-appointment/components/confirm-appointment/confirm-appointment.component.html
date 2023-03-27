@@ -56,7 +56,7 @@
       </div>
 
 
-      <div class="d-flex flex-column dfm-gap-8" *ngIf="(appointment$$ | async)?.id">
+      <div class="d-flex flex-column dfm-gap-8" *ngIf="(appointment$$ | async)?.id && (isEdit$$ | async) === false">
         <!-- <span class="font-weight-medium">Status</span>
 
         <dfm-badge size="sm">
@@ -82,7 +82,7 @@
     </section>
   </div>
 
-  <div class="checkbox-section w-fit" *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false">
+  <div class="checkbox-section w-fit" *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)">
     <div class="w-fit" *ngIf="siteDetails$$ | async as enanbleDoctor">
       <dfm-checkbox *ngIf="enanbleDoctor?.doctorReferringConsent === 0"
         label="{{'IhaveAnApplicationFromMyReferring' | translate}}.*"
@@ -106,11 +106,11 @@
 
   <div class="d-flex justify-content-center confirm-btn-section dfm-gap-16">
     <dfm-button color="secondary" size="lg" routerLink="../basic-details"
-                *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
+                *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
                 class="back-btn">{{"Back" | translate}}
     </dfm-button>
     <dfm-button color="secondary" size="sm" routerLink="../basic-details"
-                *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
+                *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
                 class="back-btn-mv"> {{"Back" | translate}}
     </dfm-button>
 
@@ -130,7 +130,7 @@
       [disabled]="checkBoxStatus()"
       (click)="confirmAppointment()"
       class="confirm-btn"
-      *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
+      *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
     >
       {{"Confirm" | translate}}
     </dfm-button>
@@ -140,40 +140,41 @@
       [disabled]="checkBoxStatus()"
       (click)="confirmAppointment()"
       class="confirm-btn-mv"
-      *ngIf="!(appointment$$ | async)?.id && (loading$$ | async) === false"
+      *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
     >
       {{"Confirm" | translate}}
     </dfm-button>
   </div>
+  <ng-container *ngIf="(isEdit$$ | async) === false">
+    <div class="pending-section-button d-flex justify-content-center dfm-gap-16"
+         *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
+      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="mx-3 edit-btn"
+                  routerLink="/schedule/slot">
+        {{"EditAppointment" | translate}}
+      </dfm-button>
 
-  <div class="pending-section-button d-flex justify-content-center dfm-gap-16"
-       *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
-    <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="mx-3 edit-btn"
-                routerLink="/schedule/slot">
-      {{"EditAppointment" | translate}}
-    </dfm-button>
+      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="mx-3 edit-btn-mv"
+                  routerLink="/schedule/slot">
+        {{"Edit" | translate}}
+      </dfm-button>
 
-    <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="mx-3 edit-btn-mv"
-                routerLink="/schedule/slot">
-      {{"Edit" | translate}}
-    </dfm-button>
+      <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
+        {{"CancelAppointment" | translate}}
+      </dfm-button>
 
-    <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
-      {{"CancelAppointment" | translate}}
-    </dfm-button>
+      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
+                  (click)="cancelAppointment()">
+        {{"Cancel" | translate}}
+      </dfm-button> -->
+      <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']" >
+        Add New Appointment
+      </dfm-button>
 
-    <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
-                (click)="cancelAppointment()">
-      {{"Cancel" | translate}}
-    </dfm-button> -->
-    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']" >
-      Add New Appointment
-    </dfm-button>
-
-    <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']"
-                (click)="onAddNewAppointment()" >
-      Add New
-    </dfm-button>
-  </div>
+      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']"
+                  (click)="onAddNewAppointment()" >
+        Add New
+      </dfm-button>
+    </div>
+  </ng-container>
 </div>
 
