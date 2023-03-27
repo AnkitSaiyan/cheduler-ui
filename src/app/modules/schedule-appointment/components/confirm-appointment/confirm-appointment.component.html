@@ -68,10 +68,10 @@
             <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Pending" color="gray" size="lg">
               {{"Pending" | translate}}
             </dfm-badge>
-            <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Cancelled" color="primary"
+            <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Approved" color="success"
                        size="lg">{{"Approved" | translate}}
             </dfm-badge>
-            <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Approved" color="success"
+            <dfm-badge *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Cancelled" color="primary"
                        size="lg">{{"Cancelled" | translate}}
             </dfm-badge>
           </div>
