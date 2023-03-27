@@ -206,6 +206,7 @@
   "PhoneNo": "Phone No",
   "Exams": "Exams",
   "Time" : "Time",
+  "Approved": "Approved",
   "Cancelled":"Cancelled",
   "Pending": "Pending",
   "EditAppointment": "Edit Appointment",
