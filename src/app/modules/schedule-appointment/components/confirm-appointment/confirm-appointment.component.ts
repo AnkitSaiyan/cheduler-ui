@@ -274,8 +274,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       )
       .subscribe((res) => {
         if (res) {
-          this.removeLocalStorage();
-          this.notificationSvc.showNotification('Appointment canceled successfully');
+          this.scheduleAppointmentSvc.resetDetails();
+          this.notificationSvc.showNotification('Appointment cancelled successfully');
         }
       });
   }
@@ -296,22 +296,17 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     };
   }
 
-  private removeLocalStorage() {
-    localStorage.removeItem('basicDetails');
-    localStorage.removeItem('examDetails');
-    localStorage.removeItem('slotDetails');
-    localStorage.removeItem('edit');
-  }
-
   public onEdit() {
     localStorage.setItem('edit', 'true');
   }
 
   public onAddNewAppointment() {
-    this.removeLocalStorage();
-    localStorage.removeItem('appointmentId');
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
+
 
 
 

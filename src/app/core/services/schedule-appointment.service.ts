@@ -89,11 +89,14 @@ export class ScheduleAppointmentService {
     return of({});
   }
 
-  public resetDetails() {
+  public resetDetails(clearAppointmentId: boolean = false) {
+    if (clearAppointmentId) {
+      localStorage.removeItem('appointmentId');
+    }
+    localStorage.removeItem('basicDetails');
     localStorage.removeItem('examDetails');
     localStorage.removeItem('slotDetails');
-    localStorage.removeItem('basicDetails');
-    localStorage.removeItem('appointmentId');
+    localStorage.removeItem('edit');
     this.examDetails$$.next({} as ExamDetails);
     this.slotDetails$$.next({} as SlotDetails);
     this.basicDetails$$.next({});
@@ -205,6 +208,8 @@ export class ScheduleAppointmentService {
     );
   }
 }
+
+
 
 
 
