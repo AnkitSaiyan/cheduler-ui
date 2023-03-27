@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, switchMap, take, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
@@ -127,7 +127,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
           const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
           const { exams } = this.examsDetails;
-          return this.scheduleAppointmentSvc.getSlots$({ fromDate, toDate, exams });
+          return this.scheduleAppointmentSvc.getCalendarDays$({ fromDate, toDate, exams });
         }),
       )
       .subscribe((appointmentSlot) => {
@@ -163,14 +163,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           this.resetSlots();
           if (this.editData) {
             return this.scheduleAppointmentSvc.getSlots$({
-              fromDate: dateString,
-              toDate: dateString,
+              date: dateString,
               exams: this.editData.exams.map((exam) => exam.id),
             });
           }
           return this.scheduleAppointmentSvc.getSlots$({
-            fromDate: dateString,
-            toDate: dateString,
+            date: dateString,
             exams: [...this.examsDetails.exams],
           });
         }),
@@ -178,28 +176,43 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       )
       .subscribe({
         next: (appointmentSlot) => {
-          this.appointmentSlots$$.next(appointmentSlot[0]);
+          this.appointmentSlots$$.next(appointmentSlot);
           this.examIdToAppointmentSlots = {};
 
-          appointmentSlot[0]?.slots?.forEach((slot) => {
-            slot['exams'].forEach((element) => {
-              let index = slot['exams'].findIndex((x) => x.examId === element.examId);
+          const { examIdToSlots } = this.getModifiedSlotData(appointmentSlot?.slots, appointmentSlot?.isCombined);
+          this.examIdToAppointmentSlots = { ...examIdToSlots };
 
-              if (!this.examIdToAppointmentSlots[element.examId]) {
-                this.examIdToAppointmentSlots[element.examId] = [];
-              }
-              const tempSlot: ModifiedSlot = {
-                end: slot.end,
-                start: slot.start,
-                examId: slot.exams[index].examId,
-                roomList: slot.exams[index].roomId,
-                userList: slot.exams[index].userId,
-                exams: [],
-              };
-              this.examIdToAppointmentSlots[element.examId].push(tempSlot);
-            });
-          });
+          // appointmentSlot?.slots?.forEach((slot: any) => {
+          //   if (!this.examIdToAppointmentSlots[slot.examId]) {
+          //     this.examIdToAppointmentSlots[slot.examId] = [];
+          //   }
+          //   if (appointmentSlot.isCombined) {
+          //     slot.exams.forEach((exam) => {
+          //       const tempSlot: any = {
+          //         end: slot.end,
+          //         start: slot.start,
+          //         exams: slot.exams,
+          //         examId: exam.examId,
+          //         roomList: exam.rooms,
+          //         userList: exam.users,
+          //       };
+          //       this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
+          //     });
+          //   } else {
+          //     slot.exams.forEach((exam) => {
+          //       const tempSlot: any = {
+          //         end: exam.end,
+          //         start: exam.start,
+          //         examId: exam.examId,
+          //         roomList: exam.rooms,
+          //         userList: exam.users,
+          //       };
+          //       this.examIdToAppointmentSlots[slot.examId].push(tempSlot);
+          //     });
+          //   }
+          // });
           this.loadingSlots$$.next(false);
+          console.log(this.examIdToAppointmentSlots);
         },
         error: () => this.loadingSlots$$.next(false),
       });
@@ -237,6 +250,63 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
   }
 
+  private getModifiedSlotData(
+    slots: Slot[],
+    isCombinable: boolean,
+  ): {
+    newSlots: any[];
+    examIdToSlots: {
+      [key: number]: any[];
+    };
+  } {
+    if (!slots?.length) {
+      return { examIdToSlots: {}, newSlots: [] };
+    }
+
+    const newSlots: any[] = [];
+    const examIdToSlotsMap: { [key: number]: any[] } = {};
+    const uniqueSlots = new Set<string>();
+
+    slots.forEach((slot) => {
+      const slotString = `${slot.start}-${slot.end}`;
+
+      if (!uniqueSlots.has(slotString)) {
+        slot?.exams?.forEach((exam: any) => {
+          let newSlot;
+          if (isCombinable) {
+            newSlot = {
+              start: slot.start,
+              end: slot.end,
+              exams: slot.exams,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          } else {
+            newSlot = {
+              start: exam.start,
+              end: exam.end,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          }
+
+          if (!examIdToSlotsMap[+exam.examId]) {
+            examIdToSlotsMap[+exam.examId] = [];
+          }
+
+          examIdToSlotsMap[+exam.examId].push(newSlot);
+          newSlots.push(newSlot);
+        });
+
+        uniqueSlots.add(slotString);
+      }
+    });
+
+    return { newSlots, examIdToSlots: examIdToSlotsMap };
+  }
+
   public toggleSlotSelection(slot: ModifiedSlot) {
     if (!this.isSlotAvailable(slot)) {
       return;
@@ -245,28 +315,31 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
     } else {
       this.selectedTimeSlot[slot.examId] = {
+        ...slot,
+        slot: `${slot.start}-${slot.end}`,
+        examId: slot.examId,
+        roomList: slot?.roomList ?? [],
+        userList: slot?.userList ?? [],
+      };
+      console.log(this.selectedTimeSlot, slot);
+    }
+  }
+
+  public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
+    if (!this.isSlotAvailable(slot)) {
+      return;
+    }
+    if (this.selectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
+      this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
+    } else {
+      this.selectedTimeSlot[slot.examId] = {
+        ...slot,
         slot: `${slot.start}-${slot.end}`,
         examId: slot.examId,
         roomList: slot?.roomList ?? [],
         userList: slot?.userList ?? [],
       };
     }
-  }
-
-  public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
-    Object.keys(this.examIdToAppointmentSlots).forEach((res) => {
-      if (this.selectedTimeSlot[res]?.slot === `${this.examIdToAppointmentSlots[res].start}-${this.examIdToAppointmentSlots[res].end}`) {
-        this.selectedTimeSlot[res] = { slot: '', roomList: [], userList: [], examId: res };
-      } else {
-        const index = this.examIdToAppointmentSlots[res].findIndex((x) => x.start === slot.start && x.end === slot.end);
-        this.selectedTimeSlot[res] = {
-          slot: `${this.examIdToAppointmentSlots[res][index].start}-${this.examIdToAppointmentSlots[res][index].end}`,
-          examId: res,
-          roomList: this.examIdToAppointmentSlots[res][index]?.roomList ?? [],
-          userList: this.examIdToAppointmentSlots[res][index]?.userList ?? [],
-        };
-      }
-    });
   }
 
   public selectDate(day: number) {
@@ -303,15 +376,33 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public isSlotAvailable(slot: ModifiedSlot) {
-    let isAvailable = true;
-    Object.entries(this.selectedTimeSlot).forEach(([key, value]) => {
-      const timeString = `${slot.start}-${slot.end}`;
-      if (+key !== slot.examId && timeString === value.slot) {
-        isAvailable = false;
-      }
+    return !Object.values(this.selectedTimeSlot)?.some((value) => {
+      const firstSlot = value.slot.split('-');
+      return slot.examId !== value.examId && this.checkTimeRangeOverlapping(firstSlot[0], firstSlot[1], slot.start, slot.end);
     });
+  }
 
-    return isAvailable;
+  private checkTimeRangeOverlapping(start1: string, end1: string, start2: string, end2: string): boolean {
+    // debugger
+    const a = this.timeToNumber(start1);
+    const b = this.timeToNumber(end1);
+
+    const c = this.timeToNumber(start2);
+    const d = this.timeToNumber(end2);
+
+    return !(b <= c || d <= a);
+  }
+
+  private timeToNumber(timeString: string): number {
+    if (timeString && timeString.includes(':')) {
+      const timeInNo = +timeString.split(':').join('');
+
+      if (!Number.isNaN(timeInNo)) {
+        return timeInNo;
+      }
+    }
+
+    return 0;
   }
 
   private getCalendarSlots() {
@@ -340,3 +431,22 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.appointmentSlots$$.next(null);
   }
 }
+
+function timeToNumber(start1: string) {
+  throw new Error('Function not implemented.');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -52,6 +52,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public edit: boolean = false;
 
+  public isEdit$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -64,6 +66,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
+    if (localStorage.getItem('edit')) {
+      this.isEdit$$.next(true);
+    }
   }
 
   public ngOnInit(): void {
@@ -157,6 +162,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         }
       }
     });
+
+    // if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
+    //   this.confirmAppointment();
+    // }
   }
 
   public override ngOnDestroy() {
@@ -178,26 +187,53 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
 
-    const examList: any = [];
-    Object.keys(this.slotDetails.selectedSlots).forEach((res) => {
-      const startTime = Object.values(this.slotDetails.selectedSlots[res].slot.split('-')[0].split(':'));
-      const endTime = Object.values(this.slotDetails.selectedSlots[res].slot.split('-')[1].split(':'));
-      examList.push({
-        examId: this.slotDetails.selectedSlots[res].examId,
-        startedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${startTime[0]}:${startTime[1]}`,
-        endedAt: `${this.datePipe.transform(this.slotDetails.selectedDate, 'yyyy-MM-dd')} ${endTime[0]}:${endTime[1]}`,
-        userList: this.slotDetails.selectedSlots[res].userList,
-        roomList: this.slotDetails.selectedSlots[res].roomList,
-      });
-    });
-    const requestData = {
+    const selectedTimeSlot = this.slotDetails.selectedSlots;
+    const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
+    delete combinableSelectedTimeSlot.userList;
+    delete combinableSelectedTimeSlot.roomList;
+    delete combinableSelectedTimeSlot.slot;
+
+    const requestData: any = {
       ...this.basicDetails,
       doctorId: this.examDetails.physician,
-      examDetails: examList,
+      date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
+      slot: combinableSelectedTimeSlot?.exams?.length
+        ? combinableSelectedTimeSlot
+        : {
+            examId: 0,
+            start: '',
+            end: '',
+            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+              const examDetails = {
+                examId: +examID,
+                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+                users: selectedTimeSlot[+examID]?.userList ?? [],
+              };
+
+              if (selectedTimeSlot[+examID]) {
+                const time = selectedTimeSlot[+examID].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              } else {
+                const time = selectedTimeSlot[0].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              }
+
+              return examDetails;
+            }),
+          },
     };
+
     if (requestData) {
-      if (this.edit) {
-        requestData['appointmentId'] = JSON.parse(localStorage.getItem('appointmentDetails') || '')['id'];
+      if (this.edit || localStorage.getItem('appointmentId')) {
+        requestData['appointmentId'] = localStorage.getItem('appointmentId');
         this.scheduleAppointmentSvc
           .updateAppointment$(requestData)
           .pipe(takeUntil(this.destroy$$))
@@ -206,7 +242,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             // this.appointmentId$$.next(res?['id']);
             localStorage.removeItem('appointmentDetails');
             this.notificationSvc.showNotification(`Appointment updated successfully`);
-            this.router.navigate(['/appointment']);
+            // this.router.navigate(['/appointment']);
+            localStorage.removeItem('edit');
+            this.isEdit$$.next(false);
           });
       } else {
         this.scheduleAppointmentSvc
@@ -242,8 +280,81 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       )
       .subscribe((res) => {
         if (res) {
-          this.notificationSvc.showNotification('Appointment canceled successfully');
+          this.scheduleAppointmentSvc.resetDetails();
+          this.notificationSvc.showNotification('Appointment cancelled successfully');
         }
       });
   }
+
+  private dateDistributedToString(date: any, separator = '-'): string {
+    return `${date.year}${separator}${date.month}${separator}${date.day}`;
+  }
+
+  private dateToDateDistributed(date: Date): any {
+    if (!date) {
+      return {};
+    }
+
+    return {
+      year: new Date(date).getFullYear(),
+      month: new Date(date).getMonth() + 1,
+      day: new Date(date).getDate(),
+    };
+  }
+
+  public onEdit() {
+    localStorage.setItem('edit', 'true');
+  }
+
+  public onAddNewAppointment() {
+    this.scheduleAppointmentSvc.resetDetails(true);
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

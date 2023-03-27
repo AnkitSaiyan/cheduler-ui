@@ -7,6 +7,7 @@ export interface ExamDetails {
 export interface SlotDetails {
   selectedDate: Date | null;
   selectedSlots: {
-    [key: number]: string
+    [key: number]: any;
   };
 }
+

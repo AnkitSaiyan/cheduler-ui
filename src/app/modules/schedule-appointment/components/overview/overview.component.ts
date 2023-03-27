@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { LandingService } from '../../../../core/services/landing.service';
 
@@ -14,7 +15,7 @@ export class OverviewComponent implements OnInit {
 
   public siteSetting: any;
 
-  constructor(private authSvc: AuthService, public sharedService: LandingService) {}
+  constructor(private authSvc: AuthService, public sharedService: LandingService, private scheduleAppointmentSvc: ScheduleAppointmentService) {}
 
   ngOnInit(): void {
     // localStorage.removeItem('examDetails');
@@ -30,10 +31,10 @@ export class OverviewComponent implements OnInit {
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
   }
 
-  removeEditStorage(){
-    localStorage.removeItem('appointmentDetails');
-    localStorage.removeItem('examDetails');
-    localStorage.removeItem('slotDetails');
-    localStorage.removeItem('basicDetails');
+  removeEditStorage() {
+    this.scheduleAppointmentSvc.resetDetails();
   }
 }
+
+
+
