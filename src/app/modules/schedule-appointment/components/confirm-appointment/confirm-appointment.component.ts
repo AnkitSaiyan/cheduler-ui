@@ -239,7 +239,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       if (this.edit || localStorage.getItem('appointmentId')) {
         requestData['appointmentId'] = localStorage.getItem('appointmentId');
         this.scheduleAppointmentSvc
-          .updateAppointment$(requestData)
+          .updateAppointment$({ ...requestData, fromPatient: true })
           .pipe(takeUntil(this.destroy$$))
           .subscribe(
             (res) => {
@@ -322,6 +322,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
 
 
 
