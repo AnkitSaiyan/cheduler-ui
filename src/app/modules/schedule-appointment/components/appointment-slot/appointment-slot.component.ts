@@ -156,7 +156,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       .asObservable()
       .pipe(
         debounceTime(0),
-        filter((date) => !!date),
+        filter((date) => this.isDateValid(date)),
         tap(() => this.loadingSlots$$.next(true)),
         switchMap((date) => {
           const dateString = this.getDateString(date);
@@ -429,6 +429,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.selectedTimeSlot = {};
     this.examIdToAppointmentSlots = {};
     this.appointmentSlots$$.next(null);
+  }
+
+  private isDateValid(d: any): boolean {
+    if (Object.prototype.toString.call(d) === '[object Date]') {
+      if (isNaN(d)) return false;
+      return true;
+    }
+    return false;
   }
 }
 
