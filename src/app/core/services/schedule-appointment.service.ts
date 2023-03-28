@@ -97,6 +97,7 @@ export class ScheduleAppointmentService {
     localStorage.removeItem('examDetails');
     localStorage.removeItem('slotDetails');
     localStorage.removeItem('edit');
+    localStorage.removeItem('appointmentDetails');
     this.examDetails$$.next({} as ExamDetails);
     this.slotDetails$$.next({} as SlotDetails);
     this.basicDetails$$.next({});
@@ -195,9 +196,9 @@ export class ScheduleAppointmentService {
         return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment/${appointmentID}`).pipe(
           map((response) => {
             if (Array.isArray(response.data)) {
-              return response.data[0];
+              return this.getAppointmentModified(response.data[0]);
             }
-            return response.data as Appointment;
+            return this.getAppointmentModified(response.data) as Appointment;
           }),
           catchError((e) => {
             console.log('error', e);
@@ -207,7 +208,63 @@ export class ScheduleAppointmentService {
       }),
     );
   }
+
+  private getAppointmentModified(appointment: any): any {
+    const examIdToRooms: { [key: number]: any[] } = {};
+    const examIdToUsers: { [key: number]: any[] } = {};
+
+    if (appointment.roomsDetail?.length) {
+      appointment?.roomsDetail?.forEach((room) => {
+        if (!examIdToRooms[+room.examId]) {
+          examIdToRooms[+room.examId] = [];
+        }
+        examIdToRooms[+room.examId].push({ start: room.startedAt.slice(-8), end: room.endedAt.slice(-8), roomId: room.id });
+      });
+    }
+
+    if (appointment.usersDetail?.length) {
+      appointment?.usersDetail?.forEach((user) => {
+        if (!examIdToUsers[+user.examId]) {
+          examIdToUsers[+user.examId] = [];
+        }
+        examIdToUsers[+user.examId].push(user.id);
+      });
+    }
+
+    let startedAt;
+    let endedAt;
+
+    const ap = {
+      ...appointment,
+      exams: appointment.exams.map((exam) => {
+        if (exam.startedAt && (!startedAt || new Date(exam.startedAt) < startedAt)) {
+          startedAt = new Date(exam.startedAt);
+        }
+
+        if (exam.endedAt && (!endedAt || new Date(exam.endedAt) > endedAt)) {
+          endedAt = new Date(exam.endedAt);
+        }
+
+        return {
+          ...exam,
+          rooms: examIdToRooms[+exam.id],
+          allUsers: exam?.users ?? [],
+          users: examIdToUsers[+exam.id],
+        };
+      }),
+    };
+
+    ap.startedAt = startedAt;
+    ap.endedAt = endedAt;
+
+    return ap;
+  }
 }
+
+
+
+
+
 
 
 
