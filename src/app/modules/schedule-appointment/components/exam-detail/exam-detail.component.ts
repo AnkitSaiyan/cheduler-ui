@@ -37,7 +37,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
-    localStorage.removeItem('appointmentId');
+    // localStorage.removeItem('appointmentId');
   }
 
   public ngOnInit(): void {
@@ -49,7 +49,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
         console.log(this.editData);
         const examData = {
           comments: this.editData.comments,
-          physician: this.editData.physicianId,
+          physician: this.editData.doctorId,
         };
         this.examForm.patchValue(examData);
         const items = this.examForm.get('exams') as FormArray;
@@ -156,6 +156,16 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.router.navigate(['../slot'], { relativeTo: this.route });
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

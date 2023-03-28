@@ -189,11 +189,11 @@
         {{ 'Back' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid()">
+      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid() && !editData?.exams[0]?.startedAt?.length">
         {{ 'Next' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid()">
+      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid() && !editData?.exams[0]?.startedAt?.length">
         {{ 'Next' | translate }}
       </dfm-button>
     </div>
