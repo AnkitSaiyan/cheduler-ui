@@ -127,7 +127,7 @@
     <dfm-button
       [color]="'primary'"
       [size]="'lg'"
-      [disabled]="checkBoxStatus()"
+      [disabled]="checkBoxStatus() || (isButtonDisable$$ | async) === true"
       (click)="confirmAppointment()"
       class="confirm-btn"
       *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
@@ -137,7 +137,7 @@
     <dfm-button
       [color]="'primary'"
       [size]="'sm'"
-      [disabled]="checkBoxStatus()"
+      [disabled]="checkBoxStatus() || (isButtonDisable$$ | async) === true"
       (click)="confirmAppointment()"
       class="confirm-btn-mv"
       *ngIf="(isEdit$$ | async)||(!(appointment$$ | async)?.id && (loading$$ | async) === false)"
