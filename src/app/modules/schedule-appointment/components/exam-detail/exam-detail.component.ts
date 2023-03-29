@@ -87,7 +87,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private createForm(examDetails?, isEdit?) {
     this.examForm = this.fb.group({
       physician: [!!examDetails?.physician ? examDetails.physician : '', []],
-      exams: this.fb.array([]),
+      exams: this.fb.array([], Validators.required),
       comments: [examDetails?.comments ?? examDetails.comments, []],
     });
 
@@ -156,6 +156,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.router.navigate(['../slot'], { relativeTo: this.route });
   }
 }
+
+
 
 
 
