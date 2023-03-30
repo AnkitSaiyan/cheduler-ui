@@ -54,6 +54,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public isEdit$$ = new BehaviorSubject<boolean>(false);
 
+  public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -187,6 +189,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
 
+    this.isButtonDisable$$.next(true);
+
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -235,27 +239,35 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       if (this.edit || localStorage.getItem('appointmentId')) {
         requestData['appointmentId'] = localStorage.getItem('appointmentId');
         this.scheduleAppointmentSvc
-          .updateAppointment$(requestData)
+          .updateAppointment$({ ...requestData, fromPatient: true })
           .pipe(takeUntil(this.destroy$$))
-          .subscribe((res) => {
-            // localStorage.setItem('appointmentId', res?['id'].toString());
-            // this.appointmentId$$.next(res?['id']);
-            localStorage.removeItem('appointmentDetails');
-            this.notificationSvc.showNotification(`Appointment updated successfully`);
-            // this.router.navigate(['/appointment']);
-            localStorage.removeItem('edit');
-            this.isEdit$$.next(false);
-          });
+          .subscribe(
+            (res) => {
+              // localStorage.setItem('appointmentId', res?['id'].toString());
+              // this.appointmentId$$.next(res?['id']);
+              localStorage.removeItem('appointmentDetails');
+              this.notificationSvc.showNotification(`Appointment updated successfully`);
+              // this.router.navigate(['/appointment']);
+              localStorage.removeItem('edit');
+              this.isEdit$$.next(false);
+              this.isButtonDisable$$.next(false);
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
       } else {
         this.scheduleAppointmentSvc
           .addAppointment(requestData)
           .pipe(takeUntil(this.destroy$$))
-          .subscribe((res) => {
-            localStorage.setItem('appointmentId', res?.id.toString());
-            localStorage.removeItem('appointmentDetails');
-            this.appointmentId$$.next(res?.id);
-            this.notificationSvc.showNotification(`Appointment added successfully`);
-          });
+          .subscribe(
+            (res) => {
+              localStorage.setItem('appointmentId', res?.id.toString());
+              localStorage.removeItem('appointmentDetails');
+              this.appointmentId$$.next(res?.id);
+              this.notificationSvc.showNotification(`Appointment added successfully`);
+              this.isButtonDisable$$.next(false);
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
       }
     }
   }
@@ -310,6 +322,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
+
+
+
+
 
 
 

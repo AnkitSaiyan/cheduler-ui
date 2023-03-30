@@ -32,9 +32,10 @@ export class OverviewComponent implements OnInit {
   }
 
   removeEditStorage() {
-    this.scheduleAppointmentSvc.resetDetails();
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
 
 
 

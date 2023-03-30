@@ -3,7 +3,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, debounceTime, filter, switchMap, take, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, catchError, debounceTime, filter, switchMap, take, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
@@ -39,6 +39,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public selectedTimeSlot: { [key: number]: any } = {};
 
+  public editSelectedTimeSlot: { [key: number]: any } = {};
+
   public examsDetails: ExamDetails = {} as ExamDetails;
 
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
@@ -71,7 +73,15 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      const exams = [...this.editData.exams];
+      exams.forEach((exam) => {
+        const start = this.dateTo24TimeString(exam.startedAt);
+        const end = this.dateTo24TimeString(exam.endedAt);
+        console.log({ exam });
+        this.toggleSlotSelection({ start, end, examId: +exam.id, userList: exam.users, roomList: exam.rooms } as ModifiedSlot, true);
+      });
     }
+
     // this.scheduleAppointmentSvc.editDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
     //   if (!this.editData) {
     //     if (examDetails?.isEdit) {
@@ -148,7 +158,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           }
         });
         if (this.editData) {
-          this.selectDate(new Date(this.editData['exams'][0].startedAt).getDate());
+          this.selectDate(new Date(this.editData['exams'][0].startedAt).getDate(), true);
         }
       });
 
@@ -156,7 +166,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       .asObservable()
       .pipe(
         debounceTime(0),
-        filter((date) => !!date),
+        filter((date) => this.isDateValid(date)),
         tap(() => this.loadingSlots$$.next(true)),
         switchMap((date) => {
           const dateString = this.getDateString(date);
@@ -220,6 +230,18 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public override ngOnDestroy() {
     super.ngOnDestroy();
+  }
+
+  private dateTo24TimeString(date: Date): string {
+    if (!date) {
+      return '';
+    }
+
+    date = new Date(date);
+
+    const minutes = date.getMinutes().toString();
+
+    return `${date.getHours()}:${minutes.length < 2 ? `0${minutes}` : minutes}:00`;
   }
 
   public changeMonth(offset: number) {
@@ -307,8 +329,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     return { newSlots, examIdToSlots: examIdToSlotsMap };
   }
 
-  public toggleSlotSelection(slot: ModifiedSlot) {
-    if (!this.isSlotAvailable(slot)) {
+  public toggleSlotSelection(slot: ModifiedSlot, isEdit: boolean = false) {
+    console.log(slot, 'slot');
+    if (!this.isSlotAvailable(slot) && !isEdit) {
       return;
     }
     if (this.selectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
@@ -322,6 +345,20 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         userList: slot?.userList ?? [],
       };
       console.log(this.selectedTimeSlot, slot);
+    }
+    if (isEdit) {
+      if (this.editSelectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
+        this.editSelectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
+      } else {
+        this.editSelectedTimeSlot[slot.examId] = {
+          ...slot,
+          slot: `${slot.start}-${slot.end}`,
+          examId: slot.examId,
+          roomList: slot?.roomList ?? [],
+          userList: slot?.userList ?? [],
+        };
+        console.log(this.editSelectedTimeSlot, slot);
+      }
     }
   }
 
@@ -342,17 +379,23 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     }
   }
 
-  public selectDate(day: number) {
+  public selectDate(day: number, isEdit: boolean = false) {
     console.log('in');
     this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
-    this.selectedTimeSlot = {};
+    if (!isEdit) this.selectedTimeSlot = {};
   }
 
   public saveSlotDetails() {
+    Object.keys(this.editSelectedTimeSlot).forEach((id) => {
+      if (!this.selectedTimeSlot[id]) {
+        this.selectedTimeSlot[id] = { ...this.editSelectedTimeSlot[id] };
+      }
+    });
     const slotDetails = {
       selectedDate: this.selectedDate$$.value,
       selectedSlots: this.selectedTimeSlot,
     } as SlotDetails;
+
     // for (let i = 0; i < this.editData.exams.length; i++) {
     //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     //   this.editData.exmas[i].startedAt = this.selectedDate$$.value + ' ';
@@ -430,11 +473,84 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.examIdToAppointmentSlots = {};
     this.appointmentSlots$$.next(null);
   }
+
+  private isDateValid(d: any): boolean {
+    if (Object.prototype.toString.call(d) === '[object Date]') {
+      if (isNaN(d)) return false;
+      return true;
+    }
+    return false;
+  }
 }
 
 function timeToNumber(start1: string) {
   throw new Error('Function not implemented.');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 export interface ExamDetails {
-  physician: number;
+  physician: number | string;
   exams: number[];
   comments?: string;
 }
@@ -10,4 +10,5 @@ export interface SlotDetails {
     [key: number]: any;
   };
 }
+
 
