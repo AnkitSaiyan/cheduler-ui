@@ -8,6 +8,7 @@ import { ConfirmActionModalComponent, DialogData } from '../../../../shared/comp
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { Router } from '@angular/router';
 import { ExamDetails } from 'src/app/shared/models/local-storage-data.model';
+import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Component({
   selector: 'dfm-appointment',
@@ -23,11 +24,11 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
 
   private appointments$$: BehaviorSubject<any[]>;
 
-  public filteredAppointments$$: BehaviorSubject<any[]>;
+  public filteredAppointments$$: BehaviorSubject<any[] | null>;
 
   private completedAppointments$$: BehaviorSubject<any[]>;
 
-  public filteredCompletedAppointments$$: BehaviorSubject<any[]>;
+  public filteredCompletedAppointments$$: BehaviorSubject<any[] | null>;
 
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -38,12 +39,13 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
     private notificationSvc: NotificationDataService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
+    public loaderSvc: LoaderService,
   ) {
     super();
     this.appointments$$ = new BehaviorSubject<any[]>([]);
-    this.filteredAppointments$$ = new BehaviorSubject<any[]>([]);
+    this.filteredAppointments$$ = new BehaviorSubject<any[] | null>(null);
     this.completedAppointments$$ = new BehaviorSubject<any[]>([]);
-    this.filteredCompletedAppointments$$ = new BehaviorSubject<any[]>([]);
+    this.filteredCompletedAppointments$$ = new BehaviorSubject<any[] | null>(null);
     this.scheduleAppointmentService.resetDetails(true);
     localStorage.removeItem('appointmentDetails');
   }
@@ -124,6 +126,9 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
       });
   }
 }
+
+
+
 
 
 

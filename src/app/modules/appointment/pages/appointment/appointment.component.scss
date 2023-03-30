@@ -140,7 +140,7 @@
 
 .previous-appointment-title {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     // position: relative;
 }
@@ -458,7 +458,7 @@
 
     .previous-appointment-title {
         display: flex !important;
-        flex-direction: row !important;
+        flex-direction: column !important;
         justify-content: start !important;
         align-items: flex-start !important;
         // position: relative;

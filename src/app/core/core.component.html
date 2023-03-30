@@ -2,7 +2,7 @@
   <dfm-side-nav *ngIf="isLoggedIn$ | async"></dfm-side-nav>
   <div class="content">
     <dfm-header></dfm-header>
-    <mat-progress-bar *ngIf="isLoaderActive$$ | async" mode="indeterminate"></mat-progress-bar>
+    <!-- <mat-progress-bar *ngIf="isLoaderActive$$ | async" mode="indeterminate"></mat-progress-bar> -->
 
     <div class="body-content scrollbar-w-8" [ngClass]="{ 'body-content-logged-in': isLoggedIn$ | async }">
       <dfm-sub-header *ngIf="url !== '/privacy/policy' && (url.includes('schedule') || (isLoggedIn$ | async))"></dfm-sub-header>
