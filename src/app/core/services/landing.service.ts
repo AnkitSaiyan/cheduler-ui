@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startW
 import { Router } from '@angular/router';
 import {BaseResponse} from 'src/app/shared/models/base-response.model';
 import {environment} from 'src/environments/environment';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +18,15 @@ export class LandingService {
 
   private workingHourDetails$$ = new BehaviorSubject<any>({});
 
-  constructor(private router: Router , private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private loaderSvc: LoaderService) {}
 
   public get siteDetails$(): Observable<any[]> {
     return combineLatest([this.refreshSiteDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllSiteDetail()));
   }
 
   fetchAllSiteDetail(): Observable<any> {
-    return this.http.get<any>(`${environment.serverBaseUrl}/sitesetting`);
+    this.loaderSvc.activate();
+    return this.http.get<any>(`${environment.serverBaseUrl}/sitesetting`).pipe(tap(() => this.loaderSvc.deactivate()));
   }
 
   public get workingDetails$(): Observable<any[]> {
@@ -35,3 +37,4 @@ export class LandingService {
     return this.http.get<any>(`${environment.serverBaseUrl}/practice`);
   }
 }
+

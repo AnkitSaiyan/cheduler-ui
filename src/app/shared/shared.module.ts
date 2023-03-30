@@ -7,6 +7,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SubHeaderComponent } from './components/sub-header/sub-header.component';
@@ -53,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   exports: [
     DesignSystemModule,
@@ -71,8 +73,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule,
     DashIfNothingPipe,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
 })
 export class SharedModule {}
+
+
+
 
 
