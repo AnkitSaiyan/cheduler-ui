@@ -4,10 +4,20 @@
   max-height: 100vh;
   min-height: 100vh;
   flex: 1;
-  .mat-progress-bar {
+  @media (min-width: 680px) {
+    .mat-progress-bar {
       left: 52px;
       position: absolute;
       margin: 36px;
+    }
+    }
+  
+    @media (min-width: 180px) and (max-width: 680px) {
+      .mat-progress-bar {
+        position: absolute;
+        margin: 50px;
+        left: -50px;
+      }
     }
 }
 

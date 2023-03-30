@@ -141,7 +141,8 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
-    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/doctor`).pipe(map((response) => response.data));
+    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/doctor`).pipe(
+      map((response) => response.data))
   }
 
   public get exams$(): Observable<Exam[]> {
@@ -149,7 +150,8 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllExams(): Observable<Exam[]> {
-    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data));
+    this.loaderSvc.spinnerActivate()
+    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data), tap(() => this.loaderSvc.spinnerDeactivate()));
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
@@ -263,6 +265,15 @@ export class ScheduleAppointmentService {
     return ap;
   }
 }
+
+
+
+
+
+
+
+
+
 
 
 

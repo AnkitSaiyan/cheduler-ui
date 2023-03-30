@@ -19,13 +19,22 @@
   // margin: 0px 0px -10px 0px!important;
 }
 // ======================Media Query for Mobile view=================
+@media (min-width: 680px) {
+  .exam-form-container {
+    min-height: 336px;
+    min-width: 666px;
+  }
+}
 @media (min-width: 180px) and (max-width: 680px) {
+  .exam-form-container {
+      min-height: min(60vh, 354px);
+    }
   .main-exam-container{
     // border: 1px solid red;
     padding: 0px 0px 10px 0px!important;
     background-color: #fff;
   }
-   
+
   .exam-main-container {
     // background-color: #fff !important;
     // border: 1px solid green;
