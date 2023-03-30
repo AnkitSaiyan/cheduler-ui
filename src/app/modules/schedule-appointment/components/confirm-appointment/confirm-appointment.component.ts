@@ -104,7 +104,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         (appointment) => {
           this.appointment$$.next(appointment as Appointment);
 
-          if (appointment?.id) {
+          if (appointment?.id && !this.isEdit$$.value) {
             let s: string;
             switch (appointment.approval) {
               case AppointmentStatus.Cancelled:
@@ -322,6 +322,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
 
 
 
