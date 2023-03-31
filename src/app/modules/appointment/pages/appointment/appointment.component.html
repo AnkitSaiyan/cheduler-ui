@@ -22,8 +22,7 @@
 
 <div class="login-dashboard-content bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="heading-div upcoming-text">{{"UpcomingAppointments" | translate}}</div>
-
-  <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments">
+  <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments; else loader1">
     <div class="upcoming-appointments-details">
       <!-- {{ upcommingAppointments | json }} -->
       <div *ngFor="let item of upcommingAppointments" class="display-boxes mb-4">
@@ -79,6 +78,11 @@
       </div>
     </div>
   </div>
+  <ng-template #loader1>
+    <div class="d-flex justify-content-center flex-1">
+      <mat-spinner diameter="48"></mat-spinner>
+    </div>
+  </ng-template>
 </div>
 
 <div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
@@ -86,11 +90,16 @@
     <div class="heading-div previous-app-text">{{"PreviousAppointments" | translate}}</div>
 
     <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-    <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments">
+    <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments;else loader2">
       <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
         >{{ viewAll ? ('Hide' | translate) : ('ViewAll' | translate) }}
       </dfm-button>
     </div>
+    <ng-template #loader2>
+      <div class="d-flex justify-content-center flex-1">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+    </ng-template>
   </div>
   <div
     class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3"

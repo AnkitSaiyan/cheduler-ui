@@ -119,10 +119,10 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
-    this.loaderSvc.activate();
+    this.loaderSvc.spinnerActivate();
     return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallupcomingappointmentlist`).pipe(
       map((response) => response.data),
-      tap(() => this.loaderSvc.deactivate()),
+      tap(() => this.loaderSvc.spinnerDeactivate()),
     );
   }
 
@@ -265,6 +265,7 @@ export class ScheduleAppointmentService {
     return ap;
   }
 }
+
 
 
 

@@ -8,7 +8,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import { SharedModule } from '../shared/shared.module';
 import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.component';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 // eslint-disable-next-line import/order
 // import { HttpClient } from '@angular/common/http';
 
@@ -22,7 +22,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CommonModule,
     CoreRoutingModule,
     SharedModule,
-    MatProgressBarModule,
     // TranslateModule.forChild({
     //   loader: {
     //     provide: TranslateLoader,
@@ -32,9 +31,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     //   },
     // }),
   ],
-  exports: [MatProgressBarModule],
+  exports: [],
 })
 export class CoreModule {}
+
 
 
 
