@@ -103,8 +103,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       .subscribe(
         (appointment) => {
           this.appointment$$.next(appointment as Appointment);
+          localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
 
-          if (appointment?.id) {
+          if (appointment?.id && !this.isEdit$$.value) {
             let s: string;
             switch (appointment.approval) {
               case AppointmentStatus.Cancelled:
@@ -322,6 +323,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
 
 
 
