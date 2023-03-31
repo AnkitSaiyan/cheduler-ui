@@ -2,10 +2,13 @@
   class="d-flex flex-column justify-content-center align-items-center form-container-mv dfm-gap-24 dfm-p-24 border-r-16">
   <form class="form-mv dfm-card basic-details-form" [formGroup]="basicDetailsForm">
     <div class="form-group-container d-flex justify-content-center gap-4">
+      <div>
       <div class="form-group">
         <dfm-input type="text" size="sm" label="{{'FirstName' | translate}} *" placeholder="{{'EnterFirstName' | translate}}"
-                   formControlName="patientFname"></dfm-input>
-      </div>
+                   formControlName="patientFname">
+                  </dfm-input>
+                  </div>
+                </div>
       <div class="">
         <dfm-input type="text" size="sm" label="{{'LastName' | translate}} *" placeholder="{{'EnterLastName' | translate}}"
                    formControlName="patientLname"></dfm-input>

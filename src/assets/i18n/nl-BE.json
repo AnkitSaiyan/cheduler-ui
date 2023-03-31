@@ -223,7 +223,7 @@
   "ConfirmPassword": "Bevestig Paswoord",
   "UpcomingAppointments":"Komende Afspraken",
   "AppointmentStatus" :"Status Afspraak",
-  "WeWillNotifyYou": "We laten U via email weten wanneer uw afspraak bevestigd is",
+  "WeWillNotifyYou": "Zodra uw afspraak is bevestigd, zullen wij u per e-mail op de hoogte stellen",
   "PreviousAppointments" :"Vorige Afspraken",
   "Dashboard": "Dashboard",
   "Profile": "Profiel",
@@ -256,5 +256,6 @@
   "NoAppointmentsScheduled" : "Geen afspraken gepland",
   "LoadingSlots": "Sleuven laden",
   "PrivacyPolicyAndCookies" : "Privacy & cookies beleid",
-  "YourAppointmentsWillAppearHere" : "Uw afspraak verschijnt hier"
+  "YourAppointmentsWillAppearHere" : "Uw afspraak verschijnt hier",
+  "SelectedSlot" : "Geselecteerde gokkast"
 }
