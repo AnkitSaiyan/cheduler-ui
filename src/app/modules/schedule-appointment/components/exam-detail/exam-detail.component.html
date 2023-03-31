@@ -15,6 +15,9 @@
         >
           {{ physician }}
         </dfm-input-dropdown>
+        <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
+          {{ 'RequiredField' | translate }}
+        </span>
     </ng-container>
       <!-- ===============||Comments Section added for mobile view============|| -->
       <section class="comments-mv">
@@ -30,15 +33,19 @@
             <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}} *" placeholder="{{'SelectExam' | translate}}" size="md">
               {{ items }}
             </dfm-input-dropdown>
-
             <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" (click)="removeExam(i)">
               <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
             </div>
           </div>
+          <span class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
+            {{ 'RequiredField' | translate }}</span>
         </div>
 
+          <!-- <span class="validation-error" >
+          {{examForm.value['exams'] | json }}</span> -->
         <div class="add-exam-btn"></div>
       </div>
+
       <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
         <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
           <dfm-icon name="plus"></dfm-icon>

@@ -44,6 +44,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
     this.filteredAppointments$$ = new BehaviorSubject<any[]>([]);
     this.completedAppointments$$ = new BehaviorSubject<any[]>([]);
     this.filteredCompletedAppointments$$ = new BehaviorSubject<any[]>([]);
+    this.scheduleAppointmentService.resetDetails(true);
+    localStorage.removeItem('appointmentDetails');
   }
 
   ngOnInit(): void {
@@ -110,13 +112,26 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         const editData = appointment;
         const exams: ExamDetails = {
           exams: editData['exams'] ? editData['exams'].map((exam) => exam.id) : [],
-          physician: editData['physicianId'] ? editData['physicianId'] : '',
+          physician: editData['doctorId'] ? editData['doctorId'] : '',
           comments: editData['comments'] ? editData['comments'] : '',
         };
         this.scheduleAppointmentSvc.setExamDetails(exams);
         localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+        localStorage.setItem('appointmentId', item.id);
+        localStorage.setItem('edit', 'true');
         this.scheduleAppointmentService.editDetails$$.next({ isEdit: true, id: item.id });
         this.router.navigate(['/dashboard/schedule/slot']);
       });
   }
 }
+
+
+
+
+
+
+
+
+
+
+

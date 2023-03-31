@@ -12,6 +12,7 @@ import {DatePipe} from "@angular/common";
 import { HeaderInterceptor } from './core/http/header.interceptor';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import{TranslateModule,TranslateLoader } from '@ngx-translate/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -38,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    BrowserAnimationsModule,
   ],
   bootstrap: [AppComponent],
   providers: [
