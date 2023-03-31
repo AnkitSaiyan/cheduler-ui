@@ -8,6 +8,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { CoreComponent } from './core.component';
 import { SharedModule } from '../shared/shared.module';
 import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.component';
+
 // eslint-disable-next-line import/order
 // import { HttpClient } from '@angular/common/http';
 
@@ -30,5 +31,11 @@ import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.
     //   },
     // }),
   ],
+  exports: [],
 })
 export class CoreModule {}
+
+
+
+
+

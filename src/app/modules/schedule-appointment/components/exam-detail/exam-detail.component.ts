@@ -9,6 +9,7 @@ import { KeyValue } from '@angular/common';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { SiteSettings } from '../../../../shared/models/site-management.model';
+import { LoaderService } from 'src/app/core/services/loader.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -34,6 +35,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private cdr: ChangeDetectorRef,
+    public loaderSvc: LoaderService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -156,6 +158,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.router.navigate(['../slot'], { relativeTo: this.route });
   }
 }
+
 
 
 

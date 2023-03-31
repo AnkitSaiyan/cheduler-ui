@@ -2,66 +2,75 @@
   class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16"
 >
   <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
-    <section class="d-flex flex-column dfm-gap-16 flex-1" *ngIf="filteredPhysicians$$ | async as physician">
-      <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
-        <dfm-input-dropdown *ngIf="+physicianEnale?.doctorReferringConsent === 0"
-          [items]="physician"
-          label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0  ? '*' : '' }}"
-          placeholder="{{ 'EnterPhysicianName' | translate }}"
-          formControlName="physician"
-          [required]="+physicianEnale?.doctorReferringConsent === 0"
-          [showDescription]="false"
-          size="md"
-        >
-          {{ physician }}
-        </dfm-input-dropdown>
-        <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
-          {{ 'RequiredField' | translate }}
-        </span>
+    <ng-container *ngIf="loaderSvc.isSpinnerActive$ | async; else loaded">
+      <div class="d-flex justify-content-center align-items-center w-full flex-1">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
     </ng-container>
-      <!-- ===============||Comments Section added for mobile view============|| -->
-      <section class="comments-mv">
-        <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
-      </section>
-      <!-- ===============||Comments Section added for mobile view ends============|| -->
-
-      <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
-
-      <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
-        <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
-          <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-            <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}} *" placeholder="{{'SelectExam' | translate}}" size="md">
-              {{ items }}
+    <ng-template #loaded>
+      <section class="d-flex flex-column dfm-gap-16 flex-1" >
+        <ng-container *ngIf="filteredPhysicians$$ | async as physician">
+          <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
+            <dfm-input-dropdown *ngIf="+physicianEnale?.doctorReferringConsent === 0"
+              [items]="physician"
+              label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0  ? '*' : '' }}"
+              placeholder="{{ 'EnterPhysicianName' | translate }}"
+              formControlName="physician"
+              [required]="+physicianEnale?.doctorReferringConsent === 0"
+              [showDescription]="false"
+              size="md"
+            >
+              {{ physician }}
             </dfm-input-dropdown>
-            <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" (click)="removeExam(i)">
-              <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
+            <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
+              {{ 'RequiredField' | translate }}
+            </span>
+          </ng-container>
+        </ng-container>
+        <!-- ===============||Comments Section added for mobile view============|| -->
+        <section class="comments-mv">
+          <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
+        </section>
+        <!-- ===============||Comments Section added for mobile view ends============|| -->
+
+        <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
+
+        <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
+          <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
+            <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
+              <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}} *" placeholder="{{'SelectExam' | translate}}" size="md">
+                {{ items }}
+              </dfm-input-dropdown>
+              <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" (click)="removeExam(i)">
+                <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
+              </div>
             </div>
+            <span class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
+              {{ 'RequiredField' | translate }}</span>
           </div>
-          <span class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
-            {{ 'RequiredField' | translate }}</span>
+
+            <!-- <span class="validation-error" >
+            {{examForm.value['exams'] | json }}</span> -->
+          <div class="add-exam-btn"></div>
         </div>
 
-          <!-- <span class="validation-error" >
-          {{examForm.value['exams'] | json }}</span> -->
-        <div class="add-exam-btn"></div>
-      </div>
-
-      <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
-        <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
-          <dfm-icon name="plus"></dfm-icon>
+        <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
+          <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
+            <dfm-icon name="plus"></dfm-icon>
+          </div>
+          <dfm-button color="link" size="sm"> <span>{{"ClickToAddMoreExam" | translate}}</span></dfm-button>
         </div>
-        <dfm-button color="link" size="sm"> <span>{{"ClickToAddMoreExam" | translate}}</span></dfm-button>
-      </div>
-    </section>
-    <!-- ===============||Comments Section added for Desktop view============|| -->
-    <section class="comments-btn">
-      <div class="comments-section">
-        <dfm-text-area formControlName="comments" label="{{'Comments' | translate}}" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
-      </div>
-    </section>
-    <!-- ===============||Comments Section added for Desktop view ends============|| -->
+      </section>
+      <!-- ===============||Comments Section added for Desktop view============|| -->
+      <section class="comments-btn">
+        <div class="comments-section">
+          <dfm-text-area formControlName="comments" label="{{'Comments' | translate}}" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
+        </div>
+      </section>
+      <!-- ===============||Comments Section added for Desktop view ends============|| -->
 
-    <!--Right Section Ends Here=================-->
+      <!--Right Section Ends Here=================-->
+    </ng-template>
   </form>
 
   <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid"> {{"Next" | translate}} </dfm-button>
