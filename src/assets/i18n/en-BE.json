@@ -255,7 +255,9 @@
   "NoAppointmentsScheduled" : "No Appointments Scheduled",
   "LoadingSlots": "Loading Slots",
   "PrivacyPolicyAndCookies" : "Privacy Policy and Cookies",
-  "SelectedSlot" : "Selected Slot"
+  "SelectedSlot" : "Selected Slot",
+  "YourAppointmentsWillAppearHere" : "Your appointments will appear here"
+
 
 }
 
