@@ -21,6 +21,7 @@ import { VersioningComponent } from './components/versioning/versioning.componen
 import { ObjectToArrayPipe } from './pipes/object-to-array.pipe';
 import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
 import { DashIfNothingPipe } from './pipes/dash-if-nothing.pipe';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -74,6 +75,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashIfNothingPipe,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    NgbPopoverModule
   ],
 })
 export class SharedModule {}

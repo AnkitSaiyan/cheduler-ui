@@ -405,6 +405,27 @@ dfm-notification {
   }
 }
 
+//popover
+
+.popover {
+  border: none;
+  box-shadow: 0 .125rem 1.00rem rgba(0, 0, 0, .075);
+  border: 1px solid var(--dfm-main-200);
+  max-width: inherit;
+}
+
+.popover-p-0 {
+  .popover-body {
+    padding: 0;
+  }
+}
+
+.popover-p-8 {
+  .popover-body {
+    padding: 8px;
+  }
+}
+
 
 
 @media (min-width: 180px) and (max-width: 680px) {
@@ -421,3 +442,6 @@ dfm-notification {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

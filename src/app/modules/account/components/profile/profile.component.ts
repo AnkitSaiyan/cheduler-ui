@@ -39,7 +39,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
   private createForm(userDetails?) {
     this.userForm = this.fb.group({
       firstname: [userDetails?.firstname, [Validators.required]],
-      lastname: [userDetails?.lastname, []],
+      lastname: [userDetails?.lastname, [Validators.required]],
       email: [userDetails?.email, [Validators.required]],
       phone: [userDetails?.phone, [Validators.required]],
     })
