@@ -13,6 +13,7 @@ import { Exam } from 'src/app/shared/models/exam.model';
 import { Physician } from 'src/app/shared/models/physician.model';
 import { environment } from 'src/environments/environment';
 import { ExamDetails, SlotDetails } from '../../shared/models/local-storage-data.model';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +39,7 @@ export class ScheduleAppointmentService {
 
   private refreshAppointment$$ = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loaderSvc: LoaderService) {}
 
   public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
@@ -118,9 +119,11 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
-    return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallupcomingappointmentlist`)
-      .pipe(map((response) => response.data));
+    this.loaderSvc.activate();
+    return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallupcomingappointmentlist`).pipe(
+      map((response) => response.data),
+      tap(() => this.loaderSvc.deactivate()),
+    );
   }
 
   public get completedAppointment$(): Observable<Appointment[]> {
@@ -138,7 +141,8 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
-    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/doctor`).pipe(map((response) => response.data));
+    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/doctor`).pipe(
+      map((response) => response.data))
   }
 
   public get exams$(): Observable<Exam[]> {
@@ -146,7 +150,8 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllExams(): Observable<Exam[]> {
-    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data));
+    this.loaderSvc.spinnerActivate()
+    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data), tap(() => this.loaderSvc.spinnerDeactivate()));
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
@@ -260,6 +265,16 @@ export class ScheduleAppointmentService {
     return ap;
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

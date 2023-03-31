@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SubHeaderComponent } from './components/sub-header/sub-header.component';
@@ -18,7 +19,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { VersioningComponent } from './components/versioning/versioning.component';
 import { ObjectToArrayPipe } from './pipes/object-to-array.pipe';
 import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
-import {DashIfNothingPipe} from "./pipes/dash-if-nothing.pipe";
+import { DashIfNothingPipe } from './pipes/dash-if-nothing.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -38,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     VersioningComponent,
     ObjectToArrayPipe,
     SliceStringArrayPipe,
-    DashIfNothingPipe
+    DashIfNothingPipe,
   ],
   imports: [
     CommonModule,
@@ -51,6 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    MatProgressSpinnerModule,
   ],
   exports: [
     DesignSystemModule,
@@ -67,7 +69,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ObjectToArrayPipe,
     SliceStringArrayPipe,
     TranslateModule,
-    DashIfNothingPipe
+    DashIfNothingPipe,
+    MatProgressSpinnerModule,
   ],
 })
 export class SharedModule {}
+
+

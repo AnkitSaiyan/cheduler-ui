@@ -109,22 +109,28 @@
                   <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
                   <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
                   <span *ngIf="!examIdToAppointmentSlots[exam] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
-                  <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span>
+                  <!-- <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span> -->
+                </div>
+                <div class="d-flex justify-content-center" *ngIf="loadingSlots$$ | async; else showSlot1">
+                  <mat-spinner  diameter="36"></mat-spinner>
                 </div>
 
-                <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-                  <div
-                    class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
-                    *ngFor="let slot of examIdToAppointmentSlots[exam]"
-                    (click)="toggleSlotSelection(slot)"
-                    [ngClass]="{
-                      'time-slot-disabled-text': !isSlotAvailable(slot),
-                      'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
-                    }"
-                  >
-                    {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                <ng-template #showSlot1>
+                  <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
+                    <div
+                      class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
+                      *ngFor="let slot of examIdToAppointmentSlots[exam]"
+                      (click)="toggleSlotSelection(slot)"
+                      [ngClass]="{
+                        'time-slot-disabled-text': !isSlotAvailable(slot),
+                        'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
+                      }"
+                    >
+                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                    </div>
                   </div>
-                </div>
+                </ng-template>
+
               </div>
             </ng-container>
           </div>
@@ -157,22 +163,26 @@
                   <span class="font-weight-medium">{{ 'Slots' | translate }}: </span>
                   <span *ngIf="examIdToAppointmentSlots[+examsDetails.exams[0]]">({{ examIdToAppointmentSlots[+examsDetails.exams[0]]?.length }})</span>
                   <span *ngIf="!examIdToAppointmentSlots[+examsDetails.exams[0]] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
-                  <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span>
+                  <!-- <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span> -->
                 </div>
-
-                <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
+                <div class="d-flex justify-content-center" *ngIf="loadingSlots$$ | async; else showSlot2">
+                  <mat-spinner  diameter="36"></mat-spinner>
+                </div>
+                <ng-template #showSlot2>
+                  <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
                     <div
-                    class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
-                    *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
-                    (click)="toggleSlotSelectionCombinable(slot)"
-                    [ngClass]="{
-                      'time-slot-disabled-text': !isSlotAvailable(slot),
-                      'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
-                    }"
-                  >
-                    {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                      class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
+                      *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
+                      (click)="toggleSlotSelectionCombinable(slot)"
+                      [ngClass]="{
+                        'time-slot-disabled-text': !isSlotAvailable(slot),
+                        'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
+                      }"
+                    >
+                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                    </div>
                   </div>
-                </div>
+                </ng-template>
               </div>
             </ng-container>
           </div>
