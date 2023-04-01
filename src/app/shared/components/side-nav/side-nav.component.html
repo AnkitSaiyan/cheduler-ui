@@ -1,7 +1,8 @@
 <div class="dfm-side-nav" [ngClass]="{ 'dfm-side-nav-expanded': isExpanded }" (click)="$event.stopPropagation()">
   <div class=" toggle-btn-mv dfm-side-nav-item dfm-mb-32" (click)="toggleMenu()">
     <div class="dfm-side-nav-item-icon">
-      <dfm-icon [name]="isExpanded ? 'x-close' : 'grid-01'"></dfm-icon>
+      <dfm-icon [name]="isExpanded ? 'x-close' : 'grid-01'"
+      ></dfm-icon>
     </div>
   </div>
 

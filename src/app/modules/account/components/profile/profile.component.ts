@@ -18,6 +18,7 @@ import {
 export class ProfileComponent extends DestroyableComponent implements OnInit, OnDestroy {
   isrevokedPermission: boolean = false;
   public userForm!: FormGroup;
+  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
 
   constructor(
     private modalSvc: ModalService,
@@ -38,7 +39,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
   private createForm(userDetails?) {
     this.userForm = this.fb.group({
       firstname: [userDetails?.firstname, [Validators.required]],
-      lastname: [userDetails?.lastname, []],
+      lastname: [userDetails?.lastname, [Validators.required]],
       email: [userDetails?.email, [Validators.required]],
       phone: [userDetails?.phone, [Validators.required]],
     })
@@ -51,5 +52,20 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
 
     this.scheduleAppointmentSvc.setBasicDetails(this.userForm.value);
     this.notificationSvc.showNotification('Details saved successfully');
+  }
+  public handleEmailInput(e: Event): void {
+    const inputText = (e.target as HTMLInputElement).value;
+
+    if (!inputText) {
+      return;
+    }
+
+    if (!inputText.match(this.EMAIL_REGEX)) {
+      this.userForm.get('email')?.setErrors({
+        email: true,
+      });
+    } else {
+      this.userForm.get('email')?.setErrors(null);
+    }
   }
 }

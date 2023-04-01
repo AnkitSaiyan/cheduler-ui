@@ -8,12 +8,13 @@
       </div>
     </ng-container>
     <ng-template #loaded>
-      <section class="d-flex flex-column dfm-gap-16 flex-1" >
+      <section class="d-flex flex-column dfm-gap-16 flex-1">
         <ng-container *ngIf="filteredPhysicians$$ | async as physician">
           <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
-            <dfm-input-dropdown *ngIf="+physicianEnale?.doctorReferringConsent === 0"
+            <dfm-input-dropdown
+              *ngIf="+physicianEnale?.doctorReferringConsent === 0"
               [items]="physician"
-              label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0  ? '*' : '' }}"
+              label="{{ 'ReferringPhysician' | translate }} {{ +physicianEnale?.doctorReferringConsent === 0 ? '*' : '' }}"
               placeholder="{{ 'EnterPhysicianName' | translate }}"
               formControlName="physician"
               [required]="+physicianEnale?.doctorReferringConsent === 0"
@@ -29,7 +30,7 @@
         </ng-container>
         <!-- ===============||Comments Section added for mobile view============|| -->
         <section class="comments-mv">
-          <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
+          <dfm-text-area formControlName="comments" [label]="'Comments'" placeholder="{{ 'EnterComments' | translate }}"></dfm-text-area>
         </section>
         <!-- ===============||Comments Section added for mobile view ends============|| -->
 
@@ -38,18 +39,32 @@
         <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
           <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
             <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-              <dfm-input-dropdown [items]="items" formControlName="exam" label="{{'Exam' | translate}} *" placeholder="{{'SelectExam' | translate}}" size="md">
+              <dfm-input-dropdown
+                [items]="items"
+                formControlName="exam"
+                label="{{ 'Exam' | translate }} *"
+                placeholder="{{ 'SelectExam' | translate }}"
+                size="md"
+              >
                 {{ items }}
               </dfm-input-dropdown>
               <div style="width: 20px; height: 20px; margin-top: 42px; cursor: pointer" (click)="removeExam(i)">
-                <dfm-icon [name]="'trash-01'" *ngIf="examCount().length > 1"></dfm-icon>
+                <dfm-icon
+                  [name]="'trash-01'"
+                  ngbPopover="{{ 'Delete' | translate }}"
+                  triggers="mouseenter:mouseleave"
+                  popoverClass="popover-p-8"
+                  [openDelay]="200"
+                  *ngIf="examCount().length > 1"
+                ></dfm-icon>
               </div>
             </div>
             <span class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
-              {{ 'RequiredField' | translate }}</span>
+              {{ 'RequiredField' | translate }}</span
+            >
           </div>
 
-            <!-- <span class="validation-error" >
+          <!-- <span class="validation-error" >
             {{examForm.value['exams'] | json }}</span> -->
           <div class="add-exam-btn"></div>
         </div>
@@ -58,13 +73,19 @@
           <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
             <dfm-icon name="plus"></dfm-icon>
           </div>
-          <dfm-button color="link" size="sm"> <span>{{"ClickToAddMoreExam" | translate}}</span></dfm-button>
+          <dfm-button color="link" size="sm">
+            <span>{{ 'ClickToAddMoreExam' | translate }}</span></dfm-button
+          >
         </div>
       </section>
       <!-- ===============||Comments Section added for Desktop view============|| -->
       <section class="comments-btn">
         <div class="comments-section">
-          <dfm-text-area formControlName="comments" label="{{'Comments' | translate}}" placeholder="{{'EnterComments' | translate}}"></dfm-text-area>
+          <dfm-text-area
+            formControlName="comments"
+            label="{{ 'Comments' | translate }}"
+            placeholder="{{ 'EnterComments' | translate }}"
+          ></dfm-text-area>
         </div>
       </section>
       <!-- ===============||Comments Section added for Desktop view ends============|| -->
@@ -73,7 +94,11 @@
     </ng-template>
   </form>
 
-  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid"> {{"Next" | translate}} </dfm-button>
+  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid">
+    {{ 'Next' | translate }}
+  </dfm-button>
 
-  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid"> {{"Next" | translate}} </dfm-button>
+  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid">
+    {{ 'Next' | translate }}
+  </dfm-button>
 </div>
