@@ -9,19 +9,32 @@
         <div class="form-group">
           <dfm-input formControlName="firstname" type="text" size="sm" label="{{'FirstName' | translate}}*"
                      placeholder="{{'EnterFirstName' | translate}}"></dfm-input>
+                     <span class="validation-error" *ngIf="userForm.controls['firstname'].hasError('required') && userForm.controls['firstname'].touched">
+                      {{ 'RequiredField' | translate }}
+                    </span>
         </div>
         <div class="form-group">
           <dfm-input formControlName="lastname" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
+          <span class="validation-error" *ngIf="userForm.controls['lastname'].hasError('required') && userForm.controls['lastname'].touched">
+            {{ 'RequiredField' | translate }}
+          </span>
         </div>
       </div>
       <div class="form-group-container d-flex justify-content-center p-3 gap-4">
         <div class="form-group">
-          <dfm-input formControlName="email" type="email" size="sm" label="{{'Email' | translate}}*"
+          <dfm-input formControlName="email" type="email" size="sm" label="{{'Email' | translate}}*" (focusout)="handleEmailInput($event)"
                      placeholder="{{'EnterEmail' | translate}}"></dfm-input>
+                     <span class="validation-error" *ngIf="userForm.controls['email'].hasError('required') && userForm.controls['email'].touched">
+                      {{ 'RequiredField' | translate }}
+                    </span>
+          <small *ngIf="userForm.get('email')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}.</small>
         </div>
         <div class="form-group">
           <dfm-input formControlName="phone" type="number" size="sm" label="{{'PhoneNumber' | translate}}*"
                      placeholder="{{'EnterTelephone' | translate}}"></dfm-input>
+                     <span class="validation-error" *ngIf="userForm.controls['phone'].hasError('required') && userForm.controls['phone'].touched">
+                      {{ 'RequiredField' | translate }}
+                    </span>
         </div>
       </div>
     </form>
