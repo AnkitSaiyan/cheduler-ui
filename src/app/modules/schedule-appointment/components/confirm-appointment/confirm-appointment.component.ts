@@ -276,7 +276,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public cancelAppointment() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Are you sure you want to cancel this appointment',
+        bodyText: 'AreYouSureYouWantToCancelThisAppointment',
       } as DialogData,
     });
 
