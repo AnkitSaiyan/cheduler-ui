@@ -121,28 +121,30 @@
 
   .sub-menu-mv{
     position: absolute;
-    bottom: 55px;
+    bottom: 40px;
     right:0;
     left: 0;
-    max-width: 40px;
-    height: 70px;
+    max-width: 60px;
+    width: 45px;
     // border: 1px solid green;
     color:#fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     gap: 10px!important;
     display: none;
-    padding: 5px;
+    padding: 5px 0px;
     // transition: height .4s;
+    object-fit: contain;
   }
   .sub-menu-items-mv{
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
+    width: inherit;
+    height: 33px;
+    line-height: 33px;
     border-radius: 6px;
     background-color: var(--dfm-primary);
-    font-size: 10px!important;
+    font-size: 5px!important;
     margin: 5px 0px;
   }
   .dfm-side-nav-item-icon:hover .sub-menu-mv{
