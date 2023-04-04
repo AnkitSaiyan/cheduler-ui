@@ -129,8 +129,9 @@
   transition: all 200ms linear;
   // border: 1px solid red;
   .weekly-content-left {
-    width: 50%;
+    // width: 50%;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: flex-start;
     padding: 55px 0px 0px 0px;
@@ -139,7 +140,8 @@
     }
   }
   .weekly-content-right {
-    width: 50%;
+    // width: 50%;
+    flex: 1;
     border-radius: 8px!important;
   }
   .opening-detail-table {

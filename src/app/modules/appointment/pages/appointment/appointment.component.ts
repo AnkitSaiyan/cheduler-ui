@@ -81,7 +81,7 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   cancelAppointment(id: number) {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Are you sure you want to cancel this appointment',
+        bodyText: 'AreYouSureYouWantToCancelThisAppointment',
       } as DialogData,
     });
 
