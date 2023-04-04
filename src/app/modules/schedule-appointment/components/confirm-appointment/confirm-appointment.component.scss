@@ -235,8 +235,8 @@ gap: 8px;
     // border: 1px solid red;
     margin: 10px 0px 0px 0px !important;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    // justify-content: space-between;
     gap: 10px;
   }
   .instructions-text-section .instruction-text {

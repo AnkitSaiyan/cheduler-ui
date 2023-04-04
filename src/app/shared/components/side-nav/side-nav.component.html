@@ -27,7 +27,7 @@
   <div #myAccountContainer class="dfm-side-nav-item"
        [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('account') }"
        (click)="!isExpanded && window.innerWidth > 680 ? navigateTo(['account', 'profile']) : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')">
-    <!-- =================sub menu design for mobile view=============== -->
+    <!-- =================||sub menu design for mobile view||=============== -->
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="user-01" (click)="isVisibleSubMenu = !isVisibleSubMenu"></dfm-icon>
       <div class="sub-menu-mv border-r-16" *ngIf="isVisibleSubMenu">
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <!-- =================sub menu design for mobile view ends here=============== -->
+    <!-- =================||sub menu design for mobile view ends here||=============== -->
 
     <span *ngIf="isExpanded">{{"MyAccount" | translate}}</span>
 

@@ -296,7 +296,7 @@
 
 .top-section-one {
   text-align: center;
-  padding: 10px 18px;
+  padding: 10px;
   background: #e0dde4;
   color: #4e2267 !important;
   border-radius: 20px;
@@ -516,9 +516,10 @@
   }
   .top-section-appointment {
     display: flex;
-    padding: 0 18px;
+    padding: 0 10px;
     margin-bottom: 18px;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 5px;
   }
   .top-section-appointment div {
     margin-right: 0px;
