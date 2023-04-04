@@ -70,10 +70,12 @@
     
   }
   .login-footer{
-    padding-bottom: 50px!important;
-    margin: auto!important;
     display: flex!important;
     flex-direction: column!important;
+    padding-bottom: 50px!important;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto!important;
   }
   .footer-text {
     font-size: 14px;
