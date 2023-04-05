@@ -65,14 +65,38 @@
     flex-direction: column!important;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 10px;
-    margin: auto;
+    padding-bottom: 50px;
+    margin: auto!important;
     
   }
   .login-footer{
     display: flex!important;
     flex-direction: column!important;
-    padding-bottom: 50px!important;
+    padding-bottom: 103px!important;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto!important;
+  }
+  .login-footer-app{
+    display: flex!important;
+    flex-direction: column!important;
+    padding-bottom: 103px!important;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto!important;
+  }
+  .login-footer-profile{
+    display: flex!important;
+    flex-direction: column!important;
+    padding-bottom: 103px!important;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto!important;
+  }
+  .login-footer-privacy{
+    display: flex!important;
+    flex-direction: column!important;
+    padding-bottom: 103px!important;
     justify-content: space-between;
     align-items: center;
     margin: auto!important;
