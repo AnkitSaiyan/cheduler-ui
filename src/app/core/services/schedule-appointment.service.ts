@@ -108,7 +108,7 @@ export class ScheduleAppointmentService {
   }
 
   public addAppointment(requestData): Observable<Appointment> {
-    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment`, requestData).pipe(
+    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData).pipe(
       map((response) => response.data),
       tap(() => this.refreshAppointment$$.next()),
     );
