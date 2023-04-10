@@ -1,9 +1,9 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import {BaseResponse} from 'src/app/shared/models/base-response.model';
-import {environment} from 'src/environments/environment';
+import { BaseResponse } from 'src/app/shared/models/base-response.model';
+import { environment } from 'src/environments/environment';
 import { LoaderService } from './loader.service';
 
 @Injectable({
@@ -34,7 +34,7 @@ export class LandingService {
   }
 
   fetchAllWorkingHours(): Observable<any> {
-    return this.http.get<any>(`${environment.serverBaseUrl}/practice`);
+    return this.http.get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`).pipe(map((response) => response?.data));
   }
 }
 
