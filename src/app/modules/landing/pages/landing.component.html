@@ -43,14 +43,14 @@
             <tr *ngFor="let item of weekDay; let i = index">
               <th *ngIf="i > 0">{{ days[i] | translate }}</th>
               <td *ngIf="i > 0">
-                <span class="nowrap" *ngIf="item; else elseBlock">{{ item }}</span>
+                <span *ngIf="item; else elseBlock">{{ item }}</span>
               </td>
               <!-- <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item.split('-')[0] | date: 'HH-MM'}}{{item.split('-')[1] | date: 'HH-MM'}}</span></td> -->
             </tr>
             <tr *ngFor="let item of weekDay; let i = index">
               <th *ngIf="i === 0">{{ days[i] | translate }}</th>
               <td *ngIf="i === 0">
-                <span class="nowrap" *ngIf="item; else elseBlock">{{ item }}</span>
+                <span *ngIf="item; else elseBlock">{{ item }}</span>
               </td>
             </tr>
             <ng-template #elseBlock>{{ 'Closed' | translate }}</ng-template>

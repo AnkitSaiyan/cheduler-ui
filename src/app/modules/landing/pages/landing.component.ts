@@ -13,7 +13,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
 
   public info$$: BehaviorSubject<any[]>;
 
-  weekDay: string[] = new Array(7).fill('');
+  weekDay: string[] = new Array(7).fill(null);
 
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -33,16 +33,21 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
     this.landingService.workingDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       // eslint-disable-next-line @typescript-eslint/dot-notation
 
-      console.log({ res });
       res.forEach((element) => {
-        this.weekDay[element.weekday] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+        const j = element.weekday;
+        // this.weekDay[element.weekday] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+        if (this.weekDay[j]) {
+          this.weekDay[j] += `,${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+        } else {
+          this.weekDay[j] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+        }
         // for (let j = 0; j < 7; j++) {
         //   if (element.weekday === j) {
-        //     if (this.weekDay[j]) {
-        //       this.weekDay[j] += `,${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
-        //     } else {
-        //       this.weekDay[j] = `${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
-        //     }
+        // if (this.weekDay[j]) {
+        //   this.weekDay[j] += `,${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
+        // } else {
+        //   this.weekDay[j] = `${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
+        // }
         //   } else if (!this.weekDay[j]) {
         //     this.weekDay[j] = ``;
         //   }
