@@ -169,7 +169,7 @@ export class ScheduleAppointmentService {
   }
 
   public cancelAppointment$(appointmentId: number): Observable<boolean> {
-    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`, '').pipe(
+    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/patientappointment/cancelappointment/${appointmentId}`, '').pipe(
       map((response) => response.data),
       tap(() => this.refreshAppointment$$.next()),
     );
@@ -178,7 +178,7 @@ export class ScheduleAppointmentService {
   public updateAppointment$(requestData) {
     const { appointmentId, ...restData } = requestData;
     return this.http
-      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`, restData)
+      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData)
       .pipe(map((response) => response.data));
   }
 
