@@ -120,10 +120,12 @@ export class ScheduleAppointmentService {
 
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
-    return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallupcomingappointmentlist`).pipe(
-      map((response) => response.data),
-      tap(() => this.loaderSvc.spinnerDeactivate()),
-    );
+    return this.http
+      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/getallupcomingappointmentlist`)
+      .pipe(
+        map((response) => response.data),
+        tap(() => this.loaderSvc.spinnerDeactivate()),
+      );
   }
 
   public get completedAppointment$(): Observable<Appointment[]> {
@@ -132,7 +134,9 @@ export class ScheduleAppointmentService {
 
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallcompletedappointmentlist`)
+      .get<BaseResponse<Appointment[]>>(
+        `${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/getallcompletedappointmentlist`,
+      )
       .pipe(map((response) => response.data));
   }
 
@@ -200,7 +204,7 @@ export class ScheduleAppointmentService {
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment/${appointmentID}`).pipe(
+        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`).pipe(
           map((response) => {
             if (Array.isArray(response.data)) {
               return this.getAppointmentModified(response.data[0]);
