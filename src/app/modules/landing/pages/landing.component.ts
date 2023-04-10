@@ -69,7 +69,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
       //     }
       //   }
       // }
-      this.workingHours$$.next(res['data']);
+      this.workingHours$$.next(res);
     });
   }
 
