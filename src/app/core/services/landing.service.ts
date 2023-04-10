@@ -26,7 +26,7 @@ export class LandingService {
 
   fetchAllSiteDetail(): Observable<any> {
     this.loaderSvc.activate();
-    return this.http.get<any>(`${environment.serverBaseUrl}/sitesetting`).pipe(tap(() => this.loaderSvc.deactivate()));
+    return this.http.get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`).pipe(tap(() => this.loaderSvc.deactivate()));
   }
 
   public get workingDetails$(): Observable<any[]> {
