@@ -108,7 +108,7 @@ export class ScheduleAppointmentService {
   }
 
   public addAppointment(requestData): Observable<Appointment> {
-    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment`, requestData).pipe(
+    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData).pipe(
       map((response) => response.data),
       tap(() => this.refreshAppointment$$.next()),
     );
@@ -120,10 +120,12 @@ export class ScheduleAppointmentService {
 
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
-    return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallupcomingappointmentlist`).pipe(
-      map((response) => response.data),
-      tap(() => this.loaderSvc.spinnerDeactivate()),
-    );
+    return this.http
+      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/getallupcomingappointmentlist`)
+      .pipe(
+        map((response) => response.data),
+        tap(() => this.loaderSvc.spinnerDeactivate()),
+      );
   }
 
   public get completedAppointment$(): Observable<Appointment[]> {
@@ -132,7 +134,9 @@ export class ScheduleAppointmentService {
 
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/appointment/getallcompletedappointmentlist`)
+      .get<BaseResponse<Appointment[]>>(
+        `${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/getallcompletedappointmentlist`,
+      )
       .pipe(map((response) => response.data));
   }
 
@@ -141,8 +145,7 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
-    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/doctor`).pipe(
-      map((response) => response.data))
+    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`).pipe(map((response) => response.data));
   }
 
   public get exams$(): Observable<Exam[]> {
@@ -150,8 +153,11 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllExams(): Observable<Exam[]> {
-    this.loaderSvc.spinnerActivate()
-    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(map((response) => response.data), tap(() => this.loaderSvc.spinnerDeactivate()));
+    this.loaderSvc.spinnerActivate();
+    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(
+      map((response) => response.data),
+      tap(() => this.loaderSvc.spinnerDeactivate()),
+    );
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
@@ -167,7 +173,7 @@ export class ScheduleAppointmentService {
   }
 
   public cancelAppointment$(appointmentId: number): Observable<boolean> {
-    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/appointment/cancelappointment/${appointmentId}`, '').pipe(
+    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/patientappointment/cancelappointment/${appointmentId}`, '').pipe(
       map((response) => response.data),
       tap(() => this.refreshAppointment$$.next()),
     );
@@ -176,7 +182,7 @@ export class ScheduleAppointmentService {
   public updateAppointment$(requestData) {
     const { appointmentId, ...restData } = requestData;
     return this.http
-      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/appointment/${appointmentId}`, restData)
+      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData)
       .pipe(map((response) => response.data));
   }
 
@@ -198,7 +204,7 @@ export class ScheduleAppointmentService {
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/appointment/${appointmentID}`).pipe(
+        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`).pipe(
           map((response) => {
             if (Array.isArray(response.data)) {
               return this.getAppointmentModified(response.data[0]);
@@ -265,26 +271,4 @@ export class ScheduleAppointmentService {
     return ap;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
