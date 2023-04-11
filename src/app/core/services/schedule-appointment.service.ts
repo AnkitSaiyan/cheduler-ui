@@ -121,7 +121,7 @@ export class ScheduleAppointmentService {
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
     return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/getallupcomingappointmentlist`)
+      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`)
       .pipe(
         map((response) => response.data),
         tap(() => this.loaderSvc.spinnerDeactivate()),
@@ -135,7 +135,7 @@ export class ScheduleAppointmentService {
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
       .get<BaseResponse<Appointment[]>>(
-        `${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/getallcompletedappointmentlist`,
+        `${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`,
       )
       .pipe(map((response) => response.data));
   }
