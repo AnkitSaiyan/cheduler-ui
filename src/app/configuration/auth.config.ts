@@ -15,7 +15,7 @@ export class AuthConfig {
 
   static readonly fullAuthority: string = 'https://diflexmoauth.b2clogin.com/diflexmoauth.onmicrosoft.com';
 
-  static readonly authFlow: string = 'B2C_1_Cheduler_Staff_SignIn';
+  static readonly authFlow: string = 'B2C_1_Cheduler_Patients_SignUp_SignIn';
 
   static readonly authority: string = 'diflexmoauth.b2clogin.com';
 

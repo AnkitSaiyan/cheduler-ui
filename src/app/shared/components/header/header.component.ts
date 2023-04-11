@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
@@ -8,6 +8,7 @@ import { RouterStateService } from '../../../core/services/router-state.service'
 import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { LandingService } from 'src/app/core/services/landing.service';
+import { MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
 
 @Component({
   selector: 'dfm-header',
@@ -32,7 +33,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public isLoggedIn$!: Observable<boolean>;
 
-  public selectedLang: string = 'en-BE'
+  public selectedLang: string = 'en-BE';
 
   siteDetails$$: BehaviorSubject<any>;
 
@@ -41,6 +42,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private authSvc: AuthService,
     private translateService: TranslateService,
     private landingService: LandingService,
+    private msalService: MsalService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -78,4 +80,9 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   public override ngOnDestroy() {
     super.ngOnDestroy();
   }
+
+  public login() {
+    this.msalService.loginRedirect();
+  }
 }
+
