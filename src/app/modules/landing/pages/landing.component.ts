@@ -37,7 +37,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
         const j = element.weekday;
         // this.weekDay[element.weekday] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
         if (this.weekDay[j]) {
-          this.weekDay[j] += `,${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+          this.weekDay[j] += `, ${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
         } else {
           this.weekDay[j] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
         }

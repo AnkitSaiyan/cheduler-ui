@@ -258,7 +258,9 @@
   "SelectedSlot" : "Selected Slot",
   "YourAppointmentsWillAppearHere" : "Your appointments will appear here",
   "AppointmentNumber" : "Appointment No",
-  "AreYouSureYouWantToCancelThisAppointment" : "Are you sure you want to cancel this appointment"
+  "AreYouSureYouWantToCancelThisAppointment" : "Are you sure you want to cancel this appointment",
+  "ClickToExpand" : "Click to expand",
+  "ClickToClose" : "Click to close"
 
 
 }
