@@ -30,7 +30,7 @@ import {
 } from '@azure/msal-angular';
 import { BrowserCacheLocation, InteractionType, IPublicClientApplication, LogLevel, PublicClientApplication } from '@azure/msal-browser';
 import { environment } from 'src/environments/environment';
-import { AuthConfig } from './configuration/auth.config';
+import { AuthConfig, MSALConfig } from './configuration/auth.config';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1; // Remove this line to use Angular Universal
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -113,17 +113,12 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HeaderInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterceptor,
+      useClass: MsalInterceptor,
       multi: true,
     },
     {
       provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory,
+      useValue: new PublicClientApplication({ ...MSALConfig }),
     },
     {
       provide: MSAL_GUARD_CONFIG,
@@ -133,10 +128,23 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
     MsalService,
     MsalGuard,
     MsalBroadcastService,
   ],
 })
 export class AppModule {}
+
+
+
 

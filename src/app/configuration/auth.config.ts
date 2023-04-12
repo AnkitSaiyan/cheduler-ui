@@ -1,6 +1,8 @@
+import { BrowserCacheLocation, Configuration, LogLevel } from '@azure/msal-browser';
 import { environment } from 'src/environments/environment';
 import { ProtectedApi } from './protected.config';
 
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1; // Remove this line to use Angular Universal
 export class AuthConfig {
   static readonly protectedApis: ProtectedApi[] = [
     {
@@ -21,4 +23,26 @@ export class AuthConfig {
 
   static readonly authClientId: string = environment.authClientId;
 }
+
+export const MSALConfig: Configuration = Object.freeze({
+  auth: {
+    clientId: AuthConfig.authClientId,
+    authority: `${AuthConfig.fullAuthority}/${AuthConfig.authFlow}`,
+    knownAuthorities: [AuthConfig.authority],
+    redirectUri: '/',
+  },
+  cache: {
+    cacheLocation: BrowserCacheLocation.LocalStorage,
+    storeAuthStateInCookie: isIE,
+  },
+  system: {
+    loggerOptions: {
+      loggerCallback: () => {
+        // console.log(message);
+      },
+      logLevel: LogLevel.Verbose,
+      piiLoggingEnabled: true,
+    },
+  },
+});
 
