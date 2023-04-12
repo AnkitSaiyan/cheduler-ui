@@ -9,11 +9,12 @@ import {filter, take, takeUntil} from "rxjs";
 import {
   ConfirmActionModalComponent, DialogData
 } from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'dfm-account',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent extends DestroyableComponent implements OnInit, OnDestroy {
   isrevokedPermission: boolean = false;
@@ -25,24 +26,30 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     private notificationSvc: NotificationDataService,
     private router: Router,
     private fb: FormBuilder,
-    private scheduleAppointmentSvc: ScheduleAppointmentService
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+    private authService: AuthService,
   ) {
     super();
   }
 
   public ngOnInit(): void {
-    this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((userDetails) => {
-      this.createForm(userDetails);
+    this.authService.authUser$.pipe(takeUntil(this.destroy$$)).subscribe((userDetail) => {
+      this.createForm({
+        patientFname: userDetail?.givenName,
+        patientLname: userDetail?.surname,
+        patientEmail: userDetail?.email,
+        patientTel: userDetail?.properties?.['extension_PhoneNumber'],
+      });
     });
   }
 
-  private createForm(userDetails?) {
+  private createForm(userDetails) {
     this.userForm = this.fb.group({
-      firstname: [userDetails?.firstname, [Validators.required]],
-      lastname: [userDetails?.lastname, [Validators.required]],
-      email: [userDetails?.email, [Validators.required]],
-      phone: [userDetails?.phone, [Validators.required]],
-    })
+      firstname: [{ value: userDetails?.patientFname, disabled: true }, [Validators.required]],
+      lastname: [{ value: userDetails?.patientLname, disabled: true }, [Validators.required]],
+      phone: [{ value: userDetails?.patientTel, disabled: true }, [Validators.required]],
+      email: [{ value: userDetails?.patientEmail, disabled: true }, [Validators.required]],
+    });
   }
 
   public saveDetails() {
@@ -69,3 +76,8 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     }
   }
 }
+
+
+
+
+
