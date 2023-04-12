@@ -57,6 +57,7 @@ export class AuthService {
 
     return this.userManagementApiService.getUserProperties(userId).pipe(
       map((res: any) => {
+        console.log({ res });
         try {
           this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
 
@@ -110,4 +111,5 @@ export class AuthService {
   //   return !userLoggedIn;
   // }
 }
+
 

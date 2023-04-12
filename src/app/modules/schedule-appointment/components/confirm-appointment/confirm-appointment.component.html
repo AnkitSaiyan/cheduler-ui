@@ -94,7 +94,7 @@
       </dfm-checkbox>
     </div>
 
-    <div class="w-fit">
+    <div class="w-fit" *ngIf="(isConsentShow$$ | async) === false">
       <dfm-checkbox
         label="{{'IherebyGiveConsentToStore' | translate}}.*"
         size="sm"

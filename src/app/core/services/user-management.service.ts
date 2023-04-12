@@ -15,5 +15,31 @@ export class UserManagementService {
   public getUserProperties(userId: string): Observable<UserProperties> {
     return this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`);
   }
+
+  public getTenantId(userId: string): Observable<UserProperties> {
+    return this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/tenants`);
+  }
+
+  public getAllPermits(userId: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.url}/users/${userId}/properties/permits`);
+  }
+
+  public createPropertiesPermit(userId: string, tenantId: string): Observable<Record<string, string>> {
+    return this.httpClient.post<Record<string, string>>(`${this.url}/users/${userId}/properties/permit`, { tenantId });
+  }
+
+  public revokePermit(userId: string, tenantId: string): Observable<any> {
+    return this.httpClient.post<any>(`${this.url}/users/${userId}/properties/revoke`, { tenantId });
+  }
+
+  public deleteUser(userId: string): Observable<UserProperties> {
+    return this.httpClient.delete<UserProperties>(`${this.url}/users/${userId}`);
+  }
 }
+
+
+
+
+
+
 

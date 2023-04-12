@@ -14,6 +14,7 @@ import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storag
 import { AppointmentStatus } from '../../../../shared/models/status';
 import { SiteSettings } from '../../../../shared/models/site-management.model';
 import { LandingService } from '../../../../core/services/landing.service';
+import { UserManagementService } from 'src/app/core/services/user-management.service';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -21,6 +22,8 @@ import { LandingService } from '../../../../core/services/landing.service';
   styleUrls: ['./confirm-appointment.component.scss'],
 })
 export class ConfirmAppointmentComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  private readonly TenantId: string = 'NPXN';
+
   public referDoctorCheckbox = new FormControl('', []);
   public consentCheckbox = new FormControl('', []);
 
@@ -56,6 +59,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
 
+  public isConsentShow$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -65,6 +70,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private notificationSvc: NotificationDataService,
     private datePipe: DatePipe,
     private landingSvc: LandingService,
+    private userManagementSvc: UserManagementService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -75,6 +81,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+    this.authService.authUser$
+      .pipe(
+        takeUntil(this.destroy$$),
+        filter(Boolean),
+        switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
+      )
+      .subscribe((permits: any[]) => {
+        this.isConsentShow$$.next(permits.find(({ tenantId }) => tenantId === this.TenantId).map(Boolean));
+      });
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
@@ -260,6 +275,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
               this.isButtonDisable$$.next(false);
+              this.createPermit();
             },
             () => this.isButtonDisable$$.next(false),
           );
@@ -280,11 +296,22 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.appointmentId$$.next(res?.id);
               this.notificationSvc.showNotification(`Appointment added successfully`);
               this.isButtonDisable$$.next(false);
+              this.createPermit();
             },
             () => this.isButtonDisable$$.next(false),
           );
       }
     }
+  }
+
+  private createPermit() {
+    this.authService.authUser$
+      .pipe(
+        take(1),
+        filter(Boolean),
+        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.TenantId)),
+      )
+      .subscribe();
   }
 
   public cancelAppointment() {
@@ -337,6 +364,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
+
+
+
+
+
 
 
 
