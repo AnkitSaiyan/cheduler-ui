@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -18,7 +18,11 @@ export class LandingService {
 
   private workingHourDetails$$ = new BehaviorSubject<any>({});
 
-  constructor(private router: Router, private http: HttpClient, private loaderSvc: LoaderService) {}
+  private httpClient: HttpClient;
+
+  constructor(private router: Router, private http: HttpBackend, private loaderSvc: LoaderService) {
+    this.httpClient = new HttpClient(http);
+  }
 
   public get siteDetails$(): Observable<any[]> {
     return combineLatest([this.refreshSiteDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllSiteDetail()));
@@ -26,7 +30,7 @@ export class LandingService {
 
   fetchAllSiteDetail(): Observable<any> {
     this.loaderSvc.activate();
-    return this.http.get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`).pipe(tap(() => this.loaderSvc.deactivate()));
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`).pipe(tap(() => this.loaderSvc.deactivate()));
   }
 
   public get workingDetails$(): Observable<any[]> {
@@ -34,7 +38,7 @@ export class LandingService {
   }
 
   fetchAllWorkingHours(): Observable<any> {
-    return this.http.get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`).pipe(map((response) => response?.data));
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`).pipe(map((response) => response?.data));
   }
 }
 
