@@ -237,11 +237,19 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     };
 
     if (requestData) {
-      if (this.edit || localStorage.getItem('appointmentId')) {
+      if (localStorage.getItem('appointmentId')) {
         requestData['appointmentId'] = localStorage.getItem('appointmentId');
-        this.scheduleAppointmentSvc
-          .updateAppointment$({ ...requestData, fromPatient: true })
-          .pipe(takeUntil(this.destroy$$))
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.updateAppointment$(
+                isLoggedIn
+                  ? { ...requestData, patientFname: null, patientLname: null, patientEmail: null, patientTel: null, fromPatient: true }
+                  : { ...requestData, fromPatient: true },
+              ),
+            ),
+          )
           .subscribe(
             (res) => {
               // localStorage.setItem('appointmentId', res?['id'].toString());
@@ -256,9 +264,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             () => this.isButtonDisable$$.next(false),
           );
       } else {
-        this.scheduleAppointmentSvc
-          .addAppointment(requestData)
-          .pipe(takeUntil(this.destroy$$))
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.addAppointment(
+                isLoggedIn ? { ...requestData, patientFname: null, patientLname: null, patientEmail: null, patientTel: null } : { ...requestData },
+              ),
+            ),
+          )
           .subscribe(
             (res) => {
               localStorage.setItem('appointmentId', res?.id.toString());
@@ -323,6 +337,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     this.scheduleAppointmentSvc.resetDetails(true);
   }
 }
+
+
+
+
+
+
+
+
+
 
 
 

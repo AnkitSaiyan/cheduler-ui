@@ -4,8 +4,9 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, takeUntil } from 'rxjs';
 import { SiteSettings } from '../../../../shared/models/site-management.model';
+import { filter } from 'lodash';
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -33,9 +34,19 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   public ngOnInit(): void {
-    this.scheduleAppointmentSvc.basicDetails$.pipe(takeUntil(this.destroy$$)).subscribe((basicDetails) => {
-      this.createForm(basicDetails);
-    });
+    combineLatest([this.authService.authUser$, this.scheduleAppointmentSvc.basicDetails$])
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe(([userDetail, basicDetails]) => {
+        const formData = userDetail
+          ? {
+              patientFname: userDetail?.givenName,
+              patientLname: userDetail?.surname,
+              patientEmail: userDetail.email,
+              patientTel: userDetail.properties?.['extension_PhoneNumber'],
+            }
+          : basicDetails;
+        this.createForm(formData, !!userDetail);
+      });
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
@@ -52,12 +63,12 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     // })
   }
 
-  private createForm(basicDetails?) {
+  private createForm(basicDetails, isDisable = false) {
     this.basicDetailsForm = this.fb.group({
-      patientFname: [basicDetails?.patientFname, [Validators.required]],
-      patientLname: [basicDetails?.patientLname, [Validators.required]],
-      patientTel: [basicDetails?.patientTel, [Validators.required]],
-      patientEmail: [basicDetails?.patientEmail, [Validators.required]],
+      patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
+      patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
+      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
+      patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
     });
   }
 
@@ -73,7 +84,6 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       this.editData['patientEmail'] = this.basicDetailsForm.controls['patientEmail'].value;
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
-
 
     this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
     this.router.navigate(['../confirm'], { relativeTo: this.route });
@@ -104,6 +114,17 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

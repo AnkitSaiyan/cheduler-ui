@@ -42,7 +42,6 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   }
 
   ngOnInit(): void {
-    this.userAuthSvc.isLoggedIn$.subscribe(console.log);
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach((e) => new Tooltip(e));
 
@@ -122,7 +121,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       next: (x) => {
         if (!x) {
           // not showing error for now
-          // this.userAuthSvc.logout();
+          this.userAuthSvc.logout();
           this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
           // setTimeout(() => this.userService.logout(), 1500);
         }
@@ -130,4 +129,8 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     });
   }
 }
+
+
+
+
 

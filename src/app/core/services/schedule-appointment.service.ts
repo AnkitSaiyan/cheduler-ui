@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import {
@@ -39,7 +39,11 @@ export class ScheduleAppointmentService {
 
   private refreshAppointment$$ = new Subject<void>();
 
-  constructor(private http: HttpClient, private loaderSvc: LoaderService) {}
+  private httpWithInterceptor: HttpClient;
+
+  constructor(private http: HttpClient, private loaderSvc: LoaderService, private httpBackend: HttpBackend) {
+    this.httpWithInterceptor = new HttpClient(this.httpBackend);
+  }
 
   public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
@@ -108,7 +112,7 @@ export class ScheduleAppointmentService {
   }
 
   public addAppointment(requestData): Observable<Appointment> {
-    return this.http.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData).pipe(
+    return this.httpWithInterceptor.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData).pipe(
       map((response) => response.data),
       tap(() => this.refreshAppointment$$.next()),
     );
@@ -120,12 +124,10 @@ export class ScheduleAppointmentService {
 
   private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
-    return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`)
-      .pipe(
-        map((response) => response.data),
-        tap(() => this.loaderSvc.spinnerDeactivate()),
-      );
+    return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`).pipe(
+      map((response) => response.data),
+      tap(() => this.loaderSvc.spinnerDeactivate()),
+    );
   }
 
   public get completedAppointment$(): Observable<Appointment[]> {
@@ -134,9 +136,7 @@ export class ScheduleAppointmentService {
 
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
-      .get<BaseResponse<Appointment[]>>(
-        `${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`,
-      )
+      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`)
       .pipe(map((response) => response.data));
   }
 
@@ -145,7 +145,7 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
-    return this.http.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`).pipe(map((response) => response.data));
+    return this.httpWithInterceptor.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`).pipe(map((response) => response.data));
   }
 
   public get exams$(): Observable<Exam[]> {
@@ -154,7 +154,7 @@ export class ScheduleAppointmentService {
 
   private fetchAllExams(): Observable<Exam[]> {
     this.loaderSvc.spinnerActivate();
-    return this.http.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(
+    return this.httpWithInterceptor.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(
       map((response) => response.data),
       tap(() => this.loaderSvc.spinnerDeactivate()),
     );
@@ -181,19 +181,19 @@ export class ScheduleAppointmentService {
 
   public updateAppointment$(requestData) {
     const { appointmentId, ...restData } = requestData;
-    return this.http
+    return this.httpWithInterceptor
       .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData)
       .pipe(map((response) => response.data));
   }
 
   public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot> {
-    return this.http
+    return this.httpWithInterceptor
       .post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData)
       .pipe(map((res) => res?.data));
   }
 
   public getCalendarDays$(requestData: AppointmentDaysRequestData): Observable<AppointmentSlot[]> {
-    return this.http
+    return this.httpWithInterceptor
       .post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/days`, requestData)
       .pipe(map((res) => res?.data));
   }
@@ -204,18 +204,20 @@ export class ScheduleAppointmentService {
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.http.get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`).pipe(
-          map((response) => {
-            if (Array.isArray(response.data)) {
-              return this.getAppointmentModified(response.data[0]);
-            }
-            return this.getAppointmentModified(response.data) as Appointment;
-          }),
-          catchError((e) => {
-            console.log('error', e);
-            return of({} as Appointment);
-          }),
-        );
+        return this.httpWithInterceptor
+          .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`)
+          .pipe(
+            map((response) => {
+              if (Array.isArray(response.data)) {
+                return this.getAppointmentModified(response.data[0]);
+              }
+              return this.getAppointmentModified(response.data) as Appointment;
+            }),
+            catchError((e) => {
+              console.log('error', e);
+              return of({} as Appointment);
+            }),
+          );
       }),
     );
   }
