@@ -82,7 +82,9 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public login() {
+    sessionStorage.clear();
     this.msalService.loginRedirect();
   }
 }
+
 

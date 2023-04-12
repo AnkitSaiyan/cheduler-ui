@@ -10,7 +10,7 @@
     <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
       <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/">{{ 'Home' | translate }}</dfm-button>
 
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
+      <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn" (click)="login()">
         {{ 'Register' | translate }}
       </dfm-button>
 
