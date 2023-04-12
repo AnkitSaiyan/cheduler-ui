@@ -47,6 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommonModule,
     DesignSystemModule,
     RouterModule,
+    NgbPopoverModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

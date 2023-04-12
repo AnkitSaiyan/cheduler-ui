@@ -42,6 +42,16 @@ table, th, tr, td {
   max-height: 128px;
   overflow-y: auto;
 }
+.slot-timing{
+  &::-webkit-scrollbar{
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb{
+  background-color: var(--dfm-primary);
+  width: 10px;
+}
+
+}
 
 .calender-month-view {
   transition: all 150ms linear;
@@ -285,15 +295,18 @@ table, th, tr, td {
   .slot-timing-mv{
     &::-webkit-scrollbar{
     display: block!important;
+    height: 20px!important;
   }
   &::-webkit-scrollbar-track{
     background-color: var(--dfm-primary-lighter);
     border-radius:16px;
   }
-  &::-webkit-scrollbar-thumb{
-    background-color: var(--dfm-primary);
-    width: 30px;
-    height: 2px!important;
+  &::-webkit-scrollbar-thumb:vertical{
+    background-color:var(--dfm-primary);
+    width: 10px;
+    // height: 20px!important;
+    // height: inherit!important;
+    // border-radius: 40%;
   }
   }
   .time-detail {
