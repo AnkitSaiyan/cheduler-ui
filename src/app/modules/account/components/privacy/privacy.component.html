@@ -12,7 +12,7 @@
         <dfm-button [color]="'primary'" [size]="'lg'" (click)="revokePermit(permit.tenantId)" class="revoke-btn"> {{"RevokeAccess" | translate}} </dfm-button>
         <dfm-button [color]="'primary'" [size]="'sm'" (click)="revokePermit(permit.tenantId)" class="revoke-btn-mv"> {{"RevokeAccess" | translate}} </dfm-button>
       </div>
-      <div *ngIf="!allPermit.length">No data found</div>
+      <div *ngIf="!allPermit.length" class="py-2">{{"NoDataFound" | translate}}</div>
     </ng-container>
     <ng-template #noPermits>
       <span>No permits found</span>
