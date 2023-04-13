@@ -25,8 +25,16 @@ export class AuthService {
     return combineLatest([this.authUser$$]).pipe(map(([user]) => !!user));
   }
 
+  public get userId(): string | undefined {
+    return this.authUser$$.value?.id;
+  }
+
   public get isLoggedIn(): boolean {
     return !!this.authUser$$.value;
+  }
+
+  public get tenantId(): string {
+    return this.TenantId;
   }
 
   public loginWithRedirect() {
