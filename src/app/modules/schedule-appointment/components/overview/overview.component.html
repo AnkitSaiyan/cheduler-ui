@@ -1,10 +1,17 @@
 <div class="overview-main-container d-flex flex-column align-items-center bg-white border-r-16">
-  <h5 class="dfm-color-primary font-weight-high hello-user-text">{{"HelloUser" | translate}}!</h5>
+  <h5 class="dfm-color-primary font-weight-high hello-user-text">
+    <span *ngIf="(isLoggedIn$ | async) === false">
+      {{"HelloUser" | translate}}!
+    </span>
+    <span *ngIf="(isLoggedIn$ | async) === true">
+      {{ userName$ | async }}
+    </span>
+  </h5>
 
   <div class="link-section d-flex align-items-center font-weight-medium dfm-gap-4" *ngIf="(isLoggedIn$ | async) === false">
     <span class="account-login-block">{{"AlreadyHaveAnAccount" | translate}}?</span>
     <div class="login-text">
-      <dfm-button color="link" size="lg" routerLink="/auth/login"><span class="login-text">{{"Login" | translate}}</span></dfm-button>
+      <dfm-button color="link" size="lg"><span class="login-text" (click)="login()">{{"Login" | translate}}</span></dfm-button>
     </div>
   </div>
 

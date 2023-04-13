@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="d-flex flex-row justify-content-center">
-        <span>{{"AlreadyHaveAnAccount" | translate}}? <span class="text-primary pointer underline-primary" routerLink="/auth/login">{{"Login" | translate}}</span></span>
+        <span>{{"AlreadyHaveAnAccount" | translate}}? <span class="text-primary pointer underline-primary" (click)="logInUser()">{{"Login" | translate}}</span></span>
       </div>
     </section>
 

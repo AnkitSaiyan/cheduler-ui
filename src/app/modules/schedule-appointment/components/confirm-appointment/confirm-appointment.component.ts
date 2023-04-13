@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil, tap } from 'rxjs';
 import { ModalService } from '../../../../core/services/modal.service';
 import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
@@ -14,6 +14,8 @@ import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storag
 import { AppointmentStatus } from '../../../../shared/models/status';
 import { SiteSettings } from '../../../../shared/models/site-management.model';
 import { LandingService } from '../../../../core/services/landing.service';
+import { UserManagementService } from 'src/app/core/services/user-management.service';
+import { AuthUser } from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -23,38 +25,24 @@ import { LandingService } from '../../../../core/services/landing.service';
 export class ConfirmAppointmentComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public referDoctorCheckbox = new FormControl('', []);
   public consentCheckbox = new FormControl('', []);
-
   public basicDetails!: any;
-
   public examDetails!: ExamDetails;
-
   public slotDetails!: SlotDetails;
-
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
-
   public exams$$ = new BehaviorSubject<any>(null);
-
   public appointment$$ = new BehaviorSubject<Appointment | null>(null);
-
   public appointmentId$$ = new BehaviorSubject<number | null>(null);
-
   public loading$$ = new BehaviorSubject(true);
-
   public isLoggedIn$!: Observable<boolean>;
-
   public slots: string[] = [];
-
   public appointmentStatusEnum = AppointmentStatus;
-
   public siteDetails$$: BehaviorSubject<SiteSettings>;
-
   public editData: any;
-
   public edit: boolean = false;
-
   public isEdit$$ = new BehaviorSubject<boolean>(false);
-
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
+  public isConsentGiven$$ = new BehaviorSubject<boolean>(false);
+  private authUser: AuthUser | undefined;
 
   constructor(
     private authService: AuthService,
@@ -65,12 +53,25 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private notificationSvc: NotificationDataService,
     private datePipe: DatePipe,
     private landingSvc: LandingService,
+    private userManagementSvc: UserManagementService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
+
     if (localStorage.getItem('edit')) {
       this.isEdit$$.next(true);
     }
+
+    this.authService.authUser$
+      .pipe(
+        tap((user) => (this.authUser = user)),
+        takeUntil(this.destroy$$),
+        filter(Boolean),
+        switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
+      )
+      .subscribe((permits) => {
+        this.isConsentGiven$$.next(!!permits.find(({ tenantId }) => tenantId === this.authService.tenantId));
+      });
   }
 
   public ngOnInit(): void {
@@ -180,7 +181,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       return !this.referDoctorCheckbox.value && !this.consentCheckbox.value;
     }
 
-    return !this.consentCheckbox.value;
+    if (this.isConsentGiven$$.value && this.referDoctorCheckbox.value) {
+      return false;
+    }
+
+    return !(this.consentCheckbox.value && this.referDoctorCheckbox.value);
   }
 
   public confirmAppointment() {
@@ -199,7 +204,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     delete combinableSelectedTimeSlot.slot;
 
     const requestData: any = {
-      ...this.basicDetails,
+      ...(this.authUser?.id
+        ? {
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
+        : this.basicDetails),
       doctorId: this.examDetails.physician,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -234,42 +247,50 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               return examDetails;
             }),
           },
+      ...(localStorage.getItem('appointmentId')
+        ? {
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
+        : {}),
     };
 
+    let observable: Observable<any>;
+
     if (requestData) {
-      if (this.edit || localStorage.getItem('appointmentId')) {
-        requestData['appointmentId'] = localStorage.getItem('appointmentId');
-        this.scheduleAppointmentSvc
-          .updateAppointment$({ ...requestData, fromPatient: true })
-          .pipe(takeUntil(this.destroy$$))
-          .subscribe(
-            (res) => {
-              // localStorage.setItem('appointmentId', res?['id'].toString());
-              // this.appointmentId$$.next(res?['id']);
+      if (localStorage.getItem('appointmentId')) {
+        observable = this.scheduleAppointmentSvc.updateAppointment$(requestData);
+      } else {
+        observable = this.scheduleAppointmentSvc.addAppointment(requestData);
+      }
+
+      combineLatest([
+        observable,
+        ...(!this.isConsentGiven$$.value && this.authUser
+          ? [this.userManagementSvc.createPropertiesPermit(this.authUser.id, this.authService.tenantId)]
+          : []),
+      ])
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe({
+          next: ([res]) => {
+            let successMsg = `Appointment added successfully`;
+
+            if (localStorage.getItem('appointmentId')) {
+              // on update
               localStorage.removeItem('appointmentDetails');
-              this.notificationSvc.showNotification(`Appointment updated successfully`);
-              // this.router.navigate(['/appointment']);
+              successMsg = `Appointment updated successfully`;
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
-              this.isButtonDisable$$.next(false);
-            },
-            () => this.isButtonDisable$$.next(false),
-          );
-      } else {
-        this.scheduleAppointmentSvc
-          .addAppointment(requestData)
-          .pipe(takeUntil(this.destroy$$))
-          .subscribe(
-            (res) => {
-              localStorage.setItem('appointmentId', res?.id.toString());
-              localStorage.removeItem('appointmentDetails');
+            } else {
+              // on add new
               this.appointmentId$$.next(res?.id);
-              this.notificationSvc.showNotification(`Appointment added successfully`);
-              this.isButtonDisable$$.next(false);
-            },
-            () => this.isButtonDisable$$.next(false),
-          );
-      }
+            }
+
+            this.notificationSvc.showNotification(successMsg);
+            this.isButtonDisable$$.next(false);
+          },
+          error: () => this.isButtonDisable$$.next(false),
+        });
     }
   }
 
@@ -299,6 +320,24 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       });
   }
 
+  public onEdit() {
+    localStorage.setItem('edit', 'true');
+  }
+
+  public onAddNewAppointment() {
+    this.scheduleAppointmentSvc.resetDetails(true);
+  }
+
+  private createPermit() {
+    this.authService.authUser$
+      .pipe(
+        take(1),
+        filter(Boolean),
+        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
+      )
+      .subscribe();
+  }
+
   private dateDistributedToString(date: any, separator = '-'): string {
     return `${date.year}${separator}${date.month}${separator}${date.day}`;
   }
@@ -314,68 +353,4 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       day: new Date(date).getDate(),
     };
   }
-
-  public onEdit() {
-    localStorage.setItem('edit', 'true');
-  }
-
-  public onAddNewAppointment() {
-    this.scheduleAppointmentSvc.resetDetails(true);
-  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,1 +1,5 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="(loading$$ | async) === false"></router-outlet>
+
+<div class="loading-page" *ngIf="(loading$$ | async) === true">
+  <mat-spinner [diameter]="40"></mat-spinner>
+</div>

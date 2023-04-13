@@ -1,9 +1,9 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
-import {BaseResponse} from 'src/app/shared/models/base-response.model';
-import {environment} from 'src/environments/environment';
+import { BaseResponse } from 'src/app/shared/models/base-response.model';
+import { environment } from 'src/environments/environment';
 import { LoaderService } from './loader.service';
 
 @Injectable({
@@ -18,15 +18,27 @@ export class LandingService {
 
   private workingHourDetails$$ = new BehaviorSubject<any>({});
 
-  constructor(private router: Router, private http: HttpClient, private loaderSvc: LoaderService) {}
+  private httpClient: HttpClient;
 
-  public get siteDetails$(): Observable<any[]> {
+  private SubDomain: string = '';
+
+  constructor(private router: Router, private http: HttpBackend, private loaderSvc: LoaderService) {
+    this.httpClient = new HttpClient(http);
+    // eslint-disable-next-line prefer-destructuring
+    this.SubDomain = window.location.host.split('.')[0];
+  }
+
+  public get siteDetails$(): Observable<BaseResponse<any>> {
     return combineLatest([this.refreshSiteDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllSiteDetail()));
   }
 
   fetchAllSiteDetail(): Observable<any> {
     this.loaderSvc.activate();
-    return this.http.get<any>(`${environment.serverBaseUrl}/sitesetting`).pipe(tap(() => this.loaderSvc.deactivate()));
+    return this.httpClient
+      .get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(tap(() => this.loaderSvc.deactivate()));
   }
 
   public get workingDetails$(): Observable<any[]> {
@@ -34,7 +46,10 @@ export class LandingService {
   }
 
   fetchAllWorkingHours(): Observable<any> {
-    return this.http.get<any>(`${environment.serverBaseUrl}/practice`);
+    return this.httpClient
+      .get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(map((response) => response?.data));
   }
 }
-

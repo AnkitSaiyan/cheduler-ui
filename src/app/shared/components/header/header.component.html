@@ -1,58 +1,56 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
-  <div class="nav-logo pointer" routerLink="/"  *ngIf="siteDetails$$ | async as siteDetails">
-    <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo" src="{{base64Start + siteDetails['data']?.logo}}" alt="CHEDULER"/>
-    <img *ngIf="!siteDetails['data']?.logo" src="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"/>
+  <div class="nav-logo pointer" routerLink="/" *ngIf="siteDetails$$ | async as siteDetails">
+    <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo"
+         ngSrc="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER"/>
+    <img *ngIf="!siteDetails['data']?.logo" ngSrc="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"
+         height="16" width="134"/>
   </div>
 
   <div class="nav-items-right">
     <!-- <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div> -->
 
     <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
-      <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/">{{"Home" | translate}}</dfm-button>
+      <dfm-button color="link" size="lg" class="button-design home-btn"
+                  routerLink="/">{{ 'Home' | translate }}</dfm-button>
 
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn"
-                  routerLink="/auth/register">
-        {{"Register" | translate}}
+      <!--      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-plus-01"-->
+      <!--                  class="button-design register-btn" (click)="login()">-->
+      <!--        {{ 'Register' | translate }}-->
+      <!--      </dfm-button>-->
+
+      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
+                  class="button-design login-btn" (click)="login()">
+        {{ 'Login' | translate }}
       </dfm-button>
 
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn"
-                  routerLink="/auth/login">
-        {{"Login" | translate}}
-      </dfm-button>
-
-      <dfm-button
-        color="primary"
-        size="lg"
-        class="button-design schedule-btn"
-        routerLink="/schedule/overview"
-      >
-        {{"ScheduleAppointment" | translate}}
+      <dfm-button color="primary" size="lg" class="button-design schedule-btn" routerLink="/schedule/overview">
+        {{ 'ScheduleAppointment' | translate }}
       </dfm-button>
     </ng-container>
 
     <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
-      <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> {{"Home" | translate}}</dfm-button>
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn"
-                  routerLink="/auth/login">
-                  {{"Login" | translate}}
+      <dfm-button color="link" size="xl" class="button-design home-btn"
+                  routerLink="/"> {{ 'Home' | translate }}</dfm-button>
+      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
+                  class="button-design login-btn" (click)="login()">
+        {{ 'Login' | translate }}
       </dfm-button>
-      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn"
-                  routerLink="/auth/register">
-                  {{"Register" | translate}}
-      </dfm-button>
+      <!--      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">-->
+      <!--        {{ 'Register' | translate }}-->
+      <!--      </dfm-button>-->
     </ng-container>
 
-<!--    <div class="lang-btn lang-dropdown">-->
-<!--      <dfm-input-dropdown [items]="items" size="sm">-->
-<!--        {{ items.name }}-->
-<!--      </dfm-input-dropdown>-->
-<!--    </div>-->
+    <!--    <div class="lang-btn lang-dropdown">-->
+    <!--      <dfm-input-dropdown [items]="items" size="sm">-->
+    <!--        {{ items.name }}-->
+    <!--      </dfm-input-dropdown>-->
+    <!--    </div>-->
 
-<!--    <div class=" language-btn-mv d-flex dfm-gap-4 align-items-center font-weight-semi-bold">-->
-<!--      <span class="dfm-text-main-500 pointer">NL</span>-->
-<!--      <span>|</span>-->
-<!--      <span class="dfm-color-primary pointer">EN</span>-->
-<!--    </div>-->
+    <!--    <div class=" language-btn-mv d-flex dfm-gap-4 align-items-center font-weight-semi-bold">-->
+    <!--      <span class="dfm-text-main-500 pointer">NL</span>-->
+    <!--      <span>|</span>-->
+    <!--      <span class="dfm-color-primary pointer">EN</span>-->
+    <!--    </div>-->
 
     <ng-container *ngIf="(isLoggedIn$ | async) === false && !url.includes('auth') && (url.includes('schedule') || url === '/')">
       <div class="register-menu">
@@ -62,11 +60,12 @@
 
         <div class="sub-menu">
           <div class="sub-menu-items">
-            <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
-              {{"Register" | translate}}
-            </dfm-button>
+            <!--            <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">-->
+            <!--              {{ 'Register' | translate }}-->
+            <!--            </dfm-button>-->
             <div class="already-section">
-              <span>{{"ExistingUser" | translate}}?</span><span routerLink="/auth/login" class="pointer login-text">{{"Login" | translate}}</span>
+              <span>{{ 'ExistingUser' | translate }}?</span>
+              <span (click)="login()" class="pointer login-text">{{ 'Login' | translate }}</span>
             </div>
           </div>
         </div>
@@ -74,9 +73,14 @@
     </ng-container>
 
     <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
-      <span class="dfm-text-main-500 pointer" [ngClass]="{'dfm-color-primary': selectedLang === 'nl-BE'}" (click)="changeLanguage('nl-BE')">NL</span>
+      <span class="dfm-text-main-500 pointer" [ngClass]="{ 'dfm-color-primary': selectedLang === 'nl-BE' }" (click)="changeLanguage('nl-BE')"
+        >NL</span
+      >
       <span>|</span>
-      <span class="dfm-text-main-500 pointer" [ngClass]="{'dfm-color-primary': selectedLang === 'en-BE'}" (click)="changeLanguage('en-BE')">EN</span>
+      <span class="dfm-text-main-500 pointer" [ngClass]="{ 'dfm-color-primary': selectedLang === 'en-BE' }" (click)="changeLanguage('en-BE')"
+        >EN</span
+      >
     </div>
   </div>
 </div>
+

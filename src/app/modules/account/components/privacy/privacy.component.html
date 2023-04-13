@@ -1,27 +1,36 @@
 <div class="profile-footer dfm-p-32 dfm-gap-16">
   <!-- <div class="my-account-footer-blank">Blank Division</div> -->
   <div class="w-75 dfm-gap-16 privacy-text-div">
-    <h5 class="font-weight-semi-bold m-0">{{"Privacy" | translate}}</h5>
+    <h5 class="font-weight-semi-bold m-0">{{ 'Privacy' | translate }}</h5>
   </div>
-  <div class="my-profile-footer bg-white border-r-16 w-75 p-3 px-5">
- <span class="dfm-color-primary profile-footer-text font-weight-semi-bold">{{"Labswithaccesstoyourpersonalinformation" | translate}}</span>
-  <div class="d-flex flex-column justify-content-between gap-3 lab-section-mv">  
-  <div class="my-profile-footer-card">
-      <span class="lab-text font-weight-medium">Lab 1</span>
-      <dfm-button [color]="'primary'" [size]="'lg'" [disabled]="true" class="revoke-btn"> {{"RevokeAccess" | translate}} </dfm-button>
-      <dfm-button [color]="'primary'" [size]="'sm'" [disabled]="true" class="revoke-btn-mv"> {{"RevokeAccess" | translate}} </dfm-button>
-    </div>
-    <div class="my-profile-footer-card">
-      <span class="lab-text font-weight-medium">Lab 2</span>
-      <dfm-button [color]="'primary'" [size]="'lg'" (click)="checkRevokeStatus()" [disabled]="isRevokedPermission" class="remove-enable-btn"> {{"RevokeAccess" | translate}} </dfm-button>
-      <dfm-button [color]="'primary'" [size]="'sm'" (click)="checkRevokeStatus()" [disabled]="isRevokedPermission" class="remove-enable-btn-mv"> {{"RevokeAccess" | translate}} </dfm-button>
-    </div>
+  <div class="my-profile-footer bg-white border-r-16 w-75 p-3 px-5 d-flex flex-column dfm-gap-16">
+    <span class="dfm-color-primary profile-footer-text font-weight-semi-bold">{{ 'Labswithaccesstoyourpersonalinformation' | translate }}</span>
+    <div class="d-flex flex-column justify-content-between gap-3 lab-section-mv">
+      <ng-container *ngIf="allPermits$ | async as allPermit; else noPermits">
+        <div class="my-profile-footer-card" *ngFor="let permit of allPermit">
+          <span class="lab-text font-weight-medium">{{ permit?.tenantName }}</span>
+          <dfm-button [color]="'primary'" [size]="'lg'" (click)="revokePermit(permit.tenantId)" class="revoke-btn">
+            {{ 'RevokeAccess' | translate }}
+          </dfm-button>
+          <dfm-button [color]="'primary'" [size]="'sm'" (click)="revokePermit(permit.tenantId)" class="revoke-btn-mv">
+            {{ 'RevokeAccess' | translate }}
+          </dfm-button>
+        </div>
+        <div *ngIf="!allPermit.length">No data found</div>
+      </ng-container>
+      <ng-template #noPermits>
+        <span>No permits found</span>
+      </ng-template>
     </div>
   </div>
   <div class="d-flex justify-content-between align-items-center delete-button-section w-75 mt-3 bg-white border-r-16 p-3 px-5">
-    <span class="font-weight-medium">{{"DeleteYourAccount" | translate}}</span>
+    <span class="font-weight-medium">{{ 'DeleteYourAccount' | translate }}</span>
     <!-- <span class="text-primary" (click)="displayDeletePopup()" style="cursor: pointer">Delete Account</span> -->
-    <dfm-button [color]="'secondary'" [size]="'lg'" (click)="displayDeletePopup()" style="cursor: pointer" class="privacy-delete-btn">{{"DeleteAccount" | translate}}</dfm-button>
-    <dfm-button [color]="'secondary'" [size]="'sm'" (click)="displayDeletePopup()" style="cursor: pointer" class="privacy-delete-btn-mv">{{"Delete" | translate}}</dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'lg'" (click)="displayDeletePopup()" style="cursor: pointer" class="privacy-delete-btn">{{
+      'DeleteAccount' | translate
+    }}</dfm-button>
+    <dfm-button [color]="'secondary'" [size]="'sm'" (click)="displayDeletePopup()" style="cursor: pointer" class="privacy-delete-btn-mv">{{
+      'Delete' | translate
+    }}</dfm-button>
   </div>
 </div>

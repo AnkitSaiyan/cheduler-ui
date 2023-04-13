@@ -259,5 +259,7 @@
   "YourAppointmentsWillAppearHere" : "Uw afspraak verschijnt hier",
   "SelectedSlot" : "Geselecteerde gokkast",
   "AppointmentNumber" : "Afspraak nummer",
-  "AreYouSureYouWantToCancelThisAppointment" : "Weet u zeker dat u deze afspraak wilt annuleren?"
+  "AreYouSureYouWantToCancelThisAppointment" : "Weet u zeker dat u deze afspraak wilt annuleren?",
+  "ClickToExpand" : "Klik om uit te breiden",
+  "ClickToClose" : "Klik om te sluiten"
 }

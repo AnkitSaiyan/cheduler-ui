@@ -1,14 +1,22 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-interface Environment {
+export interface Environment {
   production: boolean;
   serverBaseUrl: string;
+  authClientId: string;
+  userManagementApiUrl: string;
+  redirectUrl: string;
+  schedulerApiAuthScope: string;
 }
 
 export const environment: Environment = {
   production: false,
-  serverBaseUrl: "https://diflexmo-scheduler-api-uat.azurewebsites.net/api"
+  serverBaseUrl: 'https://diflexmo-scheduler-api-uat.azurewebsites.net/api',
+  userManagementApiUrl: 'https://auth.diflexmo.be/usermanagement/api',
+  authClientId: 'd526e147-4713-4a0a-bf56-d8f500fb9a62',
+  redirectUrl: window.location.origin,
+  schedulerApiAuthScope: 'https://diflexmoauth.onmicrosoft.com/usermanagement.api/usermanagement.api',
 };
 
 /*

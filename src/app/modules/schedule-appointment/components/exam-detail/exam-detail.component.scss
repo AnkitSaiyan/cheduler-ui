@@ -18,6 +18,20 @@
   // border: 1px solid green;
   // margin: 0px 0px -10px 0px!important;
 }
+.trash-btn{
+  width: 20px; 
+  height: 20px; 
+  margin-top: 42px; 
+  cursor: pointer;
+  color:var(--dfm-primary);
+}
+// .trash-btn dfm-icon:hover{
+//   // background-color:none;
+//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+//   padding: 5px;
+//   border-radius: 8px;
+//   transition: .2s;
+// }
 // ======================Media Query for Mobile view=================
 @media (min-width: 680px) {
   .exam-form-container {

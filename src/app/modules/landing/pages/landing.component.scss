@@ -198,7 +198,7 @@ td {
 }
 
 .opening-days td {
-  font-size: 12px!important;
+  font-size: 13px!important;
 }
 // ======================Media Query for Mobile view=================
 @media (max-width: 1280px) {
@@ -307,7 +307,7 @@ td {
     font-size:18px;
   }
   .weekly-container .weekly-content-right .opening-detail-table .opening-days {
-    width: 50%;
+    width: 100%;
     // border: 1px solid red;
   }
   th,

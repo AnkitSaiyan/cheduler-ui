@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreComponent } from './core.component';
 import { AuthGuard } from './gurads/auth.guard';
 import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.component';
+import { RouteTypeName } from '../shared/models/routes.model';
 
 const routes: Routes = [
   {
@@ -13,15 +14,13 @@ const routes: Routes = [
         path: '',
         loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
         canActivate: [AuthGuard],
-      },
-      {
-        path: 'auth',
-        loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
+        data: { routeName: RouteTypeName.NonProtected },
       },
       {
         path: 'schedule',
         loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
-        // canActivateChild: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { routeName: RouteTypeName.NonProtected },
       },
       {
         path: 'privacy/policy',
@@ -30,7 +29,8 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () => (await import('../modules/main/main.module')).MainModule,
-        canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
+        data: { routeName: RouteTypeName.Protected },
       },
     ],
   },

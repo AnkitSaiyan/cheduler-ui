@@ -1,15 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
-import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
-import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, catchError, debounceTime, filter, switchMap, take, takeUntil, tap } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
-import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
-import { SiteSettings } from '../../../../shared/models/site-management.model';
-import { Exam } from 'src/app/shared/models/exam.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {DatePipe} from '@angular/common';
+import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from '../../../../shared/models/calendar.model.';
+import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
+import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import {AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum} from '../../../../shared/models/appointment.model';
+import {ExamDetails, SlotDetails} from '../../../../shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -64,8 +62,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public ngOnInit() {
-    this.getCalendarSlots();
-
     if (localStorage.getItem('siteDetails')) {
       const siteData = JSON.parse(localStorage.getItem('siteDetails') || '');
       this.isSlotCombinable = siteData.data?.isSlotsCombinable;
@@ -77,8 +73,17 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       exams.forEach((exam) => {
         const start = this.dateTo24TimeString(exam.startedAt);
         const end = this.dateTo24TimeString(exam.endedAt);
-        console.log({ exam });
-        this.toggleSlotSelection({ start, end, examId: +exam.id, userList: exam.users, roomList: exam.rooms } as ModifiedSlot, true);
+        console.log({exam});
+        this.toggleSlotSelection(
+          {
+            start,
+            end,
+            examId: +exam.id,
+            userList: exam.users,
+            roomList: exam.rooms,
+          } as ModifiedSlot,
+          true,
+        );
       });
     }
 
@@ -141,9 +146,10 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         }),
       )
       .subscribe((appointmentSlot) => {
-        appointmentSlot.forEach((appointmentSlot) => {
-          const day = +appointmentSlot.start.slice(-2);
-          switch (appointmentSlot.workStatus) {
+        appointmentSlot.forEach((slot) => {
+          const day = +slot.start.slice(-2);
+
+          switch (slot.workStatus) {
             case WorkStatusesEnum.Holiday:
               this.holidays.push(day);
               break;
@@ -155,10 +161,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               break;
             case WorkStatusesEnum.Past:
               this.pastDays.push(day);
+              break;
+            default:
           }
         });
         if (this.editData) {
-          this.selectDate(new Date(this.editData['exams'][0].startedAt).getDate(), true);
+          this.selectDate(new Date(this.editData.exams[0].startedAt).getDate(), true);
         }
       });
 
@@ -232,18 +240,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     super.ngOnDestroy();
   }
 
-  private dateTo24TimeString(date: Date): string {
-    if (!date) {
-      return '';
-    }
-
-    date = new Date(date);
-
-    const minutes = date.getMinutes().toString();
-
-    return `${date.getHours()}:${minutes.length < 2 ? `0${minutes}` : minutes}:00`;
-  }
-
   public changeMonth(offset: number) {
     const year = this.selectedCalendarDate$$.value.getFullYear();
     const month = this.selectedCalendarDate$$.value.getMonth();
@@ -266,67 +262,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.updateCalendarDays();
 
     this.selectedTimeSlot = [];
-  }
-
-  private updateCalendarDays() {
-    this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
-  }
-
-  private getModifiedSlotData(
-    slots: Slot[],
-    isCombinable: boolean,
-  ): {
-    newSlots: any[];
-    examIdToSlots: {
-      [key: number]: any[];
-    };
-  } {
-    if (!slots?.length) {
-      return { examIdToSlots: {}, newSlots: [] };
-    }
-
-    const newSlots: any[] = [];
-    const examIdToSlotsMap: { [key: number]: any[] } = {};
-    const uniqueSlots = new Set<string>();
-
-    slots.forEach((slot) => {
-      const slotString = `${slot.start}-${slot.end}`;
-
-      if (!uniqueSlots.has(slotString)) {
-        slot?.exams?.forEach((exam: any) => {
-          let newSlot;
-          if (isCombinable) {
-            newSlot = {
-              start: slot.start,
-              end: slot.end,
-              exams: slot.exams,
-              examId: exam.examId,
-              roomList: exam.rooms,
-              userList: exam.users,
-            };
-          } else {
-            newSlot = {
-              start: exam.start,
-              end: exam.end,
-              examId: exam.examId,
-              roomList: exam.rooms,
-              userList: exam.users,
-            };
-          }
-
-          if (!examIdToSlotsMap[+exam.examId]) {
-            examIdToSlotsMap[+exam.examId] = [];
-          }
-
-          examIdToSlotsMap[+exam.examId].push(newSlot);
-          newSlots.push(newSlot);
-        });
-
-        uniqueSlots.add(slotString);
-      }
-    });
-
-    return { newSlots, examIdToSlots: examIdToSlotsMap };
   }
 
   public toggleSlotSelection(slot: ModifiedSlot, isEdit: boolean = false) {
@@ -402,7 +337,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     // }
 
     this.scheduleAppointmentSvc.setSlotDetails(slotDetails);
-    this.router.navigate(['../basic-details'], { relativeTo: this.route });
+    this.router.navigate(['../basic-details'], { relativeTo: this.route, replaceUrl: true });
   }
 
   public getDateString(date: Date | null, format = 'yyyy-MM-dd'): string {
@@ -423,6 +358,79 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       const firstSlot = value.slot.split('-');
       return slot.examId !== value.examId && this.checkTimeRangeOverlapping(firstSlot[0], firstSlot[1], slot.start, slot.end);
     });
+  }
+
+  private dateTo24TimeString(date: Date): string {
+    if (!date) {
+      return '';
+    }
+
+    const newDate = new Date(date);
+
+    const minutes = newDate.getMinutes().toString();
+
+    return `${newDate.getHours()}:${minutes.length < 2 ? `0${minutes}` : minutes}:00`;
+  }
+
+  private updateCalendarDays() {
+    this.daysInMonthMatrix = getWeekdayWiseDays(this.selectedCalendarDate$$.value);
+  }
+
+  private getModifiedSlotData(
+    slots: Slot[],
+    isCombinable: boolean,
+  ): {
+    newSlots: any[];
+    examIdToSlots: {
+      [key: number]: any[];
+    };
+  } {
+    if (!slots?.length) {
+      return {examIdToSlots: {}, newSlots: []};
+    }
+
+    const newSlots: any[] = [];
+    const examIdToSlotsMap: { [key: number]: any[] } = {};
+    const uniqueSlots = new Set<string>();
+
+    slots.forEach((slot) => {
+      const slotString = `${slot.start}-${slot.end}`;
+
+      if (!uniqueSlots.has(slotString)) {
+        slot?.exams?.forEach((exam: any) => {
+          let newSlot;
+          if (isCombinable) {
+            newSlot = {
+              start: slot.start,
+              end: slot.end,
+              exams: slot.exams,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          } else {
+            newSlot = {
+              start: exam.start,
+              end: exam.end,
+              examId: exam.examId,
+              roomList: exam.rooms,
+              userList: exam.users,
+            };
+          }
+
+          if (!examIdToSlotsMap[+exam.examId]) {
+            examIdToSlotsMap[+exam.examId] = [];
+          }
+
+          examIdToSlotsMap[+exam.examId].push(newSlot);
+          newSlots.push(newSlot);
+        });
+
+        uniqueSlots.add(slotString);
+      }
+    });
+
+    return {newSlots, examIdToSlots: examIdToSlotsMap};
   }
 
   private checkTimeRangeOverlapping(start1: string, end1: string, start2: string, end2: string): boolean {
@@ -448,13 +456,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     return 0;
   }
 
-  private getCalendarSlots() {
-    const year = this.selectedDate$$.value?.getFullYear();
-    const month = this.selectedDate$$.value?.getMonth();
-    // const fromDate = new Date(, this.selectedDate$$.value?.getDate())
-    // this.scheduleAppointmentSvc.getSlots$()
-  }
-
   private getLastDayOfMonth(date: Date): number {
     return new Date(new Date(new Date(date).setMonth(date.getMonth() + 1)).setDate(0)).getDate();
   }
@@ -475,94 +476,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   private isDateValid(d: any): boolean {
-    if (Object.prototype.toString.call(d) === '[object Date]') {
-      if (isNaN(d)) return false;
-      return true;
-    }
-    return false;
+    return Object.prototype.toString.call(d) === '[object Date]' && !Number.isNaN(d);
   }
 }
-
-function timeToNumber(start1: string) {
-  throw new Error('Function not implemented.');
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
