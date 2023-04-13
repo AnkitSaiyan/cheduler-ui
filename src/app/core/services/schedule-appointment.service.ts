@@ -13,6 +13,7 @@ import { Exam } from 'src/app/shared/models/exam.model';
 import { Physician } from 'src/app/shared/models/physician.model';
 import { environment } from 'src/environments/environment';
 import { ExamDetails, SlotDetails } from '../../shared/models/local-storage-data.model';
+import { AuthService } from './auth.service';
 import { LoaderService } from './loader.service';
 
 @Injectable({
@@ -43,7 +44,7 @@ export class ScheduleAppointmentService {
 
   private SubDomain: string = '';
 
-  constructor(private http: HttpClient, private loaderSvc: LoaderService, private httpBackend: HttpBackend) {
+  constructor(private http: HttpClient, private loaderSvc: LoaderService, private httpBackend: HttpBackend, private authSvc: AuthService) {
     this.httpWithInterceptor = new HttpClient(this.httpBackend);
     // eslint-disable-next-line prefer-destructuring
     this.SubDomain = window.location.host.split('.')[0];
@@ -116,7 +117,7 @@ export class ScheduleAppointmentService {
   }
 
   public addAppointment(requestData): Observable<Appointment> {
-    return this.httpWithInterceptor
+    return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
       .post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData, {
         headers: { SubDomain: this.SubDomain },
       })
@@ -200,7 +201,7 @@ export class ScheduleAppointmentService {
 
   public updateAppointment$(requestData) {
     const { appointmentId, ...restData } = requestData;
-    return this.httpWithInterceptor
+    return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
       .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData, {
         headers: { SubDomain: this.SubDomain },
       })
@@ -229,7 +230,7 @@ export class ScheduleAppointmentService {
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.httpWithInterceptor
+        return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
           .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`, {
             headers: { SubDomain: this.SubDomain },
           })
