@@ -337,7 +337,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     // }
 
     this.scheduleAppointmentSvc.setSlotDetails(slotDetails);
-    this.router.navigate(['../basic-details'], { relativeTo: this.route });
+    this.router.navigate(['../basic-details'], { relativeTo: this.route, replaceUrl: true });
   }
 
   public getDateString(date: Date | null, format = 'yyyy-MM-dd'): string {
