@@ -1,5 +1,5 @@
 <div class="dfm-side-nav" [ngClass]="{ 'dfm-side-nav-expanded': isExpanded }" (click)="$event.stopPropagation()">
-  <div class="toggle-btn-mv dfm-side-nav-item dfm-mb-32" (click)="toggleMenu()">
+  <div class="toggle-btn-mv dfm-side-nav-item dfm-mb-32" (click)="toggleMenu(true)">
     <div class="dfm-side-nav-item-icon">
       <dfm-icon
         [name]="isExpanded ? 'x-close' : 'grid-01'"
@@ -39,12 +39,12 @@
   >
     <!-- =================||sub menu design for mobile view||=============== -->
     <div class="dfm-side-nav-item-icon">
-      <dfm-icon name="user-01" (click)="isVisibleSubMenu = !isVisibleSubMenu"></dfm-icon>
-      <div class="sub-menu-mv border-r-16" *ngIf="isVisibleSubMenu">
-        <div class="sub-menu-items-mv" routerLink="/account" (click)="isVisibleSubMenu = false">
+      <dfm-icon name="user-01" (click)="isVisibleSubMenu$$.next(!isVisibleSubMenu$$.value)"></dfm-icon>
+      <div class="sub-menu-mv border-r-16" *ngIf="(isVisibleSubMenu$$ | async) === true">
+        <div class="sub-menu-items-mv" routerLink="/account" (click)="isVisibleSubMenu$$.next(false)">
           <dfm-icon name="user-01"></dfm-icon>
         </div>
-        <div class="sub-menu-items-mv" routerLink="/account/privacy" (click)="isVisibleSubMenu = false">
+        <div class="sub-menu-items-mv" routerLink="/account/privacy" (click)="isVisibleSubMenu$$.next(false)">
           <dfm-icon name="key-01"></dfm-icon>
         </div>
       </div>

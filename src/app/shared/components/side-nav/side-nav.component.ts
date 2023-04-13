@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../../core/services/auth.service';
-import {RouterStateService} from '../../../core/services/router-state.service';
-import {DestroyableComponent} from '../destroyable/destroyable.component';
-import {filter, interval, take, takeUntil} from 'rxjs';
-import {Router} from '@angular/router';
-import {ModalService} from '../../../core/services/modal.service';
-import {ConfirmActionModalComponent, DialogData} from '../confirm-action-modal/confirm-action-modal.component';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AuthService } from '../../../core/services/auth.service';
+import { RouterStateService } from '../../../core/services/router-state.service';
+import { DestroyableComponent } from '../destroyable/destroyable.component';
+import { BehaviorSubject, filter, interval, take, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
+import { ModalService } from '../../../core/services/modal.service';
+import { ConfirmActionModalComponent, DialogData } from '../confirm-action-modal/confirm-action-modal.component';
 
 @Component({
   selector: 'dfm-side-nav',
@@ -16,8 +16,12 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
   public url!: string;
 
   public isExpanded: boolean = false;
-  public isVisibleSubMenu: boolean = false;
+
+  public isVisibleSubMenu$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   public window = window;
+
+  @ViewChild('myAccount') myAccount;
 
   constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService, private router: Router, private modalSvc: ModalService) {
     super();
@@ -70,7 +74,10 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
     }
   }
 
-  public toggleMenu(elementRef?: HTMLDivElement) {
+  public toggleMenu(fromTop: boolean = false) {
+    if (fromTop) {
+      this.myAccount.nativeElement.classList.remove('dfm-side-nav-sub-menu-show');
+    }
     this.isExpanded = !this.isExpanded;
   }
 
