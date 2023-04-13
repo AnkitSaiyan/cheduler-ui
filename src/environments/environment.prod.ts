@@ -1,4 +1,11 @@
-import { Environment } from './environment';
+export interface Environment {
+  production: boolean;
+  serverBaseUrl: string;
+  authClientId: string;
+  userManagementApiUrl: string;
+  redirectUrl: string;
+  schedulerApiAuthScope: string;
+}
 
 export const environment: Environment = {
   production: true,
