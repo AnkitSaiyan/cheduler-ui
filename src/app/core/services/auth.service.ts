@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   public get isLoggedIn$(): Observable<boolean> {
-    return combineLatest([this.authUser$$]).pipe(map((user) => !!user));
+    return combineLatest([this.authUser$$]).pipe(map(([user]) => !!user));
   }
 
   public loginWithRedirect() {
@@ -38,6 +38,8 @@ export class AuthService {
   }
 
   public initializeUser(): Observable<boolean> {
+    console.log('initializing user...');
+
     const user = this.msalService.instance.getActiveAccount();
     const userId = user?.localAccountId ?? '';
 

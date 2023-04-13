@@ -1,18 +1,18 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {Tooltip} from 'bootstrap';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Tooltip } from 'bootstrap';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {IdTokenClaims} from '@azure/msal-common';
-import {AuthenticationResult, EventMessage, EventType, InteractionStatus} from '@azure/msal-browser';
-import {MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService} from '@azure/msal-angular';
-import {filter, takeUntil, tap} from 'rxjs';
-import {NotificationType} from 'diflexmo-angular-design';
+import { IdTokenClaims } from '@azure/msal-common';
+import { AuthenticationResult, EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
+import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
+import { filter, takeUntil, tap } from 'rxjs';
+import { NotificationType } from 'diflexmo-angular-design';
 import defaultLanguage from '../assets/i18n/en-BE.json';
-import {DestroyableComponent} from './shared/components/destroyable/destroyable.component';
-import {AuthService} from './core/services/auth.service';
-import {AuthConfig} from './configuration/auth.config';
-import {NotificationDataService} from './core/services/notification-data.service';
+import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
+import { AuthService } from './core/services/auth.service';
+import { AuthConfig } from './configuration/auth.config';
+import { NotificationDataService } from './core/services/notification-data.service';
 
 type IdTokenClaimsWithPolicyId = IdTokenClaims & {
   acr?: string;
@@ -119,15 +119,19 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       next: (x) => (this.user = x),
     });
 
-    this.userAuthSvc.initializeUser().subscribe({
-      next: (x) => {
-        if (!x) {
-          // not showing error for now
-          this.userAuthSvc.logout();
-          this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
-          // setTimeout(() => this.userService.logout(), 1500);
-        }
-      },
-    });
+    this.userAuthSvc
+      .initializeUser()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe({
+        next: (x) => {
+          console.log('user login status, ', x);
+          if (!x) {
+            // not showing error for now
+            this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
+            this.userAuthSvc.logout();
+            // setTimeout(() => this.userService.logout(), 1500);
+          }
+        },
+      });
   }
 }
