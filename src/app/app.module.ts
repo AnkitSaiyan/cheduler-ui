@@ -21,15 +21,16 @@ import {
   MsalInterceptor,
   MsalInterceptorConfiguration,
   MsalService,
+  MsalRedirectComponent,
 } from '@azure/msal-angular';
-import {InteractionType, PublicClientApplication} from '@azure/msal-browser';
-import {environment} from 'src/environments/environment';
-import {ErrorInterceptor} from './core/http/error.interceptor';
-import {HeaderInterceptor} from './core/http/header.interceptor';
-import {AppRoutingModule} from './app-routing.module';
-import {CoreModule} from './core/core.module';
-import {AppComponent} from './app.component';
-import {AuthConfig, MSALConfig} from './configuration/auth.config';
+import { InteractionType, PublicClientApplication } from '@azure/msal-browser';
+import { environment } from 'src/environments/environment';
+import { ErrorInterceptor } from './core/http/error.interceptor';
+import { HeaderInterceptor } from './core/http/header.interceptor';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
+import { AppComponent } from './app.component';
+import { AuthConfig, MSALConfig } from './configuration/auth.config';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -78,7 +79,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     }),
     BrowserAnimationsModule,
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, MsalRedirectComponent],
   providers: [
     DatePipe,
     {

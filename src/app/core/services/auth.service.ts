@@ -3,7 +3,7 @@ import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 
 import { Router } from '@angular/router';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { InteractionType } from '@azure/msal-browser';
+import { InteractionType, RedirectRequest } from '@azure/msal-browser';
 import { UserManagementService } from './user-management.service';
 import { ScheduleAppointmentService } from './schedule-appointment.service';
 import { LoaderService } from './loader.service';
@@ -32,9 +32,14 @@ export class AuthService {
   }
 
   public loginWithRedirect() {
-    sessionStorage.clear();
-    this.loaderSvc.activate();
-    this.msalService.loginRedirect();
+    // sessionStorage.clear();
+    // this.loaderSvc.activate();
+    // this.msalService.loginRedirect();
+    if (this.msalGuardConfig.authRequest) {
+      this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+    } else {
+      this.msalService.loginRedirect();
+    }
   }
 
   public initializeUser(): Observable<boolean> {
@@ -59,15 +64,18 @@ export class AuthService {
   public logout() {
     this.removeUser();
 
-    if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
-      this.msalService.logoutPopup({
-        mainWindowRedirectUri: '/',
-      });
-      console.log('in poppup');
-    } else {
-      console.log('in redirect');
-      this.msalService.logoutRedirect();
-    }
+    // if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
+    //   this.msalService.logoutPopup({
+    //     mainWindowRedirectUri: '/',
+    //   });
+    //   console.log('in poppup');
+    // } else {
+    //   console.log('in redirect');
+    //   this.msalService.logoutRedirect();
+    // }
+    this.msalService.logoutRedirect({
+      postLogoutRedirectUri: window.location.origin,
+    });
   }
 
   public removeUser() {

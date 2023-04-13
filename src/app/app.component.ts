@@ -42,19 +42,15 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   }
 
   ngOnInit(): void {
+    this.checkAndSetActiveAccount();
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach((e) => new Tooltip(e));
-
-    this.authService
-      .handleRedirectObservable()
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe({
-        next: (res) => console.log('redirect observable', res),
-      });
-
-    this.msalBroadcastService.msalSubject$.pipe().subscribe((ev) => {
-      console.log(ev.eventType);
-    });
+    // this.authService
+    //   .handleRedirectObservable()
+    //   .pipe(takeUntil(this.destroy$$))
+    //   .subscribe({
+    //     next: (res) => console.log('redirect observable', res),
+    //   });
 
     this.msalBroadcastService.msalSubject$
       .pipe(
@@ -118,9 +114,9 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
      * Note: Basic usage demonstrated. Your app may require more complicated account selection logic
      */
 
-    console.log('check and set ac');
 
     const activeAccount = this.authService.instance.getActiveAccount();
+    if (!this.authService.instance.getAllAccounts().length) return;
 
     if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
       const accounts = this.authService.instance.getAllAccounts();
@@ -136,7 +132,6 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       .pipe(takeUntil(this.destroy$$))
       .subscribe({
         next: (x) => {
-          console.log('user login status, ', x);
           if (!x) {
             // not showing error for now
             this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
