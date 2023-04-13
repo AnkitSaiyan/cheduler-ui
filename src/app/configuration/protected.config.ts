@@ -3,4 +3,3 @@ export class ProtectedApi {
 
   scope: string = '';
 }
-

@@ -1,6 +1,6 @@
-import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { environment } from 'src/environments/environment';
@@ -24,7 +24,7 @@ export class LandingService {
     this.httpClient = new HttpClient(http);
   }
 
-  public get siteDetails$(): Observable<any[]> {
+  public get siteDetails$(): Observable<BaseResponse<any>> {
     return combineLatest([this.refreshSiteDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllSiteDetail()));
   }
 
@@ -41,4 +41,3 @@ export class LandingService {
     return this.httpClient.get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`).pipe(map((response) => response?.data));
   }
 }
-

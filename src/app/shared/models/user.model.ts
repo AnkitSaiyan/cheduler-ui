@@ -35,7 +35,6 @@ export interface User {
   rizivNumber?: string;
 }
 
-
 export class AuthUser {
   mail: string = '';
 
@@ -61,5 +60,3 @@ export class AuthUser {
     this.email = email;
   }
 }
-
-

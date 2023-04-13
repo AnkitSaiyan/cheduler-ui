@@ -6,10 +6,10 @@ import { LoaderService } from '../services/loader.service';
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private loaderSvc: LoaderService) {}
+
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err) => {
-        console.log(err);
         this.stopLoaders();
         return throwError(err);
       }),
@@ -21,4 +21,3 @@ export class ErrorInterceptor implements HttpInterceptor {
     this.loaderSvc.spinnerDeactivate();
   }
 }
-

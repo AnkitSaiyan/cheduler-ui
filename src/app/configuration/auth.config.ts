@@ -45,4 +45,3 @@ export const MSALConfig: Configuration = Object.freeze({
     },
   },
 });
-

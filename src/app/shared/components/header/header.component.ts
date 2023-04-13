@@ -1,14 +1,13 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
+import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { LandingService } from 'src/app/core/services/landing.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
 import defaultLanguage from '../../../../assets/i18n/en-BE.json';
-import dutchLangauge from '../../../../assets/i18n/nl-BE.json';
+import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
 import { RouterStateService } from '../../../core/services/router-state.service';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
-import { LandingService } from 'src/app/core/services/landing.service';
-import { MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
 
 @Component({
   selector: 'dfm-header',
@@ -16,6 +15,8 @@ import { MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/m
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  public loggingIn$$ = new BehaviorSubject(false);
+
   public items: any = [
     {
       name: 'EN',
@@ -42,12 +43,11 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private authSvc: AuthService,
     private translateService: TranslateService,
     private landingService: LandingService,
-    private msalService: MsalService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
-    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
-      this.ngOnInit();
+    this.landingService.siteFooterDetails$$.pipe(takeUntil(this.destroy$$)).subscribe({
+      next: () => this.ngOnInit(),
     });
   }
 
@@ -64,13 +64,13 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
       });
   }
 
-  changeLanguage(value) {
+  public changeLanguage(value) {
     if (value === 'en-BE') {
       this.translateService.setTranslation(value, defaultLanguage);
       this.translateService.setDefaultLang(value);
       // eslint-disable-next-line eqeqeq
     } else if (value === 'nl-BE') {
-      this.translateService.setTranslation(value, dutchLangauge);
+      this.translateService.setTranslation(value, dutchLanguage);
       this.translateService.setDefaultLang(value);
     }
 
@@ -82,9 +82,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public login() {
-    sessionStorage.clear();
-    this.msalService.loginRedirect();
+    this.loggingIn$$.next(true);
+    this.authSvc.loginWithRedirect();
   }
 }
-
-

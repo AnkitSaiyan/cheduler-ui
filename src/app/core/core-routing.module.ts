@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MsalGuard } from '@azure/msal-angular';
 import { CoreComponent } from './core.component';
 import { AuthGuard } from './gurads/auth.guard';
 import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.component';
+import { RouteTypeName } from '../shared/models/routes.model';
 
 const routes: Routes = [
   {
@@ -14,15 +14,11 @@ const routes: Routes = [
         path: '',
         loadChildren: async () => (await import('../modules/landing/landing.module')).LandingModule,
         canActivate: [AuthGuard],
+        data: { routeName: RouteTypeName.NonProtected },
       },
-      // {
-      //   path: 'auth',
-      //   loadChildren: async () => (await import('./auth/auth.module')).AuthModule,
-      // },
       {
         path: 'schedule',
         loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
-        // canActivateChild: [AuthGuard]
       },
       {
         path: 'privacy/policy',
@@ -31,8 +27,8 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: async () => (await import('../modules/main/main.module')).MainModule,
-        canActivate: [MsalGuard],
-        canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
+        data: { routeName: RouteTypeName.Protected },
       },
     ],
   },
@@ -43,4 +39,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class CoreRoutingModule {}
-

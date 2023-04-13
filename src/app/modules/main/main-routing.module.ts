@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {AuthGuard} from "../../core/gurads/auth.guard";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
@@ -10,22 +9,21 @@ const routes: Routes = [
   {
     path: 'appointment',
     loadChildren: async () => (await import('../appointment/appointment.module')).AppointmentModule,
-    canActivateChild: [AuthGuard]
   },
   {
     path: 'account',
     loadChildren: async () => (await import('../account/account.module')).AccountModule,
-    canActivateChild: [AuthGuard]
   },
   {
     path: '**',
     redirectTo: '/dashboard',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class MainRoutingModule { }
+export class MainRoutingModule {
+}

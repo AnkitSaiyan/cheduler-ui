@@ -1,12 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
-import { BehaviorSubject, combineLatest, Observable, takeUntil } from 'rxjs';
-import { SiteSettings } from '../../../../shared/models/site-management.model';
-import { filter } from 'lodash';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {combineLatest, Observable, takeUntil} from 'rxjs';
+import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
+import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -19,9 +17,9 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
   public isLoggedIn$!: Observable<boolean>;
 
-  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
-
   public editData: any;
+
+  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
 
   constructor(
     private authService: AuthService,
@@ -63,25 +61,16 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     // })
   }
 
-  private createForm(basicDetails, isDisable = false) {
-    this.basicDetailsForm = this.fb.group({
-      patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
-      patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
-      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
-      patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
-    });
-  }
-
   public saveBasicDetails() {
     if (this.basicDetailsForm.invalid) {
       return;
     }
 
     if (this.editData) {
-      this.editData['patientFname'] = this.basicDetailsForm.controls['patientFname'].value;
-      this.editData['patientLname'] = this.basicDetailsForm.controls['patientLname'].value;
-      this.editData['patientTel'] = this.basicDetailsForm.controls['patientTel'].value;
-      this.editData['patientEmail'] = this.basicDetailsForm.controls['patientEmail'].value;
+      this.editData.patientFname = this.basicDetailsForm.controls['patientFname'].value;
+      this.editData.patientLname = this.basicDetailsForm.controls['patientLname'].value;
+      this.editData.patientTel = this.basicDetailsForm.controls['patientTel'].value;
+      this.editData.patientEmail = this.basicDetailsForm.controls['patientEmail'].value;
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
 
@@ -90,12 +79,12 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   logInUser() {
-    this.authService
-      .login$()
-      .pipe()
-      .subscribe(() => {
-        this.router.navigate(['/dashboard']);
-      });
+    // this.authService
+    //   .login$()
+    //   .pipe()
+    //   .subscribe(() => {
+    //     this.router.navigate(['/dashboard']);
+    //   });
   }
 
   public handleEmailInput(e: Event): void {
@@ -113,21 +102,13 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       this.basicDetailsForm.get('patientEmail')?.setErrors(null);
     }
   }
+
+  private createForm(basicDetails, isDisable = false) {
+    this.basicDetailsForm = this.fb.group({
+      patientFname: [{value: basicDetails?.patientFname, disabled: isDisable}, [Validators.required]],
+      patientLname: [{value: basicDetails?.patientLname, disabled: isDisable}, [Validators.required]],
+      patientTel: [{value: basicDetails?.patientTel, disabled: isDisable}, [Validators.required]],
+      patientEmail: [{value: basicDetails?.patientEmail, disabled: isDisable}, [Validators.required]],
+    });
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

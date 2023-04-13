@@ -1,19 +1,15 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { DesignSystemCoreModule } from 'diflexmo-angular-design';
-import { AppRoutingModule } from './app-routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { DatePipe } from '@angular/common';
-import { HeaderInterceptor } from './core/http/header.interceptor';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ErrorInterceptor } from './core/http/error.interceptor';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {DesignSystemCoreModule} from 'diflexmo-angular-design';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {DatePipe} from '@angular/common';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {
   MSAL_GUARD_CONFIG,
@@ -24,45 +20,19 @@ import {
   MsalGuardConfiguration,
   MsalInterceptor,
   MsalInterceptorConfiguration,
-  MsalModule,
-  MsalRedirectComponent,
   MsalService,
 } from '@azure/msal-angular';
-import { BrowserCacheLocation, InteractionType, IPublicClientApplication, LogLevel, PublicClientApplication } from '@azure/msal-browser';
-import { environment } from 'src/environments/environment';
-import { AuthConfig, MSALConfig } from './configuration/auth.config';
+import {InteractionType, PublicClientApplication} from '@azure/msal-browser';
+import {environment} from 'src/environments/environment';
+import {ErrorInterceptor} from './core/http/error.interceptor';
+import {HeaderInterceptor} from './core/http/header.interceptor';
+import {AppRoutingModule} from './app-routing.module';
+import {CoreModule} from './core/core.module';
+import {AppComponent} from './app.component';
+import {AuthConfig, MSALConfig} from './configuration/auth.config';
 
-const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1; // Remove this line to use Angular Universal
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-
-export function loggerCallback(logLevel: LogLevel, message: string) {
-  // console.log(logLevel, message);
-}
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
-}
-
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication({
-    auth: {
-      clientId: environment.authClientId,
-      authority: `${AuthConfig.fullAuthority}/${AuthConfig.authFlow}`,
-      redirectUri: '/',
-      postLogoutRedirectUri: '/',
-      knownAuthorities: [AuthConfig.authority],
-    },
-    cache: {
-      cacheLocation: BrowserCacheLocation.LocalStorage,
-      storeAuthStateInCookie: isIE,
-    },
-    system: {
-      loggerOptions: {
-        loggerCallback,
-        logLevel: LogLevel.Trace,
-        piiLoggingEnabled: true,
-      },
-    },
-  });
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
@@ -86,6 +56,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     loginFailedRoute: '/',
   };
 }
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -101,7 +72,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
@@ -144,7 +114,3 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   ],
 })
 export class AppModule {}
-
-
-
-

@@ -1,23 +1,23 @@
 import {Component, OnInit} from '@angular/core';
+import {filter, Observable, of, switchMap, take} from 'rxjs';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {UserManagementService} from 'src/app/core/services/user-management.service';
+import {NotificationDataService} from '../../../../core/services/notification-data.service';
+import {ModalService} from '../../../../core/services/modal.service';
 import {
-  ConfirmActionModalComponent, DialogData
-} from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
-import { filter, Observable, of, switchMap, take } from 'rxjs';
-import { ModalService } from '../../../../core/services/modal.service';
-import { NotificationDataService } from '../../../../core/services/notification-data.service';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { UserManagementService } from 'src/app/core/services/user-management.service';
+  ConfirmActionModalComponent,
+  DialogData
+} from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
+import {Permits} from '../../../../shared/models/user-permits.model';
 
 @Component({
   selector: 'dfm-privacy',
-  templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss'],
+  templateUrl: './privacy.component.html',
 })
 export class PrivacyComponent implements OnInit {
-  public isRevokedPermission: boolean = false;
-
-  public allPermits$: Observable<any> = of(null);
+  public allPermits$: Observable<Permits[] | undefined> = of(undefined);
 
   constructor(
     private modalSvc: ModalService,
@@ -34,7 +34,7 @@ export class PrivacyComponent implements OnInit {
     );
   }
 
-  public checkRevokeStatus(tenantId: string) {
+  public revokePermit(tenantId: string) {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
         bodyText: 'Areyousurewantorevokeaccess',
@@ -49,10 +49,8 @@ export class PrivacyComponent implements OnInit {
         switchMap((user) => this.userManagement.revokePermit(user?.id!, tenantId)),
         take(1),
       )
-      .subscribe(() => {
-        this.isRevokedPermission = true;
-        this.notificationSvc.showNotification('Revoke permits successfully');
-        return this.isRevokedPermission;
+      .subscribe({
+        next: () => this.notificationSvc.showNotification('Revoke permits successfully'),
       });
   }
 
@@ -65,26 +63,16 @@ export class PrivacyComponent implements OnInit {
         } as DialogData,
       })
       .closed.pipe(
-        filter((res: boolean) => res),
-        switchMap(() => this.authService.authUser$),
-        switchMap((user) => this.userManagement.deleteUser(user?.id!)),
-        switchMap(() => this.authService.logout$()),
-        take(1),
-      )
-      .subscribe(() => {
-        this.notificationSvc.showNotification('Account deleted successfully');
+      filter((res: boolean) => res),
+      switchMap(() => this.authService.authUser$),
+      switchMap((user) => this.userManagement.deleteUser(user?.id!)),
+      take(1),
+    )
+      .subscribe({
+        next: () => {
+          this.authService.logout();
+          this.notificationSvc.showNotification('Account deleted successfully');
+        }
       });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

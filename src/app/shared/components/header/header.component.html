@@ -1,20 +1,25 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
   <div class="nav-logo pointer" routerLink="/" *ngIf="siteDetails$$ | async as siteDetails">
-    <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo" src="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER" />
-    <img *ngIf="!siteDetails['data']?.logo" src="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER" />
+    <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo"
+         ngSrc="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER"/>
+    <img *ngIf="!siteDetails['data']?.logo" ngSrc="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"
+         height="16" width="134"/>
   </div>
 
   <div class="nav-items-right">
     <!-- <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div> -->
 
     <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
-      <dfm-button color="link" size="lg" class="button-design home-btn" routerLink="/">{{ 'Home' | translate }}</dfm-button>
+      <dfm-button color="link" size="lg" class="button-design home-btn"
+                  routerLink="/">{{ 'Home' | translate }}</dfm-button>
 
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-plus-01" class="button-design register-btn" (click)="login()">
-        {{ 'Register' | translate }}
-      </dfm-button>
+      <!--      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-plus-01"-->
+      <!--                  class="button-design register-btn" (click)="login()">-->
+      <!--        {{ 'Register' | translate }}-->
+      <!--      </dfm-button>-->
 
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" (click)="login()">
+      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
+                  class="button-design login-btn" (click)="login()">
         {{ 'Login' | translate }}
       </dfm-button>
 
@@ -24,13 +29,15 @@
     </ng-container>
 
     <ng-container *ngIf="url.includes('schedule') && (isLoggedIn$ | async) === false">
-      <dfm-button color="link" size="xl" class="button-design home-btn" routerLink="/"> {{ 'Home' | translate }}</dfm-button>
-      <dfm-button color="tertiary" size="lg" leadingIcon="user-01" class="button-design login-btn" routerLink="/auth/login">
+      <dfm-button color="link" size="xl" class="button-design home-btn"
+                  routerLink="/"> {{ 'Home' | translate }}</dfm-button>
+      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
+                  class="button-design login-btn" routerLink="/auth/login">
         {{ 'Login' | translate }}
       </dfm-button>
-      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">
-        {{ 'Register' | translate }}
-      </dfm-button>
+      <!--      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">-->
+      <!--        {{ 'Register' | translate }}-->
+      <!--      </dfm-button>-->
     </ng-container>
 
     <!--    <div class="lang-btn lang-dropdown">-->
@@ -53,11 +60,12 @@
 
         <div class="sub-menu">
           <div class="sub-menu-items">
-            <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
-              {{ 'Register' | translate }}
-            </dfm-button>
+            <!--            <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">-->
+            <!--              {{ 'Register' | translate }}-->
+            <!--            </dfm-button>-->
             <div class="already-section">
-              <span>{{ 'ExistingUser' | translate }}?</span><span routerLink="/auth/login" class="pointer login-text">{{ 'Login' | translate }}</span>
+              <span>{{ 'ExistingUser' | translate }}?</span>
+              <span (click)="login()" class="pointer login-text">{{ 'Login' | translate }}</span>
             </div>
           </div>
         </div>
