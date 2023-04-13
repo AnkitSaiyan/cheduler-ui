@@ -11,6 +11,8 @@ import { UserManagementService } from './user-management.service';
 export class AuthService {
   private authUser$$: BehaviorSubject<AuthUser | undefined> = new BehaviorSubject<AuthUser | undefined>(undefined);
 
+  private readonly TenantId: string = 'NPXN';
+
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private msalService: MsalService,
@@ -27,6 +29,10 @@ export class AuthService {
 
   public get isLoggedIn(): boolean {
     return !!this.authUser$$.value;
+  }
+
+  public get tenantId(): string {
+    return this.TenantId;
   }
 
   public loginWithRedirect() {

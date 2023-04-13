@@ -41,7 +41,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public isEdit$$ = new BehaviorSubject<boolean>(false);
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
   public isConsentShow$$ = new BehaviorSubject<boolean>(false);
-  private readonly TenantId: string = 'NPXN';
 
   constructor(
     private authService: AuthService,
@@ -68,7 +67,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
       )
       .subscribe((permits) => {
-        this.isConsentShow$$.next(!!permits.find(({ tenantId }) => tenantId === this.TenantId));
+        this.isConsentShow$$.next(!!permits.find(({ tenantId }) => tenantId === this.authService.tenantId));
       });
   }
 
@@ -346,7 +345,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       .pipe(
         take(1),
         filter(Boolean),
-        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.TenantId)),
+        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
       )
       .subscribe();
   }

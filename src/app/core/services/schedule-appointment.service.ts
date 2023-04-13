@@ -134,7 +134,7 @@ export class ScheduleAppointmentService {
   private fetchAllUpcomingAppointments(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
     return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`).pipe(
-      map((response) => response.data),
+      map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.tenantId)),
       tap((res) => {
         console.log(res);
         this.loaderSvc.spinnerDeactivate();
@@ -149,7 +149,7 @@ export class ScheduleAppointmentService {
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
       .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`)
-      .pipe(map((response) => response.data));
+      .pipe(map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.tenantId)));
   }
 
   public get physicians$(): Observable<Physician[]> {
