@@ -137,7 +137,7 @@
 
 .previous-appointment-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   // position: relative;
 }
@@ -333,6 +333,10 @@
 }
 .status-text-color-mv{
     display: none;
+}
+
+.no-appointment-text {
+  margin: -16px 0 0 20px;
 }
 
 // ======================Media Query for Mobile view=================
