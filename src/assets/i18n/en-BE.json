@@ -260,7 +260,8 @@
   "AppointmentNumber" : "Appointment No",
   "AreYouSureYouWantToCancelThisAppointment" : "Are you sure you want to cancel this appointment",
   "ClickToExpand" : "Click to expand",
-  "ClickToClose" : "Click to close"
+  "ClickToClose" : "Click to close",
+  "Hello" : "Hello"
 
 
 }
