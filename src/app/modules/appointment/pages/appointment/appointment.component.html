@@ -22,93 +22,11 @@
 
 <div class="login-dashboard-content bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="heading-div upcoming-text">{{"UpcomingAppointments" | translate}}</div>
-  <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcommingAppointments; else loader1">
-    <div class="upcoming-appointments-details">
-      <!-- {{ upcommingAppointments | json }} -->
-      <div *ngFor="let item of upcommingAppointments" class="display-boxes mb-4">
-        <div class="top-section-appointment">
-          <div class="top-section-one">
-            <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
-            <br />
-            <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
-          </div>
-          <div class="top-section-two">
-            <div class="d-flex align-items-center">
-              <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
-              <span class="appointmentno-mv">{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
-            </div>
-            <div class="d-flex align-items-center">
-              <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-              <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex-item-row">
-          <div *ngFor="let exam of item.exams" class="exam-section">
-            <div class="mb-3">
-              <span class="appointment-exam-text mb-1">{{"Exam" | translate}} : {{ exam.name }} </span>
-            </div>
-
-            <div class="mb-3">
-              <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
-            </div>
-
-            <div class="appointment-exam-text-mv mb-3">
-              <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
-            </div>
-            <div class="instructions-text-section-mv mb-3">
-              <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
-            </div>
-
-            <div class="mb-3">
-              <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="lab-confirmation-status">
-          <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-            <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn" (click)="editAppointment(item)" [disabled]="item.statusText === 'Cancelled'"> {{"Edit" | translate}} </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
-            <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv" (click)="editAppointment(item)" [disabled]="item.statusText === 'Cancelled'"> {{"Edit" | translate}} </dfm-button>
-            <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
-          </div>
-        </div>
-        <hr>
-        <!-- </div> -->
-      </div>
-    </div>
-  </div>
-  <ng-template #loader1>
-    <div class="d-flex justify-content-center flex-1">
-      <mat-spinner diameter="48"></mat-spinner>
-    </div>
-  </ng-template>
-</div>
-
-<div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
-  <div class="previous-appointment-title">
-    <div class="heading-div previous-app-text">{{"PreviousAppointments" | translate}}</div>
-
-    <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
-    <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments;else loader2">
-      <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
-        >{{ viewAll ? ('Hide' | translate) : ('ViewAll' | translate) }}
-      </dfm-button>
-    </div>
-    <ng-template #loader2>
-      <div class="d-flex justify-content-center flex-1">
-        <mat-spinner diameter="48"></mat-spinner>
-      </div>
-    </ng-template>
-  </div>
-  <div
-    class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3"
-    *ngIf="filteredCompletedAppointments$$ | async as completedAppointments"
-  >
-    <div class="upcoming-appointments-details">
-      <div *ngFor="let item of completedAppointments; let i = index" class="display-boxes mb-4">
-        <div *ngIf="i < 4">
+  <div class="upcoming-appointments-section" *ngIf="filteredAppointments$$ | async as upcomingAppointments; else loadingUpcoming">
+    <ng-container *ngIf="upcomingAppointments.length; else noUpcoming">
+      <div class="upcoming-appointments-details">
+        <!-- {{ upcommingAppointments | json }} -->
+        <div *ngFor="let item of upcomingAppointments let i = index" class="display-boxes mb-4">
           <div class="top-section-appointment">
             <div class="top-section-one">
               <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
@@ -118,7 +36,7 @@
             <div class="top-section-two">
               <div class="d-flex align-items-center">
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
-                <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
+                <span class="appointmentno-mv">{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
               </div>
               <div class="d-flex align-items-center">
                 <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
@@ -130,7 +48,7 @@
           <div class="flex-item-row">
             <div *ngFor="let exam of item.exams" class="exam-section">
               <div class="mb-3">
-                <span class="appointment-exam-text mb-3">{{"Exam" | translate}} : {{ exam.name }} </span>
+                <span class="appointment-exam-text mb-1">{{"Exam" | translate}} : {{ exam.name }} </span>
               </div>
 
               <div class="mb-3">
@@ -147,72 +65,164 @@
               <div class="mb-3">
                 <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
               </div>
-              <!-- <div class="lab-confirmation-status">
-                <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-                  <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-                  <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-                  <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-                  <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
-                </div>
-              </div> -->
             </div>
           </div>
-          <hr>
-        </div>
-              <div *ngIf="viewAll && i > 3">
-                <div class="top-section-appointment">
-                  <div class="top-section-one">
-                    <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
-                    <br />
-                    <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
-                  </div>
-                  <div class="top-section-two">
-                    <div class="d-flex align-items-center">
-                      <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
-                      <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                      <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
-                      <!-- <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span> -->
-                      <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
-                    </div>
-                  </div>
-                </div>
-      
-                <div class="flex-item-row">
-                  <div *ngFor="let exam of item.exams" class="exam-section">
-                    <div class="mb-3">
-                      <span class="appointment-exam-text mb-1">{{"Exam" | translate}} : {{ exam.name }} </span>
-                    </div>
-      
-                    <div class="mb-3">
-                      <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
-                    </div>
-      
-                    <div class="appointment-exam-text-mv mb-3">
-                      <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
-                    </div>
-                    <div class="instructions-text-section-mv mb-3">
-                      <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
-                    </div>
-      
-                    <div class="mb-3">
-                      <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
-                    </div>
-              <!-- <div class="lab-confirmation-status">
-                <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-                  <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-                  <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-                  <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-                  <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
-                </div>
-              </div> -->
+          <div class="lab-confirmation-status">
+            <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+              <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn" (click)="editAppointment(item)" [disabled]="item.statusText === 'Cancelled'"> {{"Edit" | translate}} </dfm-button>
+              <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
+              <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv" (click)="editAppointment(item)" [disabled]="item.statusText === 'Cancelled'"> {{"Edit" | translate}} </dfm-button>
+              <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
             </div>
           </div>
-          <hr>
+          <hr *ngif="i < upcomingAppointments.length - 1">
         </div>
       </div>
+    </ng-container>
+    <ng-template #noUpcoming>
+      <span class="no-appointment-text">No upcoming appointments found</span>
+    </ng-template>
+  </div>
+  <ng-template #loadingUpcoming>
+    <div class="d-flex justify-content-center flex-1">
+      <mat-spinner diameter="48"></mat-spinner>
     </div>
+  </ng-template>
+</div>
+
+<div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
+  <div class="previous-appointment-title">
+    <div class="heading-div previous-app-text">{{"PreviousAppointments" | translate}}</div>
+
+    <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
+    <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments; else loadingCompleted">
+      <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
+        >{{ viewAll ? ('Hide' | translate) : ('ViewAll' | translate) }}
+      </dfm-button>
+    </div>
+    <ng-template #loadingCompleted>
+      <div class="d-flex justify-content-center flex-1">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+    </ng-template>
+  </div>
+  <div
+    class="previous-appointment-cards d-flex flex-wrap justify-content-center mt-3"
+    *ngIf="filteredCompletedAppointments$$ | async as completedAppointments"
+  >
+    <ng-container *ngIf="completedAppointments?.length; else noCompleted">
+      <div class="upcoming-appointments-details">
+        <div *ngFor="let item of completedAppointments; let i = index" class="display-boxes mb-4">
+          <div *ngIf="i < 4">
+            <div class="top-section-appointment">
+              <div class="top-section-one">
+                <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
+                <br />
+                <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
+              </div>
+              <div class="top-section-two">
+                <div class="d-flex align-items-center">
+                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                  <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                  <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-item-row">
+              <div *ngFor="let exam of item.exams" class="exam-section">
+                <div class="mb-3">
+                  <span class="appointment-exam-text mb-3">{{"Exam" | translate}} : {{ exam.name }} </span>
+                </div>
+
+                <div class="mb-3">
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                </div>
+
+                <div class="appointment-exam-text-mv mb-3">
+                  <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
+                </div>
+                <div class="instructions-text-section-mv mb-3">
+                  <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                </div>
+
+                <div class="mb-3">
+                  <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                </div>
+                <!-- <div class="lab-confirmation-status">
+                  <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+                    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+                    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+                    <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+                    <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <hr>
+          </div>
+          <div *ngIf="viewAll && i > 3">
+            <div class="top-section-appointment">
+              <div class="top-section-one">
+                <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
+                <br />
+                <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
+              </div>
+              <div class="top-section-two">
+                <div class="d-flex align-items-center">
+                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                  <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
+                </div>
+                <div class="d-flex align-items-center">
+                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                  <!-- <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span> -->
+                  <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-item-row">
+              <div *ngFor="let exam of item.exams" class="exam-section">
+                <div class="mb-3">
+                  <span class="appointment-exam-text mb-1">{{"Exam" | translate}} : {{ exam.name }} </span>
+                </div>
+
+                <div class="mb-3">
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                </div>
+
+                <div class="appointment-exam-text-mv mb-3">
+                  <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
+                </div>
+                <div class="instructions-text-section-mv mb-3">
+                  <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                </div>
+
+                <div class="mb-3">
+                  <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                </div>
+                <!-- <div class="lab-confirmation-status">
+                  <div class="status-btn d-flex flex-row justify-content-start align-items-start">
+                    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
+                    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
+                    <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
+                    <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <hr *ngIf="i < completedAppointments.length - 1">
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noCompleted>
+      <span class="no-appointment-text">No completed appointments found</span>
+    </ng-template>
 
     <!--
       <div class="card-item" >
