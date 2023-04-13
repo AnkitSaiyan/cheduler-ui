@@ -11,7 +11,7 @@ import { UserManagementService } from './user-management.service';
 export class AuthService {
   private authUser$$: BehaviorSubject<AuthUser | undefined> = new BehaviorSubject<AuthUser | undefined>(undefined);
 
-  private readonly TenantId: string = 'NPXN';
+  private TenantId: string = 'NPXN';
 
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
