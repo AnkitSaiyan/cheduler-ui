@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
@@ -21,16 +21,11 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   public isAppointemntScheduled: boolean = true;
 
   public isLoggedIn$!: Observable<boolean>;
-
-  private appointments$$: BehaviorSubject<any[]>;
-
   public filteredAppointments$$: BehaviorSubject<any[] | null>;
-
-  private completedAppointments$$: BehaviorSubject<any[]>;
-
   public filteredCompletedAppointments$$: BehaviorSubject<any[] | null>;
-
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  private appointments$$: BehaviorSubject<any[]>;
+  private completedAppointments$$: BehaviorSubject<any[]>;
 
   constructor(
     private scheduleAppointmentService: ScheduleAppointmentService,
@@ -52,7 +47,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
-    this.scheduleAppointmentService.upcommingAppointment$.pipe(takeUntil(this.destroy$$)).subscribe((appointments) => {
+
+    this.scheduleAppointmentService.upcomingAppointments$.pipe(takeUntil(this.destroy$$)).subscribe((appointments) => {
       if (!appointments['0']) {
         this.isAppointemntScheduled = false;
         return;
@@ -126,17 +122,3 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
       });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

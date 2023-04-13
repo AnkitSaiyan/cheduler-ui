@@ -118,15 +118,18 @@ export class ScheduleAppointmentService {
     );
   }
 
-  public get upcommingAppointment$(): Observable<Appointment[]> {
-    return combineLatest([this.upcommingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllUpcomingAppointment()));
+  public get upcomingAppointments$(): Observable<Appointment[]> {
+    return combineLatest([this.upcommingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllUpcomingAppointments()));
   }
 
-  private fetchAllUpcomingAppointment(): Observable<Appointment[]> {
+  private fetchAllUpcomingAppointments(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
     return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`).pipe(
       map((response) => response.data),
-      tap(() => this.loaderSvc.spinnerDeactivate()),
+      tap((res) => {
+        console.log(res);
+        this.loaderSvc.spinnerDeactivate();
+      }),
     );
   }
 
@@ -273,4 +276,3 @@ export class ScheduleAppointmentService {
     return ap;
   }
 }
-

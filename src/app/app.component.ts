@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IdTokenClaims } from '@azure/msal-common';
 import { AuthenticationResult, EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { filter, takeUntil, tap } from 'rxjs';
+import { filter, takeUntil } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import defaultLanguage from '../assets/i18n/en-BE.json';
 import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
@@ -45,9 +45,19 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     tooltipTriggerList.forEach((e) => new Tooltip(e));
 
+    this.authService
+      .handleRedirectObservable()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe({
+        next: (res) => console.log('redirect observable', res),
+      });
+
+    this.msalBroadcastService.msalSubject$.pipe().subscribe((ev) => {
+      console.log(ev.eventType);
+    });
+
     this.msalBroadcastService.msalSubject$
       .pipe(
-        tap((ev) => console.log('in first', ev)),
         filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_ADDED || msg.eventType === EventType.ACCOUNT_REMOVED),
         takeUntil(this.destroy$$),
       )
@@ -74,7 +84,6 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
 
     this.msalBroadcastService.msalSubject$
       .pipe(
-        tap((ev) => console.log('in second', ev)),
         filter(
           (msg: EventMessage) =>
             msg.eventType === EventType.LOGIN_SUCCESS ||
@@ -108,6 +117,9 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
      * To use active account set here, subscribe to inProgress$ first in your component
      * Note: Basic usage demonstrated. Your app may require more complicated account selection logic
      */
+
+    console.log('check and set ac');
+
     const activeAccount = this.authService.instance.getActiveAccount();
 
     if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
