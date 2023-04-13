@@ -443,6 +443,12 @@ dfm-notification {
 .w-full {
   width: 100%;
 }
+
+.dropdown-menu {
+  max-height: 200px;
+  overflow: auto;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

@@ -31,6 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { AuthConfig, MSALConfig } from './configuration/auth.config';
+import {SharedModule} from "./shared/shared.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -60,25 +61,26 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    CoreModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: !window.location.href.includes('localhost') }),
-    ReactiveFormsModule,
-    FormsModule,
-    HttpClientModule,
-    DesignSystemCoreModule,
-    AppRoutingModule,
-    NgbModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    BrowserAnimationsModule,
-  ],
+    imports: [
+        BrowserModule,
+        CoreModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: !window.location.href.includes('localhost')}),
+        ReactiveFormsModule,
+        FormsModule,
+        HttpClientModule,
+        DesignSystemCoreModule,
+        AppRoutingModule,
+        NgbModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        BrowserAnimationsModule,
+        SharedModule,
+    ],
   bootstrap: [AppComponent, MsalRedirectComponent],
   providers: [
     DatePipe,

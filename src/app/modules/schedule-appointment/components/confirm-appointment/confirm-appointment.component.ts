@@ -22,44 +22,26 @@ import { UserManagementService } from 'src/app/core/services/user-management.ser
   styleUrls: ['./confirm-appointment.component.scss'],
 })
 export class ConfirmAppointmentComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  private readonly TenantId: string = 'NPXN';
-
   public referDoctorCheckbox = new FormControl('', []);
   public consentCheckbox = new FormControl('', []);
-
   public basicDetails!: any;
-
   public examDetails!: ExamDetails;
-
   public slotDetails!: SlotDetails;
-
   public examIdToName: { [key: number]: { name: string; info: string } } = {};
-
   public exams$$ = new BehaviorSubject<any>(null);
-
   public appointment$$ = new BehaviorSubject<Appointment | null>(null);
-
   public appointmentId$$ = new BehaviorSubject<number | null>(null);
-
   public loading$$ = new BehaviorSubject(true);
-
   public isLoggedIn$!: Observable<boolean>;
-
   public slots: string[] = [];
-
   public appointmentStatusEnum = AppointmentStatus;
-
   public siteDetails$$: BehaviorSubject<SiteSettings>;
-
   public editData: any;
-
   public edit: boolean = false;
-
   public isEdit$$ = new BehaviorSubject<boolean>(false);
-
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
-
   public isConsentShow$$ = new BehaviorSubject<boolean>(false);
+  private readonly TenantId: string = 'NPXN';
 
   constructor(
     private authService: AuthService,
@@ -74,22 +56,24 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
+
     if (localStorage.getItem('edit')) {
       this.isEdit$$.next(true);
     }
-  }
 
-  public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
     this.authService.authUser$
       .pipe(
         takeUntil(this.destroy$$),
         filter(Boolean),
         switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
       )
-      .subscribe((permits: any[]) => {
-        this.isConsentShow$$.next(permits.find(({ tenantId }) => tenantId === this.TenantId).map(Boolean));
+      .subscribe((permits) => {
+        this.isConsentShow$$.next(!!permits.find(({ tenantId }) => tenantId === this.TenantId));
       });
+  }
+
+  public ngOnInit(): void {
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
@@ -195,7 +179,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       return !this.referDoctorCheckbox.value && !this.consentCheckbox.value;
     }
 
-    return !this.consentCheckbox.value;
+    if (this.isConsentShow$$.value && this.referDoctorCheckbox.value) {
+      return false;
+    }
+
+    return !(this.consentCheckbox.value && this.referDoctorCheckbox.value);
   }
 
   public confirmAppointment() {
@@ -260,7 +248,14 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             switchMap((isLoggedIn) =>
               this.scheduleAppointmentSvc.updateAppointment$(
                 isLoggedIn
-                  ? { ...requestData, patientFname: null, patientLname: null, patientEmail: null, patientTel: null, fromPatient: true }
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                      fromPatient: true,
+                    }
                   : { ...requestData, fromPatient: true },
               ),
             ),
@@ -285,7 +280,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             takeUntil(this.destroy$$),
             switchMap((isLoggedIn) =>
               this.scheduleAppointmentSvc.addAppointment(
-                isLoggedIn ? { ...requestData, patientFname: null, patientLname: null, patientEmail: null, patientTel: null } : { ...requestData },
+                isLoggedIn
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                    }
+                  : { ...requestData },
               ),
             ),
           )
@@ -302,16 +305,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           );
       }
     }
-  }
-
-  private createPermit() {
-    this.authService.authUser$
-      .pipe(
-        take(1),
-        filter(Boolean),
-        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.TenantId)),
-      )
-      .subscribe();
   }
 
   public cancelAppointment() {
@@ -340,6 +333,24 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       });
   }
 
+  public onEdit() {
+    localStorage.setItem('edit', 'true');
+  }
+
+  public onAddNewAppointment() {
+    this.scheduleAppointmentSvc.resetDetails(true);
+  }
+
+  private createPermit() {
+    this.authService.authUser$
+      .pipe(
+        take(1),
+        filter(Boolean),
+        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.TenantId)),
+      )
+      .subscribe();
+  }
+
   private dateDistributedToString(date: any, separator = '-'): string {
     return `${date.year}${separator}${date.month}${separator}${date.day}`;
   }
@@ -355,84 +366,4 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       day: new Date(date).getDate(),
     };
   }
-
-  public onEdit() {
-    localStorage.setItem('edit', 'true');
-  }
-
-  public onAddNewAppointment() {
-    this.scheduleAppointmentSvc.resetDetails(true);
-  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
