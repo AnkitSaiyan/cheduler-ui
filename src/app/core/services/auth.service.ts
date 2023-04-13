@@ -1,12 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 'rxjs';
-import { Router } from '@angular/router';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { InteractionType, RedirectRequest } from '@azure/msal-browser';
+import { RedirectRequest } from '@azure/msal-browser';
 import { UserManagementService } from './user-management.service';
-import { ScheduleAppointmentService } from './schedule-appointment.service';
-import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +11,12 @@ import { LoaderService } from './loader.service';
 export class AuthService {
   private authUser$$: BehaviorSubject<AuthUser | undefined> = new BehaviorSubject<AuthUser | undefined>(undefined);
 
+  private TenantId: string = 'NPXN';
+
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private msalService: MsalService,
-    private router: Router,
-    private scheduleAppointmentSvc: ScheduleAppointmentService,
     private userManagementApiService: UserManagementService,
-    private loaderSvc: LoaderService,
   ) {}
 
   public get authUser$(): Observable<AuthUser | undefined> {
@@ -29,6 +25,18 @@ export class AuthService {
 
   public get isLoggedIn$(): Observable<boolean> {
     return combineLatest([this.authUser$$]).pipe(map(([user]) => !!user));
+  }
+
+  public get userId(): string | undefined {
+    return this.authUser$$.value?.id;
+  }
+
+  public get isLoggedIn(): boolean {
+    return !!this.authUser$$.value;
+  }
+
+  public get tenantId(): string {
+    return this.TenantId;
   }
 
   public loginWithRedirect() {

@@ -20,8 +20,12 @@ export class LandingService {
 
   private httpClient: HttpClient;
 
+  private SubDomain: string = '';
+
   constructor(private router: Router, private http: HttpBackend, private loaderSvc: LoaderService) {
     this.httpClient = new HttpClient(http);
+    // eslint-disable-next-line prefer-destructuring
+    this.SubDomain = window.location.host.split('.')[0];
   }
 
   public get siteDetails$(): Observable<BaseResponse<any>> {
@@ -30,7 +34,11 @@ export class LandingService {
 
   fetchAllSiteDetail(): Observable<any> {
     this.loaderSvc.activate();
-    return this.httpClient.get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`).pipe(tap(() => this.loaderSvc.deactivate()));
+    return this.httpClient
+      .get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(tap(() => this.loaderSvc.deactivate()));
   }
 
   public get workingDetails$(): Observable<any[]> {
@@ -38,6 +46,10 @@ export class LandingService {
   }
 
   fetchAllWorkingHours(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`).pipe(map((response) => response?.data));
+    return this.httpClient
+      .get<any>(`${environment.serverBaseUrl}/patientsite/getworktime`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(map((response) => response?.data));
   }
 }

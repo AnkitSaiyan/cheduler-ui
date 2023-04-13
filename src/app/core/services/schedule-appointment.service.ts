@@ -13,6 +13,7 @@ import { Exam } from 'src/app/shared/models/exam.model';
 import { Physician } from 'src/app/shared/models/physician.model';
 import { environment } from 'src/environments/environment';
 import { ExamDetails, SlotDetails } from '../../shared/models/local-storage-data.model';
+import { AuthService } from './auth.service';
 import { LoaderService } from './loader.service';
 
 @Injectable({
@@ -41,8 +42,12 @@ export class ScheduleAppointmentService {
 
   private httpWithInterceptor: HttpClient;
 
-  constructor(private http: HttpClient, private loaderSvc: LoaderService, private httpBackend: HttpBackend) {
+  private SubDomain: string = '';
+
+  constructor(private http: HttpClient, private loaderSvc: LoaderService, private httpBackend: HttpBackend, private authSvc: AuthService) {
     this.httpWithInterceptor = new HttpClient(this.httpBackend);
+    // eslint-disable-next-line prefer-destructuring
+    this.SubDomain = window.location.host.split('.')[0];
   }
 
   public setExamDetails(reqData: ExamDetails) {
@@ -112,10 +117,14 @@ export class ScheduleAppointmentService {
   }
 
   public addAppointment(requestData): Observable<Appointment> {
-    return this.httpWithInterceptor.post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData).pipe(
-      map((response) => response.data),
-      tap(() => this.refreshAppointment$$.next()),
-    );
+    return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
+      .post<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/post`, requestData, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(
+        map((response) => response.data),
+        tap(() => this.refreshAppointment$$.next()),
+      );
   }
 
   public get upcomingAppointments$(): Observable<Appointment[]> {
@@ -125,7 +134,7 @@ export class ScheduleAppointmentService {
   private fetchAllUpcomingAppointments(): Observable<Appointment[]> {
     this.loaderSvc.spinnerActivate();
     return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`).pipe(
-      map((response) => response.data),
+      map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.userId)),
       tap((res) => {
         console.log(res);
         this.loaderSvc.spinnerDeactivate();
@@ -140,7 +149,7 @@ export class ScheduleAppointmentService {
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
     return this.http
       .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`)
-      .pipe(map((response) => response.data));
+      .pipe(map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.userId)));
   }
 
   public get physicians$(): Observable<Physician[]> {
@@ -148,7 +157,11 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
-    return this.httpWithInterceptor.get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`).pipe(map((response) => response.data));
+    return this.httpWithInterceptor
+      .get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(map((response) => response.data));
   }
 
   public get exams$(): Observable<Exam[]> {
@@ -157,10 +170,14 @@ export class ScheduleAppointmentService {
 
   private fetchAllExams(): Observable<Exam[]> {
     this.loaderSvc.spinnerActivate();
-    return this.httpWithInterceptor.get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`).pipe(
-      map((response) => response.data),
-      tap(() => this.loaderSvc.spinnerDeactivate()),
-    );
+    return this.httpWithInterceptor
+      .get<BaseResponse<Exam[]>>(`${environment.serverBaseUrl}/common/getexams`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(
+        map((response) => response.data),
+        tap(() => this.loaderSvc.spinnerDeactivate()),
+      );
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
@@ -184,20 +201,26 @@ export class ScheduleAppointmentService {
 
   public updateAppointment$(requestData) {
     const { appointmentId, ...restData } = requestData;
-    return this.httpWithInterceptor
-      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData)
+    return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
+      .put<BaseResponse<number>>(`${environment.serverBaseUrl}/patientappointment/put/${appointmentId}`, restData, {
+        headers: { SubDomain: this.SubDomain },
+      })
       .pipe(map((response) => response.data));
   }
 
   public getSlots$(requestData: AppointmentSlotsRequestData): Observable<AppointmentSlot> {
     return this.httpWithInterceptor
-      .post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData)
+      .post<BaseResponse<AppointmentSlot>>(`${environment.serverBaseUrl}/patientappointment/slots`, requestData, {
+        headers: { SubDomain: this.SubDomain },
+      })
       .pipe(map((res) => res?.data));
   }
 
   public getCalendarDays$(requestData: AppointmentDaysRequestData): Observable<AppointmentSlot[]> {
     return this.httpWithInterceptor
-      .post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/days`, requestData)
+      .post<BaseResponse<AppointmentSlot[]>>(`${environment.serverBaseUrl}/patientappointment/days`, requestData, {
+        headers: { SubDomain: this.SubDomain },
+      })
       .pipe(map((res) => res?.data));
   }
 
@@ -207,8 +230,10 @@ export class ScheduleAppointmentService {
 
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
-        return this.httpWithInterceptor
-          .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`)
+        return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
+          .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`, {
+            headers: { SubDomain: this.SubDomain },
+          })
           .pipe(
             map((response) => {
               if (Array.isArray(response.data)) {
