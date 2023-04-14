@@ -32,6 +32,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   public ngOnInit(): void {
+    this.authService.authUser$.subscribe(console.log);
     combineLatest([this.authService.authUser$, this.scheduleAppointmentSvc.basicDetails$])
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([userDetail, basicDetails]) => {
@@ -43,7 +44,19 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
               patientTel: userDetail.properties?.['extension_PhoneNumber'],
             }
           : basicDetails;
-        this.createForm(formData, !!userDetail);
+
+        this.createForm(formData);
+        if (userDetail) {
+          setTimeout(() => {
+            this.basicDetailsForm.patchValue({
+              patientFname: userDetail?.givenName,
+              patientLname: userDetail?.surname,
+              patientTel: userDetail.properties?.['extension_PhoneNumber'],
+              patientEmail: userDetail.email,
+            });
+            Object.keys(this.basicDetailsForm.controls).forEach((control) => this.basicDetailsForm.get(control)?.disable());
+          }, 0);
+        }
       });
 
     if (localStorage.getItem('appointmentDetails')) {
@@ -99,11 +112,13 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   private createForm(basicDetails, isDisable = false) {
+    console.log(basicDetails);
     this.basicDetailsForm = this.fb.group({
-      patientFname: [{value: basicDetails?.patientFname, disabled: isDisable}, [Validators.required]],
-      patientLname: [{value: basicDetails?.patientLname, disabled: isDisable}, [Validators.required]],
-      patientTel: [{value: basicDetails?.patientTel, disabled: isDisable}, [Validators.required]],
-      patientEmail: [{value: basicDetails?.patientEmail, disabled: isDisable}, [Validators.required]],
+      patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
+      patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
+      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
+      patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
     });
+
   }
 }

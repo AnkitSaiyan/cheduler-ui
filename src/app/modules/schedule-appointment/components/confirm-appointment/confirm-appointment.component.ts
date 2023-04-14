@@ -398,6 +398,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.isEdit$$.next(false);
               this.isButtonDisable$$.next(false);
               this.createPermit();
+              this.router.navigate([], {
+                queryParams: {
+                  s: 'a',
+                },
+              });
             },
             () => this.isButtonDisable$$.next(false),
           );
@@ -427,6 +432,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.notificationSvc.showNotification(`Appointment added successfully`);
               this.isButtonDisable$$.next(false);
               this.createPermit();
+              this.router.navigate([], {
+                queryParams: {
+                  s: 'a',
+                },
+              });
             },
             () => this.isButtonDisable$$.next(false),
           );
