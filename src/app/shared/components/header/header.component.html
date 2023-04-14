@@ -73,8 +73,8 @@
       </div>
     </ng-container>
     <div class="loggedin-username" *ngIf="(isLoggedIn$ | async) === true">
-      <span class="header-user-name fw-bold">
-        {{"Hello" | translate}} <span class="text-gray">{{ userName$ | async }} !</span>
+      <span class="header-user-name" style="font-weight: 500">
+        {{"Hello" | translate}}, <span class="text-gray">{{ userName$ | async }}!</span>
       </span>
       <!-- <div class="online-dot"></div> -->
       <!-- <span class="header-user-name fw-bold">{{ userName$ | async }}

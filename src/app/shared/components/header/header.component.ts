@@ -57,7 +57,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
-    this.userName$ = this.authSvc.authUser$.pipe(map((user) => user?.displayName));
+    this.userName$ = this.authSvc.authUser$.pipe(map((user) => user?.givenName));
 
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.routerStateSvc
