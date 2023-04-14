@@ -150,12 +150,12 @@
     <div class="pending-section-button d-flex justify-content-center dfm-gap-16"
          *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
       <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="mx-3 edit-btn"
-                  routerLink="/schedule/slot">
+                  routerLink="../slot">
         {{"EditAppointment" | translate}}
       </dfm-button>
 
       <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="mx-3 edit-btn-mv"
-                  routerLink="/schedule/slot">
+                  routerLink="../slot">
         {{"Edit" | translate}}
       </dfm-button>
 

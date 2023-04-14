@@ -106,11 +106,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         }),
         take(1),
       )
-      .subscribe((res) => {
-        if (res) {
-          this.notificationSvc.showNotification('Appointment canceled successfully');
-          this.ngOnInit();
-        }
+      .subscribe({
+        next: () => this.notificationSvc.showNotification('Appointment cancelled successfully')
       });
   }
 

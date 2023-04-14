@@ -2,7 +2,6 @@ import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import {
-  AddAppointmentRequestData,
   Appointment,
   AppointmentDaysRequestData,
   AppointmentSlot,
@@ -32,7 +31,7 @@ export class ScheduleAppointmentService {
 
   private appointment$$ = new BehaviorSubject<any>({});
 
-  private upcommingAppointments$$ = new BehaviorSubject<any>({});
+  private upcomingAppointments$$ = new BehaviorSubject<any>({});
 
   private refreshPhysicians$$ = new BehaviorSubject<any>({});
 
@@ -128,7 +127,7 @@ export class ScheduleAppointmentService {
   }
 
   public get upcomingAppointments$(): Observable<Appointment[]> {
-    return combineLatest([this.upcommingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllUpcomingAppointments()));
+    return combineLatest([this.upcomingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllUpcomingAppointments()));
   }
 
   private fetchAllUpcomingAppointments(): Observable<Appointment[]> {
@@ -143,7 +142,7 @@ export class ScheduleAppointmentService {
   }
 
   public get completedAppointment$(): Observable<Appointment[]> {
-    return combineLatest([this.upcommingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllCompletedAppointments()));
+    return combineLatest([this.upcomingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllCompletedAppointments()));
   }
 
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
@@ -194,9 +193,14 @@ export class ScheduleAppointmentService {
   }
 
   public cancelAppointment$(appointmentId: number): Observable<boolean> {
+    this.loaderSvc.activate();
     return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/patientappointment/cancelappointment/${appointmentId}`, '').pipe(
       map((response) => response.data),
-      tap(() => this.refreshAppointment$$.next()),
+      tap(() => {
+        this.refreshAppointment$$.next();
+        this.upcomingAppointments$$.next('');
+        this.loaderSvc.deactivate();
+      }),
     );
   }
 

@@ -75,7 +75,7 @@
               <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
             </div>
           </div>
-          <hr *ngif="i < upcomingAppointments.length - 1">
+          <hr *ngIf="i < upcomingAppointments.length - 1">
         </div>
       </div>
     </ng-container>
