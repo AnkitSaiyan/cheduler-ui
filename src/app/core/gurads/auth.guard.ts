@@ -1,19 +1,18 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, UrlTree} from '@angular/router';
-import {map, Observable} from 'rxjs';
-import {AuthService} from '../services/auth.service';
-import {RouteTypeName} from '../../shared/models/routes.model';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, UrlTree } from '@angular/router';
+import { map, Observable } from 'rxjs';
+import { MsalService } from '@azure/msal-angular';
+import { AuthService } from '../services/auth.service';
+import { RouteTypeName } from '../../shared/models/routes.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router, private msalSvc: MsalService) {}
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> {
-    const {data} = route;
-
+    const { data } = route;
     return this.guard(data['routeName']);
   }
 
@@ -42,8 +41,8 @@ export class AuthGuard implements CanActivate {
 
   private guard(routeName: RouteTypeName) {
     return this.authService.isLoggedIn$.pipe(
+      map(() => Boolean(this.msalSvc.instance.getAllAccounts()?.length)),
       map((isLoggedIn) => {
-        console.log(isLoggedIn, routeName);
         switch (routeName) {
           case RouteTypeName.Public:
             return true;
