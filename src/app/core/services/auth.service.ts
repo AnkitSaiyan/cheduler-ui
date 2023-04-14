@@ -40,14 +40,14 @@ export class AuthService {
     return this.TenantId;
   }
 
-  public loginWithRedirect() {
+  public loginWithRedirect(): Observable<void> {
     // sessionStorage.clear();
     // this.loaderSvc.activate();
     // this.msalService.loginRedirect();
     if (this.msalGuardConfig.authRequest) {
-      this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+      return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     } else {
-      this.msalService.loginRedirect();
+      return this.msalService.loginRedirect();
     }
   }
 

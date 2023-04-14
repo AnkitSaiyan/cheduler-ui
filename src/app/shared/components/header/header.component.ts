@@ -8,6 +8,7 @@ import defaultLanguage from '../../../../assets/i18n/en-BE.json';
 import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { AuthService } from '../../../core/services/auth.service';
+import {ScheduleAppointmentService} from "../../../core/services/schedule-appointment.service";
 
 @Component({
   selector: 'dfm-header',
@@ -44,6 +45,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private authSvc: AuthService,
     private translateService: TranslateService,
     private landingService: LandingService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -86,6 +88,13 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public login() {
     this.loggingIn$$.next(true);
-    this.authSvc.loginWithRedirect();
+
+    if (this.url.includes('confirm')) {
+      this.scheduleAppointmentSvc.resetDetails(true);
+      console.log('details reset');
+    }
+
+    const subscription = this.authSvc.loginWithRedirect();
+    subscription.pipe(takeUntil(this.destroy$$)).subscribe();
   }
 }
