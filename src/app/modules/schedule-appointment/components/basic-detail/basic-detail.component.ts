@@ -75,16 +75,11 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     }
 
     this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
-    this.router.navigate(['../confirm'], { relativeTo: this.route });
+    this.router.navigate(['../confirm'], { relativeTo: this.route, replaceUrl: true });
   }
 
-  logInUser() {
-    // this.authService
-    //   .login$()
-    //   .pipe()
-    //   .subscribe(() => {
-    //     this.router.navigate(['/dashboard']);
-    //   });
+  public logInUser() {
+    this.authService.loginWithRedirect();
   }
 
   public handleEmailInput(e: Event): void {

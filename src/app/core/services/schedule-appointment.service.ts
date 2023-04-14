@@ -147,9 +147,10 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllCompletedAppointments(): Observable<Appointment[]> {
-    return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`)
-      .pipe(map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.userId)));
+    return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/`).pipe(
+      map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.userId)),
+      tap(() => this.loaderSvc.spinnerDeactivate()),
+    );
   }
 
   public get physicians$(): Observable<Physician[]> {

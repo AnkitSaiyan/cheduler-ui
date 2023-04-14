@@ -223,7 +223,7 @@
   "UpcomingAppointments":"Upcoming Appointments",
   "AppointmentStatus" :"Appointment Status",
   "WeWillNotifyYou": "We will notify you by email once your appointment will be confirmed",
-  "PreviousAppointments" :"Previous Appointment",
+  "PreviousAppointments" :"Previous Appointments",
   "Dashboard": "Dashboard",
   "Profile": "Profile",
   "MyProfile": "My Profile",
@@ -261,7 +261,22 @@
   "AreYouSureYouWantToCancelThisAppointment" : "Are you sure you want to cancel this appointment",
   "ClickToExpand" : "Click to expand",
   "ClickToClose" : "Click to close",
-  "Hello" : "Hello"
+  "Hello" : "Hello",
+  "AddNewAppointment" : "Add New Appointment",
+  "AddNew" : "Add New",
+  "NoPreviousAppointmentsFound" : "No Previous Appointment",
+  "NoUpcomingAppointmentsFound" : "No Upcoming Appointments Found",
+  "Jan" : "Jan",
+  "Feb" : "Feb",
+  "Mar" : "Mar",
+  "Apr" : "Apr",
+  "Jun" : "Jun",
+  "Jul" : "Jul",
+  "Aug" : "Aug",
+  "Sep" : "Sep",
+  "Oct" : "Oct",
+  "Nov" : "Nov",
+  "Dec" : "Dec"
 
 
 }

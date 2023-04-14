@@ -1,14 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
-import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
-import { ModalService } from '../../../../core/services/modal.service';
-import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
-import { NotificationDataService } from 'src/app/core/services/notification-data.service';
-import { Router } from '@angular/router';
-import { ExamDetails } from 'src/app/shared/models/local-storage-data.model';
-import { LoaderService } from 'src/app/core/services/loader.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil} from 'rxjs';
+import {AuthService} from 'src/app/core/services/auth.service';
+import {ScheduleAppointmentService} from 'src/app/core/services/schedule-appointment.service';
+import {DestroyableComponent} from 'src/app/shared/components/destroyable/destroyable.component';
+import {ModalService} from '../../../../core/services/modal.service';
+import {
+  ConfirmActionModalComponent,
+  DialogData
+} from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
+import {NotificationDataService} from 'src/app/core/services/notification-data.service';
+import {Router} from '@angular/router';
+import {ExamDetails} from 'src/app/shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment',
@@ -24,8 +26,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   public filteredAppointments$$: BehaviorSubject<any[] | null>;
   public filteredCompletedAppointments$$: BehaviorSubject<any[] | null>;
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  private appointments$$: BehaviorSubject<any[]>;
-  private completedAppointments$$: BehaviorSubject<any[]>;
+  public appointments$$: BehaviorSubject<any[]>;
+  public completedAppointments$$: BehaviorSubject<any[]>;
 
   constructor(
     private scheduleAppointmentService: ScheduleAppointmentService,
@@ -34,7 +36,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
     private notificationSvc: NotificationDataService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
-    public loaderSvc: LoaderService,
   ) {
     super();
     this.appointments$$ = new BehaviorSubject<any[]>([]);
@@ -48,25 +49,38 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   ngOnInit(): void {
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
 
-    this.scheduleAppointmentService.upcomingAppointments$.pipe(takeUntil(this.destroy$$)).subscribe((appointments) => {
-      if (!appointments['0']) {
-        this.isAppointemntScheduled = false;
-        return;
-      }
-      this.isAppointemntScheduled = true;
-      this.appointments$$.next(appointments);
-      this.filteredAppointments$$.next(appointments);
-    });
+    combineLatest([this.scheduleAppointmentService.upcomingAppointments$, this.scheduleAppointmentService.completedAppointment$])
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe({
+        next: ([upcoming, completed]) => {
+          this.appointments$$.next(upcoming);
+          this.filteredAppointments$$.next(upcoming);
+          this.completedAppointments$$.next(completed);
+          this.filteredCompletedAppointments$$.next(completed);
+          this.isAppointemntScheduled = !!(upcoming.length || upcoming.length);
+          console.log(this.isAppointemntScheduled);
+        },
+      });
 
-    this.scheduleAppointmentService.completedAppointment$.pipe(takeUntil(this.destroy$$)).subscribe((completedAppointments) => {
-      if (!completedAppointments['0']) {
-        this.isAppointemntScheduled = false;
-        return;
-      }
-      this.isAppointemntScheduled = true;
-      this.completedAppointments$$.next(completedAppointments);
-      this.filteredCompletedAppointments$$.next(completedAppointments);
-    });
+    // this.scheduleAppointmentService.upcomingAppointments$.pipe(takeUntil(this.destroy$$)).subscribe((appointments) => {
+    //   if (!appointments.length) {
+    //     this.isAppointemntScheduled = false;
+    //     return;
+    //   }
+    //   this.isAppointemntScheduled = true;
+    //   this.appointments$$.next(appointments);
+    //   this.filteredAppointments$$.next(appointments);
+    // });
+    //
+    // this.scheduleAppointmentService.completedAppointment$.pipe(takeUntil(this.destroy$$)).subscribe((completedAppointments) => {
+    //   if (!completedAppointments.length) {
+    //     this.isAppointemntScheduled = false;
+    //     return;
+    //   }
+    //   this.isAppointemntScheduled = true;
+    //   this.completedAppointments$$.next(completedAppointments);
+    //   this.filteredCompletedAppointments$$.next(completedAppointments);
+    // });
   }
 
   monthName(date) {
@@ -117,7 +131,7 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
         localStorage.setItem('appointmentId', item.id);
         localStorage.setItem('edit', 'true');
-        this.scheduleAppointmentService.editDetails$$.next({ isEdit: true, id: item.id });
+        this.scheduleAppointmentService.editDetails$$.next({isEdit: true, id: item.id});
         this.router.navigate(['/dashboard/schedule/slot']);
       });
   }

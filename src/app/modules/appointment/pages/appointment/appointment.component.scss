@@ -137,7 +137,7 @@
 
 .previous-appointment-title {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   // position: relative;
 }
@@ -296,10 +296,14 @@
 
 .top-section-one {
   text-align: center;
-  padding: 10px;
+  padding: 10px 20px;
   background: #e0dde4;
   color: #4e2267 !important;
-  border-radius: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .top-section-two {
@@ -333,6 +337,10 @@
 }
 .status-text-color-mv{
     display: none;
+}
+
+.no-appointment-text {
+  margin: -16px 0 0 20px;
 }
 
 // ======================Media Query for Mobile view=================
@@ -546,6 +554,22 @@
   }
   .cancelled-status-text {
     display: flex;
+  }
+  .top-section-one {
+    text-align: center;
+    padding: 0px;
+    background: #e0dde4;
+    color: #4e2267 !important;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+  }
+  .loader-mv{
+    margin: auto;
   }
 }
 

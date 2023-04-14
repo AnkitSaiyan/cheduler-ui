@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, Observable, of, switchMap, take, takeUntil, tap } from 'rxjs';
 import { ModalService } from '../../../../core/services/modal.service';
 import { ConfirmActionModalComponent, DialogData } from '../../../../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
@@ -15,6 +15,7 @@ import { AppointmentStatus } from '../../../../shared/models/status';
 import { SiteSettings } from '../../../../shared/models/site-management.model';
 import { LandingService } from '../../../../core/services/landing.service';
 import { UserManagementService } from 'src/app/core/services/user-management.service';
+import { AuthUser } from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -40,7 +41,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public edit: boolean = false;
   public isEdit$$ = new BehaviorSubject<boolean>(false);
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
-  public isConsentShow$$ = new BehaviorSubject<boolean>(false);
+  public isConsentGiven$$ = new BehaviorSubject<boolean>(false);
+  private authUser: AuthUser | undefined;
 
   constructor(
     private authService: AuthService,
@@ -62,12 +64,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     this.authService.authUser$
       .pipe(
+        tap((user) => (this.authUser = user)),
         takeUntil(this.destroy$$),
         filter(Boolean),
         switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
       )
       .subscribe((permits) => {
-        this.isConsentShow$$.next(!!permits.find(({ tenantId }) => tenantId === this.authService.tenantId));
+        this.isConsentGiven$$.next(!!permits.find(({ tenantId }) => tenantId === this.authService.tenantId));
       });
   }
 
@@ -178,7 +181,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       return !this.referDoctorCheckbox.value && !this.consentCheckbox.value;
     }
 
-    if (this.isConsentShow$$.value && this.referDoctorCheckbox.value) {
+    if (this.isConsentGiven$$.value && this.referDoctorCheckbox.value) {
       return false;
     }
 
@@ -201,7 +204,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     delete combinableSelectedTimeSlot.slot;
 
     const requestData: any = {
-      ...this.basicDetails,
+      ...(this.authUser?.id
+        ? {
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
+        : this.basicDetails),
       doctorId: this.examDetails.physician,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -236,73 +247,50 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               return examDetails;
             }),
           },
+      ...(localStorage.getItem('appointmentId')
+        ? {
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
+        : {}),
     };
+
+    let observable: Observable<any>;
 
     if (requestData) {
       if (localStorage.getItem('appointmentId')) {
-        requestData['appointmentId'] = localStorage.getItem('appointmentId');
-        this.authService.isLoggedIn$
-          .pipe(
-            takeUntil(this.destroy$$),
-            switchMap((isLoggedIn) =>
-              this.scheduleAppointmentSvc.updateAppointment$(
-                isLoggedIn
-                  ? {
-                      ...requestData,
-                      patientFname: null,
-                      patientLname: null,
-                      patientEmail: null,
-                      patientTel: null,
-                      fromPatient: true,
-                    }
-                  : { ...requestData, fromPatient: true },
-              ),
-            ),
-          )
-          .subscribe(
-            (res) => {
-              // localStorage.setItem('appointmentId', res?['id'].toString());
-              // this.appointmentId$$.next(res?['id']);
+        observable = this.scheduleAppointmentSvc.updateAppointment$(requestData);
+      } else {
+        observable = this.scheduleAppointmentSvc.addAppointment(requestData);
+      }
+
+      combineLatest([
+        observable,
+        ...(!this.isConsentGiven$$.value && this.authUser
+          ? [this.userManagementSvc.createPropertiesPermit(this.authUser.id, this.authService.tenantId)]
+          : []),
+      ])
+        .pipe(takeUntil(this.destroy$$))
+        .subscribe({
+          next: ([res]) => {
+            let successMsg = `Appointment added successfully`;
+
+            if (localStorage.getItem('appointmentId')) {
+              // on update
               localStorage.removeItem('appointmentDetails');
-              this.notificationSvc.showNotification(`Appointment updated successfully`);
-              // this.router.navigate(['/appointment']);
+              successMsg = `Appointment updated successfully`;
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
-              this.isButtonDisable$$.next(false);
-              this.createPermit();
-            },
-            () => this.isButtonDisable$$.next(false),
-          );
-      } else {
-        this.authService.isLoggedIn$
-          .pipe(
-            takeUntil(this.destroy$$),
-            switchMap((isLoggedIn) =>
-              this.scheduleAppointmentSvc.addAppointment(
-                isLoggedIn
-                  ? {
-                      ...requestData,
-                      patientFname: null,
-                      patientLname: null,
-                      patientEmail: null,
-                      patientTel: null,
-                    }
-                  : { ...requestData },
-              ),
-            ),
-          )
-          .subscribe(
-            (res) => {
-              localStorage.setItem('appointmentId', res?.id.toString());
-              localStorage.removeItem('appointmentDetails');
+            } else {
+              // on add new
               this.appointmentId$$.next(res?.id);
-              this.notificationSvc.showNotification(`Appointment added successfully`);
-              this.isButtonDisable$$.next(false);
-              this.createPermit();
-            },
-            () => this.isButtonDisable$$.next(false),
-          );
-      }
+            }
+
+            this.notificationSvc.showNotification(successMsg);
+            this.isButtonDisable$$.next(false);
+          },
+          error: () => this.isButtonDisable$$.next(false),
+        });
     }
   }
 

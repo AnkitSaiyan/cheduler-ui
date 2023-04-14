@@ -19,6 +19,8 @@ const routes: Routes = [
       {
         path: 'schedule',
         loadChildren: async () => (await import('../modules/schedule-appointment/schedule-appointment.module')).ScheduleAppointmentModule,
+        canActivate: [AuthGuard],
+        data: { routeName: RouteTypeName.NonProtected },
       },
       {
         path: 'privacy/policy',

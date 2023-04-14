@@ -32,7 +32,7 @@
       <dfm-button color="link" size="xl" class="button-design home-btn"
                   routerLink="/"> {{ 'Home' | translate }}</dfm-button>
       <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
-                  class="button-design login-btn" routerLink="/auth/login">
+                  class="button-design login-btn" (click)="login()">
         {{ 'Login' | translate }}
       </dfm-button>
       <!--      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">-->

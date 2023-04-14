@@ -155,9 +155,12 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
-    this.router.navigate(['../slot'], { relativeTo: this.route });
+    this.router.navigate(['../slot'], { relativeTo: this.route, replaceUrl: true });
   }
 }
+
+
+
 
 
 
