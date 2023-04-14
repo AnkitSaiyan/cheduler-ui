@@ -79,15 +79,6 @@ export class AuthService {
   public logout() {
     this.removeUser();
 
-    // if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
-    //   this.msalService.logoutPopup({
-    //     mainWindowRedirectUri: '/',
-    //   });
-    //   console.log('in poppup');
-    // } else {
-    //   console.log('in redirect');
-    //   this.msalService.logoutRedirect();
-    // }
     this.msalService.logoutRedirect({
       postLogoutRedirectUri: window.location.origin,
     });

@@ -264,33 +264,38 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         observable = this.scheduleAppointmentSvc.addAppointment(requestData);
       }
 
-      combineLatest([
-        observable,
-        ...(!this.isConsentGiven$$.value && this.authUser
-          ? [this.userManagementSvc.createPropertiesPermit(this.authUser.id, this.authService.tenantId)]
-          : []),
-      ])
-        .pipe(takeUntil(this.destroy$$))
-        .subscribe({
-          next: ([res]) => {
-            let successMsg = `Appointment added successfully`;
+      observable.pipe(takeUntil(this.destroy$$)).subscribe({
+        next: (res) => {
+          let successMsg = `Appointment added successfully`;
 
-            if (localStorage.getItem('appointmentId')) {
-              // on update
-              localStorage.removeItem('appointmentDetails');
-              successMsg = `Appointment updated successfully`;
-              localStorage.removeItem('edit');
-              this.isEdit$$.next(false);
-            } else {
-              // on add new
-              this.appointmentId$$.next(res?.id);
-            }
+          if (localStorage.getItem('appointmentId')) {
+            // on update
+            localStorage.removeItem('appointmentDetails');
+            successMsg = `Appointment updated successfully`;
+            localStorage.removeItem('edit');
+            this.isEdit$$.next(false);
+          } else {
+            // on add new
+            this.appointmentId$$.next(res?.id);
+          }
 
-            this.notificationSvc.showNotification(successMsg);
-            this.isButtonDisable$$.next(false);
-          },
-          error: () => this.isButtonDisable$$.next(false),
-        });
+          this.notificationSvc.showNotification(successMsg);
+          this.isButtonDisable$$.next(false);
+        },
+        error: (err) => {
+          this.notificationSvc.showNotification(err.error?.message);
+          this.isButtonDisable$$.next(false);
+        },
+      });
+
+      if (!this.isConsentGiven$$.value && this.authUser) {
+        this.userManagementSvc
+          .createPropertiesPermit(this.authUser.id, this.authService.tenantId)
+          .pipe(takeUntil(this.destroy$$))
+          .subscribe({
+            error: (err) => this.notificationSvc.showNotification(err.error?.message),
+          });
+      }
     }
   }
 
