@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap} from 'rxjs';
+import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, take} from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
@@ -28,6 +28,7 @@ export class AuthService {
   }
 
   public get userId(): string | undefined {
+    console.log('ide req')
     return this.authUser$$.value?.id;
   }
 
@@ -64,6 +65,12 @@ export class AuthService {
         } catch (error) {
           return false;
         }
+      }),
+      switchMap(() => {
+        return this.userManagementApiService.getAllPermits(userId).pipe(
+          map(() => true),
+          catchError(async () => true),
+        );
       }),
       catchError(() => of(false)),
     );
