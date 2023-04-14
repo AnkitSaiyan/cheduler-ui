@@ -261,5 +261,20 @@
   "AppointmentNumber" : "Afspraak nummer",
   "AreYouSureYouWantToCancelThisAppointment" : "Weet u zeker dat u deze afspraak wilt annuleren?",
   "ClickToExpand" : "Klik om uit te breiden",
-  "ClickToClose" : "Klik om te sluiten"
+  "ClickToClose" : "Klik om te sluiten",
+  "Hello" : "Hallo",
+  "AddNewAppointment" : "Nieuwe afspraak toevoegen",
+  "AddNew" : "Nieuw toevoegen",
+  "NoPreviousAppointmentsFound" : "Geen eerdere afspraak gevonden",
+  "Jan" : "Jan",
+  "Feb" : "Feb",
+  "Mar" : "Mar",
+  "Apr" : "Apr",
+  "Jun" : "Jun",
+  "Jul" : "Jul",
+  "Aug" : "Aug",
+  "Sep" : "Sep",
+  "Oct" : "Okt",
+  "Nov" : "Nov",
+  "Dec" : "Dec"
 }

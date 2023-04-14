@@ -168,12 +168,12 @@
         {{"Cancel" | translate}}
       </dfm-button> -->
       <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']" >
-        Add New Appointment
+        {{"AddNewAppointment" | translate}}
       </dfm-button>
 
       <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']"
                   (click)="onAddNewAppointment()" >
-        Add New
+        {{"AddNew" | translate}}
       </dfm-button>
     </div>
   </ng-container>
