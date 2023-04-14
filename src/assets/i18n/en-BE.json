@@ -260,7 +260,23 @@
   "AppointmentNumber" : "Appointment No",
   "AreYouSureYouWantToCancelThisAppointment" : "Are you sure you want to cancel this appointment",
   "ClickToExpand" : "Click to expand",
-  "ClickToClose" : "Click to close"
+  "ClickToClose" : "Click to close",
+  "Hello" : "Hello",
+  "AddNewAppointment" : "Add New Appointment",
+  "AddNew" : "Add New",
+  "NoPreviousAppointmentsFound" : "No Previous Appointment",
+  "NoUpcomingAppointmentsFound" : "No Upcoming Appointments Found",
+  "Jan" : "Jan",
+  "Feb" : "Feb",
+  "Mar" : "Mar",
+  "Apr" : "Apr",
+  "Jun" : "Jun",
+  "Jul" : "Jul",
+  "Aug" : "Aug",
+  "Sep" : "Sep",
+  "Oct" : "Oct",
+  "Nov" : "Nov",
+  "Dec" : "Dec"
 
 
 }

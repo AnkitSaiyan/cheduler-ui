@@ -30,8 +30,8 @@
           <div class="top-section-appointment">
             <div class="top-section-one">
               <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
-              <br />
-              <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
+              
+              <span>{{ monthName(item.exams[0]['startedAt']) | translate }}</span>
             </div>
             <div class="top-section-two">
               <div class="d-flex align-items-center">
@@ -75,12 +75,12 @@
               <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3" (click)="cancelAppointment(item.id)" [disabled]="item.statusText === 'Cancelled'"> {{"Cancel" | translate}} </dfm-button>
             </div>
           </div>
-          <hr *ngif="i < upcomingAppointments.length - 1">
+          <hr *ngIf="i < upcomingAppointments.length - 1">
         </div>
       </div>
     </ng-container>
     <ng-template #noUpcoming>
-      <span class="no-appointment-text">No upcoming appointments found</span>
+      <span class="no-appointment-text">{{"NoUpcomingAppointmentsFound" | translate}}</span>
     </ng-template>
   </div>
   <ng-template #loadingUpcoming>
@@ -101,7 +101,7 @@
       </dfm-button>
     </div>
     <ng-template #loadingCompleted>
-      <div class="d-flex justify-content-center flex-1">
+      <div class="d-flex justify-content-center flex-1 loader-mv">
         <mat-spinner diameter="48"></mat-spinner>
       </div>
     </ng-template>
@@ -117,7 +117,6 @@
             <div class="top-section-appointment">
               <div class="top-section-one">
                 <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
-                <br />
                 <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
               </div>
               <div class="top-section-two">
@@ -221,7 +220,7 @@
     </ng-container>
 
     <ng-template #noCompleted>
-      <span class="no-appointment-text">No previous appointments found</span>
+      <span class="no-appointment-text">{{"NoPreviousAppointmentsFound" | translate}}</span>
     </ng-template>
 
     <!--
