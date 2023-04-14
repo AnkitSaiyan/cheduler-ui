@@ -58,6 +58,7 @@
         <dfm-button color="link" size="sm" leadingIcon="user-01" class="register-btn-mv pointer" (click)="login()"></dfm-button>
         <!--||========Add button for Mobile view ends=======|| -->
 
+        <!--Sub Menu Appointment Pop Up Hidden-->
         <!-- <div class="sub-menu">
           <div class="sub-menu-items">
                        <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
@@ -71,6 +72,14 @@
         </div> -->
       </div>
     </ng-container>
+    <div class="loggedin-username" *ngIf="(isLoggedIn$ | async) === true">
+      <span class="header-user-name fw-bold">
+        {{"Hello" | translate}} <span class="text-gray">{{ userName$ | async }} !</span>
+      </span>
+      <!-- <div class="online-dot"></div> -->
+      <!-- <span class="header-user-name fw-bold">{{ userName$ | async }}
+      </span> -->
+    </div>
 
     <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">
       <span class="dfm-text-main-500 pointer" [ngClass]="{ 'dfm-color-primary': selectedLang === 'nl-BE' }" (click)="changeLanguage('nl-BE')"
