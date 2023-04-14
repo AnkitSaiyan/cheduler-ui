@@ -188,7 +188,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     return !(this.consentCheckbox.value && this.referDoctorCheckbox.value);
   }
 
-  public confirmAppointment() {
+  public confirmAppointment2() {
     // this.router.navigate([], {
     //   queryParams: {
     //     c: true,
@@ -299,6 +299,141 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     }
   }
 
+  public confirmAppointment() {
+    // this.router.navigate([], {
+    //   queryParams: {
+    //     c: true,
+    //   },
+    // });
+
+    this.isButtonDisable$$.next(true);
+
+    const selectedTimeSlot = this.slotDetails.selectedSlots;
+    const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
+    delete combinableSelectedTimeSlot.userList;
+    delete combinableSelectedTimeSlot.roomList;
+    delete combinableSelectedTimeSlot.slot;
+
+    const requestData: any = {
+      ...(this.authUser?.id
+        ? {
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
+        : this.basicDetails),
+      doctorId: this.examDetails.physician,
+      date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
+      slot: combinableSelectedTimeSlot?.exams?.length
+        ? combinableSelectedTimeSlot
+        : {
+            examId: 0,
+            start: '',
+            end: '',
+            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+              const examDetails = {
+                examId: +examID,
+                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+                users: selectedTimeSlot[+examID]?.userList ?? [],
+              };
+
+              if (selectedTimeSlot[+examID]) {
+                const time = selectedTimeSlot[+examID].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              } else {
+                const time = selectedTimeSlot[0].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              }
+
+              return examDetails;
+            }),
+          },
+      ...(localStorage.getItem('appointmentId')
+        ? {
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
+        : {}),
+    };
+
+    if (requestData) {
+      if (localStorage.getItem('appointmentId')) {
+        requestData['appointmentId'] = localStorage.getItem('appointmentId');
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.updateAppointment$(
+                isLoggedIn
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                      fromPatient: true,
+                    }
+                  : { ...requestData, fromPatient: true },
+              ),
+            ),
+          )
+          .subscribe(
+            (res) => {
+              // localStorage.setItem('appointmentId', res?['id'].toString());
+              // this.appointmentId$$.next(res?['id']);
+              localStorage.removeItem('appointmentDetails');
+              this.notificationSvc.showNotification(`Appointment updated successfully`);
+              // this.router.navigate(['/appointment']);
+              localStorage.removeItem('edit');
+              this.isEdit$$.next(false);
+              this.isButtonDisable$$.next(false);
+              this.createPermit();
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
+      } else {
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.addAppointment(
+                isLoggedIn
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                    }
+                  : { ...requestData },
+              ),
+            ),
+          )
+          .subscribe(
+            (res) => {
+              localStorage.setItem('appointmentId', res?.id.toString());
+              localStorage.removeItem('appointmentDetails');
+              this.appointmentId$$.next(res?.id);
+              this.notificationSvc.showNotification(`Appointment added successfully`);
+              this.isButtonDisable$$.next(false);
+              this.createPermit();
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
+      }
+    }
+  }
+
   public cancelAppointment() {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
@@ -334,13 +469,15 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   private createPermit() {
-    this.authService.authUser$
-      .pipe(
-        take(1),
-        filter(Boolean),
-        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
-      )
-      .subscribe();
+    if (!this.isConsentGiven$$.value) {
+      this.authService.authUser$
+        .pipe(
+          take(1),
+          filter(Boolean),
+          switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
+        )
+        .subscribe();
+    }
   }
 
   private dateDistributedToString(date: any, separator = '-'): string {
