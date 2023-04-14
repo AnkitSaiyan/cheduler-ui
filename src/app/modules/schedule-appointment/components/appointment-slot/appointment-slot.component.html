@@ -193,9 +193,9 @@
 
   <div>
     <div class="d-flex justify-content-center align-items-center dfm-gap-16">
-      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn">{{ 'Back' | translate }}</dfm-button>
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn" [disabled]="(isEdit$$ | async) === true">{{ 'Back' | translate }}</dfm-button>
 
-      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv">
+      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv" [disabled]="(isEdit$$ | async) === true">
         {{ 'Back' | translate }}
       </dfm-button>
 

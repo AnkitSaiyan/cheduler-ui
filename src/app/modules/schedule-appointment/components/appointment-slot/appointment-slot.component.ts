@@ -51,6 +51,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public editData: any;
 
+  public isEdit$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -59,6 +61,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     private datePipe: DatePipe,
   ) {
     super();
+    if (localStorage.getItem('edit')) {
+      this.isEdit$$.next(true);
+    }
   }
 
   public ngOnInit() {
@@ -73,7 +78,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       exams.forEach((exam) => {
         const start = this.dateTo24TimeString(exam.startedAt);
         const end = this.dateTo24TimeString(exam.endedAt);
-        console.log({exam});
+        console.log({ exam });
         this.toggleSlotSelection(
           {
             start,
@@ -386,7 +391,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     };
   } {
     if (!slots?.length) {
-      return {examIdToSlots: {}, newSlots: []};
+      return { examIdToSlots: {}, newSlots: [] };
     }
 
     const newSlots: any[] = [];
@@ -430,7 +435,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       }
     });
 
-    return {newSlots, examIdToSlots: examIdToSlotsMap};
+    return { newSlots, examIdToSlots: examIdToSlotsMap };
   }
 
   private checkTimeRangeOverlapping(start1: string, end1: string, start2: string, end2: string): boolean {
