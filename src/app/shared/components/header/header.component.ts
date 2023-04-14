@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, map, takeUntil } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
 import defaultLanguage from '../../../../assets/i18n/en-BE.json';
 import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { AuthService } from '../../../core/services/auth.service';
+import {ScheduleAppointmentService} from "../../../core/services/schedule-appointment.service";
 
 @Component({
   selector: 'dfm-header',
@@ -16,6 +17,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public loggingIn$$ = new BehaviorSubject(false);
+  public userName$!: Observable<string | undefined>;
 
   public items: any = [
     {
@@ -43,6 +45,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private authSvc: AuthService,
     private translateService: TranslateService,
     private landingService: LandingService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -53,6 +56,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.isLoggedIn$ = this.authSvc.isLoggedIn$;
+    this.userName$ = this.authSvc.authUser$.pipe(map((user) => user?.displayName));
 
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.routerStateSvc
@@ -83,6 +88,13 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public login() {
     this.loggingIn$$.next(true);
-    this.authSvc.loginWithRedirect();
+
+    if (this.url.includes('confirm')) {
+      this.scheduleAppointmentSvc.resetDetails(true);
+      console.log('details reset');
+    }
+
+    const subscription = this.authSvc.loginWithRedirect();
+    subscription.pipe(takeUntil(this.destroy$$)).subscribe();
   }
 }

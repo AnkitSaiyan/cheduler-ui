@@ -150,12 +150,12 @@
     <div class="pending-section-button d-flex justify-content-center dfm-gap-16"
          *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
       <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="mx-3 edit-btn"
-                  routerLink="/schedule/slot">
+                  routerLink="../slot">
         {{"EditAppointment" | translate}}
       </dfm-button>
 
       <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="mx-3 edit-btn-mv"
-                  routerLink="/schedule/slot">
+                  routerLink="../slot">
         {{"Edit" | translate}}
       </dfm-button>
 
@@ -167,13 +167,12 @@
                   (click)="cancelAppointment()">
         {{"Cancel" | translate}}
       </dfm-button> -->
-      <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']" >
-        Add New Appointment
+      <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()">
+        {{"AddNewAppointment" | translate}}
       </dfm-button>
 
-      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']"
-                  (click)="onAddNewAppointment()" >
-        Add New
+      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" (click)="onAddNewAppointment()">
+        {{"AddNew" | translate}}
       </dfm-button>
     </div>
   </ng-container>

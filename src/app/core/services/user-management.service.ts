@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { UserProperties } from 'src/app/shared/models/user-properties.model';
 import { environment } from 'src/environments/environment';
 import { Permits } from '../../shared/models/user-permits.model';
@@ -10,6 +10,8 @@ import { Permits } from '../../shared/models/user-permits.model';
 })
 export class UserManagementService {
   private readonly url = environment.userManagementApiUrl;
+
+  private permits$$ = new BehaviorSubject<undefined | Permits[]>(undefined);
 
   private refreshPermits$$ = new Subject<void>();
 
@@ -24,8 +26,12 @@ export class UserManagementService {
   }
 
   public getAllPermits(userId: string): Observable<Permits[]> {
+    if (this.permits$$.value) {
+      return this.permits$$.asObservable() as Observable<Permits[]>;
+    }
     return combineLatest([this.refreshPermits$$.pipe(startWith(''))]).pipe(
       switchMap(() => this.httpClient.get<Permits[]>(`${this.url}/users/${userId}/properties/permits`)),
+      tap((res) => this.permits$$.next(res)),
     );
   }
 
@@ -34,7 +40,12 @@ export class UserManagementService {
   }
 
   public revokePermit(userId: string, tenantId: string): Observable<any> {
-    return this.httpClient.post<any>(`${this.url}/users/${userId}/properties/revoke`, { tenantId }).pipe(tap(() => this.refreshPermits$$.next()));
+    return this.httpClient.post<any>(`${this.url}/users/${userId}/properties/revoke`, { tenantId }).pipe(
+      tap(() => {
+        this.permits$$.next(undefined);
+        this.refreshPermits$$.next();
+      }),
+    );
   }
 
   public deleteUser(userId: string): Observable<UserProperties> {

@@ -188,7 +188,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     return !(this.consentCheckbox.value && this.referDoctorCheckbox.value);
   }
 
-  public confirmAppointment() {
+  public confirmAppointment2() {
     // this.router.navigate([], {
     //   queryParams: {
     //     c: true,
@@ -264,33 +264,183 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         observable = this.scheduleAppointmentSvc.addAppointment(requestData);
       }
 
-      combineLatest([
-        observable,
-        ...(!this.isConsentGiven$$.value && this.authUser
-          ? [this.userManagementSvc.createPropertiesPermit(this.authUser.id, this.authService.tenantId)]
-          : []),
-      ])
-        .pipe(takeUntil(this.destroy$$))
-        .subscribe({
-          next: ([res]) => {
-            let successMsg = `Appointment added successfully`;
+      observable.pipe(takeUntil(this.destroy$$)).subscribe({
+        next: (res) => {
+          let successMsg = `Appointment added successfully`;
 
-            if (localStorage.getItem('appointmentId')) {
-              // on update
+          if (localStorage.getItem('appointmentId')) {
+            // on update
+            localStorage.removeItem('appointmentDetails');
+            successMsg = `Appointment updated successfully`;
+            localStorage.removeItem('edit');
+            this.isEdit$$.next(false);
+          } else {
+            // on add new
+            this.appointmentId$$.next(res?.id);
+          }
+
+          this.notificationSvc.showNotification(successMsg);
+          this.isButtonDisable$$.next(false);
+        },
+        error: (err) => {
+          this.notificationSvc.showNotification(err.error?.message);
+          this.isButtonDisable$$.next(false);
+        },
+      });
+
+      if (!this.isConsentGiven$$.value && this.authUser) {
+        this.userManagementSvc
+          .createPropertiesPermit(this.authUser.id, this.authService.tenantId)
+          .pipe(takeUntil(this.destroy$$))
+          .subscribe({
+            error: (err) => this.notificationSvc.showNotification(err.error?.message),
+          });
+      }
+    }
+  }
+
+  public confirmAppointment() {
+    // this.router.navigate([], {
+    //   queryParams: {
+    //     c: true,
+    //   },
+    // });
+
+    this.isButtonDisable$$.next(true);
+
+    const selectedTimeSlot = this.slotDetails.selectedSlots;
+    const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
+    delete combinableSelectedTimeSlot.userList;
+    delete combinableSelectedTimeSlot.roomList;
+    delete combinableSelectedTimeSlot.slot;
+
+    const requestData: any = {
+      ...(this.authUser?.id
+        ? {
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
+        : this.basicDetails),
+      doctorId: this.examDetails.physician,
+      date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
+      slot: combinableSelectedTimeSlot?.exams?.length
+        ? combinableSelectedTimeSlot
+        : {
+            examId: 0,
+            start: '',
+            end: '',
+            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+              const examDetails = {
+                examId: +examID,
+                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+                users: selectedTimeSlot[+examID]?.userList ?? [],
+              };
+
+              if (selectedTimeSlot[+examID]) {
+                const time = selectedTimeSlot[+examID].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              } else {
+                const time = selectedTimeSlot[0].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
+
+                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              }
+
+              return examDetails;
+            }),
+          },
+      ...(localStorage.getItem('appointmentId')
+        ? {
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
+        : {}),
+    };
+
+    if (requestData) {
+      if (localStorage.getItem('appointmentId')) {
+        requestData['appointmentId'] = localStorage.getItem('appointmentId');
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.updateAppointment$(
+                isLoggedIn
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                      fromPatient: true,
+                    }
+                  : { ...requestData, fromPatient: true },
+              ),
+            ),
+          )
+          .subscribe(
+            (res) => {
+              // localStorage.setItem('appointmentId', res?['id'].toString());
+              // this.appointmentId$$.next(res?['id']);
               localStorage.removeItem('appointmentDetails');
-              successMsg = `Appointment updated successfully`;
+              this.notificationSvc.showNotification(`Appointment updated successfully`);
+              // this.router.navigate(['/appointment']);
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
-            } else {
-              // on add new
+              this.isButtonDisable$$.next(false);
+              this.createPermit();
+              this.router.navigate([], {
+                queryParams: {
+                  s: 'a',
+                },
+              });
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
+      } else {
+        this.authService.isLoggedIn$
+          .pipe(
+            takeUntil(this.destroy$$),
+            switchMap((isLoggedIn) =>
+              this.scheduleAppointmentSvc.addAppointment(
+                isLoggedIn
+                  ? {
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                    }
+                  : { ...requestData },
+              ),
+            ),
+          )
+          .subscribe(
+            (res) => {
+              localStorage.setItem('appointmentId', res?.id.toString());
+              localStorage.removeItem('appointmentDetails');
               this.appointmentId$$.next(res?.id);
-            }
-
-            this.notificationSvc.showNotification(successMsg);
-            this.isButtonDisable$$.next(false);
-          },
-          error: () => this.isButtonDisable$$.next(false),
-        });
+              this.notificationSvc.showNotification(`Appointment added successfully`);
+              this.isButtonDisable$$.next(false);
+              this.createPermit();
+              this.router.navigate([], {
+                queryParams: {
+                  s: 'a',
+                },
+              });
+            },
+            () => this.isButtonDisable$$.next(false),
+          );
+      }
     }
   }
 
@@ -326,16 +476,21 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
+    this.router.navigate(['../exam'], {
+      relativeTo: this.route
+    });
   }
 
   private createPermit() {
-    this.authService.authUser$
-      .pipe(
-        take(1),
-        filter(Boolean),
-        switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
-      )
-      .subscribe();
+    if (!this.isConsentGiven$$.value) {
+      this.authService.authUser$
+        .pipe(
+          take(1),
+          filter(Boolean),
+          switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
+        )
+        .subscribe();
+    }
   }
 
   private dateDistributedToString(date: any, separator = '-'): string {

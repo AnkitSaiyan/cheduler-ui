@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of } from 'rxjs';
+import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, take} from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
@@ -28,6 +28,7 @@ export class AuthService {
   }
 
   public get userId(): string | undefined {
+    console.log('ide req')
     return this.authUser$$.value?.id;
   }
 
@@ -39,14 +40,14 @@ export class AuthService {
     return this.TenantId;
   }
 
-  public loginWithRedirect() {
+  public loginWithRedirect(): Observable<void> {
     // sessionStorage.clear();
     // this.loaderSvc.activate();
     // this.msalService.loginRedirect();
     if (this.msalGuardConfig.authRequest) {
-      this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+      return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     } else {
-      this.msalService.loginRedirect();
+      return this.msalService.loginRedirect();
     }
   }
 
@@ -65,6 +66,12 @@ export class AuthService {
           return false;
         }
       }),
+      switchMap(() => {
+        return this.userManagementApiService.getAllPermits(userId).pipe(
+          map(() => true),
+          catchError(async () => true),
+        );
+      }),
       catchError(() => of(false)),
     );
   }
@@ -72,15 +79,6 @@ export class AuthService {
   public logout() {
     this.removeUser();
 
-    // if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
-    //   this.msalService.logoutPopup({
-    //     mainWindowRedirectUri: '/',
-    //   });
-    //   console.log('in poppup');
-    // } else {
-    //   console.log('in redirect');
-    //   this.msalService.logoutRedirect();
-    // }
     this.msalService.logoutRedirect({
       postLogoutRedirectUri: window.location.origin,
     });
