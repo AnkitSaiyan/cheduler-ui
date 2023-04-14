@@ -476,6 +476,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
+    this.router.navigate(['../exam'], {
+      relativeTo: this.route
+    });
   }
 
   private createPermit() {

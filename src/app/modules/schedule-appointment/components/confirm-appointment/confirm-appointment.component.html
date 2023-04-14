@@ -167,12 +167,11 @@
                   (click)="cancelAppointment()">
         {{"Cancel" | translate}}
       </dfm-button> -->
-      <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']" >
+      <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()">
         {{"AddNewAppointment" | translate}}
       </dfm-button>
 
-      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" [routerLink]=" (isLoggedIn$ | async) ? ['/dashboard/schedule/exam'] : ['/schedule/exam']"
-                  (click)="onAddNewAppointment()" >
+      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv" (click)="onAddNewAppointment()">
         {{"AddNew" | translate}}
       </dfm-button>
     </div>
