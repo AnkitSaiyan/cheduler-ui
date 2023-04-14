@@ -4,7 +4,7 @@
       {{"HelloUser" | translate}}!
     </span>
     <span *ngIf="(isLoggedIn$ | async) === true">
-      {{ userName$ | async }}
+      {{"Hello" | translate}} {{ userName$ | async }}!
     </span>
   </h5>
 

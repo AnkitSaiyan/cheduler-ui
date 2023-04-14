@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, map, takeUntil } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
 import defaultLanguage from '../../../../assets/i18n/en-BE.json';
@@ -16,6 +16,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public loggingIn$$ = new BehaviorSubject(false);
+  public userName$!: Observable<string | undefined>;
 
   public items: any = [
     {
@@ -53,6 +54,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.isLoggedIn$ = this.authSvc.isLoggedIn$;
+    this.userName$ = this.authSvc.authUser$.pipe(map((user) => user?.displayName));
 
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.routerStateSvc
