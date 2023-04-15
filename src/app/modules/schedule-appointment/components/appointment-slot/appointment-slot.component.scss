@@ -198,6 +198,18 @@ table, th, tr, td {
     width: 100%;
   }
 }
+@media (max-width: 860px){
+  .calendar-mv{
+    flex-direction: column;
+  }
+  .appointment-slot-sec-1 {
+    max-width: 100%;
+  }
+  .appointment-slot-divider {
+    margin:0px !important;
+    border:none
+  }
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
