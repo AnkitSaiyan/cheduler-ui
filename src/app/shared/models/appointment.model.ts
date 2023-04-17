@@ -99,6 +99,12 @@ export interface AppointmentDaysRequestData {
   exams: number[];
 }
 
+export interface ChangeStatusRequestData {
+  id: number | string;
+  status: number;
+}
+
+
 
 
 
