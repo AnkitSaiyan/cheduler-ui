@@ -88,8 +88,9 @@
 .progress-bar-line{
   display: none!important;
   // border: 1px solid red;
-  margin: 0px 5px;
-  width: 40px;
+  // margin: 0px 5px;
+  // width: 40px;
+  margin: auto;
 }
 .progress-bar-container{
   display: none;
@@ -113,7 +114,12 @@ ul li{
   text-align: center;
 }
 }
-
+@media (max-width: 480px){
+  .progress-bar-line{
+    display: blocnonek!important;
+    margin: auto;
+  }
+}
 
 @media (min-width: 320px) and (max-width: 374px){
 .progress-bar-marker{
@@ -137,4 +143,18 @@ ul li{
 // ul li span{
 //   font-size: 9px!important;
 // }
+.progress-bar-line{
+  display: none!important;
+  margin: auto;
+}
+}
+@media (min-width: 425px) and (max-width: 680px){
+  .progress-bar-line{
+    display: block!important;
+    margin: auto;
+  }
+  .progress-bar-item{
+    flex-direction: row;
+    justify-content: center;
+  }
 }
