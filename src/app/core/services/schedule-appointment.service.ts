@@ -6,6 +6,7 @@ import {
   AppointmentDaysRequestData,
   AppointmentSlot,
   AppointmentSlotsRequestData,
+  ChangeStatusRequestData,
 } from 'src/app/shared/models/appointment.model';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { Exam } from 'src/app/shared/models/exam.model';
@@ -134,8 +135,7 @@ export class ScheduleAppointmentService {
     this.loaderSvc.spinnerActivate();
     return this.http.get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/`).pipe(
       map((response) => response.data?.filter(({ patientAzureId }: any) => patientAzureId === this.authSvc.userId)),
-      tap((res) => {
-        console.log(res);
+      tap(() => {
         this.loaderSvc.spinnerDeactivate();
       }),
     );
@@ -195,6 +195,18 @@ export class ScheduleAppointmentService {
   public cancelAppointment$(appointmentId: number): Observable<boolean> {
     this.loaderSvc.activate();
     return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/patientappointment/cancelappointment/${appointmentId}`, '').pipe(
+      map((response) => response.data),
+      tap(() => {
+        this.refreshAppointment$$.next();
+        this.upcomingAppointments$$.next('');
+        this.loaderSvc.deactivate();
+      }),
+    );
+  }
+
+  public cancelMultipleAppointment$(payload: ChangeStatusRequestData[]): Observable<boolean> {
+    this.loaderSvc.activate();
+    return this.http.put<BaseResponse<boolean>>(`${environment.serverBaseUrl}/patientappointment/updateappointmentstatus`, payload).pipe(
       map((response) => response.data),
       tap(() => {
         this.refreshAppointment$$.next();
