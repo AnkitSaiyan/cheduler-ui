@@ -42,7 +42,7 @@ export class PrivacyComponent implements OnInit {
   public revokePermit(tenantId: string) {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Areyousurewantorevokeaccess',
+        bodyText: 'Please note that revoking access to this lab will lead to cancellation of all the appointments. Are you sure you want to proceed',
         confirmButtonText: 'Proceed',
       } as DialogData,
     });
