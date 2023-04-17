@@ -32,6 +32,11 @@
 //   border-radius: 8px;
 //   transition: .2s;
 // }
+.exam-form-main-container{
+  .exam-form-container{
+    min-width: 40vw ;
+  }
+}
 // ======================Media Query for Mobile view=================
 @media (min-width: 680px) {
   .exam-form-container {
