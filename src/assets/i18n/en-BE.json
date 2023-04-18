@@ -276,7 +276,8 @@
   "Sep" : "Sep",
   "Oct" : "Oct",
   "Nov" : "Nov",
-  "Dec" : "Dec"
+  "Dec" : "Dec",
+  "RevokeAccessConfirmationPopUp" : "Please note that revoking access to this lab will cancel all your appointments. Are you sure you want to continue?"
 
 
 }

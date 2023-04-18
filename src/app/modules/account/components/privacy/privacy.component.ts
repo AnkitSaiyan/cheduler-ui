@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import { BehaviorSubject, filter, Observable, of, switchMap, take } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { BehaviorSubject, filter, Observable, of, switchMap, take, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserManagementService } from 'src/app/core/services/user-management.service';
@@ -9,15 +9,20 @@ import { ConfirmActionModalComponent, DialogData } from '../../../../shared/comp
 import { Permits } from '../../../../shared/models/user-permits.model';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { ChangeStatusRequestData } from 'src/app/shared/models/appointment.model';
+import { Translate } from '../../../../shared/models/translate.model';
+import { ShareDataService } from 'src/app/services/share-data.service';
+import { DUTCH_BE, ENG_BE, Statuses, StatusesNL } from '../../../../shared/utils/const';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 
 @Component({
   selector: 'dfm-privacy',
   styleUrls: ['./privacy.component.scss'],
   templateUrl: './privacy.component.html',
 })
-export class PrivacyComponent implements OnInit {
+export class PrivacyComponent extends DestroyableComponent implements OnInit {
   public allPermits$: Observable<Permits[] | undefined> = of(undefined);
-
+  private selectedLang: string = ENG_BE;
+  public statuses = Statuses;
   private allUpcomingAppointment$$ = new BehaviorSubject<ChangeStatusRequestData[]>([]);
 
   constructor(
@@ -27,7 +32,10 @@ export class PrivacyComponent implements OnInit {
     private authService: AuthService,
     private userManagement: UserManagementService,
     private appointmentSvc: ScheduleAppointmentService,
-  ) {}
+    private shareDataSvc: ShareDataService,
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.allPermits$ = this.authService.authUser$.pipe(
@@ -37,12 +45,26 @@ export class PrivacyComponent implements OnInit {
     this.appointmentSvc.upcomingAppointments$.pipe(take(1)).subscribe((data) => {
       this.allUpcomingAppointment$$.next(data?.map(({ id }) => ({ id, status: 2 })));
     });
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+        switch (lang) {
+          case ENG_BE:
+            this.statuses = Statuses;
+            break;
+          case DUTCH_BE:
+            this.statuses = StatusesNL;
+            break;
+        }
+      });
   }
 
   public revokePermit(tenantId: string) {
     const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
       data: {
-        bodyText: 'Please note that revoking access to this lab will lead to cancellation of all the appointments. Are you sure you want to proceed',
+        bodyText: 'RevokeAccessConfirmationPopUp',
         confirmButtonText: 'Proceed',
       } as DialogData,
     });
@@ -56,7 +78,7 @@ export class PrivacyComponent implements OnInit {
         take(1),
       )
       .subscribe({
-        next: () => this.notificationSvc.showNotification('Revoke permits successfully'),
+        next: () => this.notificationSvc.showNotification(Translate.Success.RevokePermits[this.selectedLang]),
       });
   }
 
@@ -81,4 +103,5 @@ export class PrivacyComponent implements OnInit {
         },
       });
   }
+
 }

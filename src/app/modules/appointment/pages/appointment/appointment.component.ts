@@ -11,6 +11,9 @@ import {
 import {NotificationDataService} from 'src/app/core/services/notification-data.service';
 import {Router} from '@angular/router';
 import {ExamDetails} from 'src/app/shared/models/local-storage-data.model';
+import { Translate } from 'src/app/shared/models/translate.model';
+import { ShareDataService } from 'src/app/services/share-data.service';
+import { DUTCH_BE, ENG_BE, Statuses, StatusesNL } from '../../../../shared/utils/const';
 
 @Component({
   selector: 'dfm-appointment',
@@ -28,6 +31,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public appointments$$: BehaviorSubject<any[]>;
   public completedAppointments$$: BehaviorSubject<any[]>;
+  private selectedLang: string = ENG_BE;
+  public statuses = Statuses;
 
   constructor(
     private scheduleAppointmentService: ScheduleAppointmentService,
@@ -36,6 +41,7 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
     private notificationSvc: NotificationDataService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
+    private shareDataSvc: ShareDataService,
   ) {
     super();
     this.appointments$$ = new BehaviorSubject<any[]>([]);
@@ -81,6 +87,20 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
     //   this.completedAppointments$$.next(completedAppointments);
     //   this.filteredCompletedAppointments$$.next(completedAppointments);
     // });
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+        switch (lang) {
+          case ENG_BE:
+            this.statuses = Statuses;
+            break;
+          case DUTCH_BE:
+            this.statuses = StatusesNL;
+            break;
+        }
+      });
   }
 
   monthName(date) {
@@ -109,7 +129,7 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         take(1),
       )
       .subscribe({
-        next: () => this.notificationSvc.showNotification('Appointment cancelled successfully')
+        next: () => this.notificationSvc.showNotification(Translate.Success.AppointmentCancelledSuccessfully[this.selectedLang])
       });
   }
 
