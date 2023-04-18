@@ -56,7 +56,7 @@ export class PrivacyComponent implements OnInit {
         take(1),
       )
       .subscribe({
-        next: () => this.notificationSvc.showNotification('Revoke permits successfully'),
+        next: () => this.notificationSvc.showNotification('Permit revoked successfully'),
       });
   }
 
