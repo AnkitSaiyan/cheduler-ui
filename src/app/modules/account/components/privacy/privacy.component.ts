@@ -19,10 +19,10 @@ import { DestroyableComponent } from '../../../../shared/components/destroyable/
   styleUrls: ['./privacy.component.scss'],
   templateUrl: './privacy.component.html',
 })
-export class PrivacyComponent extends DestroyableComponent implements OnInit {
+export class PrivacyComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public allPermits$: Observable<Permits[] | undefined> = of(undefined);
-  private selectedLang: string = ENG_BE;
   public statuses = Statuses;
+  private selectedLang: string = ENG_BE;
   private allUpcomingAppointment$$ = new BehaviorSubject<ChangeStatusRequestData[]>([]);
 
   constructor(
