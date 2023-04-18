@@ -99,7 +99,7 @@ export class PrivacyComponent extends DestroyableComponent implements OnInit {
       .subscribe({
         next: () => {
           this.authService.logout();
-          this.notificationSvc.showNotification('Account deleted successfully');
+          this.notificationSvc.showNotification(Translate.Success.AccountDeletedSuccessfully[this.selectedLang]);
         },
       });
   }

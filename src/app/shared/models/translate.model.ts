@@ -21,7 +21,7 @@ export const Translate = Object.freeze({
     AppointmentCancelledSuccessfully:{
       [ENG_BE]: 'Appointment cancel successfully',
       [DUTCH_BE]: 'Appointment cancel successfully NL',
-    }
+    },
     
   }
   
