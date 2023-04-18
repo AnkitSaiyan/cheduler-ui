@@ -30,7 +30,7 @@
           <div class="top-section-appointment">
             <div class="top-section-one">
               <span>{{ item.exams[0]['startedAt'] | date : 'dd' }}</span>
-              
+
               <span>{{ monthName(item.exams[0]['startedAt']) | translate }}</span>
             </div>
             <div class="top-section-two">
@@ -92,7 +92,7 @@
 
 <div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="previous-appointment-title">
-    <div class="heading-div previous-app-text">{{"PreviousAppointments" | translate}}</div>
+    <div class="heading-div previous-app-text">{{"AllAppointments" | translate}}</div>
 
     <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
     <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments; else loadingCompleted">

@@ -55,10 +55,10 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         next: ([upcoming, completed]) => {
           this.appointments$$.next(upcoming);
           this.filteredAppointments$$.next(upcoming);
+
           this.completedAppointments$$.next(completed);
           this.filteredCompletedAppointments$$.next(completed);
-          this.isAppointemntScheduled = !!(upcoming.length || upcoming.length);
-          console.log(this.isAppointemntScheduled);
+          this.isAppointemntScheduled = !!(upcoming.length || completed.length);
         },
       });
 
