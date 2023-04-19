@@ -97,7 +97,7 @@
                 <span>{{ examIdToName[exam]?.info ?? 'Have an empty stomach 10 hours prior to the test' }}</span>
               </div>
 
-              <div *ngIf="editData" class="d-flex gap-2 align-items-start text-sm">
+              <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
                 <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>
               </div>
@@ -151,7 +151,7 @@
                 <span *ngFor="let exam of examsDetails.exams; let i =index">{{ examIdToName[exam]?.info ? examIdToName[exam]?.info : 'Have an empty stomach 10 hours prior to the test' }}{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
 
-              <div *ngIf="editData" class="d-flex gap-2 align-items-start text-sm">
+              <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
                 <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
@@ -161,8 +161,8 @@
               <div class="time-slot-mv d-flex flex-column justify-content-between gap-2">
                 <div class="text-sm d-flex gap-2">
                   <span class="font-weight-medium">{{ 'Slots' | translate }}: </span>
-                  <span *ngIf="examIdToAppointmentSlots[+examsDetails.exams[0]]">({{ examIdToAppointmentSlots[+examsDetails.exams[0]]?.length }})</span>
-                  <span *ngIf="!examIdToAppointmentSlots[+examsDetails.exams[0]] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
+                  <span *ngIf="examsDetails?.exams?.length && examIdToAppointmentSlots[+examsDetails.exams[0]]">({{ examIdToAppointmentSlots[+examsDetails.exams[0]]?.length }})</span>
+                  <span *ngIf="examsDetails?.exams?.length && !examIdToAppointmentSlots[+examsDetails.exams[0]] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
                   <!-- <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span> -->
                 </div>
                 <div class="d-flex justify-content-center" *ngIf="loadingSlots$$ | async; else showSlot2">
@@ -170,17 +170,19 @@
                 </div>
                 <ng-template #showSlot2>
                   <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-                    <div
-                      class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
-                      *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
-                      (click)="toggleSlotSelectionCombinable(slot)"
-                      [ngClass]="{
-                        'time-slot-disabled-text': !isSlotAvailable(slot),
-                        'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
-                      }"
-                    >
-                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
-                    </div>
+                    <ng-container *ngIf="examsDetails.exams?.length">
+                      <div
+                        class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
+                        *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
+                        (click)="toggleSlotSelectionCombinable(slot)"
+                        [ngClass]="{
+                          'time-slot-disabled-text': !isSlotAvailable(slot),
+                          'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
+                        }"
+                      >
+                        {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                      </div>
+                    </ng-container>
                   </div>
                 </ng-template>
               </div>
@@ -199,11 +201,11 @@
         {{ 'Back' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid() && !editData?.exams[0]?.startedAt?.length">
+      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid() && editData?.exams?.length && !editData?.exams[0]?.startedAt?.length">
         {{ 'Next' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid() && !editData?.exams[0]?.startedAt?.length">
+      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid() && editData?.exams?.length && !editData?.exams[0]?.startedAt?.length">
         {{ 'Next' | translate }}
       </dfm-button>
     </div>
