@@ -103,8 +103,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       )
       .subscribe(
         (appointment) => {
-          this.appointment$$.next(appointment as Appointment);
-          localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+          if (Object.keys(appointment)?.length) {
+            this.appointment$$.next(appointment as Appointment);
+            localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+          }
 
           if (appointment?.id && !this.isEdit$$.value) {
             let s: string;
