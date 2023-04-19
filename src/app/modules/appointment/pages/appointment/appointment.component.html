@@ -52,7 +52,7 @@
               </div>
 
               <div class="mb-3">
-                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm') ! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
+                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'HH:mm') ! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'HH:mm')! | dfmUtcToLocal : true }}</span>
               </div>
 
               <div class="appointment-exam-text-mv mb-3">
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="mb-3">
-                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'HH:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'HH:mm')! | dfmUtcToLocal : true }}</span>
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
@@ -190,7 +190,7 @@
                 </div>
 
                 <div class="mb-3">
-                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'HH:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'HH:mm')! | dfmUtcToLocal : true }}</span>
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
@@ -228,7 +228,7 @@
         <div class="display-5 previous-appointments-date-time">
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{completedAppointments[2].startedAt | date:"dd, MMMM, yyyy"}}</span></div>
           <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>{{completedAppointments[2].startedAt | date: 'hh:mm'}}</span></div>
+          <span>{{completedAppointments[2].startedAt | date: 'HH:mm'}}</span></div>
         </div>
         <span class="display-5">Exam: {{completedAppointments[2].exam}}</span>
         <span class="display-5">Status: <span class="text-success">Completed</span>
