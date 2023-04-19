@@ -136,6 +136,22 @@ export class ScheduleAppointmentService {
     return this.http
       .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/${this.authSvc.userId}`)
       .pipe(
+        map((response) => response.data),
+
+        tap(() => {
+          this.loaderSvc.spinnerDeactivate();
+        }),
+      );
+  }
+
+  public get completedAppointment$(): Observable<Appointment[]> {
+    return combineLatest([this.upcomingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllCompletedAppointments()));
+  }
+
+  private fetchAllCompletedAppointments(): Observable<Appointment[]> {
+    return this.http
+      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/${this.authSvc.userId}`)
+      .pipe(
         map((response) =>
           response.data.map((appointment) => ({
             ...appointment,
@@ -153,21 +169,6 @@ export class ScheduleAppointmentService {
             return date.getTime() < currentTime.getTime();
           });
         }),
-        tap(() => {
-          this.loaderSvc.spinnerDeactivate();
-        }),
-      );
-  }
-
-  public get completedAppointment$(): Observable<Appointment[]> {
-    return combineLatest([this.upcomingAppointments$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllCompletedAppointments()));
-  }
-
-  private fetchAllCompletedAppointments(): Observable<Appointment[]> {
-    return this.http
-      .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/${this.authSvc.userId}`)
-      .pipe(
-        map((response) => response.data),
         tap(() => this.loaderSvc.spinnerDeactivate()),
       );
   }
