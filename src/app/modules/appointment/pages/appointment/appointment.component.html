@@ -52,7 +52,7 @@
               </div>
 
               <div class="mb-3">
-                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm') ! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
               </div>
 
               <div class="appointment-exam-text-mv mb-3">
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="mb-3">
-                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
@@ -190,7 +190,7 @@
                 </div>
 
                 <div class="mb-3">
-                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ exam.startedAt | date : 'hh:mm' }} - {{ exam.endedAt | date : 'hh:mm' }}</span>
+                  <span style="width: 20px; height: 20px">{{"Time" | translate}} : {{ (exam.startedAt | date : 'hh:mm')! | dfmUtcToLocal : true }} - {{ (exam.endedAt | date : 'hh:mm')! | dfmUtcToLocal : true }}</span>
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
