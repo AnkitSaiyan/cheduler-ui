@@ -99,7 +99,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>
+                <span>{{(editData.exams[i].startedAt | date : 'HH:mm')! }} - {{ (editData.exams[i]?.endedAt | date : 'HH:mm')! }}</span>
               </div>
             </div>
 
@@ -126,7 +126,7 @@
                         'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
                       }"
                     >
-                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                      {{ slot.start?.slice(0, -3)!}} - {{ slot.end?.slice(0, -3)! }}
                     </div>
                   </div>
                 </ng-template>
@@ -153,7 +153,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'hh:mm' }} - {{ editData.exams[i]?.endedAt | date : 'hh:mm' }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{(editData.exams[i].startedAt | date : 'HH:mm')! }} - {{ (editData.exams[i]?.endedAt | date : 'HH:mm')! }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
             </div>
 
@@ -201,11 +201,11 @@
         {{ 'Back' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid() && editData?.exams?.length && !editData?.exams[0]?.startedAt?.length">
+      <dfm-button color="primary" size="lg" (click)="saveSlotDetails()" class="cal-next-btn" [disabled]="!isFormValid() && !(editData?.exams?.length && editData?.exams[0]?.startedAt?.length)">
         {{ 'Next' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid() && editData?.exams?.length && !editData?.exams[0]?.startedAt?.length">
+      <dfm-button color="primary" size="sm" (click)="saveSlotDetails()" class="cal-next-btn-mv" [disabled]="!isFormValid() && !(editData?.exams?.length && editData?.exams[0]?.startedAt?.length)">
         {{ 'Next' | translate }}
       </dfm-button>
     </div>

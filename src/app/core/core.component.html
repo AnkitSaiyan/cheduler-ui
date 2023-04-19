@@ -1,6 +1,6 @@
 <div class="d-flex w-100" >
-  <dfm-side-nav *ngIf="(isLoggedIn$ | async)" [ngClass]="{ 'hide': isLoaderActive$$ | async }"></dfm-side-nav>
-  <div class="content" [ngClass]="{ 'hide': isLoaderActive$$ | async }">
+  <dfm-side-nav *ngIf="(isLoggedIn$ | async)" [ngClass]="{ 'hide': (alreadyLogin$$ | async) && (isLoaderActive$$ | async) }"></dfm-side-nav>
+  <div class="content" [ngClass]="{ 'hide': (alreadyLogin$$ | async) && (isLoaderActive$$ | async )}">
     <dfm-header></dfm-header>
     <mat-progress-bar *ngIf="(isLoaderActive$$ | async) && (isLoggedIn$ | async) === false" mode="indeterminate"></mat-progress-bar>
 
