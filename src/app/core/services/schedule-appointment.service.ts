@@ -165,7 +165,7 @@ export class ScheduleAppointmentService {
         map((data) => {
           const currentTime = new Date();
           return data.filter((item: any) => {
-            const date = new Date(item.exams[0].startedAt);
+            const date = new Date(item?.exams[0]?.startedAt);
             return date.getTime() < currentTime.getTime();
           });
         }),
