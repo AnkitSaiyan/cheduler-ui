@@ -22,6 +22,7 @@ import {ObjectToArrayPipe} from './pipes/object-to-array.pipe';
 import {SliceStringArrayPipe} from './pipes/slice-string-array.pipe';
 import {DashIfNothingPipe} from './pipes/dash-if-nothing.pipe';
 import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
+import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ObjectToArrayPipe,
     SliceStringArrayPipe,
     DashIfNothingPipe,
+    UtcToLocalPipe,
   ],
   imports: [
     CommonModule,
@@ -77,10 +79,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashIfNothingPipe,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    NgbPopoverModule
+    NgbPopoverModule,
+    UtcToLocalPipe,
   ],
 })
 export class SharedModule {}
+
 
 
 

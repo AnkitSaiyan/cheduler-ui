@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter, Observable, Subject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounce, debounceTime, filter, Observable, Subject, take, takeUntil } from 'rxjs';
 import { ConfirmActionModalComponent, DialogData } from '../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { AuthService } from './services/auth.service';
 import { ModalService } from './services/modal.service';
@@ -26,6 +26,7 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
 
   public isLoaderActive$$ = new Subject<boolean>();
 
+  public alreadyLogin$$ = new BehaviorSubject<boolean>(true);
   constructor(
     private authService: AuthService,
     private routerStateSvc: RouterStateService,
@@ -41,6 +42,9 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
       .subscribe((url) => (this.url = url));
+    this.isLoggedIn$.pipe(takeUntil(this.destroy$$), debounceTime(500)).subscribe((value) => {
+      this.alreadyLogin$$.next(!value);
+    });
   }
 
   public ngAfterViewInit(): void {
@@ -54,4 +58,8 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     super.ngOnDestroy();
   }
 }
+
+
+
+
 

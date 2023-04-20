@@ -1,12 +1,12 @@
-<div class="d-flex w-100">
-  <dfm-side-nav *ngIf="isLoggedIn$ | async"></dfm-side-nav>
-  <div class="content">
+<div class="d-flex w-100" >
+  <dfm-side-nav *ngIf="(isLoggedIn$ | async)" [ngClass]="{ 'hide': (alreadyLogin$$ | async) && (isLoaderActive$$ | async) }"></dfm-side-nav>
+  <div class="content" [ngClass]="{ 'hide': (alreadyLogin$$ | async) && (isLoaderActive$$ | async )}">
     <dfm-header></dfm-header>
     <mat-progress-bar *ngIf="(isLoaderActive$$ | async) && (isLoggedIn$ | async) === false" mode="indeterminate"></mat-progress-bar>
 
     <div class="body-content scrollbar-w-8" [ngClass]="{ 'body-content-logged-in': isLoggedIn$ | async }">
       <dfm-sub-header *ngIf="url !== '/privacy/policy' && (url.includes('schedule') || ((isLoggedIn$ | async) && url !== '/'))"></dfm-sub-header>
-      <router-outlet></router-outlet>
+      <router-outlet ></router-outlet>
       <dfm-notification></dfm-notification>
       <dfm-footer></dfm-footer>
     </div>

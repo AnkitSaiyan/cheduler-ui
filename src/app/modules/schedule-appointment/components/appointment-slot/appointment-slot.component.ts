@@ -74,22 +74,24 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
-      const exams = [...this.editData.exams];
-      exams.forEach((exam) => {
-        const start = this.dateTo24TimeString(exam.startedAt);
-        const end = this.dateTo24TimeString(exam.endedAt);
-        console.log({ exam });
-        this.toggleSlotSelection(
-          {
-            start,
-            end,
-            examId: +exam.id,
-            userList: exam.users,
-            roomList: exam.rooms,
-          } as ModifiedSlot,
-          true,
-        );
-      });
+      if (this.editData?.exam) {
+        const exams = [...this.editData.exams];
+        exams.forEach((exam) => {
+          const start = this.dateTo24TimeString(exam.startedAt);
+          const end = this.dateTo24TimeString(exam.endedAt);
+          console.log({ exam });
+          this.toggleSlotSelection(
+            {
+              start,
+              end,
+              examId: +exam.id,
+              userList: exam.users,
+              roomList: exam.rooms,
+            } as ModifiedSlot,
+            true,
+          );
+        });
+      }
     }
 
     // this.scheduleAppointmentSvc.editDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
@@ -170,7 +172,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
             default:
           }
         });
-        if (this.editData) {
+        if (this.editData?.exams?.length) {
           this.selectDate(new Date(this.editData.exams[0].startedAt).getDate(), true);
         }
       });
@@ -184,7 +186,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         switchMap((date) => {
           const dateString = this.getDateString(date);
           this.resetSlots();
-          if (this.editData) {
+          if (this.editData?.exams) {
             return this.scheduleAppointmentSvc.getSlots$({
               date: dateString,
               exams: this.editData.exams.map((exam) => exam.id),
@@ -300,6 +302,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         console.log(this.editSelectedTimeSlot, slot);
       }
     }
+    console.log(this.selectedTimeSlot);
   }
 
   public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
@@ -336,6 +339,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       selectedSlots: this.selectedTimeSlot,
     } as SlotDetails;
 
+
     // for (let i = 0; i < this.editData.exams.length; i++) {
     //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     //   this.editData.exmas[i].startedAt = this.selectedDate$$.value + ' ';
@@ -354,7 +358,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       return !!Object.values(this.selectedTimeSlot).length;
     }
     return (
-      Object.values(this.selectedTimeSlot).every((value) => value) && Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length
+      Object.values(this.selectedTimeSlot).every((value) => value?.slot?.length) &&
+      Object.values(this.selectedTimeSlot).length === this.examsDetails?.exams?.length
     );
   }
 

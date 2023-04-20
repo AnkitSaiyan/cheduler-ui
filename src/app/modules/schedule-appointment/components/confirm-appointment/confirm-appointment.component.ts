@@ -110,8 +110,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       )
       .subscribe(
         (appointment) => {
-          this.appointment$$.next(appointment as Appointment);
-          localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+          if (Object.keys(appointment)?.length) {
+            this.appointment$$.next(appointment as Appointment);
+            localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
+          }
 
           if (appointment?.id && !this.isEdit$$.value) {
             let s: string;
@@ -236,6 +238,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
+      comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
@@ -347,6 +350,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
+      comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
