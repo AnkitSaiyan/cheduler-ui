@@ -18,7 +18,7 @@ import { UserManagementService } from 'src/app/core/services/user-management.ser
 import { AuthUser } from '../../../../shared/models/user.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE, Statuses, StatusesNL } from '../../../../shared/utils/const';
+import { DUTCH_BE, ENG_BE} from '../../../../shared/utils/const';
 
 @Component({
   selector: 'dfm-confirm-appointment',
