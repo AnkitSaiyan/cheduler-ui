@@ -137,7 +137,7 @@
 
 .previous-appointment-title {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   // position: relative;
 }
@@ -347,7 +347,7 @@
 @media (min-width: 180px) and (max-width: 680px) {
   .login-dashboard-content {
     margin: 10px 15px;
-    padding: 0px;
+    padding: 10px 0px;
   }
   .previous-appointment-container {
     margin: 10px 15px;
@@ -362,7 +362,7 @@
   .upcoming-appointments-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .upcoming-text {
@@ -577,6 +577,10 @@
   .check-above-text{
     font-size: 14px!important;
   }
+  .no-appointment-text{
+    text-align: center;
+    margin: 5px 0px 0px 0px;
+  }
 }
 
 
@@ -590,7 +594,7 @@
   .upcoming-appointments-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .upcoming-text {
@@ -705,5 +709,8 @@
   hr{
     width: 90%;
     margin: 0  auto;
+  }
+  .no-appointment-text{
+    font-size: 13px;
   }
 }

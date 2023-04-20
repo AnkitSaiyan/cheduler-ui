@@ -89,7 +89,6 @@
     </div>
   </ng-template>
 </div>
-
 <div class="previous-appointment-container bg-white border-r-16" *ngIf="isAppointemntScheduled">
   <div class="previous-appointment-title">
     <div class="heading-div previous-app-text">{{"AllAppointments" | translate}}</div>
@@ -101,7 +100,8 @@
       </dfm-button>
     </div>
     <ng-template #loadingCompleted>
-      <div class="d-flex justify-content-center flex-1 loader-mv">
+      <div class="d-flex justify-content-center flex-1 loader-mv 
+      ">
         <mat-spinner diameter="48"></mat-spinner>
       </div>
     </ng-template>
