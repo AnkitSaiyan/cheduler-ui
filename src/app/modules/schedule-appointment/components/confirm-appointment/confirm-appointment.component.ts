@@ -16,7 +16,6 @@ import { SiteSettings } from '../../../../shared/models/site-management.model';
 import { LandingService } from '../../../../core/services/landing.service';
 import { UserManagementService } from 'src/app/core/services/user-management.service';
 import { AuthUser } from '../../../../shared/models/user.model';
-import { UtcToLocalPipe } from 'src/app/shared/pipes/utc-to-local.pipe';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -55,7 +54,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private datePipe: DatePipe,
     private landingSvc: LandingService,
     private userManagementSvc: UserManagementService,
-    private utcToLocalPipe: UtcToLocalPipe,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -164,7 +162,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           this.slots = slotValues.map((slot) =>
             (slot['slot'] as string)
               .split('-')
-              ?.map((time) => this.utcToLocalPipe.transform(time.slice(0, -3), true))
+              ?.map((time) => time.slice(0, -3))
               .join(' - '),
           );
         }
@@ -483,7 +481,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
     this.router.navigate(['../exam'], {
-      relativeTo: this.route,
+      relativeTo: this.route
     });
   }
 
