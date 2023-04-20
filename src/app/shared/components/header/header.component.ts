@@ -9,6 +9,8 @@ import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { AuthService } from '../../../core/services/auth.service';
 import {ScheduleAppointmentService} from "../../../core/services/schedule-appointment.service";
+import { DUTCH_BE, ENG_BE } from '../../utils/const';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'dfm-header',
@@ -36,7 +38,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   public isLoggedIn$!: Observable<boolean>;
 
-  public selectedLang: string = 'en-BE';
+  public selectedLang!: string;
 
   siteDetails$$: BehaviorSubject<any>;
 
@@ -45,7 +47,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private authSvc: AuthService,
     private translateService: TranslateService,
     private landingService: LandingService,
-    private scheduleAppointmentSvc: ScheduleAppointmentService
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+    private shareDataSvc: ShareDataService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -67,18 +70,23 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
         this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
         this.url = url;
       });
+      this.shareDataSvc
+			.getLanguage$()
+			.pipe(takeUntil(this.destroy$$))
+			.subscribe({
+				next: (language: string) => this.selectedLang = language,
+			});
   }
 
   public changeLanguage(value) {
-    if (value === 'en-BE') {
+    this.shareDataSvc.setLanguage(value);
+    if (value === ENG_BE) {
       this.translateService.setTranslation(value, defaultLanguage);
-      this.translateService.setDefaultLang(value);
       // eslint-disable-next-line eqeqeq
-    } else if (value === 'nl-BE') {
+    } else if (value === DUTCH_BE) {
       this.translateService.setTranslation(value, dutchLanguage);
-      this.translateService.setDefaultLang(value);
     }
-
+    this.translateService.setDefaultLang(value);
     this.selectedLang = value;
   }
 

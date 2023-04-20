@@ -21,8 +21,7 @@ import { DestroyableComponent } from '../../../../shared/components/destroyable/
 })
 export class PrivacyComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public allPermits$: Observable<Permits[] | undefined> = of(undefined);
-  public statuses = Statuses;
-  private selectedLang: string = ENG_BE;
+  private selectedLang!: string;
   private allUpcomingAppointment$$ = new BehaviorSubject<ChangeStatusRequestData[]>([]);
 
   constructor(
@@ -52,10 +51,8 @@ export class PrivacyComponent extends DestroyableComponent implements OnInit, On
         this.selectedLang = lang;
         switch (lang) {
           case ENG_BE:
-            this.statuses = Statuses;
             break;
           case DUTCH_BE:
-            this.statuses = StatusesNL;
             break;
         }
       });

@@ -31,8 +31,7 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public appointments$$: BehaviorSubject<any[]>;
   public completedAppointments$$: BehaviorSubject<any[]>;
-  private selectedLang: string = ENG_BE;
-  public statuses = Statuses;
+  private selectedLang!: string;
 
   constructor(
     private scheduleAppointmentService: ScheduleAppointmentService,
@@ -94,10 +93,8 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         this.selectedLang = lang;
         switch (lang) {
           case ENG_BE:
-            this.statuses = Statuses;
             break;
           case DUTCH_BE:
-            this.statuses = StatusesNL;
             break;
         }
       });

@@ -46,9 +46,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
   public isConsentGiven$$ = new BehaviorSubject<boolean>(false);
   private authUser: AuthUser | undefined;
-  private selectedLang: string = ENG_BE;
-  public statuses = Statuses;
-
+  private selectedLang!: string;
 
   constructor(
     private authService: AuthService,
@@ -186,10 +184,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         this.selectedLang = lang;
         switch (lang) {
           case ENG_BE:
-            this.statuses = Statuses;
             break;
           case DUTCH_BE:
-            this.statuses = StatusesNL;
             break;
         }
       });
