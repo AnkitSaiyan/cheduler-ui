@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 import {ExamDetails} from 'src/app/shared/models/local-storage-data.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE, Statuses, StatusesNL } from '../../../../shared/utils/const';
+import { DUTCH_BE, ENG_BE } from '../../../../shared/utils/const';
 
 @Component({
   selector: 'dfm-appointment',
@@ -91,12 +91,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
         this.selectedLang = lang;
-        switch (lang) {
-          case ENG_BE:
-            break;
-          case DUTCH_BE:
-            break;
-        }
       });
   }
 

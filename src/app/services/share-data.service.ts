@@ -24,5 +24,4 @@ export class ShareDataService {
     return this.language$$.asObservable();
   }
 
-  // constructor() { }
 }

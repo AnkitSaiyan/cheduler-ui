@@ -11,7 +11,7 @@ import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appoi
 import { ChangeStatusRequestData } from 'src/app/shared/models/appointment.model';
 import { Translate } from '../../../../shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE, Statuses, StatusesNL } from '../../../../shared/utils/const';
+import { DUTCH_BE, ENG_BE } from '../../../../shared/utils/const';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 
 @Component({
@@ -49,12 +49,6 @@ export class PrivacyComponent extends DestroyableComponent implements OnInit, On
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
         this.selectedLang = lang;
-        switch (lang) {
-          case ENG_BE:
-            break;
-          case DUTCH_BE:
-            break;
-        }
       });
   }
 
