@@ -136,23 +136,8 @@ export class ScheduleAppointmentService {
     return this.http
       .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallupcomingappointmentlist/${this.authSvc.userId}`)
       .pipe(
-        map((response) =>
-          response.data.map((appointment) => ({
-            ...appointment,
-            exams: appointment.exams?.sort((a1: any, a2: any) => {
-              const timeA = new Date(a1.startedAt);
-              const timeB = new Date(a2.startedAt);
-              return timeA.getTime() - timeB.getTime();
-            }),
-          })),
-        ),
-        map((data) => {
-          const currentTime = new Date();
-          return data.filter((item: any) => {
-            const date = new Date(item.exams[0].startedAt);
-            return date.getTime() < currentTime.getTime();
-          });
-        }),
+        map((response) => response.data),
+
         tap(() => {
           this.loaderSvc.spinnerDeactivate();
         }),
@@ -167,7 +152,23 @@ export class ScheduleAppointmentService {
     return this.http
       .get<BaseResponse<Appointment[]>>(`${environment.serverBaseUrl}/patientappointment/getallcompletedappointmentlist/${this.authSvc.userId}`)
       .pipe(
-        map((response) => response.data),
+        map((response) =>
+          response.data.map((appointment) => ({
+            ...appointment,
+            exams: appointment.exams?.sort((a1: any, a2: any) => {
+              const timeA = new Date(a1.startedAt);
+              const timeB = new Date(a2.startedAt);
+              return timeA.getTime() - timeB.getTime();
+            }),
+          })),
+        ),
+        map((data) => {
+          const currentTime = new Date();
+          return data.filter((item: any) => {
+            const date = new Date(item?.exams[0]?.startedAt);
+            return date.getTime() < currentTime.getTime();
+          });
+        }),
         tap(() => this.loaderSvc.spinnerDeactivate()),
       );
   }
