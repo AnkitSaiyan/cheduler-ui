@@ -278,5 +278,6 @@
   "Oct" : "Okt",
   "Nov" : "Nov",
   "Dec" : "Dec",
-  "RevokeAccessConfirmationPopUp" : "Houd er rekening mee dat het intrekken van de toegang tot dit lab alle afspraken annuleert. Weet je zeker dat je door wilt gaan?"
+  "RevokeAccessConfirmationPopUp" : "Houd er rekening mee dat het intrekken van de toegang tot dit lab alle afspraken annuleert. Weet je zeker dat je door wilt gaan?",
+  "NoUpcomingAppointmentsFound" : "Geen Aankomende afspraken gevonden"
 }
