@@ -91,12 +91,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
         this.selectedLang = lang;
-        switch (lang) {
-          case ENG_BE:
-            break;
-          case DUTCH_BE:
-            break;
-        }
       });
   }
 

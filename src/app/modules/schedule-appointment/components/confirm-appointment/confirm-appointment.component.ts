@@ -182,12 +182,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
         this.selectedLang = lang;
-        switch (lang) {
-          case ENG_BE:
-            break;
-          case DUTCH_BE:
-            break;
-        }
       });
   }
   

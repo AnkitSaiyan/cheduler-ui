@@ -49,12 +49,6 @@ export class PrivacyComponent extends DestroyableComponent implements OnInit, On
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
         this.selectedLang = lang;
-        switch (lang) {
-          case ENG_BE:
-            break;
-          case DUTCH_BE:
-            break;
-        }
       });
   }
 
