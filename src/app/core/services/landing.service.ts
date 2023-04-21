@@ -22,6 +22,8 @@ export class LandingService {
 
   private SubDomain: string = '';
 
+  public siteSetting$$ = new BehaviorSubject<any>(null);
+
   constructor(private router: Router, private http: HttpBackend, private loaderSvc: LoaderService) {
     this.httpClient = new HttpClient(http);
     // eslint-disable-next-line prefer-destructuring
@@ -38,7 +40,12 @@ export class LandingService {
       .get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`, {
         headers: { SubDomain: this.SubDomain },
       })
-      .pipe(tap(() => this.loaderSvc.deactivate()));
+      .pipe(
+        tap((data) => {
+          this.siteSetting$$.next(data?.data);
+          this.loaderSvc.deactivate();
+        }),
+      );
   }
 
   public get workingDetails$(): Observable<any[]> {
