@@ -355,7 +355,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public isFormValid(): boolean {
     if (this.isSlotCombinable) {
-      return Object.values(this.selectedTimeSlot).every((value) => value?.slot?.length);
+      return !!Object.values(this.selectedTimeSlot)?.length && Object.values(this.selectedTimeSlot).every((value) => value?.slot?.length);
     }
     return (
       Object.values(this.selectedTimeSlot).every((value) => value?.slot?.length) &&
