@@ -184,7 +184,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         this.selectedLang = lang;
       });
   }
-  
 
   public override ngOnDestroy() {
     super.ngOnDestroy();
@@ -192,6 +191,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public checkBoxStatus() {
     if (this.siteDetails$$.value?.doctorReferringConsent === 1) {
+      if (this.isConsentGiven$$.value) return false;
       return !this.referDoctorCheckbox.value && !this.consentCheckbox.value;
     }
 
@@ -220,12 +220,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     const requestData: any = {
       ...(this.authUser?.id
         ? {
-          patientAzureId: this.authUser.id,
-          patientFname: null,
-          patientLname: null,
-          patientEmail: null,
-          patientTel: null,
-        }
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
       comments: this.examDetails?.comments,
@@ -233,40 +233,40 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
         : {
-          examId: 0,
-          start: '',
-          end: '',
-          exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
-            const examDetails = {
-              examId: +examID,
-              rooms: selectedTimeSlot[+examID]?.roomList ?? [],
-              users: selectedTimeSlot[+examID]?.userList ?? [],
-            };
+            examId: 0,
+            start: '',
+            end: '',
+            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+              const examDetails = {
+                examId: +examID,
+                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+                users: selectedTimeSlot[+examID]?.userList ?? [],
+              };
 
-            if (selectedTimeSlot[+examID]) {
-              const time = selectedTimeSlot[+examID].slot.split('-');
-              const start = time[0].split(':');
-              const end = time[1].split(':');
+              if (selectedTimeSlot[+examID]) {
+                const time = selectedTimeSlot[+examID].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
 
-              examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
-              examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-            } else {
-              const time = selectedTimeSlot[0].slot.split('-');
-              const start = time[0].split(':');
-              const end = time[1].split(':');
+                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              } else {
+                const time = selectedTimeSlot[0].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
 
-              examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
-              examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-            }
+                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              }
 
-            return examDetails;
-          }),
-        },
+              return examDetails;
+            }),
+          },
       ...(localStorage.getItem('appointmentId')
         ? {
-          fromPatient: true,
-          appointmentId: localStorage.getItem('appointmentId'),
-        }
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
         : {}),
     };
 
@@ -332,12 +332,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     const requestData: any = {
       ...(this.authUser?.id
         ? {
-          patientAzureId: this.authUser.id,
-          patientFname: null,
-          patientLname: null,
-          patientEmail: null,
-          patientTel: null,
-        }
+            patientAzureId: this.authUser.id,
+            patientFname: null,
+            patientLname: null,
+            patientEmail: null,
+            patientTel: null,
+          }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
       comments: this.examDetails?.comments,
@@ -345,42 +345,45 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
         : {
-          examId: 0,
-          start: '',
-          end: '',
-          exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
-            const examDetails = {
-              examId: +examID,
-              rooms: selectedTimeSlot[+examID]?.roomList ?? [],
-              users: selectedTimeSlot[+examID]?.userList ?? [],
-            };
+            examId: 0,
+            start: '',
+            end: '',
+            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+              const examDetails = {
+                examId: +examID,
+                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+                users: selectedTimeSlot[+examID]?.userList ?? [],
+              };
 
-            if (selectedTimeSlot[+examID]) {
-              const time = selectedTimeSlot[+examID].slot.split('-');
-              const start = time[0].split(':');
-              const end = time[1].split(':');
+              if (selectedTimeSlot[+examID]) {
+                const time = selectedTimeSlot[+examID].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
 
-              examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
-              examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-            } else {
-              const time = selectedTimeSlot[0].slot.split('-');
-              const start = time[0].split(':');
-              const end = time[1].split(':');
+                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              } else {
+                const time = selectedTimeSlot[0].slot.split('-');
+                const start = time[0].split(':');
+                const end = time[1].split(':');
 
-              examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
-              examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-            }
+                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+              }
 
-            return examDetails;
-          }),
-        },
+              return examDetails;
+            }),
+          },
       ...(localStorage.getItem('appointmentId')
         ? {
-          fromPatient: true,
-          appointmentId: localStorage.getItem('appointmentId'),
-        }
+            fromPatient: true,
+            appointmentId: localStorage.getItem('appointmentId'),
+          }
         : {}),
     };
+    if (this.landingSvc.siteSetting$$.value?.doctorReferringConsent === 1) {
+      delete requestData.doctorId;
+    }
 
     if (requestData) {
       if (localStorage.getItem('appointmentId')) {
@@ -392,13 +395,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.scheduleAppointmentSvc.updateAppointment$(
                 isLoggedIn
                   ? {
-                    ...requestData,
-                    patientFname: null,
-                    patientLname: null,
-                    patientEmail: null,
-                    patientTel: null,
-                    fromPatient: true,
-                  }
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                      fromPatient: true,
+                    }
                   : { ...requestData, fromPatient: true },
               ),
             ),
@@ -430,12 +433,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.scheduleAppointmentSvc.addAppointment(
                 isLoggedIn
                   ? {
-                    ...requestData,
-                    patientFname: null,
-                    patientLname: null,
-                    patientEmail: null,
-                    patientTel: null,
-                  }
+                      ...requestData,
+                      patientFname: null,
+                      patientLname: null,
+                      patientEmail: null,
+                      patientTel: null,
+                    }
                   : { ...requestData },
               ),
             ),
@@ -493,7 +496,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
     this.router.navigate(['../exam'], {
-      relativeTo: this.route
+      relativeTo: this.route,
     });
   }
 
@@ -524,6 +527,4 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       day: new Date(date).getDate(),
     };
   }
-
-
 }
