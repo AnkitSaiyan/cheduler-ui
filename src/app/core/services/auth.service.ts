@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, take} from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap } from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
 import { UserManagementService } from './user-management.service';
-import {getTenantID} from "../../shared/utils/getTenantId";
+import { getTenantID } from '../../shared/utils/getTenantId';
 
 @Injectable({
   providedIn: 'root',
