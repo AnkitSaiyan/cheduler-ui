@@ -16,7 +16,9 @@ import { SiteSettings } from '../../../../shared/models/site-management.model';
 import { LandingService } from '../../../../core/services/landing.service';
 import { UserManagementService } from 'src/app/core/services/user-management.service';
 import { AuthUser } from '../../../../shared/models/user.model';
-import { UtcToLocalPipe } from 'src/app/shared/pipes/utc-to-local.pipe';
+import { Translate } from 'src/app/shared/models/translate.model';
+import { ShareDataService } from 'src/app/services/share-data.service';
+import { DUTCH_BE, ENG_BE} from '../../../../shared/utils/const';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -44,6 +46,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public isButtonDisable$$ = new BehaviorSubject<boolean>(false);
   public isConsentGiven$$ = new BehaviorSubject<boolean>(false);
   private authUser: AuthUser | undefined;
+  private selectedLang!: string;
 
   constructor(
     private authService: AuthService,
@@ -55,7 +58,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private datePipe: DatePipe,
     private landingSvc: LandingService,
     private userManagementSvc: UserManagementService,
-    private utcToLocalPipe: UtcToLocalPipe,
+    private shareDataSvc: ShareDataService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -164,7 +167,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           this.slots = slotValues.map((slot) =>
             (slot['slot'] as string)
               .split('-')
-              ?.map((time) => this.utcToLocalPipe.transform(time.slice(0, -3), true))
+              ?.map((time) => time.slice(0, -3))
               .join(' - '),
           );
         }
@@ -174,7 +177,14 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     // if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
     //   this.confirmAppointment();
     // }
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+      });
   }
+  
 
   public override ngOnDestroy() {
     super.ngOnDestroy();
@@ -210,12 +220,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     const requestData: any = {
       ...(this.authUser?.id
         ? {
-            patientAzureId: this.authUser.id,
-            patientFname: null,
-            patientLname: null,
-            patientEmail: null,
-            patientTel: null,
-          }
+          patientAzureId: this.authUser.id,
+          patientFname: null,
+          patientLname: null,
+          patientEmail: null,
+          patientTel: null,
+        }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
       comments: this.examDetails?.comments,
@@ -223,40 +233,40 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
         : {
-            examId: 0,
-            start: '',
-            end: '',
-            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
-              const examDetails = {
-                examId: +examID,
-                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
-                users: selectedTimeSlot[+examID]?.userList ?? [],
-              };
+          examId: 0,
+          start: '',
+          end: '',
+          exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+            const examDetails = {
+              examId: +examID,
+              rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+              users: selectedTimeSlot[+examID]?.userList ?? [],
+            };
 
-              if (selectedTimeSlot[+examID]) {
-                const time = selectedTimeSlot[+examID].slot.split('-');
-                const start = time[0].split(':');
-                const end = time[1].split(':');
+            if (selectedTimeSlot[+examID]) {
+              const time = selectedTimeSlot[+examID].slot.split('-');
+              const start = time[0].split(':');
+              const end = time[1].split(':');
 
-                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
-                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-              } else {
-                const time = selectedTimeSlot[0].slot.split('-');
-                const start = time[0].split(':');
-                const end = time[1].split(':');
+              examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+              examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+            } else {
+              const time = selectedTimeSlot[0].slot.split('-');
+              const start = time[0].split(':');
+              const end = time[1].split(':');
 
-                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
-                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-              }
+              examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+              examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+            }
 
-              return examDetails;
-            }),
-          },
+            return examDetails;
+          }),
+        },
       ...(localStorage.getItem('appointmentId')
         ? {
-            fromPatient: true,
-            appointmentId: localStorage.getItem('appointmentId'),
-          }
+          fromPatient: true,
+          appointmentId: localStorage.getItem('appointmentId'),
+        }
         : {}),
     };
 
@@ -322,12 +332,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     const requestData: any = {
       ...(this.authUser?.id
         ? {
-            patientAzureId: this.authUser.id,
-            patientFname: null,
-            patientLname: null,
-            patientEmail: null,
-            patientTel: null,
-          }
+          patientAzureId: this.authUser.id,
+          patientFname: null,
+          patientLname: null,
+          patientEmail: null,
+          patientTel: null,
+        }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
       comments: this.examDetails?.comments,
@@ -335,40 +345,40 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
         : {
-            examId: 0,
-            start: '',
-            end: '',
-            exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
-              const examDetails = {
-                examId: +examID,
-                rooms: selectedTimeSlot[+examID]?.roomList ?? [],
-                users: selectedTimeSlot[+examID]?.userList ?? [],
-              };
+          examId: 0,
+          start: '',
+          end: '',
+          exams: Object.keys(this.slotDetails.selectedSlots).map((examID) => {
+            const examDetails = {
+              examId: +examID,
+              rooms: selectedTimeSlot[+examID]?.roomList ?? [],
+              users: selectedTimeSlot[+examID]?.userList ?? [],
+            };
 
-              if (selectedTimeSlot[+examID]) {
-                const time = selectedTimeSlot[+examID].slot.split('-');
-                const start = time[0].split(':');
-                const end = time[1].split(':');
+            if (selectedTimeSlot[+examID]) {
+              const time = selectedTimeSlot[+examID].slot.split('-');
+              const start = time[0].split(':');
+              const end = time[1].split(':');
 
-                examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
-                examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-              } else {
-                const time = selectedTimeSlot[0].slot.split('-');
-                const start = time[0].split(':');
-                const end = time[1].split(':');
+              examDetails['start'] = selectedTimeSlot[+examID]?.examStart ?? `${start[0]}:${start[1]}:00`;
+              examDetails['end'] = selectedTimeSlot[+examID]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+            } else {
+              const time = selectedTimeSlot[0].slot.split('-');
+              const start = time[0].split(':');
+              const end = time[1].split(':');
 
-                examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
-                examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
-              }
+              examDetails['start'] = selectedTimeSlot[0]?.examStart ?? `${start[0]}:${start[1]}:00`;
+              examDetails['end'] = selectedTimeSlot[0]?.examEnd ?? `${end[0]}:${end[1]}:00`;
+            }
 
-              return examDetails;
-            }),
-          },
+            return examDetails;
+          }),
+        },
       ...(localStorage.getItem('appointmentId')
         ? {
-            fromPatient: true,
-            appointmentId: localStorage.getItem('appointmentId'),
-          }
+          fromPatient: true,
+          appointmentId: localStorage.getItem('appointmentId'),
+        }
         : {}),
     };
 
@@ -382,13 +392,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.scheduleAppointmentSvc.updateAppointment$(
                 isLoggedIn
                   ? {
-                      ...requestData,
-                      patientFname: null,
-                      patientLname: null,
-                      patientEmail: null,
-                      patientTel: null,
-                      fromPatient: true,
-                    }
+                    ...requestData,
+                    patientFname: null,
+                    patientLname: null,
+                    patientEmail: null,
+                    patientTel: null,
+                    fromPatient: true,
+                  }
                   : { ...requestData, fromPatient: true },
               ),
             ),
@@ -398,7 +408,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               // localStorage.setItem('appointmentId', res?['id'].toString());
               // this.appointmentId$$.next(res?['id']);
               localStorage.removeItem('appointmentDetails');
-              this.notificationSvc.showNotification(`Appointment updated successfully`);
+              this.notificationSvc.showNotification(Translate.Success.AppointmentUpdatedSuccessfully[this.selectedLang]);
               // this.router.navigate(['/appointment']);
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
@@ -420,12 +430,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.scheduleAppointmentSvc.addAppointment(
                 isLoggedIn
                   ? {
-                      ...requestData,
-                      patientFname: null,
-                      patientLname: null,
-                      patientEmail: null,
-                      patientTel: null,
-                    }
+                    ...requestData,
+                    patientFname: null,
+                    patientLname: null,
+                    patientEmail: null,
+                    patientTel: null,
+                  }
                   : { ...requestData },
               ),
             ),
@@ -435,7 +445,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               localStorage.setItem('appointmentId', res?.id.toString());
               localStorage.removeItem('appointmentDetails');
               this.appointmentId$$.next(res?.id);
-              this.notificationSvc.showNotification(`Appointment added successfully`);
+              this.notificationSvc.showNotification(Translate.Success.AppointmentAddedSuccessfully[this.selectedLang]);
               this.isButtonDisable$$.next(false);
               this.createPermit();
               this.router.navigate([], {
@@ -483,7 +493,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
     this.router.navigate(['../exam'], {
-      relativeTo: this.route,
+      relativeTo: this.route
     });
   }
 
@@ -514,4 +524,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       day: new Date(date).getDate(),
     };
   }
+
+
 }
