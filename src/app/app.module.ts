@@ -32,6 +32,7 @@ import { CoreModule } from './core/core.module';
 import { AppComponent } from './app.component';
 import { AuthConfig, MSALConfig } from './configuration/auth.config';
 import {SharedModule} from "./shared/shared.module";
+import {UtcToLocalPipe} from "./shared/pipes/utc-to-local.pipe";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -84,6 +85,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   bootstrap: [AppComponent, MsalRedirectComponent],
   providers: [
     DatePipe,
+    UtcToLocalPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
