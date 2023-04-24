@@ -12,8 +12,7 @@
             (click)="prevButton.disabled ? $event.preventDefault() : changeMonth(-1)"
           ></dfm-button>
 
-          <h5 class="month-title-mv font-weight-semi-bold m-0">{{ selectedCalendarDate$$ | async | date : 'MMMM yyyy' }}</h5>
-
+          <h5 class="month-title-mv font-weight-semi-bold m-0">{{ (selectedCalendarDate$$ | async | date : 'MMMM')! | translate }} {{selectedCalendarDate$$ | async | date : 'yyyy'}}</h5>
           <dfm-button trailingIcon="chevron-right" color="link" size="sm" (click)="changeMonth(1)"></dfm-button>
         </div>
 
