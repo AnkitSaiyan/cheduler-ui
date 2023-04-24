@@ -19,6 +19,7 @@ import { AuthUser } from '../../../../shared/models/user.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
 import { DUTCH_BE, ENG_BE} from '../../../../shared/utils/const';
+import {UtcToLocalPipe} from "../../../../shared/pipes/utc-to-local.pipe";
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -59,6 +60,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private landingSvc: LandingService,
     private userManagementSvc: UserManagementService,
     private shareDataSvc: ShareDataService,
+    private utcToLocalPipe: UtcToLocalPipe
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -329,7 +331,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     delete combinableSelectedTimeSlot.roomList;
     delete combinableSelectedTimeSlot.slot;
 
-    const requestData: any = {
+    let requestData: any = {
       ...(this.authUser?.id
         ? {
             patientAzureId: this.authUser.id,
@@ -384,6 +386,18 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     if (this.landingSvc.siteSetting$$.value?.doctorReferringConsent === 1) {
       delete requestData.doctorId;
     }
+
+
+    let timeZone = this.datePipe.transform(new Date(), 'ZZZZZ');
+
+    if (timeZone && timeZone[0] === '+') {
+      timeZone = timeZone.slice(1);
+    }
+
+    requestData = {
+      ...requestData,
+      patientTimeZone: timeZone ?? '',
+    };
 
     if (requestData) {
       if (localStorage.getItem('appointmentId')) {
@@ -526,5 +540,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       month: new Date(date).getMonth() + 1,
       day: new Date(date).getDate(),
     };
+  }
+
+  public getSlotsInLocal(slots: string[]): string[] {
+    return slots.map((slot) => {
+      const [start, end] = slot.split('-');
+      return `${this.utcToLocalPipe.transform(start, true)}-${this.utcToLocalPipe.transform(end, true)}`;
+    });
   }
 }

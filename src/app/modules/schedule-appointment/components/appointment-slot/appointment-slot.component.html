@@ -125,7 +125,7 @@
                         'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
                       }"
                     >
-                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                      {{ slot.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot.end?.slice(0, -3) | dfmUtcToLocal : true }}
                     </div>
                   </div>
                 </ng-template>
@@ -179,7 +179,7 @@
                           'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
                         }"
                       >
-                        {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                        {{ slot.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot.end?.slice(0, -3) | dfmUtcToLocal : true }}
                       </div>
                     </ng-container>
                   </div>
