@@ -4,9 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'dfmUtcToLocal',
 })
 export class UtcToLocalPipe implements PipeTransform {
-  public transform(utcDateTimeString: string, timeOnly = false): string {
+  public transform(utcDateTimeString: string | null | undefined, timeOnly = false): string {
     if (!utcDateTimeString) {
-      return utcDateTimeString;
+      return '';
     }
 
     if (timeOnly) {
