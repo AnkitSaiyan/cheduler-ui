@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, filter, map, takeUntil } from 'rxjs';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { UtcToLocalPipe } from 'src/app/shared/pipes/utc-to-local.pipe';
 import { LandingService } from '../../../core/services/landing.service';
 import {UtcToLocalPipe} from "../../../shared/pipes/utc-to-local.pipe";
 
@@ -103,6 +104,8 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
     return time;
   }
 }
+
+
 
 
 

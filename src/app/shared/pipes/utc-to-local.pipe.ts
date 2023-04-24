@@ -44,11 +44,12 @@ export class UtcToLocalPipe implements PipeTransform {
     const offsetMinutes = localDate.getTimezoneOffset();
     localDate.setTime(utcDate.getTime() - offsetMinutes * 60 * 1000);
 
-    const localHour = `${localDate.getHours()}0`.slice(0, 2);
+    const localHour = `0${localDate.getHours()}`.slice(-2);
 
-    const localMin = `${localDate.getMinutes()}0`.slice(0, 2);
+    const localMin = `0${localDate.getMinutes()}`.slice(-2);
 
     return `${localHour}:${localMin}`;
   }
 }
+
 
