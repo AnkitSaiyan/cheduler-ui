@@ -335,8 +335,8 @@
 .status-text-color {
   color: #4b5565;
 }
-.status-text-color-mv{
-    display: none;
+.status-text-color-mv {
+  display: none;
 }
 
 .no-appointment-text {
@@ -528,13 +528,14 @@
     margin-bottom: 18px;
     flex-direction: row;
     gap: 5px;
+    align-items: center;
   }
   .top-section-appointment div {
     margin-right: 0px;
   }
   .appointmentno-mv {
     display: flex;
-    font-size: 15px;
+    font-size: 15px !important;
   }
   .exam-section {
     flex: 1;
@@ -545,15 +546,18 @@
   .status-text-color-mv{
     display: block;
     color: #4b5565;
-}
-.completed-status-text {
-    display: flex;
   }
-  .pending-status-text{
+  .completed-status-text {
     display: flex;
+    font-size: 15px;
+  }
+  .pending-status-text {
+    display: flex;
+    font-size: 15px;
   }
   .cancelled-status-text {
     display: flex;
+    font-size: 15px;
   }
   .top-section-one {
     text-align: center;
@@ -563,10 +567,11 @@
     border-radius: 16px;
     display: flex;
     flex-direction: column;
-    font-size: 15px;
     align-items: center;
+    font-size: 15px;
     justify-content: center;
     width: 50px;
+    height: 50px;
   }
   .loader-mv{
     margin: auto;
@@ -706,11 +711,33 @@
   .status-btn {
     margin: 0px 0px 10px 0px;
   }
-  hr{
+  hr {
     width: 90%;
-    margin: 0  auto;
+    margin: 0 auto;
   }
-  .no-appointment-text{
+  .no-appointment-text {
+    font-size: 13px;
+  }
+  .top-section-two div span{
+    font-size: 13px;
+  }
+  .top-section-two div p{
+    width: 18px!important;
+    height: 18px!important;
+  }
+  .top-section-one {
+    text-align: center;
+    font-size: 12px;
+    width: 45px;
+    height: 45px;
+  }
+  .completed-status-text {
+    font-size: 13px;
+  }
+  .pending-status-text {
+    font-size: 13px;
+  }
+  .cancelled-status-text {
     font-size: 13px;
   }
 }

@@ -34,12 +34,12 @@
               <span>{{ monthName(item.exams[0]['startedAt']) | translate }}</span>
             </div>
             <div class="top-section-two">
-              <div class="d-flex align-items-center">
-                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+              <div class="d-flex align-items-center gap-2">
+                <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="calendar-check-01"></dfm-icon></p>
                 <span class="appointmentno-mv">{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
               </div>
               <div class="d-flex align-items-center">
-                <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="clock"></dfm-icon></p>
                 <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
               </div>
             </div>
@@ -120,12 +120,12 @@
                 <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
               </div>
               <div class="top-section-two">
-                <div class="d-flex align-items-center">
-                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                <div class="d-flex align-items-center gap-2">
+                  <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="calendar-check-01"></dfm-icon></p>
                   <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
                 </div>
-                <div class="d-flex align-items-center">
-                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                <div class="d-flex align-items-center gap-2">
+                  <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="clock"></dfm-icon></p>
                   <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
                 </div>
               </div>
@@ -171,12 +171,12 @@
                 <span>{{ monthName(item.exams[0]['startedAt']) }}</span>
               </div>
               <div class="top-section-two">
-                <div class="d-flex align-items-center">
-                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="calendar-check-01"></dfm-icon></p>
-                  <span>{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
+                <div class="d-flex align-items-center gap-2">
+                  <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="calendar-check-01"></dfm-icon></p>
+                  <span class="appointmentno-text">{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
                 </div>
-                <div class="d-flex align-items-center">
-                  <p class="d-inline-block" style="width: 20px; height: 20px; margin-right: 5px"><dfm-icon name="clock"></dfm-icon></p>
+                <div class="d-flex align-items-center gap-2">
+                  <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="clock"></dfm-icon></p>
                   <!-- <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span> -->
                   <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
                 </div>
