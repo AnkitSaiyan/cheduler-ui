@@ -331,7 +331,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     delete combinableSelectedTimeSlot.roomList;
     delete combinableSelectedTimeSlot.slot;
 
-    const requestData: any = {
+    let requestData: any = {
       ...(this.authUser?.id
         ? {
             patientAzureId: this.authUser.id,
@@ -394,7 +394,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       timeZone = timeZone.slice(1);
     }
 
-    requestData['patientTimeZone'] = timeZone ?? '';
+    requestData = {
+      ...requestData,
+      patientTimeZone: timeZone ?? '',
+    };
 
     if (requestData) {
       if (localStorage.getItem('appointmentId')) {
