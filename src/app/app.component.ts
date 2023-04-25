@@ -5,7 +5,8 @@ import { InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
-import defaultLanguage from '../assets/i18n/en-BE.json';
+import defaultLanguage from '../assets/i18n/nl-BE.json';
+import englishLanguage from '../assets/i18n/en-BE.json';
 import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
 import { AuthService } from './core/services/auth.service';
 import { NotificationDataService } from './core/services/notification-data.service';
@@ -116,5 +117,14 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     this.translate.addLangs(['en-BE', 'nl-BE']);
     this.translate.setTranslation('en-BE', defaultLanguage);
     this.translate.setDefaultLang('en-BE');
+    this.translate.addLangs(['en-BE', 'nl-BE']);
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      this.translate.setTranslation(lang, lang === 'nl-BE' ? defaultLanguage : englishLanguage);
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setTranslation('nl-BE', defaultLanguage);
+      this.translate.setDefaultLang('nl-BE');
+    }
   }
 }
