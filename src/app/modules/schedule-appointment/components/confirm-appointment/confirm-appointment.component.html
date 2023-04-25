@@ -37,7 +37,7 @@
             <dfm-icon name="calendar-check-01" style="color:#4E2267"></dfm-icon>
           </div>
           <span class="date-text dfm-color-primary text-nowrap">{{"Date" | translate}} : </span>
-          <span class="date-span  text-nowrap">{{ slotDetails?.selectedDate| date : 'longDate' }}</span>
+          <span class="date-span  text-nowrap">{{ slotDetails?.selectedDate | date : 'dd/MM/yyy' }}</span>
         </div>
 
         <div class="d-flex gap-2 font-weight-medium time-section">
@@ -45,7 +45,7 @@
             <dfm-icon name="clock" style="color:#4E2267"></dfm-icon>
           </div>
           <span class="time-text dfm-color-primary text-nowrap">{{"Time" | translate}} : </span>
-          <span class="time-span" *ngIf="slots.length">{{ slots | joinWithAnd }}</span>
+          <span class="time-span" *ngIf="slots.length">{{ getSlotsInLocal(slots) | joinWithAnd  }}</span>
         </div>
       </div>
 

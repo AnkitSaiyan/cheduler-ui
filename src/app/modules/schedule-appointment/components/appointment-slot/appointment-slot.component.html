@@ -12,8 +12,7 @@
             (click)="prevButton.disabled ? $event.preventDefault() : changeMonth(-1)"
           ></dfm-button>
 
-          <h5 class="month-title-mv font-weight-semi-bold m-0">{{ selectedCalendarDate$$ | async | date : 'MMMM yyyy' }}</h5>
-
+          <h5 class="month-title-mv font-weight-semi-bold m-0">{{ (selectedCalendarDate$$ | async | date : 'MMMM')! | translate }} {{selectedCalendarDate$$ | async | date : 'yyyy'}}</h5>
           <dfm-button trailingIcon="chevron-right" color="link" size="sm" (click)="changeMonth(1)"></dfm-button>
         </div>
 
@@ -126,7 +125,7 @@
                         'time-slot-selected-text': selectedTimeSlot[exam]?.slot === slot.start + '-' + slot.end
                       }"
                     >
-                      {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                      {{ slot.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot.end?.slice(0, -3) | dfmUtcToLocal : true }}
                     </div>
                   </div>
                 </ng-template>
@@ -180,7 +179,7 @@
                           'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
                         }"
                       >
-                        {{ slot.start?.slice(0, -3) }} - {{ slot.end?.slice(0, -3) }}
+                        {{ slot.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot.end?.slice(0, -3) | dfmUtcToLocal : true }}
                       </div>
                     </ng-container>
                   </div>

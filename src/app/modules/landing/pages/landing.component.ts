@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, filter, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, map, takeUntil } from 'rxjs';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { LandingService } from '../../../core/services/landing.service';
+import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
 
 @Component({
   selector: 'dfm-landing',
@@ -17,7 +18,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
 
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  constructor(private landingService: LandingService) {
+  constructor(private landingService: LandingService, private utcToLocalPipe: UtcToLocalPipe) {
     super();
     this.workingHours$$ = new BehaviorSubject<any[]>([]);
     this.info$$ = new BehaviorSubject<any[]>([]);
@@ -27,7 +28,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
     this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       localStorage.setItem('siteDetails', JSON.stringify(res));
       this.landingService.siteFooterDetails$$.next(res);
-      this.info$$.next(JSON.parse(res['data'].introductoryText));
+      this.info$$.next(JSON.parse(res.data.introductoryText));
     });
 
     this.landingService.workingDetails$
@@ -41,9 +42,15 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
           const j = element.weekday;
           // this.weekDay[element.weekday] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
           if (this.weekDay[j]) {
-            this.weekDay[j] += `, ${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+            this.weekDay[j] += `, ${this.utcToLocalPipe.transform(element.dayStart.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
+              element.dayEnd.slice(0, 5),
+              true,
+            )}`;
           } else {
-            this.weekDay[j] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
+            this.weekDay[j] = `${this.utcToLocalPipe.transform(element.dayStart.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
+              element.dayEnd.slice(0, 5),
+              true,
+            )}`;
           }
           // for (let j = 0; j < 7; j++) {
           //   if (element.weekday === j) {
@@ -102,8 +109,3 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
     return time;
   }
 }
-
-
-
-
-
