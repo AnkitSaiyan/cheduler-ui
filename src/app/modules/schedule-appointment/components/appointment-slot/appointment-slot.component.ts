@@ -41,7 +41,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public examsDetails: ExamDetails = {} as ExamDetails;
 
-  public examIdToName: { [key: number]: { name: string; info: string } } = {};
+  public examIdToName: { [key: number]: { name: string; info: string; instructions: string } } = {};
 
   public examIdToAppointmentSlots: { [key: number]: ModifiedSlot[] } = {};
 
@@ -135,7 +135,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     this.scheduleAppointmentSvc.exams$.pipe(takeUntil(this.destroy$$)).subscribe((exams) =>
       exams.forEach((exam) => {
-        this.examIdToName[+exam.id] = { name: exam.name, info: exam.info };
+        this.examIdToName[+exam.id] = { name: exam.name, info: exam.info, instructions: exam.instructions ?? '' };
       }),
     );
 
