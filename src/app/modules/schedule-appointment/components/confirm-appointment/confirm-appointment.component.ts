@@ -32,7 +32,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public basicDetails!: any;
   public examDetails!: ExamDetails;
   public slotDetails!: SlotDetails;
-  public examIdToName: { [key: number]: { name: string; info: string } } = {};
+  public examIdToName: { [key: number]: { name: string; info: string; instructions: string } } = {};
   public exams$$ = new BehaviorSubject<any>(null);
   public appointment$$ = new BehaviorSubject<Appointment | null>(null);
   public appointmentId$$ = new BehaviorSubject<number | null>(null);
@@ -150,7 +150,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       exams
         .filter((exam) => this.examDetails?.exams?.indexOf(exam.id) !== -1)
         .forEach((exam) => {
-          this.examIdToName[+exam.id] = { name: exam.name, info: exam.info };
+          this.examIdToName[+exam.id] = { name: exam.name, info: exam.info, instructions: exam.instructions ?? '' };
         });
 
       this.exams$$.next(exams);
