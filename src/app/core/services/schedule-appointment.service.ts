@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { ExamDetails, SlotDetails } from '../../shared/models/local-storage-data.model';
 import { AuthService } from './auth.service';
 import { LoaderService } from './loader.service';
+import * as inspector from "inspector";
 
 @Injectable({
   providedIn: 'root',
@@ -196,7 +197,16 @@ export class ScheduleAppointmentService {
         headers: { SubDomain: this.SubDomain },
       })
       .pipe(
-        map((response) => response.data),
+        map((response) => {
+          return response?.data?.map((e) => {
+            const { info } = e;
+            return {
+              ...e,
+              info: e.instructions ?? '',
+              instructions: info,
+            };
+          });
+        }),
         tap(() => this.loaderSvc.spinnerDeactivate()),
       );
   }
