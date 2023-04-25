@@ -52,7 +52,7 @@
       <div class="instructions-text-section">
         <span class="font-weight-medium text-primary instructions-text">{{"Instructions" | translate}}&nbsp;:&nbsp;</span>
         <span class="font-weight-medium"
-              *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'info' }}</span>
+              *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'instructions' }}</span>
       </div>
 
 
@@ -75,7 +75,7 @@
                        size="lg">{{"Cancelled" | translate}}
             </dfm-badge>
           </div>
-          <span
+          <span *ngIf="appointment$$.value?.approval === appointmentStatusEnum.Pending"
             class="confirmation-message">{{"WeWillNotifyYou" |translate}}
           </span>
         </div>

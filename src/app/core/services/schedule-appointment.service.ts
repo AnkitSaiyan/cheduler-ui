@@ -197,16 +197,7 @@ export class ScheduleAppointmentService {
         headers: { SubDomain: this.SubDomain },
       })
       .pipe(
-        map((response) => {
-          return response?.data?.map((e) => {
-            const { info } = e;
-            return {
-              ...e,
-              info: e.instructions ?? '',
-              instructions: info,
-            };
-          });
-        }),
+        map((response) => response?.data),
         tap(() => this.loaderSvc.spinnerDeactivate()),
       );
   }

@@ -93,7 +93,7 @@
 
               <div class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
-                <span>{{ examIdToName[exam]?.info ?? 'Have an empty stomach 10 hours prior to the test' }}</span>
+                <span>{{ examIdToName[exam]?.instructions ?? 'Have an empty stomach 10 hours prior to the test' }}</span>
               </div>
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
