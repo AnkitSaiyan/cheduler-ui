@@ -98,7 +98,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span>{{editData.exams[i].startedAt | date : 'HH:mm' }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' }}</span>
+                <span>{{editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal: true }}</span>
               </div>
             </div>
 
@@ -152,7 +152,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'HH:mm' }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal : true }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
             </div>
 
@@ -194,9 +194,9 @@
 
   <div>
     <div class="d-flex justify-content-center align-items-center dfm-gap-16">
-      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn" [disabled]="(isEdit$$ | async) === true">{{ 'Back' | translate }}</dfm-button>
+      <dfm-button color="secondary" size="lg" routerLink="../exam" class="cal-back-btn" >{{ 'Back' | translate }}</dfm-button>
 
-      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv" [disabled]="(isEdit$$ | async) === true">
+      <dfm-button color="secondary" size="sm" routerLink="../exam" class="cal-back-btn-mv" >
         {{ 'Back' | translate }}
       </dfm-button>
 

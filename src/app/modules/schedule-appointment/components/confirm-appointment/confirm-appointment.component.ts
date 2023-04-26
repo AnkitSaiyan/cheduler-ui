@@ -60,7 +60,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     private landingSvc: LandingService,
     private userManagementSvc: UserManagementService,
     private shareDataSvc: ShareDataService,
-    private utcToLocalPipe: UtcToLocalPipe
+    private utcToLocalPipe: UtcToLocalPipe,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any>(null);
@@ -164,7 +164,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       this.slotDetails = slotDetails;
       if (slotDetails.selectedSlots) {
         const slotValues = Object.values(slotDetails.selectedSlots);
-
         if (slotValues?.length) {
           this.slots = slotValues.map((slot) =>
             (slot['slot'] as string)
@@ -172,6 +171,12 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               ?.map((time) => time.slice(0, -3))
               .join(' - '),
           );
+        } else if (this.editData?.exams) {
+          this.slots = [...this.editData.exams].map((exam) => {
+            const start = this.dateTo24TimeString(exam.startedAt);
+            const end = this.dateTo24TimeString(exam.endedAt);
+            return `${start}-${end}`;
+          });
         }
       }
     });
@@ -387,6 +392,24 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       delete requestData.doctorId;
     }
 
+    if (!requestData?.slot?.exams.length) {
+      const exams = [...this.editData.exams].map((exam) => {
+        const start = this.dateTo24TimeString(exam.startedAt);
+        const end = this.dateTo24TimeString(exam.endedAt);
+        const userList = exam.users?.filter((u) => +u.examId === +exam.id)?.map((u) => +u.id) || [];
+        const roomList = [
+          ...(exam.rooms
+            ?.filter((r) => +r.examId === +exam.id)
+            ?.map((r) => ({
+              start: (r?.startedAt as string)?.slice(-8),
+              end: (r?.endedAt as string)?.slice(-8),
+              roomId: +r.id,
+            })) || []),
+        ];
+        return { examId: exam.id, rooms: roomList, users: userList, start, end };
+      });
+      requestData.slot = { ...requestData?.slot, exams };
+    }
 
     let timeZone = this.datePipe.transform(new Date(), 'ZZZZZ');
 
@@ -540,6 +563,18 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       month: new Date(date).getMonth() + 1,
       day: new Date(date).getDate(),
     };
+  }
+
+  private dateTo24TimeString(date: Date): string {
+    if (!date) {
+      return '';
+    }
+
+    const newDate = new Date(date);
+
+    const minutes = newDate.getMinutes().toString();
+
+    return `${newDate.getHours()}:${minutes.length < 2 ? `0${minutes}` : minutes}:00`;
   }
 
   public getSlotsInLocal(slots: string[]): string[] {
