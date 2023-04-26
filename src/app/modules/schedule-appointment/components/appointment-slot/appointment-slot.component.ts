@@ -177,11 +177,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         }
       });
 
+    this.selectedDate$$.subscribe(console.log);
+
     this.selectedDate$$
-      .asObservable()
       .pipe(
         debounceTime(0),
-        filter((date) => this.isDateValid(date)),
+        filter((date) => {
+          return this.isDateValid(date);
+        }),
         tap(() => this.loadingSlots$$.next(true)),
         switchMap((date) => {
           const dateString = this.getDateString(date);
@@ -323,8 +326,11 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public selectDate(day: number, isEdit: boolean = false) {
-    console.log('in');
-    this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
+    if (Number.isNaN(day)) {
+      this.selectedDate$$.next(new Date());
+    } else {
+      this.selectedDate$$.next(new Date(this.selectedCalendarDate$$.value.getFullYear(), this.selectedCalendarDate$$.value.getMonth(), day));
+    }
     if (!isEdit) this.selectedTimeSlot = {};
   }
 
