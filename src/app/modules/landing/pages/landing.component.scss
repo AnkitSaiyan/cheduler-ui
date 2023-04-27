@@ -214,15 +214,18 @@ td {
 
 @media (min-width: 180px) and (max-width: 680px) {
   .landing-page {
-    padding:10px 0px;
-    margin: 15px 0px 0px 0px;
+    padding:10px 8px!important;
+    // margin: 15px 0px 0px 0px;
+    margin: 26px 0px 0px 0px;
+    gap:10px!important;
+    width: 100%!important;
   }
 
   .radiology-section {
     // border: 1px solid red;
-    width: 100%;
+    min-width: 100%;
     padding: 10px 10px;
-    margin: 20px 0px 0px 0px!important;
+    // margin: 20px 0px 0px 0px!important;
   }
 
   .radiology-section .left-section {
@@ -284,7 +287,7 @@ td {
   .header-section {
   }
   .weekly-main-container{
-    width: 100%;
+    min-width: 100%;
     padding: 10px 10px;
   }
   .weekly-container .weekly-content-left {
