@@ -145,16 +145,16 @@
     >
       {{"Confirm" | translate}}
     </dfm-button>
-  </div>
+ 
   <ng-container *ngIf="(isEdit$$ | async) === false">
     <div class="pending-section-button d-flex justify-content-center dfm-gap-16"
          *ngIf="(appointment$$ | async)?.approval !== appointmentStatusEnum.Cancelled && (appointment$$ | async)?.id && (loading$$ | async) === false">
-      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="mx-3 edit-btn"
+      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'lg'" class="edit-btn"
                   routerLink="../slot">
         {{"EditAppointment" | translate}}
       </dfm-button>
 
-      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="mx-3 edit-btn-mv"
+      <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="edit-btn-mv"
                   routerLink="../slot">
         {{"Edit" | translate}}
       </dfm-button>
@@ -176,5 +176,6 @@
       </dfm-button>
     </div>
   </ng-container>
+</div>
 </div>
 
