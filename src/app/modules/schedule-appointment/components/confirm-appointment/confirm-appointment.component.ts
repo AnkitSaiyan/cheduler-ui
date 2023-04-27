@@ -528,6 +528,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public onEdit() {
     localStorage.setItem('edit', 'true');
+    localStorage.setItem('appointmentDetails', JSON.stringify(this.appointment$$.value));
   }
 
   public onAddNewAppointment() {
