@@ -142,10 +142,16 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     if (this.editData) {
       this.editData.physicianId = this.examForm.controls['physician'].value;
+      this.editData.doctorId = this.examForm.controls['physician'].value;
       this.editData.comments = this.examForm.controls['comments'].value;
       const exams: any = [];
       this.examForm.value.exams.forEach((element) => {
-        exams.push({ id: element.exam });
+        const previousExam = this.editData.exams?.find(({ id }) => id === element.exam);
+        if (previousExam) {
+          exams.push({ ...previousExam });
+        } else {
+          exams.push({ id: element.exam });
+        }
       });
       this.editData.exams = exams;
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));

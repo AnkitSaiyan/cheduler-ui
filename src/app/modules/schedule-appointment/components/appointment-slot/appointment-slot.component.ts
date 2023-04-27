@@ -345,7 +345,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       selectedSlots: this.selectedTimeSlot,
     } as SlotDetails;
 
-
     // for (let i = 0; i < this.editData.exams.length; i++) {
     //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     //   this.editData.exmas[i].startedAt = this.selectedDate$$.value + ' ';
@@ -493,5 +492,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   private isDateValid(d: any): boolean {
     return Object.prototype.toString.call(d) === '[object Date]' && !Number.isNaN(d);
+  }
+
+  public isNextButtonDisable(): boolean {
+    return !this.editData?.exams?.every((exam) => exam?.startedAt?.length);
   }
 }
