@@ -7,15 +7,15 @@
     <form [formGroup]="userForm" class="my-profile-section dfm-card w-fit">
       <div class="form-group-container d-flex justify-content-center p-3 gap-4">
         <div class="form-group">
-          <dfm-input formControlName="firstname" type="text" size="sm" label="{{'FirstName' | translate}}*"
+          <dfm-input formControlName="givenName" type="text" size="sm" label="{{'FirstName' | translate}}*"
                      placeholder="{{'EnterFirstName' | translate}}"></dfm-input>
-                     <span class="validation-error" *ngIf="userForm.controls['firstname'].hasError('required') && userForm.controls['firstname'].touched">
+                     <span class="validation-error" *ngIf="userForm.controls['givenName'].hasError('required') && userForm.controls['givenName'].touched">
                       {{ 'RequiredField' | translate }}
                     </span>
         </div>
         <div class="form-group">
-          <dfm-input formControlName="lastname" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
-          <span class="validation-error" *ngIf="userForm.controls['lastname'].hasError('required') && userForm.controls['lastname'].touched">
+          <dfm-input formControlName="surname" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
+          <span class="validation-error" *ngIf="userForm.controls['surname'].hasError('required') && userForm.controls['surname'].touched">
             {{ 'RequiredField' | translate }}
           </span>
         </div>
@@ -40,7 +40,7 @@
     </form>
   </section>
 
-  <!-- <section>
+  <section>
     <div class="d-flex justify-content-center mt-3">
       <dfm-button [color]="'primary'" [size]="'lg'" class="save-change-btn" (click)="saveDetails()"
                   [disabled]="userForm.invalid"> {{"SaveChanges" | translate}}
@@ -49,5 +49,5 @@
                   [disabled]="userForm.invalid"> {{"SaveChanges" | translate}}
       </dfm-button>
     </div>
-  </section> -->
+  </section>
 </div>

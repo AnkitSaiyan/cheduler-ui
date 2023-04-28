@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
-import { UserProperties } from 'src/app/shared/models/user-properties.model';
+import { UserProperties, UserPropertiesRequestDate } from 'src/app/shared/models/user-properties.model';
 import { environment } from 'src/environments/environment';
 import { Permits } from '../../shared/models/user-permits.model';
 
@@ -15,10 +15,18 @@ export class UserManagementService {
 
   private refreshPermits$$ = new Subject<void>();
 
+  private refreshProperties$$ = new Subject<void>();
+
   constructor(private httpClient: HttpClient) {}
 
   public getUserProperties(userId: string): Observable<UserProperties> {
-    return this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`);
+    return combineLatest([this.refreshProperties$$.pipe(startWith(''))]).pipe(
+      switchMap(() => this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`)),
+    );
+  }
+
+  public patchUserProperties(userId: string, payload: UserPropertiesRequestDate) {
+    return this.httpClient.patch(`${this.url}/users/${userId}/properties`, payload).pipe(tap(() => this.refreshProperties$$.next()));
   }
 
   public getTenantId(userId: string): Observable<UserProperties> {
