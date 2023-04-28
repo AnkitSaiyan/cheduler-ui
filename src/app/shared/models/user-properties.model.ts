@@ -9,11 +9,12 @@ export class UserProperties {
 }
 
 export interface UserPropertiesRequestDate {
-  givenName: string;
-  surname: string;
   properties: {
     extension_PhoneNumber: string;
+    givenName: string;
+    surname: string;
   };
 }
+
 
 

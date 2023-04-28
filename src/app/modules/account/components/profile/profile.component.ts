@@ -65,7 +65,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     const { phone, ...rest } = this.userForm.value;
 
     this.userManagementSvc
-      .patchUserProperties(this.userId, { ...rest, properties: { extension_PhoneNumber: phone } })
+      .patchUserProperties(this.userId, { properties: { extension_PhoneNumber: phone, ...rest } })
       .pipe(take(1))
       .subscribe(() => {
         this.notificationSvc.showNotification('Details saved successfully');
@@ -89,6 +89,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     }
   }
 }
+
 
 
 
