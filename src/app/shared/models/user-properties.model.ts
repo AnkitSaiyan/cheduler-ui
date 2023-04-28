@@ -7,3 +7,14 @@ export class UserProperties {
   isExternal: boolean = false;
   properties: Record<string, string> = {};
 }
+
+export interface UserPropertiesRequestDate {
+  properties: {
+    extension_PhoneNumber: string;
+    givenName: string;
+    surname: string;
+  };
+}
+
+
+

@@ -10,6 +10,7 @@ import {
   ConfirmActionModalComponent, DialogData
 } from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
 import { AuthService } from 'src/app/core/services/auth.service';
+import { UserManagementService } from 'src/app/core/services/user-management.service';
 
 @Component({
   selector: 'dfm-account',
@@ -21,6 +22,8 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
   public userForm!: FormGroup;
   private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
 
+  private userId!: string;
+
   constructor(
     private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
@@ -28,12 +31,14 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     private fb: FormBuilder,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private authService: AuthService,
+    private userManagementSvc: UserManagementService,
   ) {
     super();
   }
 
   public ngOnInit(): void {
     this.authService.authUser$.pipe(takeUntil(this.destroy$$)).subscribe((userDetail) => {
+      this.userId = userDetail?.id!;
       this.createForm({
         patientFname: userDetail?.givenName,
         patientLname: userDetail?.surname,
@@ -45,9 +50,9 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
 
   private createForm(userDetails) {
     this.userForm = this.fb.group({
-      firstname: [{ value: userDetails?.patientFname, disabled: true }, [Validators.required]],
-      lastname: [{ value: userDetails?.patientLname, disabled: true }, [Validators.required]],
-      phone: [{ value: userDetails?.patientTel, disabled: true }, [Validators.required]],
+      givenName: [{ value: userDetails?.patientFname, disabled: false }, [Validators.required]],
+      surname: [{ value: userDetails?.patientLname, disabled: false }, [Validators.required]],
+      phone: [{ value: userDetails?.patientTel, disabled: false }, [Validators.required]],
       email: [{ value: userDetails?.patientEmail, disabled: true }, [Validators.required]],
     });
   }
@@ -57,8 +62,16 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
       return;
     }
 
-    this.scheduleAppointmentSvc.setBasicDetails(this.userForm.value);
-    this.notificationSvc.showNotification('Details saved successfully');
+    const { phone, ...rest } = this.userForm.value;
+
+    this.userManagementSvc
+      .patchUserProperties(this.userId, { properties: { extension_PhoneNumber: phone, ...rest } })
+      .pipe(take(1))
+      .subscribe(() => {
+        this.notificationSvc.showNotification('Details saved successfully');
+      });
+
+    // this.scheduleAppointmentSvc.setBasicDetails(this.userForm.value);
   }
   public handleEmailInput(e: Event): void {
     const inputText = (e.target as HTMLInputElement).value;
@@ -76,6 +89,14 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     }
   }
 }
+
+
+
+
+
+
+
+
 
 
 
