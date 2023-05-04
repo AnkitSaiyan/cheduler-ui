@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
 import { UserProperties, UserPropertiesRequestDate } from 'src/app/shared/models/user-properties.model';
 import { environment } from 'src/environments/environment';
 import { Permits } from '../../shared/models/user-permits.model';
@@ -11,17 +11,22 @@ import { Permits } from '../../shared/models/user-permits.model';
 export class UserManagementService {
   private readonly url = environment.userManagementApiUrl;
 
+  private readonly serverBaseUrl = environment.serverBaseUrl;
+
   private permits$$ = new BehaviorSubject<undefined | Permits[]>(undefined);
 
   private refreshPermits$$ = new Subject<void>();
 
   private refreshProperties$$ = new Subject<void>();
 
+  private currentTenantId = '';
+
   constructor(private httpClient: HttpClient) {}
 
   public getUserProperties(userId: string): Observable<UserProperties> {
     return combineLatest([this.refreshProperties$$.pipe(startWith(''))]).pipe(
-      switchMap(() => this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`)),
+      switchMap(() => combineLatest([this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`), this.getTenantId()])),
+      map(([data]) => data),
     );
   }
 
@@ -29,8 +34,12 @@ export class UserManagementService {
     return this.httpClient.patch(`${this.url}/users/${userId}/properties`, payload).pipe(tap(() => this.refreshProperties$$.next()));
   }
 
-  public getTenantId(userId: string): Observable<UserProperties> {
-    return this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/tenants`);
+  public getTenantId(): Observable<any> {
+    return this.httpClient.get<any>(`${this.serverBaseUrl}/common/gettenantid`).pipe(tap((res) => (this.currentTenantId = res.data)));
+  }
+
+  public get tenantId(): string {
+    return this.currentTenantId;
   }
 
   public getAllPermits(userId: string): Observable<Permits[]> {
