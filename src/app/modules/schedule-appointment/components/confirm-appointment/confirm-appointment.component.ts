@@ -77,7 +77,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         switchMap((user) => this.userManagementSvc.getAllPermits(user?.id)),
       )
       .subscribe((permits) => {
-        this.isConsentGiven$$.next(!!permits.find(({ tenantId }) => tenantId === this.authService.tenantId));
+        this.isConsentGiven$$.next(!!permits.find(({ tenantId }) => tenantId === this.userManagementSvc.tenantId));
       });
   }
 
@@ -312,7 +312,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
       if (!this.isConsentGiven$$.value && this.authUser) {
         this.userManagementSvc
-          .createPropertiesPermit(this.authUser.id, this.authService.tenantId)
+          .createPropertiesPermit(this.authUser.id, this.userManagementSvc.tenantId)
           .pipe(takeUntil(this.destroy$$))
           .subscribe({
             error: (err) => this.notificationSvc.showNotification(err.error?.message),
@@ -544,7 +544,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         .pipe(
           take(1),
           filter(Boolean),
-          switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.authService.tenantId)),
+          switchMap((user) => this.userManagementSvc.createPropertiesPermit(user.id, this.userManagementSvc.tenantId)),
         )
         .subscribe();
     }

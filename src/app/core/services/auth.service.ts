@@ -4,7 +4,6 @@ import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
 import { UserManagementService } from './user-management.service';
-import { getTenantID } from '../../shared/utils/getTenantId';
 
 @Injectable({
   providedIn: 'root',
@@ -29,16 +28,12 @@ export class AuthService {
   }
 
   public get userId(): string | undefined {
-    console.log('ide req')
+    console.log('ide req');
     return this.authUser$$.value?.id;
   }
 
   public get isLoggedIn(): boolean {
     return !!this.authUser$$.value;
-  }
-
-  public get tenantId(): string {
-    return getTenantID();
   }
 
   public loginWithRedirect(): Observable<void> {
