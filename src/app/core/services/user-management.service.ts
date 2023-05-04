@@ -11,13 +11,15 @@ import { Permits } from '../../shared/models/user-permits.model';
 export class UserManagementService {
   private readonly url = environment.userManagementApiUrl;
 
+  private readonly serverBaseUrl = environment.serverBaseUrl;
+
   private permits$$ = new BehaviorSubject<undefined | Permits[]>(undefined);
 
   private refreshPermits$$ = new Subject<void>();
 
   private refreshProperties$$ = new Subject<void>();
 
-  private currentTenantId = 'NBK0';
+  private currentTenantId = '';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -33,8 +35,7 @@ export class UserManagementService {
   }
 
   public getTenantId(): Observable<any> {
-    return of(null);
-    return this.httpClient.get<any>(`${this.url}/tenants`).pipe(tap((data) => (this.currentTenantId = data)));
+    return this.httpClient.get<any>(`${this.serverBaseUrl}/common/gettenantid`).pipe(tap((res) => (this.currentTenantId = res.data)));
   }
 
   public get tenantId(): string {
