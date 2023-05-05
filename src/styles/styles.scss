@@ -448,6 +448,12 @@ dfm-notification {
   max-height: 200px;
   overflow: auto;
 }
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
