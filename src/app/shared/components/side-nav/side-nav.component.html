@@ -30,12 +30,11 @@
 
     <span *ngIf="isExpanded">{{ 'Appointment' | translate }}</span>
   </div>
-
   <div
     #myAccountContainer
-    class="dfm-side-nav-item"
+    class="dfm-side-nav-item "
     [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('account') }"
-    (click)="!isExpanded && window.innerWidth > 680 ? navigateTo(['account', 'profile']) : myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
+    (click)="!isExpanded && toggleMenu(true);myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
   >
     <!-- =================||sub menu design for mobile view||=============== -->
     <div class="dfm-side-nav-item-icon">
