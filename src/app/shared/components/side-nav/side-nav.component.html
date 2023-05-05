@@ -93,6 +93,7 @@
     <span *ngIf="isExpanded">{{ 'Logout' | translate }}</span>
   </div>
 </div>
+<div class="overlay" *ngIf="isExpanded" (click)="toggleMenu(true)"></div>
 
 <!--
   To fill the gap on left after expanded menu.
