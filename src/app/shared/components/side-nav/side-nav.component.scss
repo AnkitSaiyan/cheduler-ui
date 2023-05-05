@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   //align-items: center;
-  gap: 16px;
+  gap: 20px;
   transition: 200ms min-width linear;
 }
 
@@ -46,9 +46,10 @@
   }
 
   .dfm-side-nav-item-icon {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     padding: 8px;
+    // border: 1px solid red;
   }
 }
 
