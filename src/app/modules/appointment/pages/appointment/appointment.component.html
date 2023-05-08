@@ -38,7 +38,7 @@
                 <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="calendar-check-01"></dfm-icon></p>
                 <span class="appointmentno-mv">{{"AppointmentNumber" | translate}} : {{ item.id }}</span>
               </div>
-              <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center gap-2">
                 <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="clock"></dfm-icon></p>
                 <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
               </div>
