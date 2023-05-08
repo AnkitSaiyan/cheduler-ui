@@ -30,6 +30,12 @@ export class JoinWithAndPipe implements PipeTransform {
       last = arr[arr.length - 1];
     }
 
-    return `${firsts.join(', ')} & ${last}`;
+    const firstContent = firsts.join(', ');
+    if (!firstContent.length) {
+      return last;
+    }
+
+    return `${firstContent} & ${last}`;
   }
 }
+
