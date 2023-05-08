@@ -34,8 +34,12 @@ export class JoinWithAndPipe implements PipeTransform {
     if (!firstContent.length) {
       return last;
     }
+    if (!last.length) {
+      return firstContent;
+    }
 
     return `${firstContent} & ${last}`;
   }
 }
+
 
