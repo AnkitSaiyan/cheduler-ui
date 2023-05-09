@@ -53,9 +53,10 @@ export class AuthService {
     const user = this.msalService.instance.getActiveAccount();
     const userId = user?.localAccountId ?? '';
 
-    console.log(user);
-
+    console.log('user', user);
     const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
+
+    console.log('tenantIds', tenantIds)
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
