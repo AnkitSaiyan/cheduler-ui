@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
+import {BehaviorSubject, filter, of, switchMap, takeUntil, tap} from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
 import englishLanguage from '../assets/i18n/en-BE.json';
@@ -29,17 +29,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   ) {
     super();
     this.setupLanguage();
-    this.msalBroadcastService.inProgress$
-      .pipe(
-        filter((status: InteractionStatus) => status === InteractionStatus.None),
-        tap(() => this.loading$$.next(true)),
-        takeUntil(this.destroy$$),
-      )
-      .subscribe({
-        next: () => {
-          this.checkAndSetActiveAccount();
-        },
-      });
+    this.setupUser();
   }
 
   public ngOnInit(): void {
@@ -85,31 +75,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   private checkAndSetActiveAccount() {
     console.log('inside ');
 
-    if (!this.authService.instance.getAllAccounts().length) {
-      this.loading$$.next(false);
-      return;
-    }
 
-    const activeAccount = this.authService.instance.getActiveAccount();
-    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-      const accounts = this.authService.instance.getAllAccounts();
-      this.authService.instance.setActiveAccount(accounts[0]);
-    }
-
-    this.userAuthSvc
-      .initializeUser()
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe({
-        next: (x) => {
-          if (!x) {
-            // not showing error for now
-            this.notificationSvc.showNotification('You are not permitted to view this page.', NotificationType.DANGER);
-            setTimeout(() => this.userAuthSvc.logout(), 1500);
-          }
-
-          this.loading$$.next(false);
-        },
-      });
   }
 
   private setupLanguage() {
@@ -125,5 +91,43 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       this.translate.setTranslation('nl-BE', defaultLanguage);
       this.translate.setDefaultLang('nl-BE');
     }
+  }
+
+  private setupUser() {
+    this.msalBroadcastService.inProgress$
+      .pipe(
+        filter((status: InteractionStatus) => status === InteractionStatus.None),
+        tap(() => this.loading$$.next(true)),
+        switchMap(() => {
+          if (!this.authService.instance.getAllAccounts().length) {
+            this.loading$$.next(false);
+            return of(true);
+          }
+
+          const activeAccount = this.authService.instance.getActiveAccount();
+          if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
+            const accounts = this.authService.instance.getAllAccounts();
+            this.authService.instance.setActiveAccount(accounts[0]);
+          }
+
+          return this.userAuthSvc.initializeUser();
+        }),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: (success) => {
+          if (!success) {
+            // not showing error for now
+            this.notificationSvc.showNotification('You are not permitted to view this page.', NotificationType.DANGER);
+            setTimeout(() => this.userAuthSvc.logout(), 1500);
+          }
+
+          this.loading$$.next(false);
+        },
+        error: (e) => {
+          this.notificationSvc.showNotification(e, NotificationType.DANGER);
+          this.loading$$.next(false);
+        }
+      });
   }
 }
