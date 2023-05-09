@@ -3,8 +3,8 @@ import { BehaviorSubject, catchError, combineLatest, map, Observable, of, switch
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
-import { UserManagementService } from './user-management.service';
 import { EXT_Patient_Tenant } from 'src/app/shared/utils/const';
+import { UserManagementService } from './user-management.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,9 +43,8 @@ export class AuthService {
     // this.msalService.loginRedirect();
     if (this.msalGuardConfig.authRequest) {
       return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
-    } else {
-      return this.msalService.loginRedirect();
     }
+    return this.msalService.loginRedirect();
   }
 
   public initializeUser(): Observable<boolean> {
@@ -54,9 +53,10 @@ export class AuthService {
     const user = this.msalService.instance.getActiveAccount();
     const userId = user?.localAccountId ?? '';
 
-    console.log(user);
-
+    console.log('user', user);
     const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
+
+    console.log('tenantIds', tenantIds)
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
