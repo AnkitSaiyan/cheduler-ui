@@ -30,7 +30,17 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   ) {
     super();
     this.setupLanguage();
-    this.setupUser();
+    this.msalBroadcastService.inProgress$
+      .pipe(
+        filter((status: InteractionStatus) => status === InteractionStatus.None),
+        tap(() => this.loading$$.next(true)),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: () => {
+          this.checkAndSetActiveAccount();
+        },
+      });
   }
 
   public ngOnInit(): void {
@@ -73,32 +83,32 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  private setupUser() {
-    this.msalBroadcastService.inProgress$
-      .pipe(
-        filter((status: InteractionStatus) => status === InteractionStatus.None),
-        tap(() => this.loading$$.next(true)),
-        switchMap(() => {
-          if (!this.authService.instance.getAllAccounts().length) {
-            this.loading$$.next(false);
-            return of(null);
-          }
+  private checkAndSetActiveAccount() {
+    console.log('inside ');
 
-          const activeAccount = this.authService.instance.getActiveAccount();
-          if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-            const accounts = this.authService.instance.getAllAccounts();
-            this.authService.instance.setActiveAccount(accounts[0]);
-          }
+    if (!this.authService.instance.getAllAccounts().length) {
+      this.loading$$.next(false);
+      return;
+    }
 
-          return this.userAuthSvc.initializeUser();
-        }),
-        takeUntil(this.destroy$$),
-      )
+    const activeAccount = this.authService.instance.getActiveAccount();
+    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
+      const accounts = this.authService.instance.getAllAccounts();
+      this.authService.instance.setActiveAccount(accounts[0]);
+    }
+
+    this.userAuthSvc
+      .initializeUser()
+      .pipe(takeUntil(this.destroy$$))
       .subscribe({
-        next: () => this.loading$$.next(false),
-        error: (e) => {
-          this.notificationSvc.showNotification(e, NotificationType.DANGER);
-          setTimeout(() => this.userAuthSvc.logout(), 1500);
+        next: (x) => {
+          if (!x) {
+            // not showing error for now
+            this.notificationSvc.showNotification('You are not permitted to view this page.', NotificationType.DANGER);
+            setTimeout(() => this.userAuthSvc.logout(), 1500);
+          }
+
+          this.loading$$.next(false);
         },
       });
   }
