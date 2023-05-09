@@ -9,14 +9,3 @@ export const DUTCH_BE = 'nl-BE';
 export const EXT_Patient_Tenant = 'NPXN';
 
 
-// error messages
-
-export const ErrNoAccessPermitted: string = 'You are not permitted to access this page';
-export const ErrNoActionPermission: string = 'You are not permitted to perform this action';
-export const ErrUnauthorized: string = 'You are not authorized to access this page';
-export const ErrLoginFailed: string = 'Failed to login user';
-
-// Info messages
-export const LoggingYouOut = 'Logging you out';
-
-
