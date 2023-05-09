@@ -103,9 +103,8 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
         next: (x) => {
           if (!x) {
             // not showing error for now
-            this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
-            this.userAuthSvc.logout();
-            // setTimeout(() => this.userService.logout(), 1500);
+            this.notificationSvc.showNotification('You are not permitted to view this page.', NotificationType.DANGER);
+            setTimeout(() => this.userAuthSvc.logout(), 1500);
           }
 
           this.loading$$.next(false);

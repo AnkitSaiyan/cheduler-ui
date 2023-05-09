@@ -61,6 +61,7 @@ export class AuthService {
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
     }
+
     return this.userManagementApiService.getUserProperties(userId).pipe(
       map((res: any) => {
         try {
