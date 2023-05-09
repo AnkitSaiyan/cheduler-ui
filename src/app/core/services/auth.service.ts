@@ -4,6 +4,7 @@ import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
 import { UserManagementService } from './user-management.service';
+import { EXT_Patient_Tenant } from 'src/app/shared/utils/const';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,13 @@ export class AuthService {
     const user = this.msalService.instance.getActiveAccount();
     const userId = user?.localAccountId ?? '';
 
+    console.log(user);
+
+    const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
+
+    if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
+      return of(false);
+    }
     return this.userManagementApiService.getUserProperties(userId).pipe(
       map((res: any) => {
         try {
