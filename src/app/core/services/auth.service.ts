@@ -56,7 +56,9 @@ export class AuthService {
 
     console.log(user);
 
-    if (EXT_Patient_Tenant !== (user?.idTokenClaims as any)?.extension_Tenants) {
+    const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
+
+    if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
     }
     return this.userManagementApiService.getUserProperties(userId).pipe(
