@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap } from 'rxjs';
+import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, throwError} from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
+import { ErrNoAccessPermitted, EXT_Patient_Tenant } from 'src/app/shared/utils/const';
 import { UserManagementService } from './user-management.service';
-import { EXT_Patient_Tenant } from 'src/app/shared/utils/const';
 
 @Injectable({
   providedIn: 'root',
@@ -43,12 +43,11 @@ export class AuthService {
     // this.msalService.loginRedirect();
     if (this.msalGuardConfig.authRequest) {
       return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
-    } else {
-      return this.msalService.loginRedirect();
     }
+    return this.msalService.loginRedirect();
   }
 
-  public initializeUser(): Observable<boolean> {
+  public initializeUser(): Observable<any> {
     console.log('initializing user...');
 
     const user = this.msalService.instance.getActiveAccount();
@@ -58,25 +57,22 @@ export class AuthService {
 
     const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
 
-    if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
-      return of(false);
+    const isPermitted = !tenantIds.length || !tenantIds?.some((value) => value === EXT_Patient_Tenant);
+
+    if (!isPermitted) {
+      return of(new Error(ErrNoAccessPermitted));
     }
+
     return this.userManagementApiService.getUserProperties(userId).pipe(
       map((res: any) => {
-        try {
-          this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
-          return true;
-        } catch (error) {
-          return false;
-        }
+        this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
       }),
       switchMap(() => {
         return this.userManagementApiService.getAllPermits(userId).pipe(
-          map(() => true),
-          catchError(async () => true),
-        );
+          catchError((err) => throwError(err))
+        )
       }),
-      catchError(() => of(false)),
+      catchError((err) => throwError(err)),
     );
   }
 
