@@ -1,5 +1,5 @@
 .basic-details-form {
-  padding:60px;
+  padding:48px;
 }
 .dfm-card{
   // width: 50%;
@@ -32,9 +32,15 @@
   padding: 12px 12px 12px 12px;
   // gap: 3px;
 }
+.form-group{
+  width: 265px;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .form-group{
+    width: 100%;
+  }
   .exam-main-container {
     // background-color: #d3d3d3 !important;
     // border: 1px solid red;

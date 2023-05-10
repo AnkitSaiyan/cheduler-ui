@@ -174,9 +174,15 @@
 .remove-enable-btn-mv{
   display: none;
 }
+.form-group{
+  width: 265px;
+}
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .form-group{
+    width: 100%;
+  }
   .form-group-container{
     display: flex;
     flex-direction: column;
