@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap } from 'rxjs';
+import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, throwError} from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
@@ -47,7 +47,7 @@ export class AuthService {
     return this.msalService.loginRedirect();
   }
 
-  public initializeUser(): Observable<boolean> {
+  public initializeUser(): Observable<any> {
     console.log('initializing user...');
 
     const user = this.msalService.instance.getActiveAccount();
@@ -61,22 +61,17 @@ export class AuthService {
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
     }
+
     return this.userManagementApiService.getUserProperties(userId).pipe(
       map((res: any) => {
-        try {
-          this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
-          return true;
-        } catch (error) {
-          return false;
-        }
+        this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
       }),
       switchMap(() => {
         return this.userManagementApiService.getAllPermits(userId).pipe(
-          map(() => true),
-          catchError(async () => true),
-        );
+          catchError((err) => throwError(err))
+        )
       }),
-      catchError(() => of(false)),
+      catchError((err) => throwError(err)),
     );
   }
 

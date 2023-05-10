@@ -3,13 +3,14 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { BehaviorSubject, filter, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, filter, of, switchMap, takeUntil, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
 import englishLanguage from '../assets/i18n/en-BE.json';
 import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
 import { AuthService } from './core/services/auth.service';
 import { NotificationDataService } from './core/services/notification-data.service';
+import { DUTCH_BE, ENG_BE } from './shared/utils/const';
 
 @Component({
   selector: 'dfm-root',
@@ -29,17 +30,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   ) {
     super();
     this.setupLanguage();
-    this.msalBroadcastService.inProgress$
-      .pipe(
-        filter((status: InteractionStatus) => status === InteractionStatus.None),
-        tap(() => this.loading$$.next(true)),
-        takeUntil(this.destroy$$),
-      )
-      .subscribe({
-        next: () => {
-          this.checkAndSetActiveAccount();
-        },
-      });
+    this.setupUser();
   }
 
   public ngOnInit(): void {
@@ -82,49 +73,48 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  private checkAndSetActiveAccount() {
-    console.log('inside ');
-
-    if (!this.authService.instance.getAllAccounts().length) {
-      this.loading$$.next(false);
-      return;
-    }
-
-    const activeAccount = this.authService.instance.getActiveAccount();
-    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-      const accounts = this.authService.instance.getAllAccounts();
-      this.authService.instance.setActiveAccount(accounts[0]);
-    }
-
-    this.userAuthSvc
-      .initializeUser()
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe({
-        next: (x) => {
-          if (!x) {
-            // not showing error for now
-            this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
-            this.userAuthSvc.logout();
-            // setTimeout(() => this.userService.logout(), 1500);
+  private setupUser() {
+    this.msalBroadcastService.inProgress$
+      .pipe(
+        filter((status: InteractionStatus) => status === InteractionStatus.None),
+        tap(() => this.loading$$.next(true)),
+        switchMap(() => {
+          if (!this.authService.instance.getAllAccounts().length) {
+            this.loading$$.next(false);
+            return of(null);
           }
 
-          this.loading$$.next(false);
+          const activeAccount = this.authService.instance.getActiveAccount();
+          if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
+            const accounts = this.authService.instance.getAllAccounts();
+            this.authService.instance.setActiveAccount(accounts[0]);
+          }
+
+          return this.userAuthSvc.initializeUser();
+        }),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: () => this.loading$$.next(false),
+        error: (e) => {
+          this.notificationSvc.showNotification(e, NotificationType.DANGER);
+          setTimeout(() => this.userAuthSvc.logout(), 1500);
         },
       });
   }
 
   private setupLanguage() {
-    this.translate.addLangs(['en-BE', 'nl-BE']);
-    this.translate.setTranslation('en-BE', defaultLanguage);
-    this.translate.setDefaultLang('en-BE');
-    this.translate.addLangs(['en-BE', 'nl-BE']);
+    this.translate.addLangs([ENG_BE, DUTCH_BE]);
+    this.translate.setTranslation(ENG_BE, defaultLanguage);
+    this.translate.setDefaultLang(ENG_BE);
+    this.translate.addLangs([ENG_BE, DUTCH_BE]);
     const lang = localStorage.getItem('lang');
     if (lang) {
-      this.translate.setTranslation(lang, lang === 'nl-BE' ? defaultLanguage : englishLanguage);
+      this.translate.setTranslation(lang, lang === DUTCH_BE ? defaultLanguage : englishLanguage);
       this.translate.setDefaultLang(lang);
     } else {
-      this.translate.setTranslation('nl-BE', defaultLanguage);
-      this.translate.setDefaultLang('nl-BE');
+      this.translate.setTranslation(DUTCH_BE, defaultLanguage);
+      this.translate.setDefaultLang(DUTCH_BE);
     }
   }
 }
