@@ -123,12 +123,11 @@
 
   .sub-menu-mv{
     position: absolute;
-    bottom: 40px;
+    bottom: 43px;
     right:0;
     left: 0;
     max-width: 60px;
     width: 45px;
-    // border: 1px solid green;
     color:#fff;
     display: flex;
     justify-content: center;
@@ -137,17 +136,17 @@
     gap: 10px!important;
     display: none;
     padding: 5px 0px;
-    // transition: height .4s;
     object-fit: contain;
   }
   .sub-menu-items-mv{
-    width: inherit;
-    height: 33px;
-    line-height: 33px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     border-radius: 6px;
     background-color: var(--dfm-primary);
     font-size: 5px!important;
     margin: 5px 0px;
+    padding: 8px;
   }
   .dfm-side-nav-item-icon:hover .sub-menu-mv{
     display: block!important;
