@@ -142,14 +142,14 @@
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
-                  <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
+                  <span class="appointment-exam-text-mv">{{"Exam" | translate}} : {{ exam.name }} </span>
                 </div>
                 <div class="instructions-text-section-mv mb-3">
-                  <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                  <!-- <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span> -->
                 </div>
 
-                <div class="mb-3">
-                  <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                <div class="mb-3 gap-2 instructions-text d-flex">
+                  <span style="font-weight: 600" class="flex-1 instruction-span">{{"Instructions" | translate}} :</span> <span class="instructions-details">{{ exam.instructions }} </span>
                 </div>
                 <!-- <div class="lab-confirmation-status">
                   <div class="status-btn d-flex flex-row justify-content-start align-items-start">
@@ -193,14 +193,14 @@
                 </div>
 
                 <div class="appointment-exam-text-mv mb-3">
-                  <span class="appointment-exam-text-mv text-primary">{{"Exam" | translate}} : {{ exam.exam }} </span>
+                  <span class="appointment-exam-text-mv">{{"Exam" | translate}} : {{ exam.name }} </span>
                 </div>
                 <div class="instructions-text-section-mv mb-3">
-                  <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                  <!-- <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span> -->
                 </div>
 
-                <div class="mb-3">
-                  <span style="font-weight: 600" class="ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span>
+                <div class="mb-3 gap-2 instructions-text d-flex">
+                  <span style="font-weight: 600" class="flex-1 instruction-span">{{"Instructions" | translate}} :</span> <span class="instructions-details">{{ exam.instructions }} </span>
                 </div>
                 <!-- <div class="lab-confirmation-status">
                   <div class="status-btn d-flex flex-row justify-content-start align-items-start">
