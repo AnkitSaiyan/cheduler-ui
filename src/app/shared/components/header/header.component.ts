@@ -95,7 +95,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public login() {
-    this.loggingIn$$.next(true);
+    // this.loggingIn$$.next(true);
 
     if (this.url.includes('confirm')) {
       this.scheduleAppointmentSvc.resetDetails(true);
