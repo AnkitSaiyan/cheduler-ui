@@ -161,4 +161,12 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     this.router.navigate(['../slot'], { relativeTo: this.route, replaceUrl: true });
   }
+
+  public removeSelectedItems(items: any) {
+    console.log(
+      this.examForm.value?.exams.map((value) => value.exam),
+      items,
+    );
+    return items;
+  }
 }

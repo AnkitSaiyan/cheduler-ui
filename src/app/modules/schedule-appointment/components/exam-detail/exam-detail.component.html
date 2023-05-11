@@ -40,7 +40,7 @@
           <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
             <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
               <dfm-input-dropdown
-                [items]="items"
+                [items]="items | removeSelectedItem : examForm.value?.exams : i"
                 formControlName="exam"
                 label="{{ 'Exam' | translate }} *"
                 placeholder="{{ 'SelectExam' | translate }}"
