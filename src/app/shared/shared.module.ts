@@ -23,6 +23,7 @@ import {SliceStringArrayPipe} from './pipes/slice-string-array.pipe';
 import {DashIfNothingPipe} from './pipes/dash-if-nothing.pipe';
 import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
 import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
+import { RemoveSelectedItemPipe } from './pipes/remove-selected-item.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SliceStringArrayPipe,
     DashIfNothingPipe,
     UtcToLocalPipe,
+    RemoveSelectedItemPipe,
   ],
   imports: [
     CommonModule,
@@ -81,9 +83,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressBarModule,
     NgbPopoverModule,
     UtcToLocalPipe,
+    RemoveSelectedItemPipe,
   ],
 })
 export class SharedModule {}
+
+
+
 
 
 
