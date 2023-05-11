@@ -34,7 +34,7 @@
     #myAccountContainer
     class="dfm-side-nav-item "
     [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('account') }"
-    (click)="!isExpanded && toggleMenu(true);myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
+    (click)="!isExpanded && toggleMenu(true); !isMobile$$.value &&  myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
   >
     <!-- =================||sub menu design for mobile view||=============== -->
     <div class="dfm-side-nav-item-icon">

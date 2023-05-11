@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { MsalService } from '@azure/msal-angular';
 import { AuthService } from '../services/auth.service';
 import { RouteTypeName } from '../../shared/models/routes.model';
+import { EXT_Patient_Tenant } from 'src/app/shared/utils/const';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,14 @@ export class AuthGuard implements CanActivate {
 
   private guard(routeName: RouteTypeName) {
     return this.authService.isLoggedIn$.pipe(
-      map(() => Boolean(this.msalSvc.instance.getAllAccounts()?.length)),
+      map(() => {
+        const tenantIds = (this.msalSvc.instance.getActiveAccount()?.idTokenClaims as any)?.extension_Tenants?.split(',');
+        const isLoggedIn = tenantIds?.some((value) => value === EXT_Patient_Tenant);
+        // if (!isLoggedIn) {
+        //   this.authService.logout();
+        // }
+        return Boolean(this.msalSvc.instance.getAllAccounts()?.length) && isLoggedIn;
+      }),
       map((isLoggedIn) => {
         switch (routeName) {
           case RouteTypeName.Public:
