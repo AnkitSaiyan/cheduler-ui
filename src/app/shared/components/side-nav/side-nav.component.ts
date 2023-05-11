@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { BehaviorSubject, filter, interval, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, filter, interval, lastValueFrom, map, Observable, of, take, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../core/services/modal.service';
 import { ConfirmActionModalComponent, DialogData } from '../confirm-action-modal/confirm-action-modal.component';
@@ -17,17 +18,29 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
 
   public isExpanded: boolean = false;
 
+  public isMobile$$ = new BehaviorSubject<boolean>(false);
+
   public isVisibleSubMenu$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public window = window;
 
   @ViewChild('myAccount') myAccount;
 
-  constructor(private authSvc: AuthService, private routerStateSvc: RouterStateService, private router: Router, private modalSvc: ModalService) {
+  constructor(
+    private authSvc: AuthService,
+    private routerStateSvc: RouterStateService,
+    private router: Router,
+    private modalSvc: ModalService,
+    private breakpointObserver: BreakpointObserver,
+  ) {
     super();
   }
 
   public ngOnInit(): void {
+    this.breakpointObserver
+      .observe(['(max-width: 680px)'])
+      .pipe(map((result: BreakpointState) => result.matches))
+      .subscribe((value: boolean) => this.isMobile$$.next(value));
     this.routerStateSvc
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
@@ -74,7 +87,8 @@ export class SideNavComponent extends DestroyableComponent implements OnInit, On
     }
   }
 
-  public toggleMenu(fromTop: boolean = false) {
+  public async toggleMenu(fromTop: boolean = false) {
+    if (this.isMobile$$.value) return;
     if (fromTop) {
       this.myAccount.nativeElement.classList.remove('dfm-side-nav-sub-menu-show');
     }
