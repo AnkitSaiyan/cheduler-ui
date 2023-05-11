@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, map, takeUntil, take } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
 import defaultLanguage from '../../../../assets/i18n/en-BE.json';
 import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { AuthService } from '../../../core/services/auth.service';
-import {ScheduleAppointmentService} from "../../../core/services/schedule-appointment.service";
+import { ScheduleAppointmentService } from '../../../core/services/schedule-appointment.service';
 import { DUTCH_BE, ENG_BE } from '../../utils/const';
 import { ShareDataService } from 'src/app/services/share-data.service';
 
@@ -48,7 +48,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private translateService: TranslateService,
     private landingService: LandingService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
-    private shareDataSvc: ShareDataService
+    private shareDataSvc: ShareDataService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -70,12 +70,12 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
         this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
         this.url = url;
       });
-      this.shareDataSvc
-			.getLanguage$()
-			.pipe(takeUntil(this.destroy$$))
-			.subscribe({
-				next: (language: string) => this.selectedLang = language,
-			});
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe({
+        next: (language: string) => (this.selectedLang = language),
+      });
   }
 
   public changeLanguage(value) {
@@ -101,8 +101,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
       this.scheduleAppointmentSvc.resetDetails(true);
       console.log('details reset');
     }
-
+    sessionStorage.clear();
     const subscription = this.authSvc.loginWithRedirect();
-    subscription.pipe(takeUntil(this.destroy$$)).subscribe();
+    subscription.pipe(take(1)).subscribe();
   }
 }
