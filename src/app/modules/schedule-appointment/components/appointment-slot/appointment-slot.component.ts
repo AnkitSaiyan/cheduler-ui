@@ -210,6 +210,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           const { examIdToSlots } = this.getModifiedSlotData(appointmentSlot?.slots, appointmentSlot?.isCombined);
           this.examIdToAppointmentSlots = { ...examIdToSlots };
 
+          console.log({ examIdToSlots });
+
           // appointmentSlot?.slots?.forEach((slot: any) => {
           //   if (!this.examIdToAppointmentSlots[slot.examId]) {
           //     this.examIdToAppointmentSlots[slot.examId] = [];
@@ -406,32 +408,29 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     const newSlots: any[] = [];
     const examIdToSlotsMap: { [key: number]: any[] } = {};
-    const uniqueSlots = new Set<string>();
 
     slots.forEach((slot) => {
-      const slotString = `${slot.start}-${slot.end}`;
+      const uniqueSlots = new Set<string>();
 
-      if (!uniqueSlots.has(slotString)) {
-        slot?.exams?.forEach((exam: any) => {
-          let newSlot;
-          if (isCombinable) {
-            newSlot = {
-              start: slot.start,
-              end: slot.end,
-              exams: slot.exams,
-              examId: exam.examId,
-              roomList: exam.rooms,
-              userList: exam.users,
-            };
-          } else {
-            newSlot = {
-              start: exam.start,
-              end: exam.end,
-              examId: exam.examId,
-              roomList: exam.rooms,
-              userList: exam.users,
-            };
-          }
+      slot?.exams?.forEach((exam: any) => {
+        const slotString = isCombinable ? `${slot.start}-${slot.end}` : `${exam.start}-${exam.end}`;
+
+        if (!uniqueSlots.has(slotString + exam.examId)) {
+          const newSlot = {
+            examId: exam.examId,
+            roomList: exam.rooms,
+            userList: exam.users,
+            ...(isCombinable
+              ? {
+                  start: slot.start,
+                  end: slot.end,
+                  exams: slot.exams,
+                }
+              : {
+                  start: exam.start,
+                  end: exam.end,
+                }),
+          };
 
           if (!examIdToSlotsMap[+exam.examId]) {
             examIdToSlotsMap[+exam.examId] = [];
@@ -439,10 +438,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
           examIdToSlotsMap[+exam.examId].push(newSlot);
           newSlots.push(newSlot);
-        });
-
-        uniqueSlots.add(slotString);
-      }
+          uniqueSlots.add(slotString + exam.examId);
+        }
+      });
     });
 
     return { newSlots, examIdToSlots: examIdToSlotsMap };
