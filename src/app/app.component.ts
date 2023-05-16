@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { BehaviorSubject, filter, of, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, filter, of, switchMap, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import { Router } from '@angular/router';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
@@ -69,20 +69,6 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     //       // return result;
     //     },
     //   });
-
-    this.msalBroadcastService.msalSubject$
-      .pipe(
-        filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_REMOVED),
-        takeUntil(this.destroy$$),
-      )
-      .subscribe({
-        next: (msg) => {
-          console.log(msg.eventType);
-          if (this.authService.instance.getAllAccounts().length === 0) {
-            window.location.pathname = '/';
-          }
-        },
-      });
   }
 
   public override ngOnDestroy(): void {
@@ -94,21 +80,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       .pipe(
         filter((status: InteractionStatus) => status === InteractionStatus.None),
         tap(() => this.loading$$.next(true)),
-        switchMap(() => {
-          if (!this.authService.instance.getAllAccounts().length) {
-            this.loading$$.next(false);
-            return of(null);
-          }
-
-          const activeAccount = this.authService.instance.getActiveAccount();
-          if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-            const accounts = this.authService.instance.getAllAccounts();
-            this.authService.instance.setActiveAccount(accounts[0]);
-          }
-
-          return this.userAuthSvc.initializeUser();
-        }),
-        takeUntil(this.destroy$$),
+        switchMap(() => this.setActiveAccount()),
       )
       .subscribe({
         next: () => this.loading$$.next(false),
@@ -131,6 +103,34 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
         }
       },
     });
+
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_REMOVED || msg.eventType === EventType.ACCOUNT_ADDED),
+        switchMap(() => {
+          if (this.authService.instance.getAllAccounts().length === 0) {
+            window.location.pathname = '/';
+            return of(null);
+          }
+          return this.setActiveAccount();
+        }),
+      )
+      .subscribe();
+  }
+
+  private setActiveAccount() {
+    if (!this.authService.instance.getAllAccounts().length) {
+      this.loading$$.next(false);
+      return of(null);
+    }
+
+    const activeAccount = this.authService.instance.getActiveAccount();
+    if (!activeAccount) {
+      const accounts = this.authService.instance.getAllAccounts();
+      this.authService.instance.setActiveAccount(accounts[0]);
+    }
+
+    return this.userAuthSvc.initializeUser();
   }
 
   private setupLanguage() {

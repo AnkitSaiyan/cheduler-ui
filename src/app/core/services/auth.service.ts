@@ -4,6 +4,7 @@ import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
 import { EXT_Patient_Tenant } from 'src/app/shared/utils/const';
+import { Router } from '@angular/router';
 import { UserManagementService } from './user-management.service';
 
 @Injectable({
@@ -18,6 +19,7 @@ export class AuthService {
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private msalService: MsalService,
     private userManagementApiService: UserManagementService,
+    private router: Router,
   ) {}
 
   public get authUser$(): Observable<AuthUser | undefined> {
@@ -37,9 +39,16 @@ export class AuthService {
     return !!this.authUser$$.value;
   }
 
-  public loginWithRedirect(): Observable<void> {
+  public loginWithRedirect(): Observable<any> {
     sessionStorage.clear();
 
+    // checking if already logged in
+    if (this.msalService.instance.getActiveAccount()) {
+      window.location.reload();
+      return of(null);
+    }
+
+    // If not already logged in then redirect
     if (this.msalGuardConfig.authRequest) {
       return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     }
