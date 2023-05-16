@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { BehaviorSubject, filter, of, switchMap, tap } from 'rxjs';
+import {BehaviorSubject, filter, of, switchMap, takeUntil, tap} from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import { Router } from '@angular/router';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
@@ -31,17 +31,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   ) {
     super();
     this.setupLanguage();
-    this.msalBroadcastService.inProgress$
-      .pipe(
-        filter((status: InteractionStatus) => status === InteractionStatus.None),
-        tap(() => this.loading$$.next(true)),
-        takeUntil(this.destroy$$),
-      )
-      .subscribe({
-        next: () => {
-          this.checkAndSetActiveAccount();
-        },
-      });
+    this.setupUser();
   }
 
   public ngOnInit(): void {
