@@ -1,10 +1,11 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
-import { InteractionStatus } from '@azure/msal-browser';
+import { EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { BehaviorSubject, filter, of, switchMap, takeUntil, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
+import { Router } from '@angular/router';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
 import englishLanguage from '../assets/i18n/en-BE.json';
 import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
@@ -27,6 +28,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     private msalBroadcastService: MsalBroadcastService,
     private userAuthSvc: AuthService,
     private notificationSvc: NotificationDataService,
+    private router: Router,
   ) {
     super();
     this.setupLanguage();
@@ -67,6 +69,20 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     //       // return result;
     //     },
     //   });
+
+    this.msalBroadcastService.msalSubject$
+      .pipe(
+        filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_REMOVED),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: (msg) => {
+          console.log(msg.eventType);
+          if (this.authService.instance.getAllAccounts().length === 0) {
+            window.location.pathname = '/';
+          }
+        },
+      });
   }
 
   public override ngOnDestroy(): void {
@@ -101,6 +117,20 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
           setTimeout(() => this.userAuthSvc.logout(), 1500);
         },
       });
+
+    this.msalBroadcastService.msalSubject$.subscribe({
+      next: (e) => {
+        const { eventType } = e;
+
+        if (eventType === EventType.LOGIN_SUCCESS || eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
+          this.router.navigate(['/dashboard']);
+        }
+
+        if (eventType === EventType.LOGIN_FAILURE || eventType === EventType.ACQUIRE_TOKEN_FAILURE) {
+          this.userAuthSvc.logout();
+        }
+      },
+    });
   }
 
   private setupLanguage() {

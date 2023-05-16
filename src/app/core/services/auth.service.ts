@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, throwError} from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, Observable, of, switchMap, take, throwError } from 'rxjs';
 import { AuthUser } from 'src/app/shared/models/user.model';
 import { MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
 import { RedirectRequest } from '@azure/msal-browser';
@@ -38,9 +38,8 @@ export class AuthService {
   }
 
   public loginWithRedirect(): Observable<void> {
-    // sessionStorage.clear();
-    // this.loaderSvc.activate();
-    // this.msalService.loginRedirect();
+    sessionStorage.clear();
+
     if (this.msalGuardConfig.authRequest) {
       return this.msalService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
     }
@@ -56,7 +55,7 @@ export class AuthService {
     console.log('user', user);
     const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
 
-    console.log('tenantIds', tenantIds)
+    console.log('tenantIds', tenantIds);
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       return of(false);
@@ -67,20 +66,21 @@ export class AuthService {
         this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
       }),
       switchMap(() => {
-        return this.userManagementApiService.getAllPermits(userId).pipe(
-          catchError((err) => throwError(err))
-        )
+        return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
       }),
       catchError((err) => throwError(err)),
     );
   }
 
   public logout() {
-    this.removeUser();
-
-    this.msalService.logoutRedirect({
-      postLogoutRedirectUri: window.location.origin,
-    });
+    this.msalService
+      .logoutRedirect({
+        postLogoutRedirectUri: window.location.origin,
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.removeUser(),
+      });
   }
 
   public removeUser() {

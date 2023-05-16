@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, map, takeUntil, take } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
+import { ShareDataService } from 'src/app/services/share-data.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
 import defaultLanguage from '../../../../assets/i18n/en-BE.json';
 import dutchLanguage from '../../../../assets/i18n/nl-BE.json';
@@ -10,7 +11,6 @@ import { RouterStateService } from '../../../core/services/router-state.service'
 import { AuthService } from '../../../core/services/auth.service';
 import { ScheduleAppointmentService } from '../../../core/services/schedule-appointment.service';
 import { DUTCH_BE, ENG_BE } from '../../utils/const';
-import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'dfm-header',
@@ -19,6 +19,7 @@ import { ShareDataService } from 'src/app/services/share-data.service';
 })
 export class HeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public loggingIn$$ = new BehaviorSubject(false);
+
   public userName$!: Observable<string | undefined>;
 
   public items: any = [
@@ -101,8 +102,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
       this.scheduleAppointmentSvc.resetDetails(true);
       console.log('details reset');
     }
-    sessionStorage.clear();
-    const subscription = this.authSvc.loginWithRedirect();
-    subscription.pipe(take(1)).subscribe();
+
+    this.authSvc.loginWithRedirect().pipe(take(1)).subscribe();
   }
 }

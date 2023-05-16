@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import {map, Observable, take} from 'rxjs';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { AuthService } from '../../../../core/services/auth.service';
 import { LandingService } from '../../../../core/services/landing.service';
@@ -38,6 +38,6 @@ export class OverviewComponent implements OnInit {
   }
 
   login() {
-    this.authSvc.loginWithRedirect();
+    this.authSvc.loginWithRedirect().pipe(take(1)).subscribe();
   }
 }
