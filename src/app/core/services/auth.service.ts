@@ -67,16 +67,15 @@ export class AuthService {
     console.log('tenantIds', tenantIds);
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
-      return of(false);
+      this.logout();
+      return of(null);
     }
 
     return this.userManagementApiService.getTenantId().pipe(
       switchMap(() => {
         return this.userManagementApiService.getUserProperties(userId).pipe(
-          map((res: any) => {
+          switchMap((res: any) => {
             this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
-          }),
-          switchMap(() => {
             return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
           }),
           catchError((err) => throwError(err)),
