@@ -55,7 +55,7 @@ export class AuthService {
     return this.msalService.loginRedirect();
   }
 
-  public initializeUser(): Observable<boolean> {
+  public initializeUser(): Observable<any> {
     console.log('initializing user...');
 
     const user = this.msalService.instance.getActiveAccount();
@@ -67,20 +67,19 @@ export class AuthService {
     console.log('tenantIds', tenantIds);
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
-      return of(false);
+      this.logout();
+      return of(null);
     }
 
-    return this.userManagementApiService.getUserProperties(userId).pipe(
-      map((res: any) => {
-        try {
-          this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
-          return true;
-        } catch (error) {
-          return false;
-        }
-      }),
+    return this.userManagementApiService.getTenantId().pipe(
       switchMap(() => {
-        return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
+        return this.userManagementApiService.getUserProperties(userId).pipe(
+          switchMap((res: any) => {
+            this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
+            return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
+          }),
+          catchError((err) => throwError(err)),
+        );
       }),
       catchError(() => of(false)),
     );
