@@ -146,35 +146,4 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       this.translate.setDefaultLang('nl-BE');
     }
   }
-
-  private checkAndSetActiveAccount() {
-    console.log('inside ');
-
-    if (!this.authService.instance.getAllAccounts().length) {
-      this.loading$$.next(false);
-      return;
-    }
-
-    const activeAccount = this.authService.instance.getActiveAccount();
-    if (!activeAccount && this.authService.instance.getAllAccounts().length > 0) {
-      const accounts = this.authService.instance.getAllAccounts();
-      this.authService.instance.setActiveAccount(accounts[0]);
-    }
-
-    this.userAuthSvc
-      .initializeUser()
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe({
-        next: (x) => {
-          if (!x) {
-            // not showing error for now
-            // this.notificationSvc.showNotification('User login failed. Logging out.', NotificationType.DANGER);
-            this.userAuthSvc.logout();
-            // setTimeout(() => this.userService.logout(), 1500);
-          }
-
-          this.loading$$.next(false);
-        },
-      });
-  }
 }
