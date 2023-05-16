@@ -25,8 +25,9 @@ export class UserManagementService {
 
   public getUserProperties(userId: string): Observable<UserProperties> {
     return combineLatest([this.refreshProperties$$.pipe(startWith(''))]).pipe(
-      switchMap(() => combineLatest([this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`), this.getTenantId()])),
-      map(([data]) => data),
+      switchMap(() => this.httpClient.get<UserProperties>(`${this.url}/users/${userId}/properties`).pipe(
+        map((data) => data)
+      )),
     );
   }
 

@@ -70,12 +70,17 @@ export class AuthService {
       return of(false);
     }
 
-    return this.userManagementApiService.getUserProperties(userId).pipe(
-      map((res: any) => {
-        this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
-      }),
+    return this.userManagementApiService.getTenantId().pipe(
       switchMap(() => {
-        return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
+        return this.userManagementApiService.getUserProperties(userId).pipe(
+          map((res: any) => {
+            this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
+          }),
+          switchMap(() => {
+            return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
+          }),
+          catchError((err) => throwError(err)),
+        );
       }),
       catchError((err) => throwError(err)),
     );
