@@ -93,7 +93,7 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
       next: (e) => {
         const { eventType } = e;
 
-        if (eventType === EventType.LOGIN_SUCCESS || eventType === EventType.ACQUIRE_TOKEN_SUCCESS) {
+        if ((eventType === EventType.LOGIN_SUCCESS || eventType === EventType.ACQUIRE_TOKEN_SUCCESS) && window.location.pathname === '/') {
           this.router.navigate(['/dashboard']);
         }
 
