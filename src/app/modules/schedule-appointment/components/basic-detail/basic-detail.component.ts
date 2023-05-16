@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {combineLatest, Observable, takeUntil} from 'rxjs';
+import {combineLatest, Observable, take, takeUntil} from 'rxjs';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
 
@@ -92,7 +92,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   public logInUser() {
-    this.authService.loginWithRedirect();
+    this.authService.loginWithRedirect().pipe(take(1)).subscribe();
   }
 
   public handleEmailInput(e: Event): void {

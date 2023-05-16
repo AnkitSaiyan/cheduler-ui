@@ -65,7 +65,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   imports: [
     BrowserModule,
     CoreModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: !window.location.href.includes('localhost') }),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: !window.location.href.includes('localhost') }),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
