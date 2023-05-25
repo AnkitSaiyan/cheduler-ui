@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DestroyableComponent} from "../destroyable/destroyable.component";
 import {BehaviorSubject, takeUntil} from "rxjs";
 import {LandingService} from "../../../core/services/landing.service";
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'dfm-sub-header',
@@ -10,8 +11,10 @@ import {LandingService} from "../../../core/services/landing.service";
 })
 export class SubHeaderComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public info$$: BehaviorSubject<any>;
+  introductoryTextEnglish:object={}
+  selectedLang:string= 'nl-BE'
 
-  constructor(private landingService: LandingService) {
+  constructor(private landingService: LandingService, private shareDataSvc : ShareDataService) {
     super();
     this.info$$ = new BehaviorSubject<any>(null);
   }
@@ -20,7 +23,15 @@ export class SubHeaderComponent extends DestroyableComponent implements OnInit, 
     this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       localStorage.setItem('siteDetails', JSON.stringify(res));
       this.info$$.next(JSON.parse(res['data'].introductoryText));
+      this.introductoryTextEnglish= JSON.parse(res.data.introductoryTextEnglish)
     });
+
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+      });
   }
 
   public override ngOnDestroy() {

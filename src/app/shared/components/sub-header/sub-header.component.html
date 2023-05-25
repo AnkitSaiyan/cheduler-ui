@@ -1,10 +1,13 @@
 <div class="sub-header-main-container">
   <div class="sub-header-sub-container d-flex justify-content-center align-items-center">
     <section class="container-left d-flex flex-column dfm-gap-8 dfm-color-primary flex-1" *ngIf="info$$ | async as siteDetails">
-      <span class="font-weight-medium welcome-text">{{ siteDetails['heading'] ?? 'Welcome to Radiology' }}</span>
-      <h3 class="schedule-text">{{ siteDetails['subHeading'] ?? 'Schedule your appointment with us' }}</h3>
+      <span class="font-weight-medium welcome-text">{{ selectedLang == 'en-BE' && introductoryTextEnglish['headingEnglish']? introductoryTextEnglish['headingEnglish']  :siteDetails['heading'] ?? 'Welcome to Radiology' }}</span>
+      <h3 class="schedule-text">{{selectedLang == 'en-BE' && introductoryTextEnglish['subHeadingEnglish']? introductoryTextEnglish['subHeadingEnglish'] : siteDetails['subHeading'] ?? 'Schedule your appointment with us' }}</h3>
       <p class="font-weight-medium text-lg">
-        {{ siteDetails['bodyText'] ?? 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?' }}
+        {{
+          selectedLang == 'en-BE' && introductoryTextEnglish['bodyTextEnglish']? introductoryTextEnglish['bodyTextEnglish'] : siteDetails['bodyText'] ??
+            'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?'
+        }}
       </p>
     </section>
 
