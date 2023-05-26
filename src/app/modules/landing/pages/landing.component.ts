@@ -4,6 +4,7 @@ import { DestroyableComponent } from 'src/app/shared/components/destroyable/dest
 import { LandingService } from '../../../core/services/landing.service';
 import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
 import { ShareDataService } from 'src/app/services/share-data.service';
+import { DUTCH_BE, ENG_BE } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-landing',
@@ -19,9 +20,11 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
 
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  selectedLang:string= 'nl-BE'
+  selectedLang: string = DUTCH_BE;
 
-  introductoryTextEnglish :object= {}
+  readonly english: string = ENG_BE;
+
+  introductoryTextEnglish: object = {};
 
   constructor(private landingService: LandingService, private utcToLocalPipe: UtcToLocalPipe, private shareDataSvc: ShareDataService) {
     super();
@@ -34,7 +37,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
       localStorage.setItem('siteDetails', JSON.stringify(res));
       this.landingService.siteFooterDetails$$.next(res);
       this.info$$.next(JSON.parse(res.data.introductoryText));
-      this.introductoryTextEnglish= JSON.parse(res.data.introductoryTextEnglish)      
+      this.introductoryTextEnglish = JSON.parse(res.data.introductoryTextEnglish);
     });
 
     this.landingService.workingDetails$
@@ -92,7 +95,7 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
         this.workingHours$$.next(res);
       });
 
-      this.shareDataSvc
+    this.shareDataSvc
       .getLanguage$()
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
