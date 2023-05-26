@@ -279,6 +279,10 @@
   "Nov": "Nov",
   "Dec": "Dec",
   "RevokeAccessConfirmationPopUp": "Houd er rekening mee dat het intrekken van de toegang tot dit lab alle afspraken annuleert. Weet je zeker dat je door wilt gaan?",
-  "NoUpcomingAppointmentsFound": "Geen Aankomende afspraken gevonden"
+  "NoUpcomingAppointmentsFound": "Geen Aankomende afspraken gevonden",
+
+  "EXAM": {
+    "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden"
+  }
 }
 

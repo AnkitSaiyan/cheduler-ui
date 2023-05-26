@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, first, map, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
@@ -21,9 +21,11 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
 
-  siteDetails$$: BehaviorSubject<any>;
+  public siteDetails$$: BehaviorSubject<any>;
 
-  editData: any;
+  private editData: any;
+
+  private examIdsToUncombinables = new Map<number, Set<number>>();
 
   constructor(
     private fb: FormBuilder,
@@ -36,30 +38,37 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
-    // localStorage.removeItem('appointmentId');
   }
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
-    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
-      if (localStorage.getItem('appointmentDetails')) {
-        this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
-        this.createForm(examDetails, true);
-        console.log(this.editData);
-        const examData = {
-          comments: this.editData.comments,
-          physician: this.editData.doctorId,
-        };
-        this.examForm.patchValue(examData);
-        const items = this.examForm.get('exams') as FormArray;
-        this.removeExam(0);
-        this.editData.exams.forEach((element, index) => {
-          this.addExam();
-          items.at(index).patchValue({ exam: element.id });
-        });
-      } else {
-        this.createForm(examDetails, false);
-      }
+
+    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
+      next: (examDetails) => {
+        if (localStorage.getItem('appointmentDetails')) {
+          this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+
+          this.createForm(examDetails, true);
+
+          const examData = {
+            comments: this.editData.comments,
+            physician: this.editData.doctorId,
+          };
+
+          this.examForm.patchValue(examData);
+
+          const items = this.examForm.get('exams') as FormArray;
+
+          this.removeExam(0);
+
+          this.editData.exams.forEach((element, index) => {
+            this.addExam();
+            items.at(index).patchValue({ exam: element.id });
+          });
+        } else {
+          this.createForm(examDetails, false);
+        }
+      },
     });
 
     this.scheduleAppointmentSvc.physicians$
@@ -67,16 +76,28 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
         map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
         takeUntil(this.destroy$$),
       )
-      .subscribe((staffs) => {
-        this.filteredPhysicians$$.next(staffs);
+      .subscribe({
+        next: (staffs) => this.filteredPhysicians$$.next(staffs),
       });
 
     this.scheduleAppointmentSvc.exams$
       .pipe(
-        map((exams) => exams.map(({ name, id, instructions }) => ({ name: `${name}`, value: id, description: instructions }))),
+        first(),
+        map((exams) => {
+          return exams.map((exam) => {
+            this.examIdsToUncombinables.set(+exam.id, new Set(exam.uncombinables));
+            return {
+              name: exam.name,
+              value: exam.id,
+              description: exam.instructions,
+            };
+          });
+        }),
         takeUntil(this.destroy$$),
       )
-      .subscribe((exams) => this.filteredExams$$.next(exams));
+      .subscribe({
+        next: (exams) => this.filteredExams$$.next(exams),
+      });
   }
 
   override ngOnDestroy() {
@@ -88,6 +109,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       physician: [examDetails?.physician ? examDetails.physician : '', []],
       exams: this.fb.array([], Validators.required),
       comments: [examDetails?.comments ?? examDetails.comments, []],
+      uncombinableError: [false, []],
     });
 
     if (!isEdit) {
@@ -99,6 +121,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       } else {
         fa.push(this.newExam());
       }
+
+      console.log(fa.controls);
     }
   }
 
@@ -107,11 +131,24 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   private newExam(exam?: number, info?: string): FormGroup {
-    return this.fb.group({
+    const fg = this.fb.group({
       exam: [exam, [Validators.required]],
       info: [info, []],
       instructions: [this.filteredExams$$.value?.find((e) => +e.value === +e)?.description],
+      uncombinableError: [false, []],
     });
+
+    fg.get('exam')
+      ?.valueChanges.pipe(
+        debounceTime(0),
+        filter((examID) => !!examID),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: (examID) => this.validateUcombinableExams(),
+      });
+
+    return fg;
   }
 
   public addExam() {
@@ -132,6 +169,10 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     // this.editData = {};
     if (this.examForm.invalid) {
       this.examForm.markAllAsTouched();
+      return;
+    }
+
+    if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
       return;
     }
 
@@ -168,5 +209,31 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       items,
     );
     return items;
+  }
+
+  private validateUcombinableExams() {
+    const { controls } = this.examForm.get('exams') as FormArray;
+    const errorControls: AbstractControl[] = [];
+
+    for (let i = 0; i < controls.length - 1; i++) {
+      for (let j = i + 1; j < controls.length; j++) {
+        if (
+          this.examIdsToUncombinables.get(+controls[i].value.exam)?.has(+controls[j].value.exam) ||
+          this.examIdsToUncombinables.get(+controls[j].value.exam)?.has(+controls[i].value.exam)
+        ) {
+          errorControls.push(controls[i], controls[j]);
+        }
+
+        if (
+          !this.examIdsToUncombinables.get(+controls[i].value.exam)?.has(+controls[j].value.exam) &&
+          !this.examIdsToUncombinables.get(+controls[j].value.exam)?.has(+controls[i].value.exam)
+        ) {
+          controls[i].patchValue({ uncombinableError: false });
+          controls[j].patchValue({ uncombinableError: false });
+        }
+      }
+    }
+
+    errorControls.forEach((control) => control.patchValue({ uncombinableError: true }));
   }
 }
