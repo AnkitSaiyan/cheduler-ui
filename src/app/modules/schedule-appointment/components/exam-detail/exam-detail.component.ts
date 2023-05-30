@@ -121,8 +121,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       } else {
         fa.push(this.newExam());
       }
-
-      console.log(fa.controls);
     }
   }
 
@@ -158,6 +156,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   public removeExam(i: number) {
     if (this.examCount().length > 1) {
       this.examCount().removeAt(i);
+      this.validateUcombinableExams();
     }
   }
 
@@ -203,17 +202,22 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.router.navigate(['../slot'], { relativeTo: this.route, replaceUrl: true });
   }
 
-  public removeSelectedItems(items: any) {
-    console.log(
-      this.examForm.value?.exams.map((value) => value.exam),
-      items,
-    );
-    return items;
-  }
+  // public removeSelectedItems(items: any) {
+  //   console.log(
+  //     this.examForm.value?.exams.map((value) => value.exam),
+  //     items,
+  //   );
+  //   return items;
+  // }
 
   private validateUcombinableExams() {
     const { controls } = this.examForm.get('exams') as FormArray;
     const errorControls: AbstractControl[] = [];
+
+    if (controls.length === 1) {
+      controls[0].patchValue({ uncombinableError: false });
+      return;
+    }
 
     for (let i = 0; i < controls.length - 1; i++) {
       for (let j = i + 1; j < controls.length; j++) {
