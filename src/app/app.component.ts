@@ -76,6 +76,8 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
   }
 
   private setupUser() {
+    this.authService.instance.enableAccountStorageEvents();
+
     this.msalBroadcastService.inProgress$
       .pipe(
         filter((status: InteractionStatus) => status === InteractionStatus.None),

@@ -39,16 +39,18 @@
         <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
           <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
             <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
-              <dfm-input-dropdown
-                [items]="items | removeSelectedItem : examForm.value?.exams : i"
-                formControlName="exam"
-                label="{{ 'Exam' | translate }} *"
-                placeholder="{{ 'SelectExam' | translate }}"
-                size="md"
-                [showDescription]="false"
-              >
-                {{ items }}
-              </dfm-input-dropdown>
+              <div>
+                <dfm-input-dropdown
+                  [items]="items | removeSelectedItem : examForm.value?.exams : i"
+                  formControlName="exam"
+                  label="{{ 'Exam' | translate }} *"
+                  placeholder="{{ 'SelectExam' | translate }}"
+                  size="md"
+                  [showDescription]="false"
+                >
+                  {{ items }}
+                </dfm-input-dropdown>
+              </div>
               <div  class="trash-btn" (click)="removeExam(i)">
                 <dfm-icon
                   [name]="'trash-01'"
@@ -60,9 +62,10 @@
                 ></dfm-icon>
               </div>
             </div>
-            <span class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
-              {{ 'RequiredField' | translate }}</span
+            <small class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
+              {{ 'RequiredField' | translate }}</small
             >
+            <small class="validation-error" *ngIf="creds?.get('uncombinableError')?.value">{{ 'EXAM.UNCOMBINABLE_ERROR' | translate }}</small>
           </div>
 
           <!-- <span class="validation-error" >
@@ -80,7 +83,7 @@
         </div>
       </section>
       <!-- ===============||Comments Section added for Desktop view============|| -->
-      <section class="comments-btn">
+      <section class="comments-btn flex-1">
         <div class="comments-section">
           <dfm-text-area
             formControlName="comments"

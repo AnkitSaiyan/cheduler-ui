@@ -1,6 +1,3 @@
-import { AvailabilityType, User } from './user.model';
-import { Status } from './status';
-import { Room, RoomType } from './rooms.model';
 import { PracticeAvailability } from './practice.model';
 
 export interface Exam {
@@ -8,22 +5,8 @@ export interface Exam {
   name: string;
   expensive: number;
   info: string;
-  assistantCount: number;
-  radiologistCount: number;
-  nursingCount: number;
-  secretaryCount: number;
-  availabilityType: AvailabilityType;
-  count?: number;
-  status: Status;
-  usersList: number[];
-  roomsForExam: {
-    duration: number;
-    roomId: number;
-  }[];
-  rooms?: Room[];
-  uncombinables?: number[];
-  practiceAvailability?: any[];
-  instructions?: string;
+  instructions: string;
+  uncombinables: number[];
 }
 
 export interface CreateExamRequestData {
