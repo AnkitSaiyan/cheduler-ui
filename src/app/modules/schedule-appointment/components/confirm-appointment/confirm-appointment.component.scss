@@ -65,6 +65,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+}
+.instructions-value-text{
   max-height: 150px;
   overflow-y: auto;
 }
@@ -244,7 +246,7 @@ gap: 8px;
     // justify-content: space-between;
     gap: 10px;
   }
-  .instructions-text-section::-webkit-scrollbar{
+  .instructions-value-text::-webkit-scrollbar{
     display: block!important;
   }
   .instructions-text-section .instruction-text {
