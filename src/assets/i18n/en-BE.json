@@ -281,7 +281,10 @@
   "RevokeAccessConfirmationPopUp" : "Please note that revoking access to this lab will cancel all your appointments. Are you sure you want to continue?",
 
   "EXAM": {
-    "UNCOMBINABLE_ERROR": "These exams probably cannot be planned together"
+    "UNCOMBINABLE_ERROR": "These exams probably cannot be planned together",
+    "MESSAGE": {
+      "NO_INSTRUCTION": "No Instruction for this exam"
+    }
   }
 }
 

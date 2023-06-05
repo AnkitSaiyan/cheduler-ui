@@ -93,12 +93,12 @@
 
               <div class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
-                <span>{{ examIdToName[exam]?.instructions ?? 'Have an empty stomach 10 hours prior to the test' }}</span>
+                <span> {{ !!examIdToName[exam]?.instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
               </div>
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span>{{editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal: true }}</span>
+                <span>{{ editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal: true }}</span>
               </div>
             </div>
 
@@ -147,7 +147,18 @@
 
               <div class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails.exams; let i =index">{{ examIdToName[exam]?.instructions ? examIdToName[exam]?.instructions : 'Have an empty stomach 10 hours prior to the test' }}{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+                <ng-container *ngIf="examsDetails.exams.length > 1; else oneExam">
+                  <div *ngFor="let exam of examsDetails.exams">
+                    <div>
+                      <span class="font-weight-medium ">{{ examIdToName[exam].name }} - </span>
+                      <span class="instructions-value-text">{{ !!examIdToName[exam].instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <ng-template #oneExam>
+                  <span>{{ !!examIdToName[examsDetails.exams[0]].instructions ? examIdToName[examsDetails.exams[0]].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                </ng-template>
               </div>
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">

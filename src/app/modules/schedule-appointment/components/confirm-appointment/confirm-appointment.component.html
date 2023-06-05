@@ -50,8 +50,22 @@
       </div>
       <div class="instructions-text-section">
         <span class="font-weight-medium text-primary instructions-text">{{ 'Instructions' | translate }}&nbsp;:&nbsp;</span>
-        <span class="font-weight-medium instructions-value-text"
-              *ngIf="exams$$ | async">{{ examIdToName | objectTOArray | joinWithAnd : 'instructions' }}</span>
+        <ng-container *ngIf="exams$$ | async">
+          <ng-container *ngIf="examIdToName | objectTOArray as exams;">
+            <ng-container *ngIf="exams.length > 1; else oneExam">
+              <div *ngFor="let exam of exams">
+                <div>
+                  <span class="font-weight-medium ">{{ exam.name }} - </span>
+                  <span class="instructions-value-text">{{ exam.instructions }}</span>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #oneExam>
+              <span>{{ exams[0].instructions }}</span>
+            </ng-template>
+          </ng-container>
+        </ng-container>
       </div>
 
       <div class="d-flex flex-column dfm-gap-8" *ngIf="(appointment$$ | async)?.id && (isEdit$$ | async) === false">
