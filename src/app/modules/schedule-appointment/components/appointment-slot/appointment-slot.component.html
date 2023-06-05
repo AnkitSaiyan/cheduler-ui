@@ -138,26 +138,27 @@
 
       <ng-template #elseBlock>
         <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" >
-          <div class="d-flex flex-column gap-1">
-            <div class="d-flex flex-column gap-1">
+          <div class="d-flex flex-column gap-2">
+            <div class="d-flex flex-column gap-2">
               <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
                 <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
                 <span *ngFor="let exam of examsDetails.exams; let i =index">  {{ examIdToName[exam]?.name }} {{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
               </div>
 
-              <div class="d-flex gap-2 align-items-start text-sm">
+              <div class="d-flex flex-wrap  gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
+
                 <ng-container *ngIf="examsDetails.exams.length > 1; else oneExam">
-                  <div *ngFor="let exam of examsDetails.exams">
-                    <div>
-                      <span class="font-weight-medium ">{{ examIdToName[exam].name }} - </span>
-                      <span class="instructions-value-text">{{ !!examIdToName[exam].instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
-                    </div>
-                  </div>
+                  <ul>
+                    <li *ngFor="let exam of examsDetails.exams">
+                      <span class="font-weight-medium ">{{ examIdToName[exam]?.name }} - </span>
+                      <span class="instructions-value-text">{{ !!examIdToName[exam]?.instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                    </li>
+                  </ul>
                 </ng-container>
 
                 <ng-template #oneExam>
-                  <span>{{ !!examIdToName[examsDetails.exams[0]].instructions ? examIdToName[examsDetails.exams[0]].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                  <span>{{ !!examIdToName[examsDetails.exams[0]]?.instructions ? examIdToName[examsDetails.exams[0]].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
                 </ng-template>
               </div>
 

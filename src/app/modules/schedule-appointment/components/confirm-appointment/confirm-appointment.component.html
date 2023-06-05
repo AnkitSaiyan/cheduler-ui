@@ -53,12 +53,12 @@
         <ng-container *ngIf="exams$$ | async">
           <ng-container *ngIf="examIdToName | objectTOArray as exams;">
             <ng-container *ngIf="exams.length > 1; else oneExam">
-              <div *ngFor="let exam of exams">
-                <div>
-                  <span class="font-weight-medium ">{{ exam.name }} - </span>
-                  <span class="instructions-value-text">{{ exam.instructions }}</span>
-                </div>
-              </div>
+              <ul style="list-style-type: disc">
+                <li *ngFor="let exam of exams">
+                  <span class="font-weight-medium ">{{ exam?.name }} - </span>
+                  <span class="instructions-value-text">{{ exam?.instructions ? exam.instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.'}}</span>
+                </li>
+              </ul>
             </ng-container>
 
             <ng-template #oneExam>
