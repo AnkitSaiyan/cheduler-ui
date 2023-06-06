@@ -62,8 +62,13 @@
 .instructions-text-section{
   // border: 1px solid red;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: 8px;
+}
+.instructions-value-text{
+  max-height: 150px;
+  overflow-y: auto;
 }
 .instructions-text-section ul{
   list-style-type: none;
@@ -103,7 +108,7 @@ gap: 8px;
 }
 .time-span{
   word-break:break-word;
-  max-width:136px;
+  max-width:200px;
   text-align: left;
   font-weight: 500;
 }
@@ -124,6 +129,7 @@ gap: 8px;
   // width: 145px;
   white-space: nowrap;
 }
+
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .main-container{
@@ -147,6 +153,7 @@ gap: 8px;
   .exam-details{
     font-weight: 500;
   }
+
   .appointment-container{
     display: flex!important;
     flex-direction: column!important;
@@ -235,9 +242,12 @@ gap: 8px;
     // border: 1px solid red;
     margin: 10px 0px 0px 0px !important;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     // justify-content: space-between;
     gap: 10px;
+  }
+  .instructions-value-text::-webkit-scrollbar{
+    display: block!important;
   }
   .instructions-text-section .instruction-text {
     font-size: 16px;
