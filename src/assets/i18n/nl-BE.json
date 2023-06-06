@@ -282,7 +282,10 @@
   "NoUpcomingAppointmentsFound": "Geen Aankomende afspraken gevonden",
 
   "EXAM": {
-    "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden"
+    "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",
+    "MESSAGE": {
+      "NO_INSTRUCTION": "No Instruction for this exam"
+    }
   }
 }
 
