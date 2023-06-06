@@ -53,7 +53,7 @@
         <ng-container *ngIf="exams$$ | async">
           <ng-container *ngIf="examIdToName | objectTOArray as exams;">
             <ng-container *ngIf="exams.length > 1; else oneExam">
-              <ul style="list-style-type: disc">
+              <ul style="list-style-type: disc; max-height: 150px; overflow-y: auto;">
                 <li *ngFor="let exam of exams">
                   <span class="font-weight-medium ">{{ exam?.name }} - </span>
                   <span class="instructions-value-text">{{ exam?.instructions ? exam.instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.'}}</span>
