@@ -40,16 +40,10 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
       this.introductoryTextEnglish = JSON.parse(res.data.introductoryTextEnglish);
     });
 
-    this.landingService.workingDetails$
-      .pipe(takeUntil(this.destroy$$))
-      .pipe(map((data) => data.filter((res) => res.weekday !== 0)))
-      .subscribe((res) => {
-        console.log({ res });
-        // eslint-disable-next-line @typescript-eslint/dot-notation
-
+    this.landingService.workingDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
+      next: (res) => {
         res.forEach((element) => {
           const j = element.weekday;
-          // this.weekDay[element.weekday] = `${element.dayStart.slice(0, 5)} - ${element.dayEnd.slice(0, 5)}`;
           if (this.weekDay[j]) {
             this.weekDay[j] += `, ${this.utcToLocalPipe.transform(element.dayStart.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
               element.dayEnd.slice(0, 5),
@@ -61,67 +55,16 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
               true,
             )}`;
           }
-          // for (let j = 0; j < 7; j++) {
-          //   if (element.weekday === j) {
-          // if (this.weekDay[j]) {
-          //   this.weekDay[j] += `,${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
-          // } else {
-          //   this.weekDay[j] = `${this.get24HourTimeString(element.dayStart)} - ${this.get24HourTimeString(element.dayEnd)}`;
-          // }
-          //   } else if (!this.weekDay[j]) {
-          //     this.weekDay[j] = ``;
-          //   }
-          // }
         });
-
-        const filtered = this.weekDay;
-
-        this.weekDay = filtered;
-        // console.log('working upcomming: ', res);
-        // let weekdaysTiming = [];
-        // for (let i = 0; i < res['data'].length; i++) {
-        //   const weekdays = [
-        //     { value: 1, day: 'monday' },
-        //     { value: 2, day: 'tuesday' },
-        //     { value: 3, day: 'wednesday' },
-        //     { value: 4, day: 'thursday' },
-        //   ];
-        //   for (let j = 0; j < weekdays.length; j++) {
-        //     if (res['data'][i].weekday === weekdays[j].value) {
-        //       weekdaysTiming.push({ weekdays[j]['day']: 'a' });
-        //     }
-        //   }
-        // }
         this.workingHours$$.next(res);
-      });
+      },
+    });
 
     this.shareDataSvc
       .getLanguage$()
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((lang) => {
-        this.selectedLang = lang;
+      .subscribe({
+        next: (lang) => (this.selectedLang = lang),
       });
-  }
-
-  get24HourTimeString(timeString: string | undefined): string {
-    let time = '';
-    if (timeString) {
-      const hour = +timeString.slice(0, 2);
-      if (timeString.toLowerCase().includes('pm')) {
-        if (hour < 12) {
-          time = `${hour + 12}:${timeString.slice(3, 5)}`;
-        } else {
-          time = `${hour}:${timeString.slice(3, 5)}`;
-        }
-      } else if (timeString.toLowerCase().includes('am')) {
-        if (hour === 12) {
-          time = `00:${timeString.slice(3, 5)}`;
-        } else {
-          time = timeString.slice(0, 5);
-        }
-      }
-    }
-
-    return time;
   }
 }
