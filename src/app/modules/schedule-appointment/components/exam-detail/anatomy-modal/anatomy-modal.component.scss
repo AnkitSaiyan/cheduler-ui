@@ -1,0 +1,88 @@
+.anatomy {
+  background: var(--dfm-main-100);
+  border-radius: 10px;
+  padding: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 128px;
+  flex: 1;
+  transition: 200ms all ease-in-out;
+
+  &:hover {
+    //background: var(--dfm-main-200);
+    //color: var(--dfm-primary);
+    cursor: pointer;
+  }
+
+  .basic-basea {
+    display: flex;
+    justify-content: center;
+    height: 500px;
+
+    >svg {
+      height: 400px;
+
+      >path {
+        stroke: rgb(255, 128, 128);
+        stroke-opacity: 1;
+      }
+
+      >path:hover {
+        fill: rgb(255, 128, 128)
+      }
+    }
+  }
+
+}
+
+.popover-content {
+  padding: 24px;
+
+
+  .exam-list {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 8px;
+
+    >button:hover {
+      color: var(--dfm-primary)
+    }
+
+    >button {
+      &.selected {
+        color: var(--dfm-primary);
+      }
+    }
+  }
+}
+
+.exam-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 24px;
+}
+
+.selected-exam {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mat-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    display: flex;
+  }
+}
+
+.exam {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}

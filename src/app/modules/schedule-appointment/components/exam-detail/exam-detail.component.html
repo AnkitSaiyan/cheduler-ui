@@ -36,7 +36,9 @@
 
         <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
 
-        <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
+        <dfm-button color="secondary-gray" class="select-exam-btn" (click)="openAnatomyModal()">Select Exams</dfm-button>
+
+        <!-- <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
           <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
             <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
               <div>
@@ -68,19 +70,17 @@
             <small class="validation-error" *ngIf="creds?.get('uncombinableError')?.value">{{ 'EXAM.UNCOMBINABLE_ERROR' | translate }}</small>
           </div>
 
-          <!-- <span class="validation-error" >
-            {{examForm.value['exams'] | json }}</span> -->
           <div class="add-exam-btn"></div>
-        </div>
+        </div> -->
 
-        <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
+        <!-- <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
           <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
             <dfm-icon name="plus"></dfm-icon>
           </div>
           <dfm-button color="link" size="sm">
             <span>{{ 'ClickToAddMoreExam' | translate }}</span></dfm-button
           >
-        </div>
+        </div> -->
       </section>
       <!-- ===============||Comments Section added for Desktop view============|| -->
       <section class="comments-btn flex-1">

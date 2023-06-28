@@ -9,6 +9,7 @@ import { AppointmentSlotComponent } from './components/appointment-slot/appointm
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing.module';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
+import { AnatomyModalComponent } from './components/exam-detail/anatomy-modal/anatomy-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ScheduleAppointmentComponent } from './pages/schedule-appointment.compo
     ExamDetailComponent,
     AppointmentSlotComponent,
     ConfirmAppointmentComponent,
+    AnatomyModalComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

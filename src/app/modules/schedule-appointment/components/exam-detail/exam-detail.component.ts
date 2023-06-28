@@ -2,12 +2,14 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, debounceTime, filter, first, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter, first, map, take, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { AnatomyModalComponent } from './anatomy-modal/anatomy-modal.component';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -35,6 +37,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private cdr: ChangeDetectorRef,
     public loaderSvc: LoaderService,
+    private modalSvc: ModalService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -126,6 +129,21 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public examCount(): FormArray {
     return this.examForm.get('exams') as FormArray;
+  }
+
+  public openAnatomyModal() {
+    const modalRef = this.modalSvc.open(AnatomyModalComponent, {});
+
+    modalRef.closed
+      .pipe(
+        filter((res) => !!res),
+        take(1),
+      )
+      .subscribe({
+        next: (value) => {
+          console.log(value);
+        },
+      });
   }
 
   private newExam(exam?: number, info?: string): FormGroup {
