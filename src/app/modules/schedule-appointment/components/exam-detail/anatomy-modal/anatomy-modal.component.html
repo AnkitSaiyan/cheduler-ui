@@ -9,10 +9,10 @@
         <p>{{item.key}}</p>
           <div class="exam">
             <!-- <mat-form-field class="example-chip-list"> -->
-              <mat-chip (removed)="onExamSelect(item.key === 'Head' ? 'Head' : 'Chest', exam)" *ngFor="let exam of selectedExam[item.key === 'Head' ? 'Head' : 'Chest']">
+              <mat-chip  (removed)="onExamSelect(item.key === 'Head' ? 'Head' : 'Chest', exam)" *ngFor="let exam of selectedExam[item.key === 'Head' ? 'Head' : 'Chest']">
                 {{exam}}
                 <button matChipRemove>
-                  <mat-icon>cancel</mat-icon>
+                  <mat-icon color="primary">cancel</mat-icon>
                 </button>
               </mat-chip>
             <!-- </mat-form-field> -->
@@ -57,12 +57,11 @@
                 <h6>Head</h6>
                 <div class="exam-list">
                   <p>Select Exam</p>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 1')">Exam 1</button>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 2')">Exam 2</button>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 3')">Exam 3</button>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 4')">Exam 4</button>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 5')">Exam 5</button>
-                  <button mat-menu-item (click)="onExamSelect('Head','Exam 6')">Exam 6</button>
+                  <button mat-menu-item (click)="onExamSelect('Head','Echoencephalography')">Echoencephalography</button>
+                  <button mat-menu-item (click)="onExamSelect('Head','Magnetoencephalography')">Magnetoencephalography</button>
+                  <button mat-menu-item (click)="onExamSelect('Head','Pneumoencephalography')">Pneumoencephalography
+                  </button>
+                  <button mat-menu-item (click)="onExamSelect('Head','Brain scanning')">Brain scanning</button>
                 </div>
               </div>
         </div>
@@ -91,12 +90,12 @@
                 <h6>Chest</h6>
                 <div class="exam-list">
                   <p>Select Exam</p>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 1')">Exam 1</button>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 2')">Exam 2</button>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 3')">Exam 3</button>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 4')">Exam 4</button>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 5')">Exam 5</button>
-                  <button mat-menu-item (click)="onExamSelect('Chest','Exam 6')">Exam 6</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Radiographic Studies (X-rays)')">Radiographic Studies (X-rays)</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Computerized Tomography (CT Scan)')">Computerized Tomography (CT Scan)</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Ventilation Perfusion Scan (Lung Scan, V/Q Scan)')">Ventilation Perfusion Scan (Lung Scan, V/Q Scan)</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Pulmonary Function Tests (PFTs)')">Pulmonary Function Tests (PFTs)</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Electrocardiogram (EKG)')">Electrocardiogram (EKG)</button>
+                  <button mat-menu-item (click)="onExamSelect('Chest','Blood Testing')">Blood Testing</button>
                 </div>
               </div>
         </div>
@@ -109,4 +108,8 @@
       </mat-menu> -->
     </div>
   </div>
+  <section class="modal-footer ad-us-footer-buttons">
+    <dfm-button color="secondary" size="md" (click)="close()">Cancel</dfm-button>
+    <dfm-button color="primary" size="md" >Save</dfm-button>
+  </section>
 </div>

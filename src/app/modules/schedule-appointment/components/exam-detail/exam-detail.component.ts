@@ -132,7 +132,13 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public openAnatomyModal() {
-    const modalRef = this.modalSvc.open(AnatomyModalComponent, {});
+    const modalRef = this.modalSvc.open(AnatomyModalComponent, {
+      options: {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'modal-backdrop-remove-mv',
+      },
+    });
 
     modalRef.closed
       .pipe(

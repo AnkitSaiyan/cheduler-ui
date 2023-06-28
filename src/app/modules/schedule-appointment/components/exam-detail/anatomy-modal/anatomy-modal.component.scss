@@ -51,6 +51,7 @@
     }
 
     >button {
+      text-align: left;
       &.selected {
         color: var(--dfm-primary);
       }
@@ -75,9 +76,17 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  color: var(--dfm-primary) !important;
+    border-radius: 4px;
+    background: var(--dfm-btn-primary-color);
 
   button {
     display: flex;
+    background: var(--dfm-btn-primary-color);
+    
+      .mat-icon {
+        color: var(--dfm-primary) !important;
+      }
   }
 }
 
@@ -85,4 +94,7 @@
   display: flex;
   gap: 4px;
   flex-wrap: wrap;
+}
+p {
+  font-weight: 600;
 }
