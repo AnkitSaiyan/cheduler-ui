@@ -1,5 +1,14 @@
 .exam-form-container {
   padding: 48px;
+  display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  
+    .form-type-container {
+      width: 100%;
+      grid-column: 1/3;
+      justify-content: center;
+      gap: 32px;
+    }
 }
 
 .exam-next-btn-mv {
@@ -185,4 +194,7 @@
 .basic-details-progress-bar .progress-button{
   font-size: 10.5px!important;
 }
+}
+dfm-anatomy-modal {
+  grid-column: 1/3;
 }

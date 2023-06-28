@@ -1,5 +1,4 @@
 .anatomy {
-  background: var(--dfm-main-100);
   border-radius: 10px;
   padding: 8px;
   text-overflow: ellipsis;
@@ -18,10 +17,10 @@
   .basic-basea {
     display: flex;
     justify-content: center;
-    height: 500px;
+    height: 600px;
 
     >svg {
-      height: 400px;
+      height: 600px;
 
       >path {
         stroke: rgb(255, 128, 128);
@@ -38,6 +37,10 @@
 
 .popover-content {
   padding: 24px;
+  >h5 {
+      font-weight: 500;
+      // color: var(--dfm-primary);
+    }
 
 
   .exam-list {
@@ -47,11 +50,16 @@
     gap: 8px;
 
     >button:hover {
-      color: var(--dfm-primary)
+      background: var(--dfm-primary);
+        color: #ffffff;
     }
 
     >button {
       text-align: left;
+      width: 100%;
+        padding: 4px;
+        border-radius: 4px;
+        // color: var(--dfm-primary);
       &.selected {
         color: var(--dfm-primary);
       }
@@ -64,6 +72,12 @@
   flex-direction: row;
   justify-content: center;
   padding: 24px;
+  .filter-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding: 24px;
+    }
 }
 
 .selected-exam {
@@ -83,7 +97,7 @@
   button {
     display: flex;
     background: var(--dfm-btn-primary-color);
-    
+
       .mat-icon {
         color: var(--dfm-primary) !important;
       }
@@ -97,4 +111,30 @@
 }
 p {
   font-weight: 600;
+}
+.filter {
+  height: fit-content;
+  border: .5px solid gray;
+  border-radius: 10px;
+  background: var(--dfm-main-100);
+  padding: 24px 16px;
+  flex-direction: column;
+  gap: 24px;
+
+  .heading {
+    align-items: center;
+
+    gap: 4px;
+
+    >h5 {
+      margin: 0;
+      font-weight: 600;
+    }
+  }
+
+  .filter-items {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+  }
 }
