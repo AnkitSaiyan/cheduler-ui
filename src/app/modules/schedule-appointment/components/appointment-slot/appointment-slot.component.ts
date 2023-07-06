@@ -209,7 +209,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
           const { examIdToSlots } = this.getModifiedSlotData(appointmentSlot?.slots, appointmentSlot?.isCombined);
           this.examIdToAppointmentSlots = { ...examIdToSlots };
-          this.sortArrayObject(this.examIdToAppointmentSlots['7'], 'start');
+          Object.keys(this.examIdToAppointmentSlots).forEach((id) => {
+            this.sortArrayObject(this.examIdToAppointmentSlots[id], 'start');
+          });
           console.log({ examIdToSlots });
 
           // appointmentSlot?.slots?.forEach((slot: any) => {
