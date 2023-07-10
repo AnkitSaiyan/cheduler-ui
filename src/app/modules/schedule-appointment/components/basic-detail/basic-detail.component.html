@@ -40,6 +40,12 @@
       </div>
     </div>
 
+    <div class="form-group-container d-flex mt-3 gap-4">
+      <div class="form-group">
+        <dfm-input [formControl]="patientSSN" type="number" size="md" label="{{'socialSecurityNumber' | translate}}"
+                   placeholder="{{'enterSocialSecurityNumber' | translate}}"></dfm-input>
+      </div>
+    </div>
     <section class="register-btn-section" *ngIf="(isLoggedIn$ | async) ===  false">
       <div class="or-section">
         <div>

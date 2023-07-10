@@ -232,6 +232,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
+            socialSecurityNumber:null,
           }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
@@ -344,6 +345,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
+            socialSecurityNumber:null,
           }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
@@ -437,6 +439,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
+                      socialSecurityNumber:null,
                       fromPatient: true,
                     }
                   : { ...requestData, fromPatient: true },
@@ -475,6 +478,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
+                      socialSecurityNumber:null,
                     }
                   : { ...requestData },
               ),

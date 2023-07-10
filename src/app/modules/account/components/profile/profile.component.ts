@@ -44,6 +44,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
         patientLname: userDetail?.surname,
         patientEmail: userDetail?.email,
         patientTel: userDetail?.properties?.['extension_PhoneNumber'],
+        socialSecurityNumber: userDetail?.socialSecurityNumber,
       });
     });
   }
@@ -54,6 +55,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
       surname: [{ value: userDetails?.patientLname, disabled: false }, [Validators.required]],
       phone: [{ value: userDetails?.patientTel, disabled: false }, [Validators.required]],
       email: [{ value: userDetails?.patientEmail, disabled: true }, [Validators.required]],
+      socialSecurityNumber: [{ value: userDetails?.patientEmail, disabled: false }],
     });
   }
 
