@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, debounceTime, filter, first, map, take, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/core/services/loader.service';
@@ -33,11 +32,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
-    private cdr: ChangeDetectorRef,
     public loaderSvc: LoaderService,
     private modalSvc: ModalService,
   ) {
@@ -47,8 +44,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+
     this.examSelectionForm = this.fb.group({
-      formType: ['anatomy', [Validators.required]],
+      formType: [1, [Validators.required]],
     });
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({

@@ -19,47 +19,47 @@
     justify-content: center;
     height: 600px;
 
-    >svg {
+    > svg {
       height: 600px;
 
-      >path {
-        stroke: rgb(255, 128, 128);
+      > path {
+        stroke: var(--dfm-primary);
         stroke-opacity: 1;
       }
 
-      >path:hover {
-        fill: rgb(255, 128, 128)
+      > path:hover {
+        fill: var(--dfm-primary);
       }
     }
   }
-
 }
 
 .popover-content {
-  padding: 24px;
-  >h5 {
-      font-weight: 500;
-      // color: var(--dfm-primary);
-    }
+  // padding: 24px;
 
+  > h5 {
+    padding: 16px 12px 0 12px;
+    font-weight: 500;
+    // color: var(--dfm-primary);
+  }
 
   .exam-list {
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    gap: 8px;
+    // gap: 8px;
 
-    >button:hover {
+    > button:hover {
       background: var(--dfm-primary);
-        color: #ffffff;
+      color: #ffffff;
     }
 
-    >button {
+    > button {
       text-align: left;
       width: 100%;
-        padding: 4px;
-        border-radius: 4px;
-        // color: var(--dfm-primary);
+      padding: 8px 12px;
+      // border-radius: px;
+      // color: var(--dfm-primary);
       &.selected {
         color: var(--dfm-primary);
       }
@@ -72,12 +72,14 @@
   flex-direction: row;
   justify-content: center;
   padding: 24px;
+  column-gap: 24px;
+
   .filter-section {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      padding: 24px;
-    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 40px;
+  }
 }
 
 .selected-exam {
@@ -91,16 +93,16 @@
   align-items: center;
   gap: 4px;
   color: var(--dfm-primary) !important;
-    border-radius: 4px;
-    background: var(--dfm-btn-primary-color);
+  border-radius: 4px;
+  background: var(--dfm-btn-primary-color);
 
   button {
     display: flex;
     background: var(--dfm-btn-primary-color);
 
-      .mat-icon {
-        color: var(--dfm-primary) !important;
-      }
+    .mat-icon {
+      color: var(--dfm-primary) !important;
+    }
   }
 }
 
@@ -114,7 +116,7 @@ p {
 }
 .filter {
   height: fit-content;
-  border: .5px solid gray;
+  border: 0.5px solid gray;
   border-radius: 10px;
   background: var(--dfm-main-100);
   padding: 24px 16px;
@@ -126,7 +128,7 @@ p {
 
     gap: 4px;
 
-    >h5 {
+    > h5 {
       margin: 0;
       font-weight: 600;
     }
