@@ -49,8 +49,8 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
           : basicDetails;
 
         this.createForm(formData);
+        setTimeout(() => {
         if (userDetail) {
-          setTimeout(() => {
             this.basicDetailsForm.patchValue({
               patientFname: userDetail?.givenName,
               patientLname: userDetail?.surname,
@@ -59,14 +59,14 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
               socialSecurityNumber: userDetail.socialSecurityNumber,
             });
             Object.keys(this.basicDetailsForm.controls).forEach((control) => this.basicDetailsForm.get(control)?.disable());
-          }, 0);
-          if(userDetail.socialSecurityNumber){
+          }
+          if(userDetail?.socialSecurityNumber){
             this.patientSSN.setValue(userDetail.socialSecurityNumber);
             this.patientSSN.disable();
           }else{
             this.patientSSN.setValue(basicDetails.socialSecurityNumber ?? "");
           }
-        }
+        }, 0);
       });
 
     if (localStorage.getItem('appointmentDetails')) {
