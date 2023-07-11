@@ -11,6 +11,8 @@ import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
 import { AnatomyModalComponent } from './components/exam-detail/anatomy-modal/anatomy-modal.component';
 import { BodyPartsComponent } from './components/exam-detail/body-parts/body-parts.component';
+import { SkeletonModelComponent } from './components/exam-detail/models/skeleton-model/skeleton-model.component';
+import { BodyModelComponent } from './components/exam-detail/models/body-model/body-model.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { BodyPartsComponent } from './components/exam-detail/body-parts/body-par
     ConfirmAppointmentComponent,
     AnatomyModalComponent,
     BodyPartsComponent,
+    SkeletonModelComponent,
+    BodyModelComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

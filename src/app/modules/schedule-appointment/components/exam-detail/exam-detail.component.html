@@ -4,7 +4,7 @@
   <form
     [formGroup]="examForm"
     class="exam-form-container dfm-card dfm-gap-16"
-    [style.gridColj]="examSelectionForm.value.formType === 'bodyParts' ? 'repeat(1, 1fr)' : 'repeat(2, 1fr)'"
+    [style.gridColj]="'repeat(2, 1fr)'"
   >
     <ng-container *ngIf="loaderSvc.isSpinnerActive$ | async; else loaded">
       <div class="d-flex justify-content-center align-items-center w-full flex-1">
@@ -13,14 +13,9 @@
     </ng-container>
 
     <ng-template #loaded>
-      <div class="w-fit d-flex dfm-gap-24 form-type-container" [formGroup]="examSelectionForm">
-        <dfm-radio-button class="font-weight-normal" label="Flow 1" [checkedValue]="1" formControlName="formType"></dfm-radio-button>
-        <dfm-radio-button class="font-weight-normal" label="Flow 2" [checkedValue]="2" formControlName="formType"></dfm-radio-button>
-      </div>
+      <span class="dfm-ms-32 dfm-mt-16" >Select a body part to select exams</span>
 
-      <span class="dfm-ms-32 dfm-mt-16" *ngIf="examSelectionForm.value.formType === 1">Select a body part to select exams</span>
-
-      <ng-container [ngSwitch]="examSelectionForm.value.formType">
+      <ng-container >
         <!-- <ng-container *ngSwitchCase="'all'">
           <section class="d-flex flex-column dfm-gap-16 flex-1">
             <ng-container *ngIf="filteredPhysicians$$ | async as physician">
@@ -107,12 +102,7 @@
             </div>
           </section>
         </ng-container> -->
-        <ng-container *ngSwitchCase="1">
-          <dfm-anatomy-modal></dfm-anatomy-modal>
-        </ng-container>
-        <ng-container *ngSwitchCase="2">
-          <dfm-anatomy-modal [manual]="true"></dfm-anatomy-modal>
-        </ng-container>
+        <dfm-anatomy-modal></dfm-anatomy-modal>
       </ng-container>
     </ng-template>
   </form>

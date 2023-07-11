@@ -28,8 +28,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   private examIdsToUncombinables = new Map<number, Set<number>>();
 
-  public examSelectionForm!: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -44,11 +42,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
-
-    this.examSelectionForm = this.fb.group({
-      formType: [1, [Validators.required]],
-    });
-
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
       next: (examDetails) => {
         if (localStorage.getItem('appointmentDetails')) {

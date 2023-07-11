@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { take, takeUntil } from 'rxjs';
+import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { NameValue } from 'src/app/shared/models/name-value.model';
 
@@ -9,9 +11,7 @@ import { NameValue } from 'src/app/shared/models/name-value.model';
   styleUrls: ['./anatomy-modal.component.scss'],
 })
 export class AnatomyModalComponent implements OnInit {
-  constructor(private dialogSvc: ModalService, private fb: FormBuilder) {}
-
-  @Input() manual: boolean = false;
+  constructor(private dialogSvc: ModalService, private fb: FormBuilder, private examSvc: ExamService) {}
 
   public filterForm!: FormGroup;
 
@@ -66,27 +66,11 @@ export class AnatomyModalComponent implements OnInit {
 
   public bodyParts: any[] = [];
 
-  public exams = {
-    Chest: [
-      { name: 'Radiographic Studies (X-rays)', value: 'Radiographic Studies (X-rays)' },
-      { name: 'Computerized Tomography (CT Scan)', value: 'Computerized Tomography (CT Scan)' },
-      { name: 'Ventilation Perfusion Scan (Lung Scan, V/Q Scan)', value: 'Ventilation Perfusion Scan (Lung Scan, V/Q Scan)' },
-      { name: 'Pulmonary Function Tests (PFTs)', value: 'Pulmonary Function Tests (PFTs)' },
-      { name: 'Electrocardiogram (EKG)', value: 'Electrocardiogram (EKG)' },
-      { name: 'Blood Testing', value: 'Blood Testing' },
-    ],
-    Head: [
-      { name: 'Echoencephalography', value: 'Echoencephalography' },
-      { name: 'Magnetoencephalography', value: 'Magnetoencephalography' },
-      { name: 'Brain scanning', value: 'Brain scanning' },
-      { name: 'Pneumoencephalography', value: 'Pneumoencephalography' },
-    ],
-    All: [],
-  };
-
   public allexams: NameValue[] = [];
 
   public separator = ' :;: ';
+
+  public exams = {};
 
   ngOnInit() {
     this.filterForm = this.fb.group({
@@ -95,18 +79,20 @@ export class AnatomyModalComponent implements OnInit {
       side: ['front', [Validators.required]],
     });
 
-    if (this.manual) {
-      this.addExamForm = this.fb.group({
-        bodyPart: ['All', []],
-        exam: [null, []],
-      });
-    }
-
-    this.bodyParts = Object.keys(this.exams).map((key) => {
-      this.exams[key].forEach((exam) => this.allexams.push({ name: `${key} - ${exam.name}`, value: `${key}${this.separator}${exam.value}` }));
-
-      return { name: key, value: key };
+    this.addExamForm = this.fb.group({
+      exam: [null, []],
     });
+
+    this.examSvc
+      .getExams()
+      .pipe(take(1))
+      .subscribe((exams) => {
+        this.exams = exams;
+        this.bodyParts = Object.keys(exams).map((key) => {
+          exams[key].forEach((exam) => this.allexams.push({ name: `${key} - ${exam.name}`, value: `${key}${this.separator}${exam.value}` }));
+          return { name: key, value: key };
+        });
+      });
   }
 
   public clickTest(name: string) {
@@ -140,7 +126,7 @@ export class AnatomyModalComponent implements OnInit {
       this.selectedExam[category] = [exam];
     }
 
-    if (this.manual && resetForm) {
+    if (resetForm) {
       this.addExamForm.get('exam')?.reset();
     }
   }
@@ -149,3 +135,9 @@ export class AnatomyModalComponent implements OnInit {
     return !!Object.keys(this.selectedExam).length;
   }
 }
+
+
+
+
+
+
