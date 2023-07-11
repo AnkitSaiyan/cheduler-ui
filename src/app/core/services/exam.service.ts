@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -35,14 +35,22 @@ export class ExamService {
 
   constructor() {}
 
+  public exams$$ = new BehaviorSubject<{}>({});
+
   public getExams(): Observable<any> {
     return of(
       this.exams.reduce((acc, curr) => {
         return { ...acc, [curr.category]: { ...curr } };
       }, {}),
+    ).pipe(
+      tap((value) => {
+        this.exams$$.next(value);
+      }),
     );
   }
 }
+
+
 
 
 

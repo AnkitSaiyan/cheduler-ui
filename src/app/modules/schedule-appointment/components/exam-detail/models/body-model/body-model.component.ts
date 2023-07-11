@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./body-model.component.scss'],
 })
 export class BodyModelComponent implements OnInit {
-  @Input() exams: any[] = [];
   constructor() {}
 
   ngOnInit() {}
@@ -14,4 +13,5 @@ export class BodyModelComponent implements OnInit {
     console.log(name);
   }
 }
+
 

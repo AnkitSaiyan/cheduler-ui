@@ -70,7 +70,7 @@ export class AnatomyModalComponent implements OnInit {
 
   public separator = ' :;: ';
 
-  public exams$$ = new BehaviorSubject<any[]>([]);
+
 
   ngOnInit() {
     this.filterForm = this.fb.group({
@@ -88,7 +88,6 @@ export class AnatomyModalComponent implements OnInit {
       .pipe(take(1))
       .subscribe((exams) => {
         console.log({ exams });
-        this.exams$$.next(exams);
         this.bodyParts = Object.keys(exams).map((key) => {
           exams[key].forEach((exam) => this.allexams.push({ name: `${key} - ${exam.name}`, value: `${key}${this.separator}${exam.value}` }));
           return { name: key, value: key };
@@ -136,6 +135,7 @@ export class AnatomyModalComponent implements OnInit {
     return !!Object.keys(this.selectedExam).length;
   }
 }
+
 
 
 

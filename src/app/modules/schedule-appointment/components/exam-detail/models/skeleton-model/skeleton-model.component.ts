@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ExamService } from 'src/app/core/services/exam.service';
 
 @Component({
   selector: 'dfm-skeleton-model',
@@ -6,8 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./skeleton-model.component.scss'],
 })
 export class SkeletonModelComponent implements OnInit {
-  @Input() exams: any = [];
-  constructor() {}
+  constructor(public examSvc: ExamService) {}
 
   ngOnInit() {}
 
@@ -15,4 +15,6 @@ export class SkeletonModelComponent implements OnInit {
     return i as any;
   }
 }
+
+
 
