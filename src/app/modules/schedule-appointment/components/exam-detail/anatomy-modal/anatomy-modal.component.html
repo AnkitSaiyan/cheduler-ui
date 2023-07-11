@@ -20,10 +20,10 @@
 
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'organs'">
-          <dfm-body-model></dfm-body-model>
+          <dfm-body-model [exams]="(exams$$ | async) ?? []"></dfm-body-model>
         </ng-container>
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'bones'">
-          <dfm-skeleton-model></dfm-skeleton-model>
+          <dfm-skeleton-model [exams]="(exams$$ | async) ?? []"></dfm-skeleton-model>
         </ng-container>
       </ng-container>
 
@@ -36,9 +36,9 @@
       <span>Add Exams</span>
 
       <div class="d-flex flex-column">
-        <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
+        <!-- <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
           <dfm-input-dropdown
-            [items]="addExamForm.value.bodyPart !== 'All' ? exams[addExamForm.value.bodyPart] : allexams"
+            [items]=""
             formControlName="exam"
             size="sm"
             label="Exam"
@@ -53,7 +53,7 @@
             [disabled]="!addExamForm.value?.exam"
             >Add Exam</dfm-button
           >
-        </div>
+        </div> -->
       </div>
 
       <!-- <hr *ngIf="isExamSelected() && manual" /> -->

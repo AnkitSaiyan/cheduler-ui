@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dfm-skeleton-model',
@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./skeleton-model.component.scss'],
 })
 export class SkeletonModelComponent implements OnInit {
+  @Input() exams: any = [];
   constructor() {}
-
-  public bodyPart: any = ['skull' as any, 'spine', 'sacrum'];
-
-  public test = 'skull' as any;
 
   ngOnInit() {}
 

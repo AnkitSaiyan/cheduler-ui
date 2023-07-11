@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { take, takeUntil } from 'rxjs';
+import { BehaviorSubject, take, takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { NameValue } from 'src/app/shared/models/name-value.model';
@@ -70,7 +70,7 @@ export class AnatomyModalComponent implements OnInit {
 
   public separator = ' :;: ';
 
-  public exams = {};
+  public exams$$ = new BehaviorSubject<any[]>([]);
 
   ngOnInit() {
     this.filterForm = this.fb.group({
@@ -87,7 +87,8 @@ export class AnatomyModalComponent implements OnInit {
       .getExams()
       .pipe(take(1))
       .subscribe((exams) => {
-        this.exams = exams;
+        console.log({ exams });
+        this.exams$$.next(exams);
         this.bodyParts = Object.keys(exams).map((key) => {
           exams[key].forEach((exam) => this.allexams.push({ name: `${key} - ${exam.name}`, value: `${key}${this.separator}${exam.value}` }));
           return { name: key, value: key };
@@ -135,6 +136,9 @@ export class AnatomyModalComponent implements OnInit {
     return !!Object.keys(this.selectedExam).length;
   }
 }
+
+
+
 
 
 
