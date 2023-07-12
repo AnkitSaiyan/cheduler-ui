@@ -13,6 +13,12 @@ import { BodyPartsComponent } from './components/exam-detail/body-parts/body-par
 import { AnatomyModelComponent } from './components/exam-detail/anatomy-model/anatomy-model.component';
 import { SkeletonMaleFrontModelComponent } from './components/exam-detail/models/skeleton-male-front-model/skeleton-male-front-model.component';
 import { OrganMaleFrontModelComponent } from './components/exam-detail/models/organ-male-front-model/organ-male-front-model.component';
+import { OrganMaleBackModelComponent } from './components/exam-detail/models/organ-male-back-model/organ-male-back-model.component';
+import { SkeletonMaleBackModelComponent } from './components/exam-detail/models/skeleton-male-back-model/skeleton-male-back-model.component';
+import { SkeletonFemaleBackModelComponent } from './components/exam-detail/models/skeleton-female-back-model/skeleton-female-back-model.component';
+import { SkeletonFemaleFrontModelComponent } from './components/exam-detail/models/skeleton-female-front-model/skeleton-female-front-model.component';
+import { OrganFemaleBackModelComponent } from './components/exam-detail/models/organ-female-back-model/organ-female-back-model.component';
+import { OrganFemaleFrontModelComponent } from './components/exam-detail/models/organ-female-front-model/organ-female-front-model.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +31,13 @@ import { OrganMaleFrontModelComponent } from './components/exam-detail/models/or
     BodyPartsComponent,
     AnatomyModelComponent,
     SkeletonMaleFrontModelComponent,
+    SkeletonMaleBackModelComponent,
+    SkeletonFemaleBackModelComponent,
+    SkeletonFemaleFrontModelComponent,
     OrganMaleFrontModelComponent,
+    OrganMaleBackModelComponent,
+    OrganFemaleBackModelComponent,
+    OrganFemaleFrontModelComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

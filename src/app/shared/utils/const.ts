@@ -9,3 +9,6 @@ export const DUTCH_BE = 'nl-BE';
 export const EXT_Patient_Tenant = 'NPXN';
 
 
+
+
+
