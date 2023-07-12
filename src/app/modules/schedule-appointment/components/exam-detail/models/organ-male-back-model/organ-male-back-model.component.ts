@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExamService } from 'src/app/core/services/exam.service';
 
 @Component({
   selector: 'dfm-organ-male-back-model',
@@ -6,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./organ-male-back-model.component.scss'],
 })
 export class OrganMaleBackModelComponent implements OnInit {
-  constructor() {}
+  constructor(public examSvc: ExamService) {}
 
   ngOnInit() {}
 }
+
 
