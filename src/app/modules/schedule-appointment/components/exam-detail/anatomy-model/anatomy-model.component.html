@@ -20,25 +20,21 @@
 
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'organs'">
-          <dfm-body-model ></dfm-body-model>
+          <dfm-organ-model ></dfm-organ-model>
         </ng-container>
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'bones'">
           <dfm-skeleton-model></dfm-skeleton-model>
         </ng-container>
       </ng-container>
-
-
-
-
     </section>
 
     <section class="selected-exam dfm-gap-24">
       <span>Add Exams</span>
 
       <div class="d-flex flex-column">
-        <!-- <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
+        <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
           <dfm-input-dropdown
-            [items]=""
+            [items]="(examSvc.allExams$$ | async) ?? []"
             formControlName="exam"
             size="sm"
             label="Exam"
@@ -49,24 +45,24 @@
             color="primary"
             size="sm"
             style="margin-top: 28px"
-            (click)="onExamSelect(addExamForm.value.bodyPart, addExamForm.value.exam, true)"
+            (click)="onExamSelect(addExamForm.value.exam)"
             [disabled]="!addExamForm.value?.exam"
             >Add Exam</dfm-button
           >
-        </div> -->
+        </div>
       </div>
 
       <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">Selected Exams</span>
 
       <div *ngFor="let item of examSvc.selectedExam | keyvalue">
-        <p>{{ item.key }}</p>
+        <p>{{ item.key | as | titlecase}}</p>
         <div class="exam">
           <mat-chip
             disableRipple
-            *ngFor="let exam of examSvc.selectedExam[itemKey(item.key)]"
-            (removed)="examSvc.addExam(itemKey(item.key), exam)"
+            *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
+            (removed)="examSvc.addExam(item.key, exam)"
           >
-            {{ exam}}
+            {{ exam }}
             <button matChipRemove >
               <mat-icon color="primary">cancel</mat-icon>
             </button>

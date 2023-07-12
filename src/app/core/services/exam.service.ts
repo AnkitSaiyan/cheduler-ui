@@ -32,6 +32,14 @@ export class ExamService {
     { id: 23, value: ['X-ray', 'CT scan'], category: 'Tarsals' },
     { id: 24, value: ['X-ray', 'CT scan'], category: 'Metatarsals' },
     { id: 25, value: ['X-ray', 'CT scan'], category: 'Foot Phalanges' },
+    { id: 26, value: ['X-ray', 'CT scan'], category: 'Head' },
+    { id: 27, value: ['X-ray', 'CT scan'], category: 'Neck' },
+    { id: 28, value: ['X-ray', 'CT scan'], category: 'Chest' },
+    { id: 29, value: ['X-ray', 'CT scan'], category: 'Arm-rt' },
+    { id: 30, value: ['X-ray', 'CT scan'], category: 'Arm-lt' },
+    { id: 31, value: ['X-ray', 'CT scan'], category: 'Abdomen' },
+    { id: 32, value: ['X-ray', 'CT scan'], category: 'Leg-rt' },
+    { id: 34, value: ['X-ray', 'CT scan'], category: 'Leg-lt' },
   ];
 
   public separator = ' :;: ';
@@ -41,28 +49,29 @@ export class ExamService {
   constructor() {}
 
   public exams$$ = new BehaviorSubject<{}>({});
+  public allExams$$ = new BehaviorSubject<{ name: string; value: string }[]>([]);
 
   public getExams(): Observable<any> {
+    const allExams: { name: string; value: string }[] = [];
     return of(
       this.exams.reduce((acc, curr) => {
+        allExams.push(
+          ...curr.value.map((value) => ({ name: curr.category + ' - ' + value, value: curr.category.toLocaleLowerCase() + this.separator + value })),
+        );
         return { ...acc, [curr.category]: { ...curr } };
       }, {}),
     ).pipe(
       tap((value) => {
         this.exams$$.next(value);
+        this.allExams$$.next([...allExams]);
       }),
     );
   }
-  public addExam(category: string, exam: string) {
-    console.log(category, exam);
-
+  public addExam(category: any, exam: string) {
     if (category === 'All') {
       category = exam.split(this.separator)[0];
       exam = exam.split(this.separator)[1];
     }
-
-    console.log(category, exam);
-
     if (this.selectedExam[category]) {
       if (this.selectedExam[category].find((value) => value === exam)) {
         this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
@@ -85,6 +94,19 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

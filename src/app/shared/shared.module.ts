@@ -28,6 +28,7 @@ import { RemoveSelectedItemPipe } from './pipes/remove-selected-item.pipe';
 import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
 import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
 import { WeekdayToNamePipe } from './pipes/weekday-to-name.pipe';
+import { AsPipe } from './pipes/as.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashIfNothingPipe,
     UtcToLocalPipe,
     RemoveSelectedItemPipe,
+    AsPipe,
   ],
   imports: [
     CommonModule,
@@ -96,7 +98,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatMenuModule,
     MatIconModule,
     MatChipsModule,
+    AsPipe,
   ],
 })
 export class SharedModule {}
+
 

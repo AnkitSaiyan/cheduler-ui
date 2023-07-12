@@ -9,10 +9,10 @@ import { AppointmentSlotComponent } from './components/appointment-slot/appointm
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing.module';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
-import { AnatomyModalComponent } from './components/exam-detail/anatomy-modal/anatomy-modal.component';
 import { BodyPartsComponent } from './components/exam-detail/body-parts/body-parts.component';
 import { SkeletonModelComponent } from './components/exam-detail/models/skeleton-model/skeleton-model.component';
-import { BodyModelComponent } from './components/exam-detail/models/body-model/body-model.component';
+import { OrganModelComponent } from './components/exam-detail/models/organ-model/organ-model.component';
+import { AnatomyModelComponent } from './components/exam-detail/anatomy-model/anatomy-model.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +22,10 @@ import { BodyModelComponent } from './components/exam-detail/models/body-model/b
     ExamDetailComponent,
     AppointmentSlotComponent,
     ConfirmAppointmentComponent,
-    AnatomyModalComponent,
     BodyPartsComponent,
     SkeletonModelComponent,
-    BodyModelComponent,
+    OrganModelComponent,
+    AnatomyModelComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

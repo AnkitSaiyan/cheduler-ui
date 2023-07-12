@@ -6,11 +6,11 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { NameValue } from 'src/app/shared/models/name-value.model';
 
 @Component({
-  selector: 'dfm-anatomy-modal',
-  templateUrl: './anatomy-modal.component.html',
-  styleUrls: ['./anatomy-modal.component.scss'],
+  selector: 'dfm-anatomy-model',
+  templateUrl: './anatomy-model.component.html',
+  styleUrls: ['./anatomy-model.component.scss'],
 })
-export class AnatomyModalComponent implements OnInit {
+export class AnatomyModelComponent implements OnInit {
   constructor(private dialogSvc: ModalService, private fb: FormBuilder, public examSvc: ExamService) {}
 
   public filterForm!: FormGroup;
@@ -90,24 +90,10 @@ export class AnatomyModalComponent implements OnInit {
     this.dialogSvc.close();
   }
 
-  public itemKey(item: any) {
-    return item as any;
+  public onExamSelect(value: string) {
+    const [category, exam] = value.split(this.examSvc.separator);
+    this.examSvc.addExam(category, exam);
+    this.addExamForm.reset();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

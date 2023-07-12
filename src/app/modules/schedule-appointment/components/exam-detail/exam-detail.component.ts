@@ -8,7 +8,7 @@ import { DestroyableComponent } from '../../../../shared/components/destroyable/
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { ModalService } from 'src/app/core/services/modal.service';
-import { AnatomyModalComponent } from './anatomy-modal/anatomy-modal.component';
+import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -128,7 +128,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public openAnatomyModal() {
-    const modalRef = this.modalSvc.open(AnatomyModalComponent, {
+    const modalRef = this.modalSvc.open(AnatomyModelComponent, {
       options: {
         size: 'lg',
         centered: true,
