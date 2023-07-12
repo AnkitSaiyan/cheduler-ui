@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -49,14 +49,30 @@ export class ExamService {
   constructor() {}
 
   public exams$$ = new BehaviorSubject<{}>({});
-  public allExams$$ = new BehaviorSubject<{ name: string; value: string }[]>([]);
+  public allExams$$ = new BehaviorSubject<{ name: string; value: string; category: string }[]>([]);
+  public selectedCategory$$ = new BehaviorSubject<string>('');
+
+  public get filterExams$$(): any {
+    return combineLatest([this.selectedCategory$$, this.allExams$$]).pipe(
+      switchMap(() => this.allExams$$),
+      map((value) => value.filter(({ category }) => (this.selectedCategory$$.value ? category === this.selectedCategory$$.value : true))),
+    );
+  }
+
+  public setCategory(category: string) {
+    this.selectedCategory$$.next(category);
+  }
 
   public getExams(): Observable<any> {
-    const allExams: { name: string; value: string }[] = [];
+    const allExams: { name: string; value: string; category: string }[] = [];
     return of(
       this.exams.reduce((acc, curr) => {
         allExams.push(
-          ...curr.value.map((value) => ({ name: curr.category + ' - ' + value, value: curr.category.toLocaleLowerCase() + this.separator + value })),
+          ...curr.value.map((value) => ({
+            name: curr.category + ' - ' + value,
+            value: curr.category.toLocaleLowerCase() + this.separator + value,
+            category: curr.category,
+          })),
         );
         return { ...acc, [curr.category]: { ...curr } };
       }, {}),
@@ -67,6 +83,7 @@ export class ExamService {
       }),
     );
   }
+
   public addExam(category: any, exam: string) {
     if (category === 'All') {
       category = exam.split(this.separator)[0];
@@ -94,6 +111,10 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
 
 
 

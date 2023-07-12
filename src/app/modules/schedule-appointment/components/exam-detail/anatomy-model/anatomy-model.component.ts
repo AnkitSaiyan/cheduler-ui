@@ -41,7 +41,7 @@ export class AnatomyModelComponent implements OnInit {
           value: 'bones',
         },
         {
-          name: 'Organs',
+          name: 'Body',
           value: 'organs',
         },
       ],
@@ -108,6 +108,7 @@ export class AnatomyModelComponent implements OnInit {
     this.addExamForm.reset();
   }
 }
+
 
 
 

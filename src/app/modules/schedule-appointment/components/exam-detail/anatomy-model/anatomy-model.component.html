@@ -78,7 +78,7 @@
       <div class="d-flex flex-column">
         <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
           <dfm-input-dropdown
-            [items]="(examSvc.allExams$$ | async) ?? []"
+            [items]="(examSvc.filterExams$$ | async) ?? []"
             formControlName="exam"
             size="sm"
             label="Exam"
