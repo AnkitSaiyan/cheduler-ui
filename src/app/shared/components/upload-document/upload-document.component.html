@@ -1,0 +1,6 @@
+<div class="container">
+<div style="max-width: 240px;">
+    <input type="file" #fileChange (change)="refferingNote($event)" style="display:none;">
+    <dfm-button color="primary" size="lg"  class="button-design schedule-btn" (click)="fileChange.click()">Upload</dfm-button>
+</div>
+</div>

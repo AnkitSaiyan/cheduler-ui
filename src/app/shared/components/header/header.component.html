@@ -1,7 +1,7 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
-  <div class="nav-logo pointer" routerLink="/" *ngIf="siteDetails$$ | async as siteDetails">
+  <div class="nav-logo pointer" *ngIf="siteDetails$$ | async as siteDetails">
     <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo"
-         ngSrc="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER"/>
+         src="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER"/>
     <img *ngIf="!siteDetails['data']?.logo" ngSrc="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"
          height="16" width="134"/>
   </div>
@@ -9,7 +9,7 @@
   <div class="nav-items-right">
     <!-- <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div> -->
 
-    <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false">
+    <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false && !url.includes('upload-document')">
       <dfm-button color="link" size="lg" class="button-design home-btn"
                   routerLink="/">{{ 'Home' | translate }}</dfm-button>
 

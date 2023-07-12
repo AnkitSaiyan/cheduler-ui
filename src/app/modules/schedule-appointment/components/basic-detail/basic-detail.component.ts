@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Observable, take, takeUntil} from 'rxjs';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -29,6 +31,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
+    private modalSvc : ModalService
   ) {
     super();
   }
@@ -132,5 +135,26 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       socialSecurityNumber: [{ value: basicDetails?.socialSecurityNumber, disabled: isDisable }],
     });
 
+  }
+
+  public refferingNote(file:any){
+    console.log(file.target.files);
+  }
+
+  public uploadDocumentFromMobile(){
+    const modalRef = this.modalSvc.open(QrModalComponent, {
+      data: {
+       img: 'https://i.ibb.co/c8L627S/qrcode.png'
+      } ,
+    });
+
+    // modalRef.closed
+    //   .pipe(
+    //     filter((res) => !!res),
+    //     take(1),
+    //   )
+    //   .subscribe({
+    //     next: () => 
+    //   });
   }
 }

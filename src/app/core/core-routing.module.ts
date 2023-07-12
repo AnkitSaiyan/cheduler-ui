@@ -4,6 +4,7 @@ import { CoreComponent } from './core.component';
 import { AuthGuard } from './gurads/auth.guard';
 import { PrivacyPolicyComponent } from './privacy/privacy-policy/privacy-policy.component';
 import { RouteTypeName } from '../shared/models/routes.model';
+import { UploadDocumentComponent } from '../shared/components/upload-document/upload-document.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'privacy/policy',
         component: PrivacyPolicyComponent,
+      },
+      {
+        path: 'upload-document',
+        component: UploadDocumentComponent,
       },
       {
         path: '',
