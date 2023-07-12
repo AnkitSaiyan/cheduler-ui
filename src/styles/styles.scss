@@ -486,6 +486,10 @@ dfm-notification {
         color: var(--dfm-primary);
       }
     }
+        .no-exam {
+          width: 100%;
+          text-align: center;
+        }
   }
 }
 html, body { height: 100%; }

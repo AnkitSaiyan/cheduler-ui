@@ -11,13 +11,11 @@ import { NameValue } from 'src/app/shared/models/name-value.model';
   styleUrls: ['./anatomy-modal.component.scss'],
 })
 export class AnatomyModalComponent implements OnInit {
-  constructor(private dialogSvc: ModalService, private fb: FormBuilder, private examSvc: ExamService) {}
+  constructor(private dialogSvc: ModalService, private fb: FormBuilder, public examSvc: ExamService) {}
 
   public filterForm!: FormGroup;
 
   public addExamForm!: FormGroup;
-
-  public selectedExam: any = {};
 
   public filter = [
     {
@@ -70,8 +68,6 @@ export class AnatomyModalComponent implements OnInit {
 
   public separator = ' :;: ';
 
-
-
   ngOnInit() {
     this.filterForm = this.fb.group({
       gender: ['male', [Validators.required]],
@@ -83,16 +79,7 @@ export class AnatomyModalComponent implements OnInit {
       exam: [null, []],
     });
 
-    this.examSvc
-      .getExams()
-      .pipe(take(1))
-      .subscribe((exams) => {
-        console.log({ exams });
-        this.bodyParts = Object.keys(exams).map((key) => {
-          exams[key].forEach((exam) => this.allexams.push({ name: `${key} - ${exam.name}`, value: `${key}${this.separator}${exam.value}` }));
-          return { name: key, value: key };
-        });
-      });
+    this.examSvc.getExams().pipe(take(1)).subscribe();
   }
 
   public clickTest(name: string) {
@@ -103,38 +90,17 @@ export class AnatomyModalComponent implements OnInit {
     this.dialogSvc.close();
   }
 
-  public onExamSelect(category: string, exam: string, resetForm = false) {
-    console.log(category, exam);
-
-    if (category === 'All') {
-      category = exam.split(this.separator)[0];
-      exam = exam.split(this.separator)[1];
-    }
-
-    console.log(category, exam);
-
-    if (this.selectedExam[category]) {
-      if (this.selectedExam[category].find((value) => value === exam)) {
-        this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
-        if (!this.selectedExam[category].length) {
-          delete this.selectedExam[category];
-        }
-      } else {
-        this.selectedExam[category] = [...this.selectedExam[category], exam];
-      }
-    } else {
-      this.selectedExam[category] = [exam];
-    }
-
-    if (resetForm) {
-      this.addExamForm.get('exam')?.reset();
-    }
-  }
-
-  public isExamSelected(): boolean {
-    return !!Object.keys(this.selectedExam).length;
+  public itemKey(item: any) {
+    return item as any;
   }
 }
+
+
+
+
+
+
+
 
 
 

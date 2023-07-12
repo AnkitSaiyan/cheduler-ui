@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 
 @Injectable({
@@ -33,6 +34,10 @@ export class ExamService {
     { id: 25, value: ['X-ray', 'CT scan'], category: 'Foot Phalanges' },
   ];
 
+  public separator = ' :;: ';
+
+  public selectedExam: any = {};
+
   constructor() {}
 
   public exams$$ = new BehaviorSubject<{}>({});
@@ -48,7 +53,72 @@ export class ExamService {
       }),
     );
   }
+  public addExam(category: string, exam: string) {
+    console.log(category, exam);
+
+    if (category === 'All') {
+      category = exam.split(this.separator)[0];
+      exam = exam.split(this.separator)[1];
+    }
+
+    console.log(category, exam);
+
+    if (this.selectedExam[category]) {
+      if (this.selectedExam[category].find((value) => value === exam)) {
+        this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
+        if (!this.selectedExam[category].length) {
+          delete this.selectedExam[category];
+        }
+      } else {
+        this.selectedExam[category] = [...this.selectedExam[category], exam];
+      }
+    } else {
+      this.selectedExam[category] = [exam];
+    }
+  }
+
+  public isExamSelected(): boolean {
+    return !!Object.keys(this.selectedExam).length;
+  }
+  public removeExam(exam: any) {}
+  public get examFormValue() {
+    return this.selectedExam;
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -56,25 +56,21 @@
         </div> -->
       </div>
 
-      <!-- <hr *ngIf="isExamSelected() && manual" /> -->
+      <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">Selected Exams</span>
 
-      <span *ngIf="isExamSelected()" class="dfm-main-500">Selected Exams</span>
-
-      <div *ngFor="let item of selectedExam | keyvalue">
+      <div *ngFor="let item of examSvc.selectedExam | keyvalue">
         <p>{{ item.key }}</p>
         <div class="exam">
-          <!-- <mat-form-field class="example-chip-list"> -->
           <mat-chip
             disableRipple
-            (removed)="onExamSelect(item.key === 'Head' ? 'Head' : 'Chest', exam)"
-            *ngFor="let exam of selectedExam[item.key === 'Head' ? 'Head' : 'Chest']"
+            *ngFor="let exam of examSvc.selectedExam[itemKey(item.key)]"
+            (removed)="examSvc.addExam(itemKey(item.key), exam)"
           >
-            {{ exam }}
-            <button matChipRemove>
+            {{ exam}}
+            <button matChipRemove >
               <mat-icon color="primary">cancel</mat-icon>
             </button>
           </mat-chip>
-          <!-- </mat-form-field> -->
         </div>
       </div>
     </section>
