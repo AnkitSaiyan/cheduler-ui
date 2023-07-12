@@ -15,11 +15,6 @@ import { LoaderService } from './services/loader.service';
   styleUrls: ['./core.component.scss'],
 })
 export class CoreComponent extends DestroyableComponent implements OnInit, OnDestroy, AfterViewInit {
-  @HostListener('window:scroll', ['$event'])
-  private onScroll(e) {
-    console.log(e);
-  }
-
   public url!: string;
 
   public isLoggedIn$!: Observable<boolean>;
@@ -58,6 +53,7 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     super.ngOnDestroy();
   }
 }
+
 
 
 

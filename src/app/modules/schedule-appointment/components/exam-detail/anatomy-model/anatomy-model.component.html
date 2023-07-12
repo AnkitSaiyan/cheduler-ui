@@ -18,11 +18,11 @@
         </div>
       </div>
 
-      <ng-container [ngSwitch]="filterForm.value?.gender">
+      <ng-container [ngSwitch]="filterForm.getRawValue()?.gender">
         <ng-container *ngSwitchCase="'male'">
-          <ng-container [ngSwitch]="filterForm.value?.side">
+          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
             <ng-container *ngSwitchCase="'front'">
-              <ng-container [ngSwitch]="filterForm.value?.bodyStructure">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
                 <ng-container *ngSwitchCase="'organs'">
                   <dfm-organ-male-front-model ></dfm-organ-male-front-model>
                 </ng-container>
@@ -32,7 +32,7 @@
               </ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="'back'">
-              <ng-container [ngSwitch]="filterForm.value?.bodyStructure">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
                 <ng-container *ngSwitchCase="'organs'">
                   <dfm-organ-male-back-model ></dfm-organ-male-back-model>
                 </ng-container>
@@ -44,9 +44,9 @@
           </ng-container>
         </ng-container>
         <ng-container *ngSwitchCase="'female'">
-          <ng-container [ngSwitch]="filterForm.value?.side">
+          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
             <ng-container *ngSwitchCase="'front'">
-              <ng-container [ngSwitch]="filterForm.value?.bodyStructure">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
                 <ng-container *ngSwitchCase="'organs'">
                   <dfm-organ-female-front-model ></dfm-organ-female-front-model>
                 </ng-container>
@@ -56,7 +56,7 @@
               </ng-container>
             </ng-container>
             <ng-container *ngSwitchCase="'back'">
-              <ng-container [ngSwitch]="filterForm.value?.bodyStructure">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
                 <ng-container *ngSwitchCase="'organs'">
                   <dfm-organ-female-back-model ></dfm-organ-female-back-model>
                 </ng-container>
