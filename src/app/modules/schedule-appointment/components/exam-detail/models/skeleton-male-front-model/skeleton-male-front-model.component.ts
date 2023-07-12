@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/core/services/exam.service';
 
 @Component({
-  selector: 'dfm-skeleton-model',
-  templateUrl: './skeleton-model.component.html',
-  styleUrls: ['./skeleton-model.component.scss'],
+  selector: 'dfm-skeleton-male-front-model',
+  templateUrl: './skeleton-male-front-model.component.html',
+  styleUrls: ['./skeleton-male-front-model.component.scss'],
 })
-export class SkeletonModelComponent implements OnInit {
+export class SkeletonMaleFrontModelComponent implements OnInit {
   constructor(public examSvc: ExamService) {}
 
   ngOnInit() {}
@@ -15,6 +15,4 @@ export class SkeletonModelComponent implements OnInit {
     return i as any;
   }
 }
-
-
 

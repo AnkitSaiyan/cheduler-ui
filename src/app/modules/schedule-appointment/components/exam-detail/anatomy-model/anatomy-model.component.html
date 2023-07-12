@@ -20,10 +20,10 @@
 
       <ng-container [ngSwitch]="true">
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'organs'">
-          <dfm-organ-model ></dfm-organ-model>
+          <dfm-organ-male-front-model ></dfm-organ-male-front-model>
         </ng-container>
         <ng-container *ngSwitchCase="filterForm.value?.bodyStructure === 'bones'">
-          <dfm-skeleton-model></dfm-skeleton-model>
+          <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
         </ng-container>
       </ng-container>
     </section>
