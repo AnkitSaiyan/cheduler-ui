@@ -11,9 +11,6 @@ export class OrganMaleFrontModelComponent implements OnDestroy {
 
   private openedElement!: any;
   private clearTimeout!: any;
-  public clickTest(name: string) {
-    console.log(name);
-  }
   public onMouseLeave(element: any, isFromModal: boolean = false) {
     if (this.clearTimeout) clearTimeout(this.clearTimeout);
     this.clearTimeout = setTimeout(() => {
@@ -34,4 +31,5 @@ export class OrganMaleFrontModelComponent implements OnDestroy {
     clearTimeout(this.clearTimeout);
   }
 }
+
 

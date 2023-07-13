@@ -47,7 +47,7 @@
   </mat-menu>
 
   <mat-menu #neck="matMenu">
-    <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="neckTrigger.openMenu();onMouseEnter(neckTrigger)" (mouseleave)="onMouseLeave(headTrigger, true)"  (mouseout)="$event.stopPropagation();neckTrigger.openMenu()">
+    <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="neckTrigger.openMenu();onMouseEnter(neckTrigger)" (mouseleave)="onMouseLeave(neckTrigger, true)"  (mouseout)="$event.stopPropagation();neckTrigger.openMenu()">
       <div class="popover-content">
         <h5 class="dfm-p-8">Neck</h5>
         <div class="exam-list" *ngIf="(examSvc.exams$$| async) as exams">
