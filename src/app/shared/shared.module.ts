@@ -29,6 +29,8 @@ import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
 import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
 import { WeekdayToNamePipe } from './pipes/weekday-to-name.pipe';
 import { AsPipe } from './pipes/as.pipe';
+import { QrModalComponent } from './components/qr-modal/qr-modal.component';
+import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -52,6 +54,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UtcToLocalPipe,
     RemoveSelectedItemPipe,
     AsPipe,
+    QrModalComponent,
+    UploadDocumentComponent,
   ],
   imports: [
     CommonModule,
@@ -102,5 +106,3 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
 })
 export class SharedModule {}
-
-

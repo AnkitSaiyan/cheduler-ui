@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/core/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Observable, take, takeUntil} from 'rxjs';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -21,12 +23,15 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
   private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
 
+  public patientSSN= new FormControl('');
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
+    private modalSvc : ModalService
   ) {
     super();
   }
@@ -42,21 +47,29 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
               patientLname: userDetail?.surname,
               patientEmail: userDetail.email,
               patientTel: userDetail.properties?.['extension_PhoneNumber'],
+              socialSecurityNumber: userDetail.socialSecurityNumber,
             }
           : basicDetails;
 
         this.createForm(formData);
+        setTimeout(() => {
         if (userDetail) {
-          setTimeout(() => {
             this.basicDetailsForm.patchValue({
               patientFname: userDetail?.givenName,
               patientLname: userDetail?.surname,
               patientTel: userDetail.properties?.['extension_PhoneNumber'],
               patientEmail: userDetail.email,
+              socialSecurityNumber: userDetail.socialSecurityNumber,
             });
             Object.keys(this.basicDetailsForm.controls).forEach((control) => this.basicDetailsForm.get(control)?.disable());
-          }, 0);
-        }
+          }
+          if(userDetail?.socialSecurityNumber){
+            this.patientSSN.setValue(userDetail.socialSecurityNumber);
+            this.patientSSN.disable();
+          }else{
+            this.patientSSN.setValue(basicDetails.socialSecurityNumber ?? "");
+          }
+        }, 0);
       });
 
     if (localStorage.getItem('appointmentDetails')) {
@@ -84,10 +97,11 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       this.editData.patientLname = this.basicDetailsForm.controls['patientLname'].value;
       this.editData.patientTel = this.basicDetailsForm.controls['patientTel'].value;
       this.editData.patientEmail = this.basicDetailsForm.controls['patientEmail'].value;
+      this.editData.socialSecurityNumber = this.basicDetailsForm.controls['socialSecurityNumber'].value;
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
 
-    this.scheduleAppointmentSvc.setBasicDetails(this.basicDetailsForm.value);
+    this.scheduleAppointmentSvc.setBasicDetails({...this.basicDetailsForm.value, socialSecurityNumber: this.patientSSN.value });
     this.router.navigate(['../confirm'], { relativeTo: this.route, replaceUrl: true });
   }
 
@@ -118,7 +132,29 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
       patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
       patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
+      socialSecurityNumber: [{ value: basicDetails?.socialSecurityNumber, disabled: isDisable }],
     });
 
+  }
+
+  public refferingNote(file:any){
+    console.log(file.target.files);
+  }
+
+  public uploadDocumentFromMobile(){
+    const modalRef = this.modalSvc.open(QrModalComponent, {
+      data: {
+       img: 'https://i.ibb.co/c8L627S/qrcode.png'
+      } ,
+    });
+
+    // modalRef.closed
+    //   .pipe(
+    //     filter((res) => !!res),
+    //     take(1),
+    //   )
+    //   .subscribe({
+    //     next: () => 
+    //   });
   }
 }

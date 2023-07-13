@@ -33,6 +33,8 @@ export interface User {
   exams?: any[];
   rights?: any[];
   rizivNumber?: string;
+  socialSecurityNumber?: string | number;
+
 }
 
 export class AuthUser {
@@ -50,7 +52,18 @@ export class AuthUser {
 
   properties: Record<string, string> = {};
 
-  constructor(mail: string, givenName: string, id: string, surname: string, displayName: string, email: string, properties: Record<string, string>) {
+  socialSecurityNumber: string= '';
+
+  constructor(
+    mail: string,
+    givenName: string,
+    id: string,
+    surname: string,
+    displayName: string,
+    email: string,
+    properties: Record<string, string>,
+    socialSecurityNumber: string,
+  ) {
     this.mail = mail;
     this.givenName = givenName;
     this.id = id;
@@ -58,5 +71,6 @@ export class AuthUser {
     this.surname = surname;
     this.displayName = displayName;
     this.email = email;
+    this.socialSecurityNumber = socialSecurityNumber;
   }
 }

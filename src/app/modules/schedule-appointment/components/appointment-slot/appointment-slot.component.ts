@@ -209,7 +209,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
           const { examIdToSlots } = this.getModifiedSlotData(appointmentSlot?.slots, appointmentSlot?.isCombined);
           this.examIdToAppointmentSlots = { ...examIdToSlots };
-
+          Object.keys(this.examIdToAppointmentSlots).forEach((id) => {
+            this.sortArrayObject(this.examIdToAppointmentSlots[id], 'start');
+          });
           console.log({ examIdToSlots });
 
           // appointmentSlot?.slots?.forEach((slot: any) => {
@@ -494,5 +496,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public isNextButtonDisable(): boolean {
     return !this.editData?.exams?.every((exam) => exam?.startedAt?.length);
+  }
+
+  sortArrayObject(arr: any, key: string): Array<any> {
+    return arr.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0));
   }
 }

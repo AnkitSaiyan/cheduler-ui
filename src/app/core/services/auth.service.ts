@@ -75,7 +75,9 @@ export class AuthService {
       switchMap(() => {
         return this.userManagementApiService.getUserProperties(userId).pipe(
           switchMap((res: any) => {
-            this.authUser$$.next(new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties));
+            this.authUser$$.next(
+              new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties, res.socialSecurityNumber),
+            );
             return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
           }),
           catchError((err) => throwError(err)),
