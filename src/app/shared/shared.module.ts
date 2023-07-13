@@ -24,6 +24,8 @@ import {DashIfNothingPipe} from './pipes/dash-if-nothing.pipe';
 import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
 import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
 import { RemoveSelectedItemPipe } from './pipes/remove-selected-item.pipe';
+import { QrModalComponent } from './components/qr-modal/qr-modal.component';
+import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,6 +48,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashIfNothingPipe,
     UtcToLocalPipe,
     RemoveSelectedItemPipe,
+    QrModalComponent,
+    UploadDocumentComponent,
   ],
   imports: [
     CommonModule,
