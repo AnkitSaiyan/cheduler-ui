@@ -149,7 +149,7 @@
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
 
                 <ng-container *ngIf="examsDetails.exams.length > 1; else oneExam">
-                  <ul style="max-height:150px; overflow-y:auto;">
+                  <ul style="max-height:140px; overflow-y:auto;">
                     <li *ngFor="let exam of examsDetails.exams">
                       <span class="font-weight-medium ">{{ examIdToName[exam]?.name }} - </span>
                       <span class="instructions-value-text">{{ !!examIdToName[exam]?.instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>

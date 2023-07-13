@@ -241,6 +241,8 @@
   "MyAccount" : "My Account",
   "Labswithaccesstoyourpersonalinformation" : "Labs with access to your personal information",
   "Completed" : "Completed",
+  "socialSecurityNumber": "Social Security Number",
+  "enterSocialSecurityNumber": "Enter Social Security Number Sociaal Zekerheidsnummer",
   "January" : "January",
   "February": "February",
   "March" : "March",
