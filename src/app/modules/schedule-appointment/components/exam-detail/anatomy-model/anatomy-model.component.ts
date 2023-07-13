@@ -77,6 +77,7 @@ export class AnatomyModelComponent implements OnInit {
 
     this.addExamForm = this.fb.group({
       exam: [null, []],
+      comments: ['',[]]
     });
 
     this.filterForm.get('bodyStructure')?.valueChanges.subscribe((value) => {
@@ -105,7 +106,7 @@ export class AnatomyModelComponent implements OnInit {
   public onExamSelect(value: string) {
     const [category, exam] = value.split(this.examSvc.separator);
     this.examSvc.addExam(category, exam);
-    this.addExamForm.reset();
+    this.addExamForm.get('exam')?.reset();
   }
 }
 

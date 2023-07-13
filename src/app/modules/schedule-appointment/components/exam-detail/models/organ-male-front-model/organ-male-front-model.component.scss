@@ -16,3 +16,8 @@
     }
   }
 }
+::ng-deep {
+  .cdk-overlay-backdrop {
+    display: none !important;
+  }
+}

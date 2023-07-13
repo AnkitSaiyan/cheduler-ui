@@ -1,5 +1,5 @@
 <div class="anatomy">
-  <div class="exam-detail">
+  <div class="exam-detail" [formGroup]="addExamForm">
     <section class="filter-section">
       <div class="d-flex filter" [formGroup]="filterForm">
         <div class="d-flex heading">
@@ -75,20 +75,19 @@
     <section class="selected-exam dfm-gap-24">
       <span>Add Exams</span>
 
-      <div class="d-flex flex-column">
-        <div class="d-flex dfm-gap-8 flex-wrap" [formGroup]="addExamForm">
+      <div class="d-flex flex-column ">
+        <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
           <dfm-input-dropdown
             [items]="(examSvc.filterExams$$ | async) ?? []"
             formControlName="exam"
             size="sm"
             label="Exam"
-            placeholder="Select exam"
+            [placeholder]="'Select '+((examSvc.selectedCategory$$ | async) ?? '' | lowercase)+ ' exam'"
           ></dfm-input-dropdown>
 
           <dfm-button
             color="primary"
             size="sm"
-            style="margin-top: 28px"
             (click)="onExamSelect(addExamForm.value.exam)"
             [disabled]="!addExamForm.value?.exam"
             >Add Exam</dfm-button
@@ -97,21 +96,29 @@
       </div>
 
       <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">Selected Exams</span>
-
-      <div *ngFor="let item of examSvc.selectedExam | keyvalue">
-        <p>{{ item.key | as | titlecase}}</p>
-        <div class="exam">
-          <mat-chip
-            disableRipple
-            *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
-            (removed)="examSvc.addExam(item.key, exam)"
-          >
-            {{ exam }}
-            <button matChipRemove >
-              <mat-icon color="primary">cancel</mat-icon>
-            </button>
-          </mat-chip>
+      <div class="exam-list">
+        <div *ngFor="let item of examSvc.selectedExam | keyvalue">
+          <p>{{ item.key | as | titlecase}}</p>
+          <div class="exam">
+            <mat-chip
+              disableRipple
+              *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
+              (removed)="examSvc.addExam(item.key, exam)"
+            >
+              {{ exam }}
+              <button matChipRemove >
+                <mat-icon color="primary">cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </div>
         </div>
+      </div>
+      <div class="comments-section" >
+        <dfm-text-area
+          formControlName="comments"
+          label="{{ 'Comments' | translate }}"
+          placeholder="{{ 'EnterComments' | translate }}"
+        ></dfm-text-area>
       </div>
     </section>
   </div>
