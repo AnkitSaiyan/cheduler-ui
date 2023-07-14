@@ -70,9 +70,9 @@ export class AnatomyModelComponent implements OnInit {
 
   ngOnInit() {
     this.filterForm = this.fb.group({
-      gender: [{ value: 'male', disabled: true }, [Validators.required]],
+      gender: ['male', [Validators.required]],
       bodyStructure: ['organs', [Validators.required]],
-      side: [{ value: 'front', disabled: true }, [Validators.required]],
+      side: ['front', [Validators.required]],
     });
 
     this.addExamForm = this.fb.group({
@@ -81,14 +81,8 @@ export class AnatomyModelComponent implements OnInit {
     });
 
     this.filterForm.get('bodyStructure')?.valueChanges.subscribe((value) => {
-      console.log(value);
       if (value === 'bones') {
         this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
-        this.filterForm.get('gender')?.disable();
-        this.filterForm.get('side')?.disable();
-      } else {
-        this.filterForm.get('gender')?.enable();
-        this.filterForm.get('side')?.enable();
       }
     });
 
@@ -109,6 +103,10 @@ export class AnatomyModelComponent implements OnInit {
     this.addExamForm.get('exam')?.reset();
   }
 }
+
+
+
+
 
 
 
