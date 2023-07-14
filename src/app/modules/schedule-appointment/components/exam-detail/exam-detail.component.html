@@ -106,11 +106,17 @@
     </ng-template>
   </form>
 
-  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid">
-    {{ 'Next' | translate }}
-  </dfm-button>
+  <div class="d-flex justify-content-center dfm-gap-16">
+    <dfm-button color="secondary" size="lg" routerLink="../referral-physician" class="exam-next-btn"> {{"Back" | translate}}</dfm-button>
+      <dfm-button color="secondary" size="sm" routerLink="../referral-physician" class="exam-next-btn-mv"> {{"Back" | translate}}</dfm-button>
 
-  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid">
-    {{ 'Next' | translate }}
-  </dfm-button>
+    <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid">
+      {{ 'Next' | translate }}
+    </dfm-button>
+
+    <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid">
+      {{ 'Next' | translate }}
+    </dfm-button>
+  </div>
+
 </div>
