@@ -55,7 +55,14 @@
   --dfm-checkbox-border-hover: #{$diflexmo-primary};
 
   // radio
+  --dfm-radio-checked-bg: #{$diflexmo-primary-text};
+  --dfm-radio-disabled-border: #{$diflexmo-primary};
+  --dfm-radio-hover-bg: #{$diflexmo-secondary};
   --dfm-radio-hover-border: #{$diflexmo-primary};
+  --dfm-radio-disabled-bg: #{$gray-modern-100};
+  --dfm-radio-disabled-border: #{$gray-modern-300};
+  --dfm-radio-focus-shadow: #{$diflexmo-secondary};
+  // --dfm-toggle-focus-shadow: #{$diflexmo-transparent-bg};
 
   // dropdown
   --dfm-input-dropdown-option-selected-color: #{$diflexmo-primary};
