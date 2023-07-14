@@ -19,6 +19,7 @@ import { SkeletonFemaleBackModelComponent } from './components/exam-detail/model
 import { SkeletonFemaleFrontModelComponent } from './components/exam-detail/models/skeleton-female-front-model/skeleton-female-front-model.component';
 import { OrganFemaleBackModelComponent } from './components/exam-detail/models/organ-female-back-model/organ-female-back-model.component';
 import { OrganFemaleFrontModelComponent } from './components/exam-detail/models/organ-female-front-model/organ-female-front-model.component';
+import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { OrganFemaleFrontModelComponent } from './components/exam-detail/models/
     OrganMaleBackModelComponent,
     OrganFemaleBackModelComponent,
     OrganFemaleFrontModelComponent,
+    ReferralPhysicianComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })
