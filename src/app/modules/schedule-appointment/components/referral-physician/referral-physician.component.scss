@@ -1,0 +1,14 @@
+.exam-form-container {
+  padding: 16px;
+  display: grid;
+  min-width: 80vw;
+  min-height: 30vh;
+
+  >h5 {
+    text-align: center;
+  }
+}
+
+.exam-next-btn-mv {
+  display: none;
+}
