@@ -19,6 +19,20 @@ export class AnatomyModelComponent implements OnInit {
 
   public filter = [
     {
+      name: 'Body Structure',
+      formName: 'bodyStructure',
+      children: [
+        {
+          name: 'Body',
+          value: 'organs',
+        },
+        {
+          name: 'Bones',
+          value: 'bones',
+        },
+      ],
+    },
+    {
       name: 'Gender',
       formName: 'gender',
       children: [
@@ -29,20 +43,6 @@ export class AnatomyModelComponent implements OnInit {
         {
           name: 'Female',
           value: 'female',
-        },
-      ],
-    },
-    {
-      name: 'Body Structure',
-      formName: 'bodyStructure',
-      children: [
-        {
-          name: 'Bones',
-          value: 'bones',
-        },
-        {
-          name: 'Body',
-          value: 'organs',
         },
       ],
     },
@@ -70,25 +70,19 @@ export class AnatomyModelComponent implements OnInit {
 
   ngOnInit() {
     this.filterForm = this.fb.group({
-      gender: [{ value: 'male', disabled: true }, [Validators.required]],
-      bodyStructure: ['bones', [Validators.required]],
-      side: [{ value: 'front', disabled: true }, [Validators.required]],
+      gender: ['male', [Validators.required]],
+      bodyStructure: ['organs', [Validators.required]],
+      side: ['front', [Validators.required]],
     });
 
     this.addExamForm = this.fb.group({
       exam: [null, []],
-      comments: ['',[]]
+      comments: ['', []],
     });
 
     this.filterForm.get('bodyStructure')?.valueChanges.subscribe((value) => {
-      console.log(value);
       if (value === 'bones') {
         this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
-        this.filterForm.get('gender')?.disable();
-        this.filterForm.get('side')?.disable();
-      } else {
-        this.filterForm.get('gender')?.enable();
-        this.filterForm.get('side')?.enable();
       }
     });
 
@@ -109,6 +103,12 @@ export class AnatomyModelComponent implements OnInit {
     this.addExamForm.get('exam')?.reset();
   }
 }
+
+
+
+
+
+
 
 
 
