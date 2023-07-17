@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, debounceTime, filter, first, map, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
+import { LandingService } from 'src/app/core/services/landing.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -35,9 +36,20 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private cdr: ChangeDetectorRef,
     public loaderSvc: LoaderService,
+    public landingService: LandingService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
+    this.router.events
+      .pipe(
+        filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd),
+        takeUntil(this.destroy$$))
+      .subscribe((event) => {
+        if (event.id === 1 && event.url === event.urlAfterRedirects) 
+          this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => 
+            this.siteDetails$$.next(res?.data)            
+          )
+      });
   }
 
   public ngOnInit(): void {
