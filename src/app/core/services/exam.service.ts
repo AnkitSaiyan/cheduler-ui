@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
+import { BodyMaleBack, BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +60,7 @@ export class ExamService {
     );
   }
 
-  public setCategory(category: BodyMaleFront | any) {
+  public setCategory(category: BodyMaleFront | BodyMaleBack | any) {
     this.selectedCategory$$.next(category);
   }
 
@@ -85,7 +85,7 @@ export class ExamService {
     );
   }
 
-  public addExam(category: BodyMaleFront | any, exam: string) {
+  public addExam(category: BodyMaleFront | BodyMaleBack | any, exam: string) {
     if (this.selectedExam[category]) {
       if (this.selectedExam[category].find((value) => value === exam)) {
         this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
@@ -108,6 +108,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 
