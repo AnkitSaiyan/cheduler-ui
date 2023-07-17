@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -32,14 +33,14 @@ export class ExamService {
     { id: 23, value: ['X-ray', 'CT scan'], category: 'Tarsals' },
     { id: 24, value: ['X-ray', 'CT scan'], category: 'Metatarsals' },
     { id: 25, value: ['X-ray', 'CT scan'], category: 'Foot Phalanges' },
-    { id: 26, value: ['X-ray', 'CT scan'], category: 'Head' },
-    { id: 27, value: ['X-ray', 'CT scan'], category: 'Neck' },
-    { id: 28, value: ['X-ray', 'CT scan'], category: 'Chest' },
-    { id: 29, value: ['X-ray', 'CT scan'], category: 'Arm-rt' },
-    { id: 30, value: ['X-ray', 'CT scan'], category: 'Arm-lt' },
-    { id: 31, value: ['X-ray', 'CT scan'], category: 'Abdomen' },
-    { id: 32, value: ['X-ray', 'CT scan'], category: 'Leg-rt' },
-    { id: 34, value: ['X-ray', 'CT scan'], category: 'Leg-lt' },
+    { id: 26, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Chest },
+    { id: 27, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Neck },
+    { id: 28, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Head },
+    { id: 29, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Pelvis },
+    { id: 30, value: ['X-ray', 'CT scan'], category: BodyMaleFront.ShoulderLt },
+    { id: 31, value: ['X-ray', 'CT scan'], category: BodyMaleFront.ShoulderRt },
+    { id: 32, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Abdomen },
+    { id: 34, value: ['X-ray', 'CT scan'], category: BodyMaleFront.AnkleLt },
   ];
 
   public separator = ' :;: ';
@@ -59,7 +60,7 @@ export class ExamService {
     );
   }
 
-  public setCategory(category: string) {
+  public setCategory(category: BodyMaleFront | any) {
     this.selectedCategory$$.next(category);
   }
 
@@ -84,11 +85,7 @@ export class ExamService {
     );
   }
 
-  public addExam(category: any, exam: string) {
-    if (category === 'All') {
-      category = exam.split(this.separator)[0];
-      exam = exam.split(this.separator)[1];
-    }
+  public addExam(category: BodyMaleFront | any, exam: string) {
     if (this.selectedExam[category]) {
       if (this.selectedExam[category].find((value) => value === exam)) {
         this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
@@ -111,6 +108,11 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
+
 
 
 

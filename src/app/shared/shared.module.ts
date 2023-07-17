@@ -31,6 +31,7 @@ import { WeekdayToNamePipe } from './pipes/weekday-to-name.pipe';
 import { AsPipe } from './pipes/as.pipe';
 import { QrModalComponent } from './components/qr-modal/qr-modal.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
+import { AnatomyMatMenu } from './components/anatomy-mat-menu/anatomy-mat-menu';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AsPipe,
     QrModalComponent,
     UploadDocumentComponent,
+    AnatomyMatMenu,
   ],
   imports: [
     CommonModule,
@@ -103,6 +105,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatIconModule,
     MatChipsModule,
     AsPipe,
+    AnatomyMatMenu,
   ],
 })
 export class SharedModule {}
+
