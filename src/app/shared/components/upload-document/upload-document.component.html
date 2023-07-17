@@ -1,6 +1,16 @@
-<div class="container">
-<div style="max-width: 240px;">
-    <input type="file" #fileChange (change)="refferingNote($event)" style="display:none;">
-    <dfm-button color="primary" size="lg"  class="button-design schedule-btn" (click)="fileChange.click()">Upload</dfm-button>
-</div>
+<div class="upload-main-container">
+  <div class="container">
+    <div class="back-container"></div>
+    <div class="front-container">
+        <div class="primary-spectrum">
+          <div class="upload-document-btn">
+            <div class="light-circle">
+              <input type="file">
+          <img src="../../../../assets/images/upload-icon.png" alt="upload-icon">
+          <span class="icon-text">Upload Document</span>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
