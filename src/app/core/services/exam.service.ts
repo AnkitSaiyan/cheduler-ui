@@ -1,45 +1,46 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BodyMaleBack, BodyMaleFront, Skeleton } from 'src/app/shared/utils/anatomy.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamService {
   public exams = [
-    { id: 1, value: ['MRI', 'CT scan'], category: 'Skull' },
-    { id: 2, value: ['MRI', 'X-ray'], category: 'Spine' },
-    { id: 3, value: ['MRI', 'X-ray'], category: 'Sacrum' },
-    { id: 4, value: ['X-ray', 'Ultrasound'], category: 'Pelvis' },
-    { id: 5, value: ['X-ray', 'CT scan'], category: 'Ribs' },
-    { id: 6, value: ['X-ray', 'CT scan'], category: 'Sternum' },
-    { id: 7, value: ['X-ray', 'CT scan'], category: 'Clavicle' },
-    { id: 8, value: ['X-ray', 'CT scan'], category: 'Scapula' },
-    { id: 9, value: ['X-ray', 'CT scan'], category: 'Humerus' },
-    { id: 10, value: ['X-ray', 'CT scan'], category: 'Radius' },
-    { id: 11, value: ['X-ray', 'CT scan'], category: 'Ulna' },
-    { id: 12, value: ['X-ray', 'CT scan'], category: 'Hand' },
-    { id: 13, value: ['X-ray', 'CT scan'], category: 'Femur' },
-    { id: 14, value: ['X-ray', 'CT scan'], category: 'Patella' },
-    { id: 15, value: ['X-ray', 'CT scan'], category: 'Tibia' },
-    { id: 16, value: ['X-ray', 'CT scan'], category: 'Fibula' },
-    { id: 17, value: ['X-ray', 'CT scan'], category: 'Foot' },
-    { id: 18, value: ['X-ray', 'CT scan'], category: 'Carpals' },
-    { id: 19, value: ['X-ray', 'CT scan'], category: 'Metacarpals' },
-    { id: 20, value: ['X-ray', 'CT scan'], category: 'Hand Phalanges' },
-    { id: 21, value: ['X-ray', 'CT scan'], category: 'Calcaneus' },
-    { id: 22, value: ['X-ray', 'CT scan'], category: 'Talus' },
-    { id: 23, value: ['X-ray', 'CT scan'], category: 'Tarsals' },
-    { id: 24, value: ['X-ray', 'CT scan'], category: 'Metatarsals' },
-    { id: 25, value: ['X-ray', 'CT scan'], category: 'Foot Phalanges' },
-    { id: 26, value: ['X-ray', 'CT scan'], category: 'Head' },
-    { id: 27, value: ['X-ray', 'CT scan'], category: 'Neck' },
-    { id: 28, value: ['X-ray', 'CT scan'], category: 'Chest' },
-    { id: 29, value: ['X-ray', 'CT scan'], category: 'Arm-rt' },
-    { id: 30, value: ['X-ray', 'CT scan'], category: 'Arm-lt' },
-    { id: 31, value: ['X-ray', 'CT scan'], category: 'Abdomen' },
-    { id: 32, value: ['X-ray', 'CT scan'], category: 'Leg-rt' },
-    { id: 34, value: ['X-ray', 'CT scan'], category: 'Leg-lt' },
+    { id: 1, value: ['MRI', 'CT scan'], category: Skeleton.Skull },
+    { id: 2, value: ['MRI', 'X-ray'], category: Skeleton.Spine },
+    { id: 3, value: ['MRI', 'X-ray'], category: Skeleton.Sacrum },
+    { id: 4, value: ['X-ray', 'Ultrasound'], category: Skeleton.Pelvis },
+    { id: 5, value: ['X-ray', 'CT scan'], category: Skeleton.Ribs },
+    { id: 6, value: ['X-ray', 'CT scan'], category: Skeleton.Sternum },
+    { id: 7, value: ['X-ray', 'CT scan'], category: Skeleton.ClavicleRt },
+    { id: 8, value: ['X-ray', 'CT scan'], category: Skeleton.ClavicleLt },
+    { id: 9, value: ['X-ray', 'CT scan'], category: Skeleton.ScapulaRt },
+    { id: 10, value: ['X-ray', 'CT scan'], category: Skeleton.ScapulaLt },
+    { id: 11, value: ['X-ray', 'CT scan'], category: Skeleton.HumerusRt },
+    { id: 12, value: ['X-ray', 'CT scan'], category: Skeleton.HumerusLt },
+    { id: 13, value: ['X-ray', 'CT scan'], category: Skeleton.RadiusRt },
+    { id: 14, value: ['X-ray', 'CT scan'], category: Skeleton.RadiusLt },
+    { id: 15, value: ['X-ray', 'CT scan'], category: Skeleton.HandLt },
+    { id: 16, value: ['X-ray', 'CT scan'], category: Skeleton.FemurRt },
+    { id: 17, value: ['X-ray', 'CT scan'], category: Skeleton.CalcaneusLt },
+    { id: 18, value: ['X-ray', 'CT scan'], category: Skeleton.MetacarpalsRt },
+    { id: 19, value: ['X-ray', 'CT scan'], category: Skeleton.HandPhalangesLt },
+    { id: 20, value: ['X-ray', 'CT scan'], category: Skeleton.FootPhalangesRt },
+    { id: 21, value: ['X-ray', 'CT scan'], category: Skeleton.CarpalsRt },
+    { id: 22, value: ['X-ray', 'CT scan'], category: Skeleton.TalusLt },
+    { id: 23, value: ['X-ray', 'CT scan'], category: Skeleton.TibiaRt },
+    { id: 24, value: ['X-ray', 'CT scan'], category: Skeleton.TibiaLt },
+    { id: 25, value: ['X-ray', 'CT scan'], category: Skeleton.FemurLt },
+    { id: 26, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Chest },
+    { id: 27, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Neck },
+    { id: 28, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Head },
+    { id: 29, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Pelvis },
+    { id: 30, value: ['X-ray', 'CT scan'], category: BodyMaleFront.ShoulderLt },
+    { id: 31, value: ['X-ray', 'CT scan'], category: BodyMaleFront.ShoulderRt },
+    { id: 32, value: ['X-ray', 'CT scan'], category: BodyMaleFront.Abdomen },
+    { id: 34, value: ['X-ray', 'CT scan'], category: BodyMaleFront.AnkleLt },
   ];
 
   public separator = ' :;: ';
@@ -59,7 +60,7 @@ export class ExamService {
     );
   }
 
-  public setCategory(category: string) {
+  public setCategory(category: BodyMaleFront | BodyMaleBack | any) {
     this.selectedCategory$$.next(category);
   }
 
@@ -84,11 +85,7 @@ export class ExamService {
     );
   }
 
-  public addExam(category: any, exam: string) {
-    if (category === 'All') {
-      category = exam.split(this.separator)[0];
-      exam = exam.split(this.separator)[1];
-    }
+  public addExam(category: BodyMaleFront | BodyMaleBack | any, exam: string) {
     if (this.selectedExam[category]) {
       if (this.selectedExam[category].find((value) => value === exam)) {
         this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
@@ -111,6 +108,13 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
+
+
+
 
 
 
