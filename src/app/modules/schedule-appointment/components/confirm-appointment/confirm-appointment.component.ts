@@ -48,6 +48,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public isConsentGiven$$ = new BehaviorSubject<boolean>(false);
   private authUser: AuthUser | undefined;
   private selectedLang!: string;
+  private appointmentRefresh$$ = new BehaviorSubject<undefined>(undefined);
 
   constructor(
     private authService: AuthService,
@@ -98,7 +99,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     this.isLoggedIn$ = this.authService.isLoggedIn$;
 
-    combineLatest([this.appointmentId$$])
+    combineLatest([this.appointmentId$$, this.appointmentRefresh$$])
       .pipe(
         switchMap(([id]) => {
           if (id) {
@@ -232,7 +233,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
-            socialSecurityNumber:null,
+            socialSecurityNumber: null,
           }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
@@ -345,7 +346,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
-            socialSecurityNumber:null,
+            socialSecurityNumber: null,
           }
         : this.basicDetails),
       doctorId: this.examDetails.physician,
@@ -439,7 +440,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
-                      socialSecurityNumber:null,
+                      socialSecurityNumber: null,
                       fromPatient: true,
                     }
                   : { ...requestData, fromPatient: true },
@@ -457,6 +458,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.isEdit$$.next(false);
               this.isButtonDisable$$.next(false);
               this.createPermit();
+              this.appointmentRefresh$$.next(undefined);
               this.router.navigate([], {
                 queryParams: {
                   s: 'a',
@@ -478,7 +480,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
-                      socialSecurityNumber:null,
+                      socialSecurityNumber: null,
                     }
                   : { ...requestData },
               ),
@@ -491,6 +493,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.appointmentId$$.next(res?.id);
               this.notificationSvc.showNotification(Translate.Success.AppointmentAddedSuccessfully[this.selectedLang]);
               this.isButtonDisable$$.next(false);
+              this.appointmentRefresh$$.next(undefined);
               this.createPermit();
               this.router.navigate([], {
                 queryParams: {

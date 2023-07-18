@@ -45,15 +45,15 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
     this.router.events
-      .pipe(
-        filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd),
-        takeUntil(this.destroy$$))
-      .subscribe((event) => {
-        if (event.id === 1 && event.url === event.urlAfterRedirects) 
-          this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => 
-            this.siteDetails$$.next(res?.data)            
-          )
-      });
+    .pipe(
+      filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd),
+      takeUntil(this.destroy$$))
+    .subscribe((event) => {
+      if (event.id === 1 && event.url === event.urlAfterRedirects) 
+        this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => 
+          this.siteDetails$$.next(res?.data)            
+        )
+    });
   }
 
   public ngOnInit(): void {
