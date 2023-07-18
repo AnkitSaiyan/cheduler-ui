@@ -46,16 +46,6 @@
                    placeholder="{{'enterSocialSecurityNumber' | translate}}"></dfm-input>
       </div>
       <div class="flex-1">
-        <div class="d-flex flex-column gap-1">
-          <label class="dfm-input-label">Upload Referring Note</label>
-          <div class="d-flex gap-2">
-            <input type="file" #fileChange (change)="refferingNote($event)" style="display:none;">
-            <dfm-button color="secondary" size="sm" (click)="fileChange.click()">Upload</dfm-button>
-            <span class="text-primary d-flex align-items-center">OR</span>
-            <dfm-button color="primary" size="sm" (click)="uploadDocumentFromMobile()" >Upload Device
-            </dfm-button>
-          </div>
-        </div>
       </div>
 
     </div>
