@@ -34,8 +34,8 @@
       <div class="form-group">
         <dfm-input type="number" size="sm" label="{{'PhoneNumber' | translate}} *" placeholder="{{'EnterPhoneNumber' | translate}}"
                    formControlName="patientTel"></dfm-input>
-                   <span class="validation-error" *ngIf="basicDetailsForm.controls['patientTel'].hasError('required') && basicDetailsForm.controls['patientTel'].touched">
-                    {{ 'RequiredField' | translate }}
+                   <span class="validation-error" *ngIf="!basicDetailsForm.controls['patientTel'].valid && basicDetailsForm.controls['patientTel'].touched">
+                    {{ 'Please Enter Valid Mobile Number' | translate }}
                   </span>
       </div>
     </div>
