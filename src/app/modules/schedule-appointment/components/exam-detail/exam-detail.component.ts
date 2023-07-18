@@ -9,6 +9,8 @@ import { DestroyableComponent } from '../../../../shared/components/destroyable/
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { LandingService } from 'src/app/core/services/landing.service';
+import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -36,7 +38,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private cdr: ChangeDetectorRef,
     public loaderSvc: LoaderService,
-    public landingService: LandingService,
+    private landingService: LandingService,
+    private modalSvc: ModalService,
+    
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -251,5 +255,22 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     }
 
     errorControls.forEach((control) => control.patchValue({ uncombinableError: true }));
+  }
+
+  public uploadDocumentFromMobile(){
+    const modalRef = this.modalSvc.open(QrModalComponent, {
+      data: {
+       img: 'https://i.ibb.co/c8L627S/qrcode.png'
+      } ,
+    });
+
+    // modalRef.closed
+    //   .pipe(
+    //     filter((res) => !!res),
+    //     take(1),
+    //   )
+    //   .subscribe({
+    //     next: () => 
+    //   });
   }
 }
