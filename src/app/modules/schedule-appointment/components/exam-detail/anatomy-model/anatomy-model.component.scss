@@ -92,9 +92,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      max-height: 40vh;
+      // max-height: 40vh;
       overflow: auto;
+      flex-direction: column !important;
     }
+}
+
+.exam-container{
+  max-height: 256px;
+  max-width: 256px;
+  overflow: auto;
 }
 
 .mat-chip {
