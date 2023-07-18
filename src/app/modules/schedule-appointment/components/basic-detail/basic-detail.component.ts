@@ -126,35 +126,14 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   private createForm(basicDetails, isDisable = false) {
-    console.log(basicDetails);
+    // console.log(basicDetails);
     this.basicDetailsForm = this.fb.group({
       patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
       patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
-      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
+      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required, Validators.minLength(10)]],
       patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
       socialSecurityNumber: [{ value: basicDetails?.socialSecurityNumber, disabled: isDisable }],
     });
 
-  }
-
-  public refferingNote(file:any){
-    console.log(file.target.files);
-  }
-
-  public uploadDocumentFromMobile(){
-    const modalRef = this.modalSvc.open(QrModalComponent, {
-      data: {
-       img: 'https://i.ibb.co/c8L627S/qrcode.png'
-      } ,
-    });
-
-    // modalRef.closed
-    //   .pipe(
-    //     filter((res) => !!res),
-    //     take(1),
-    //   )
-    //   .subscribe({
-    //     next: () => 
-    //   });
   }
 }
