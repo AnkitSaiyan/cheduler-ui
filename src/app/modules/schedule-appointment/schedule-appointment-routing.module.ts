@@ -6,6 +6,7 @@ import { ConfirmAppointmentComponent } from './components/confirm-appointment/co
 import { ExamDetailComponent } from './components/exam-detail/exam-detail.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
+import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
 
 const scheduleAppointmentRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ const scheduleAppointmentRoutes: Routes = [
       {
         path: 'basic-details',
         component: BasicDetailComponent,
+      },
+      {
+        path: 'referral-physician',
+        component: ReferralPhysicianComponent,
       },
       {
         path: 'exam',
