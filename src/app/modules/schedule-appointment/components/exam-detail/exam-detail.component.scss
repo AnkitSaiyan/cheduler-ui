@@ -47,10 +47,11 @@ max-width: 300px !important;
     align-items: center;
   }
   .upload-container{
+    width: 100%!important;
     display: flex;
-  justify-content: center;
-  align-items: center;
-    background-color: var(--dfm-primary-lighter);
+  justify-content: space-between;
+  align-items:flex-start;
+    // background-color: var(--dfm-primary-lighter);
     border-radius:50px;
     padding: 10px 40px;
     gap: 10px;
@@ -87,16 +88,44 @@ max-width: 300px !important;
         }
     }
   }
-  
-  .upload-text, .or-text{
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-    color: var(--dfm-input-label-color);
-    // background-color: #ffffff;
-    padding: 5px;
+  .upload-button{
+    background-color: var(--dfm-primary);
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
     border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
+  .upload-text{
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .or-btn{
+    margin: 30px 0px 0px 0px;
+    position: relative;
+  }
+  .or-btn span::after{
+    content: '';
+    width: 30px;
+    height: 1px;
+    background-color: var(--dfm-primary);
+    position: absolute;
+    top: 50%;
+    left: 30px;
+  }
+  .or-btn span::before{
+    content: '';
+    width: 30px;
+    height: 1px;
+    background-color: var(--dfm-primary);
+    position: absolute;
+    top: 50%;
+    right: 30px;
+  }
+  
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 680px) {
@@ -242,6 +271,14 @@ max-width: 300px !important;
   .exam-form-main-container .upload-container{
     // flex-direction: column;
     padding: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .or-btn{
+    display: none;
+  }
+  .mobile-upload-mv{
+    display: none!important;
   }
 }
 

@@ -30,23 +30,28 @@
             <span class="upload-text">Upload Referring Note</span>
             <div class="upload-main-container">
               <div class="upload-container">
-                  <div class="upload-btn">
-                    <input type="file">
-                  <!-- <dfm-button color="primary" size="sm" leadingIcon="plus">
-                    Upload
+                <div class="upload-section d-flex flex-column align-items-center">
+                 <div class="upload-button">
+                  <!-- <dfm-button color="primary" size="lg">
+                    Upload Document
                   </dfm-button> -->
-                  <span>
-                    <img src="../../../../../assets/images/upload-icon.png" alt="upload-icon" width="30px">
-                  </span>
+                  <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px">
                 </div>
-                <span class="or-text">OR</span>
-                <div class="upload-btn">
-                  <!-- <dfm-button color="secondary" size="sm">
-                    Generate QR
+                <p class="upload-text">Upload Document</p>
+                </div>
+                 <div class="or-btn"><span>OR</span></div>
+                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
+                 <div class="upload-button">
+                  <img src="../../../../../assets/images/phone-scan.png" alt="" width="40px">
+                  
+                  <!-- <dfm-button color="secondary" size="lg">
+                    Upload Document From Mobile Device
                   </dfm-button> -->
-                  <span (click)="uploadDocumentFromMobile()">
+                 </div>
+                <p class="upload-text">Upload Document <br>From Mobile Device</p>
+                  <!-- <span (click)="uploadDocumentFromMobile()">
                     <img src="../../../../../assets/images/qr-code.png" alt="" width="30px">
-                  </span>
+                  </span> -->
                 </div>
               </div>
             </div>
