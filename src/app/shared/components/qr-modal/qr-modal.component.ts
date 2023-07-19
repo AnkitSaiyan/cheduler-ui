@@ -7,9 +7,16 @@ import { takeUntil } from 'rxjs';
   selector: 'dfm-qr-modal',
   template: `
   <div class="container">
-    <div class="d-flex justify-content-center mt-2">
+    <h5 class="dfm-color-primary font-weight-high qr-heading">
+    Scan QR code to upload from Mobile device
+    </h5>
+    <div class="flex-1 d-flex justify-content-center mt-2">
       <img [src]="img" alt="QR" width="200px">
     </div>
+    <span class="flex-1 d-flex justify-content-center mb-2 gap-2 flex-column">
+      <span class="flex-1 justify-content-center dfm-color-primary d-flex">5:00</span>
+    <a class="flex-1 justify-content-center d-flex dfm-color-primary" >Generate new QR code</a>
+    </span>
     <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">Done</dfm-button>
     </div>
   `,
@@ -21,6 +28,11 @@ import { takeUntil } from 'rxjs';
       flex-direction : column;
       background-color: white;
       border-radius: 10px;
+    }
+
+    .qr-heading {
+      font-weight: 600;
+      margin : 20px 10px 0 10px;
     }
   `]
 })

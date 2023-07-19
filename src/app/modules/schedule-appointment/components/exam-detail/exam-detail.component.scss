@@ -2,6 +2,10 @@
   padding: 48px;
 }
 
+.input-w-300{
+max-width: 300px !important;
+}
+
 .exam-next-btn-mv {
   display: none;
 }
@@ -39,7 +43,7 @@
   .upload-main-container{
     display: flex;
     // border: 1px solid red;
-    justify-content: center;
+    // justify-content: center;
     align-items: center;
   }
   .upload-container{
@@ -93,6 +97,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+  }
+  .upload-text{
+    font-weight: 500;
+    font-size: 14px;
   }
   .or-btn{
     margin: 30px 0px 0px 0px;
@@ -106,7 +115,6 @@
     position: absolute;
     top: 50%;
     left: 30px;
-    // transform: translate(-50%, -50%);
   }
   .or-btn span::before{
     content: '';
@@ -116,29 +124,19 @@
     position: absolute;
     top: 50%;
     right: 30px;
-    // transform: translate(-50%, -50%);
   }
   
-  .upload-text, .or-text{
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-    color: var(--dfm-input-label-color);
-    // background-color: #ffffff;
-    padding: 5px;
-    border-radius: 50%;
-  }
 }
 // ======================Media Query for Mobile view=================
 @media (min-width: 680px) {
   .exam-form-container {
-    min-height: 336px;
+    // min-height: 336px;
     // min-width: 666px;
   }
 }
 @media (min-width: 180px) and (max-width: 680px) {
   .exam-form-container {
-      min-height: min(60vh, 354px);
+      // min-height: min(60vh, 354px);
     }
   .main-exam-container{
     // border: 1px solid red;
@@ -271,9 +269,10 @@
     display: none!important;
   }
   .exam-form-main-container .upload-container{
-    flex-direction: column;
+    // flex-direction: column;
     padding: 10px;
     align-items: center;
+    justify-content: center;
   }
   .or-btn{
     display: none;

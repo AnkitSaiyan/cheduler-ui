@@ -317,7 +317,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       return;
     }
     if (this.selectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
-      this.selectedTimeSlot[slot.examId] = { slot: '', roomList: [], userList: [], examId: slot.examId };
+      delete this.selectedTimeSlot[slot.examId];
     } else {
       this.selectedTimeSlot[slot.examId] = {
         ...slot,

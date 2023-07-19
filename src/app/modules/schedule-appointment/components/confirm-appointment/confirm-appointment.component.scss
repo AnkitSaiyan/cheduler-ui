@@ -130,6 +130,10 @@ gap: 8px;
   white-space: nowrap;
 }
 
+.user-info{
+  min-width: 128px !important;
+}
+
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .main-container{
