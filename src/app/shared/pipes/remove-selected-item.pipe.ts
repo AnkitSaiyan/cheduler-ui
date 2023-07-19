@@ -9,4 +9,3 @@ export class RemoveSelectedItemPipe implements PipeTransform {
     return value.filter((val) => !filterFormValue.find((item) => item === val.value));
   }
 }
-

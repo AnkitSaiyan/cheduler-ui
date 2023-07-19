@@ -269,6 +269,7 @@
   "NoPreviousAppointmentsFound": "Geen eerdere afspraak gevonden",
   "socialSecurityNumber": "Sociaal Zekerheidsnummer",
   "enterSocialSecurityNumber": "Geef Sociaal Zekerheidsnummer",
+  "NoOnlineAppointmentsTextMessage": "No online appointments can be made, please contact the practice.",
   "Jan": "Jan",
   "Feb": "Feb",
   "Mar": "Mar",
@@ -290,4 +291,5 @@
     }
   }
 }
+
 
