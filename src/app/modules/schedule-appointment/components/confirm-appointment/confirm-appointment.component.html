@@ -7,19 +7,19 @@
           <table>
             <tr>
               <td class="text-primary table-title text-nowrape">{{"Name" | translate}} :</td>
-              <td class="text-nowrap">{{ basicDetails?.patientFname | titlecase }} {{ basicDetails?.patientLname }}</td>
+              <td class="user-info">{{ basicDetails?.patientFname | titlecase }} {{ basicDetails?.patientLname }}</td>
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"Email" | translate}} :</td>
-              <td class="text-nowrap">{{ basicDetails?.patientEmail | dashIfNothing}}</td>
+              <td class="user-info">{{ basicDetails?.patientEmail | dashIfNothing}}</td>
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"PhoneNo" | translate}}. :</td>
-              <td class="text-nowrap">{{ basicDetails?.patientTel | dashIfNothing }}</td>
+              <td class="user-info">{{ basicDetails?.patientTel | dashIfNothing }}</td>
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"socialSecurityNumber" | translate}} :</td>
-              <td class="text-nowrap" >{{ basicDetails?.socialSecurityNumber | dashIfNothing }}</td>
+              <td class="user-info" >{{ basicDetails?.socialSecurityNumber | dashIfNothing }}</td>
             </tr>
           </table>
         </div>
