@@ -80,7 +80,7 @@
       <div class="d-flex flex-column ">
         <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
           <dfm-input-dropdown
-            [items]="(examSvc.filterExams$$ | async) ?? []"
+            [items]="((examSvc.filterExams$$ | async) ?? [] | removeSelectedItem : examSvc.selectedExam[examSvc.selectedCategory$$.value] ?? [])"
             formControlName="exam"
             size="sm"
             label="Exam"

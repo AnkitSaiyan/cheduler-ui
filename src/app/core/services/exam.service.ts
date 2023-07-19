@@ -46,6 +46,7 @@ export class ExamService {
   public separator = ' :;: ';
 
   public selectedExam: any = {};
+  e;
 
   constructor() {}
 
@@ -73,6 +74,7 @@ export class ExamService {
             name: curr.category + ' - ' + value,
             value: curr.category + this.separator + value,
             category: curr.category,
+            originalValue: value,
           })),
         );
         return { ...acc, [curr.category]: { ...curr } };
@@ -108,6 +110,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 
