@@ -37,10 +37,10 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">breasts</h5>
         <div class="exam-list" *ngIf="(examSvc.exams$$| async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams['breasts']?.value" (click)="examSvc.addExam('breasts', exam)" >
+          <button mat-menu-item  *ngFor="let exam of exams[category.Breasts]?.value" (click)="examSvc.addExam(category.Breasts, exam)" >
             {{ exam }}
           </button>
-          <ng-container *ngIf="!exams['breasts']?.value?.length">
+          <ng-container *ngIf="!exams[category.Breasts]?.value?.length">
             <span>No exams found</span>
           </ng-container>
         </div>

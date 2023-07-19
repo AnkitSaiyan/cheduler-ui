@@ -174,6 +174,9 @@ export enum Skeleton {
   FootPhalangesLt = 'footPhalangesLt',
 }
 
+export type BodyPartCategory = BodyMaleFront | BodyMaleBack | BodyFemaleBack | BodyFemaleFront | Skeleton;
+
+
 
 
 

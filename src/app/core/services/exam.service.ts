@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
-import { BodyMaleBack, BodyMaleFront, Skeleton } from 'src/app/shared/utils/anatomy.enum';
+import { BodyFemaleBack, BodyFemaleFront, BodyMaleBack, BodyMaleFront, BodyPartCategory, Skeleton } from 'src/app/shared/utils/anatomy.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -71,7 +71,7 @@ export class ExamService {
         allExams.push(
           ...curr.value.map((value) => ({
             name: curr.category + ' - ' + value,
-            value: curr.category.toLocaleLowerCase() + this.separator + value,
+            value: curr.category + this.separator + value,
             category: curr.category,
           })),
         );
@@ -85,9 +85,9 @@ export class ExamService {
     );
   }
 
-  public addExam(category: BodyMaleFront | BodyMaleBack | any, exam: string) {
+  public addExam(category: BodyPartCategory | any, exam: string, onlyAdd: boolean = false) {
     if (this.selectedExam[category]) {
-      if (this.selectedExam[category].find((value) => value === exam)) {
+      if (!onlyAdd && this.selectedExam[category].find((value) => value === exam)) {
         this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value !== exam)];
         if (!this.selectedExam[category].length) {
           delete this.selectedExam[category];
@@ -108,6 +108,11 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
+
 
 
 
