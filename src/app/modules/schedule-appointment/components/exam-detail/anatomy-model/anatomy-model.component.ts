@@ -99,10 +99,13 @@ export class AnatomyModelComponent implements OnInit {
 
   public onExamSelect(value: string) {
     const [category, exam] = value.split(this.examSvc.separator);
-    this.examSvc.addExam(category, exam);
+    this.examSvc.addExam(category as any, exam, true);
     this.addExamForm.get('exam')?.reset();
   }
 }
+
+
+
 
 
 
