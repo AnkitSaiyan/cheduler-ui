@@ -36,7 +36,7 @@
   flex-direction: column;
   .upload-img-desc{
     position: absolute;
-    bottom: 125px;
+    bottom: 15vh;
     display: flex;
     justify-content: center;
     span{
@@ -136,7 +136,7 @@
     justify-content: flex-end;
     overflow: hidden;
     .upload-img-desc{
-      bottom: 145px;
+      bottom: 25vh;
       span{
         font-size: 14px;
       }
