@@ -26,19 +26,26 @@ export class ProgressBarComponent extends DestroyableComponent implements OnInit
   }
 
   public ngOnInit(): void {
-    this.routerStateSvc.listenForUrlChange$().pipe(takeUntil(this.destroy$$)).subscribe((url) => {
-      const urlArr = url.split('/');
-      if (urlArr?.length) {
-        this.url = urlArr[urlArr.length - 1];
-      }
-    });
+    this.routerStateSvc
+      .listenForUrlChange$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((url) => {
+        const urlArr = url.split('/');
+        if (urlArr?.length) {
+          this.url = urlArr[urlArr.length - 1];
+        }
+      });
 
-    this.routerStateSvc.listenForQueryParamsChanges$().pipe(takeUntil(this.destroy$$)).subscribe((queryParams) => {
-      this.status = queryParams['s'];
-    });
+    this.routerStateSvc
+      .listenForQueryParamsChanges$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((queryParams) => {
+        this.status = queryParams['s'];
+      });
   }
 
   public override ngOnDestroy() {
     super.ngOnDestroy();
   }
 }
+

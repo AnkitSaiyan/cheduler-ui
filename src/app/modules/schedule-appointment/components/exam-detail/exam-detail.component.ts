@@ -1,16 +1,16 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, debounceTime, filter, first, map, takeUntil } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, debounceTime, filter, first, map, take, takeUntil } from 'rxjs';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
-import { LandingService } from 'src/app/core/services/landing.service';
-import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
+import { Exam } from 'src/app/shared/models/exam.model';
+import { ExamService } from 'src/app/core/services/exam.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -32,28 +32,15 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
-    private cdr: ChangeDetectorRef,
     public loaderSvc: LoaderService,
-    private landingService: LandingService,
     private modalSvc: ModalService,
-    
+    public examSvc: ExamService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
-    this.router.events
-    .pipe(
-      filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd),
-      takeUntil(this.destroy$$))
-    .subscribe((event) => {
-      if (event.id === 1 && event.url === event.urlAfterRedirects) 
-        this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => 
-          this.siteDetails$$.next(res?.data)            
-        )
-    });
   }
 
   public ngOnInit(): void {
@@ -106,18 +93,39 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
               name: exam.name,
               value: exam.id,
               description: exam.instructions,
+              gender: exam.gender,
+              bodyPart: exam.bodyPart,
             };
           });
         }),
         takeUntil(this.destroy$$),
       )
       .subscribe({
-        next: (exams) => this.filteredExams$$.next(exams),
+        next: (exams: any[]) => {
+          this.examSvc.setExam({ ...this.examModifiedData(exams) });
+          this.filteredExams$$.next(exams);
+        },
       });
   }
 
   override ngOnDestroy() {
     super.ngOnDestroy();
+  }
+
+  private examModifiedData(exams: Exam[]): any {
+    return exams.reduce((acc, curr) => {
+      if (acc[curr.gender]) {
+        if (acc[curr.gender][curr.bodyPart]) {
+          acc[curr.gender][curr.bodyPart] = [...acc[curr.gender][curr.bodyPart], curr];
+        } else {
+          acc[curr.gender][curr.bodyPart] = [curr];
+        }
+      } else {
+        acc[curr.gender] = {};
+        acc[curr.gender][curr.bodyPart] = [curr];
+      }
+      return acc;
+    }, {});
   }
 
   private createForm(examDetails?, isEdit?) {
@@ -142,6 +150,27 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public examCount(): FormArray {
     return this.examForm.get('exams') as FormArray;
+  }
+
+  public openAnatomyModal() {
+    const modalRef = this.modalSvc.open(AnatomyModelComponent, {
+      options: {
+        size: 'lg',
+        centered: true,
+        backdropClass: 'modal-backdrop-remove-mv',
+      },
+    });
+
+    modalRef.closed
+      .pipe(
+        filter((res) => !!res),
+        take(1),
+      )
+      .subscribe({
+        next: (value) => {
+          console.log(value);
+        },
+      });
   }
 
   private newExam(exam?: number, info?: string): FormGroup {
@@ -180,20 +209,32 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.examForm.reset();
   }
 
+  public isDisabled() {
+    return !Object.values(this.examSvc.selectedExam)
+      .flatMap((val) => val)
+      .map((item: any) => item.value).length;
+  }
+
   public saveExamDetails() {
     // this.editData = {};
-    if (this.examForm.invalid) {
-      this.examForm.markAllAsTouched();
+    // if (this.examForm.invalid) {
+    //   this.examForm.markAllAsTouched();
+    //   return;
+    // }
+
+    // if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
+    //   return;
+    // }
+
+    const selectedExams = Object.values(this.examSvc.selectedExam)
+      .flatMap((val) => val)
+      .map((item: any) => item.value);
+    if (!selectedExams.length) {
       return;
     }
-
-    if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
-      return;
-    }
-
     const examDetails = {
       ...this.examForm.value,
-      exams: this.examForm.value.exams.map((exam) => exam.exam),
+      exams: selectedExams,
     } as ExamDetails;
 
     if (this.editData) {
@@ -255,22 +296,5 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     }
 
     errorControls.forEach((control) => control.patchValue({ uncombinableError: true }));
-  }
-
-  public uploadDocumentFromMobile(){
-    const modalRef = this.modalSvc.open(QrModalComponent, {
-      data: {
-       img: 'https://i.ibb.co/c8L627S/qrcode.png'
-      } ,
-    });
-
-    // modalRef.closed
-    //   .pipe(
-    //     filter((res) => !!res),
-    //     take(1),
-    //   )
-    //   .subscribe({
-    //     next: () => 
-    //   });
   }
 }

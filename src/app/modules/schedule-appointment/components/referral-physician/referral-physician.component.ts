@@ -29,7 +29,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public uploadFileName: string = '';
 
-  public documentUploadProcess = new BehaviorSubject<string>('')
+  public documentUploadProcess = new BehaviorSubject<string>('');
 
   public signalrFileName: string = '';
 
@@ -42,7 +42,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     private landingService: LandingService,
     private modalSvc: ModalService,
     private notificationService: NotificationDataService,
-    private singnalRSvc: SignalRService
+    private singnalRSvc: SignalRService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -79,10 +79,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       },
     });
 
-    this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe(data => {
+    this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       console.log('signalData', data);
       this.signalrFileName = data?.fileName;
-    })
+    });
   }
 
   override ngOnDestroy() {
@@ -111,7 +111,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
     if (allowedExtensions.indexOf(extension) === -1) {
       // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
-      this.notificationService.showNotification("File format not allowed", NotificationType.WARNING);
+      this.notificationService.showNotification('File format not allowed', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else {
       this.onFileChange(event);
@@ -119,12 +119,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   private uploadDocument(file: any) {
-    this.landingService.uploadDocumnet(file, '').subscribe(
-      {
-        next: (res) => this.documentUploadProcess.next(this.uploadFileName),
-        error: (err) => this.documentUploadProcess.next('Failed to upload'),
-      }
-    );
+    this.landingService.uploadDocumnet(file, '').subscribe({
+      next: (res) => this.documentUploadProcess.next(this.uploadFileName),
+      error: (err) => this.documentUploadProcess.next('Failed to upload'),
+    });
   }
 
   private onFileChange(event: Event) {
@@ -154,4 +152,3 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     //   });
   }
 }
-

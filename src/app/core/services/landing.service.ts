@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from './loader.service';
+import { HttpUtils } from 'src/app/shared/utils/http.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -61,32 +62,32 @@ export class LandingService {
   }
 
   public getQr(): Observable<any> {
-    let params = new HttpParams().append('url', window.location.origin+`/upload-documemt/?id=qrcodeid`);
-    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getqrcode`, { params })
-      .pipe(
+    let params = new HttpParams().append('url', window.location.origin + `/upload-document/?id=qrcodeid`);
+    let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getqrcode`, { params, headers }).pipe(
       map((response) => response.data),
       tap(),
     );
   }
 
-  public validateQr(uniqueId:string):Observable<any> {
+  public validateQr(uniqueId: string): Observable<any> {
     let params = new HttpParams().append('uniqueId', uniqueId);
-    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/validate`, { params })
-      .pipe(
+    let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/validate`, { params, headers }).pipe(
       map((response) => response.statusCode),
       tap(),
     );
   }
 
-  public uploadDocumnet(file: any, uniqueId: string):Observable<any> {
+  public uploadDocumnet(file: any, uniqueId: string): Observable<any> {
     const formData = new FormData();
     formData.append('File', file);
     formData.append('ApmtQRCodeId', uniqueId);
     formData.append('FileData', '');
     formData.append('FileName', '');
-    
-    return this.httpClient.post<any>(`${environment.serverBaseUrl}/qrcode/upload`,  formData )
-      .pipe(
+
+    let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
+    return this.httpClient.post<any>(`${environment.serverBaseUrl}/qrcode/upload`, formData, { headers }).pipe(
       map((response) => response.data),
       tap(),
     );

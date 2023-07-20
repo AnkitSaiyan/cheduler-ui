@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class DestroyableComponent implements OnDestroy {
   protected destroy$$ = new Subject();
 
+
   private destroy() {
     this.destroy$$.next('');
     this.destroy$$.unsubscribe();

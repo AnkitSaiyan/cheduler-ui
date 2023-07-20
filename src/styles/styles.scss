@@ -455,6 +455,47 @@ dfm-notification {
   background: transparent;
 }
 
+.popover-content {
+  // padding: 24px;
+  min-width: 180px;
+
+  >h5 {
+    padding: 4px 12px 0 12px;
+    font-weight: 500;
+    // color: var(--dfm-primary);
+  }
+
+  .exam-list {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    // gap: 8px;
+
+    >button:hover {
+      background: var(--dfm-primary);
+      color: #ffffff;
+    }
+
+    >button {
+      text-align: left;
+      width: 100%;
+      max-height: 32px;
+        line-height: 32px;
+
+      // border-radius: px;
+      // color: var(--dfm-primary);
+      &.selected {
+        color: var(--dfm-primary);
+      }
+    }
+                >span,
+                .no-exam {
+          width: 100%;
+          text-align: center;
+        }
+  }
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

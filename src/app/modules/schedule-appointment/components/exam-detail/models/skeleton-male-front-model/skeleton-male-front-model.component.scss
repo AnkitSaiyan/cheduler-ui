@@ -1,0 +1,18 @@
+.skeleton-basea {
+  display: flex;
+  justify-content: center;
+  height: 480px;
+
+  >svg {
+    height: 480px;
+
+    >path {
+      stroke: var(--dfm-primary);
+      stroke-opacity: 1;
+    }
+
+    >path:hover {
+      fill: var(--dfm-primary);
+    }
+  }
+}

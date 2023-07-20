@@ -1,0 +1,34 @@
+<div [formGroup]="formGroup" class="d-flex gap-4">
+  <div class="d-flex flex-column gap-4">
+    <dfm-input-dropdown placeholder="Select Physician" label="Physician *" #body [items]="[]"></dfm-input-dropdown>
+    <dfm-text-area label="Comments" placeholder="Enter comments"></dfm-text-area>
+  </div>
+
+  <div class="d-flex flex-column gap-4">
+    <div class="d-flex flex-column" *ngFor="let i of number">
+      <div class="d-flex gap-4">
+        <dfm-input-dropdown placeholder="Select Body Part" label="Body Part *" #body [items]="bodyParts"></dfm-input-dropdown>
+        <dfm-input-dropdown
+          placeholder="Select Exams"
+          [multiple]="true"
+          label="Exam *"
+          [items]="exams[bodyIdToName[+body.value]]"
+        ></dfm-input-dropdown>
+        <div (click)="number.pop()" style="margin-top: 36px">
+          <dfm-button
+            color="link"
+            size="sm"
+            [trailingIcon]="'trash-01'"
+            ngbPopover="{{ 'Delete' | translate }}"
+            triggers="mouseenter:mouseleave"
+            popoverClass="popover-p-8"
+            [openDelay]="200"
+            *ngIf="number.length > 1"
+          ></dfm-button>
+        </div>
+      </div>
+    </div>
+
+    <dfm-button color="link" trailingIcon="plus" (click)="number.push(1)">Add Exams</dfm-button>
+  </div>
+</div>

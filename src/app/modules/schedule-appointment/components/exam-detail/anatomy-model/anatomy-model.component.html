@@ -1,0 +1,129 @@
+<div class="anatomy">
+  <div class="exam-detail" [formGroup]="addExamForm">
+    <section class="filter-section">
+      <div class="d-flex filter" [formGroup]="filterForm">
+        <div class="d-flex heading">
+          <mat-icon>tune</mat-icon>
+          <h5>Filters</h5>
+        </div>
+        <div *ngFor="let category of filter" class="filter-items">
+          <ng-container *ngIf="!(filterForm.value?.bodyStructure !== 'organs' && category.name !== 'Body Structure')">
+            <h6>{{ category.name }}</h6>
+            <dfm-radio-button
+              *ngFor="let item of category.children"
+              class="font-weight-normal"
+              [label]="item.name"
+              [checkedValue]="item.value"
+              [formControlName]="category.formName"
+            ></dfm-radio-button>
+          </ng-container>
+        </div>
+      </div>
+
+      <ng-container [ngSwitch]="filterForm.getRawValue()?.gender">
+        <ng-container *ngSwitchCase="'male'">
+          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
+            <ng-container *ngSwitchCase="'front'">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                <ng-container *ngSwitchCase="'organs'">
+                  <dfm-organ-male-front-model ></dfm-organ-male-front-model>
+                </ng-container>
+                <ng-container *ngSwitchCase="'bones'">
+                  <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'back'">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                <ng-container *ngSwitchCase="'organs'">
+                  <dfm-organ-male-back-model ></dfm-organ-male-back-model>
+                </ng-container>
+                <ng-container *ngSwitchCase="'bones'">
+                  <dfm-skeleton-male-back-model></dfm-skeleton-male-back-model>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngSwitchCase="'female'">
+          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
+            <ng-container *ngSwitchCase="'front'">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                <ng-container *ngSwitchCase="'organs'">
+                  <dfm-organ-female-front-model ></dfm-organ-female-front-model>
+                </ng-container>
+                <ng-container *ngSwitchCase="'bones'">
+                  <dfm-skeleton-female-front-model></dfm-skeleton-female-front-model>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'back'">
+              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                <ng-container *ngSwitchCase="'organs'">
+                  <dfm-organ-female-back-model ></dfm-organ-female-back-model>
+                </ng-container>
+                <ng-container *ngSwitchCase="'bones'">
+                  <dfm-skeleton-female-back-model></dfm-skeleton-female-back-model>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+
+
+    </section>
+
+    <section class="selected-exam dfm-gap-24">
+      <span>Add Exams</span>
+
+      <div class="d-flex flex-column ">
+        <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
+          <dfm-input-dropdown
+            [items]="((examSvc.filterExams$ | async) ?? [])"
+            formControlName="exam"
+            size="sm"
+            label="Exam"
+            [placeholder]="'Select '+((examSvc.selectedCategory$$ | async) ?? '' | lowercase)+ ' exam'"
+          ></dfm-input-dropdown>
+
+          <dfm-button
+            color="primary"
+            size="sm"
+            (click)="onExamSelect(addExamForm.value.exam)"
+            [disabled]="!addExamForm.value?.exam"
+            >Add Exam</dfm-button
+          >
+        </div>
+      </div>
+
+      <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">Selected Exams</span>
+      <div class="exam-container" >
+        <div class="exam-list">
+          <div *ngFor="let item of examSvc.selectedExam | keyvalue">
+            <p>{{ (item.key | as).replace('_',' ') | titlecase}}</p>
+            <div class="exam">
+              <mat-chip
+                disableRipple
+                *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
+                (removed)="examSvc.addExam(item.key, exam)"
+              >
+                {{ exam.name }}
+                <button matChipRemove >
+                  <mat-icon color="primary">cancel</mat-icon>
+                </button>
+              </mat-chip>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comments-section" >
+        <dfm-text-area
+          formControlName="comments"
+          label="{{ 'Comments' | translate }}"
+          placeholder="{{ 'EnterComments' | translate }}"
+        ></dfm-text-area>
+      </div>
+    </section>
+  </div>
+</div>

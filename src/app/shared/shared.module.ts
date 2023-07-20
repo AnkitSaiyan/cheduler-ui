@@ -1,31 +1,37 @@
-import {NgModule} from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
-import {DesignSystemModule} from 'diflexmo-angular-design';
-import {RouterModule} from '@angular/router';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DesignSystemModule } from 'diflexmo-angular-design';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {HttpClient} from '@angular/common/http';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {HeaderComponent} from './components/header/header.component';
-import {FooterComponent} from './components/footer/footer.component';
-import {SubHeaderComponent} from './components/sub-header/sub-header.component';
-import {SideNavComponent} from './components/side-nav/side-nav.component';
-import {DestroyableComponent} from './components/destroyable/destroyable.component';
-import {ConfirmActionModalComponent} from './components/confirm-action-modal/confirm-action-modal.component';
-import {WeekdayToNamePipe} from './pipes/weekday-to-name.pipe';
-import {JoinWithAndPipe} from './pipes/join-with-and.pipe';
-import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
-import {VersioningComponent} from './components/versioning/versioning.component';
-import {ObjectToArrayPipe} from './pipes/object-to-array.pipe';
-import {SliceStringArrayPipe} from './pipes/slice-string-array.pipe';
-import {DashIfNothingPipe} from './pipes/dash-if-nothing.pipe';
-import {NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
-import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
+import { HttpClient } from '@angular/common/http';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ConfirmActionModalComponent } from './components/confirm-action-modal/confirm-action-modal.component';
+import { DestroyableComponent } from './components/destroyable/destroyable.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { SubHeaderComponent } from './components/sub-header/sub-header.component';
+import { VersioningComponent } from './components/versioning/versioning.component';
+import { DashIfNothingPipe } from './pipes/dash-if-nothing.pipe';
+import { JoinWithAndPipe } from './pipes/join-with-and.pipe';
+import { ObjectToArrayPipe } from './pipes/object-to-array.pipe';
 import { RemoveSelectedItemPipe } from './pipes/remove-selected-item.pipe';
+import { SliceStringArrayPipe } from './pipes/slice-string-array.pipe';
+import { UtcToLocalPipe } from './pipes/utc-to-local.pipe';
+import { WeekdayToNamePipe } from './pipes/weekday-to-name.pipe';
+import { AsPipe } from './pipes/as.pipe';
 import { QrModalComponent } from './components/qr-modal/qr-modal.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
+import { AnatomyMatMenu } from './components/anatomy-mat-menu/anatomy-mat-menu';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -48,8 +54,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     DashIfNothingPipe,
     UtcToLocalPipe,
     RemoveSelectedItemPipe,
+    AsPipe,
     QrModalComponent,
     UploadDocumentComponent,
+    AnatomyMatMenu,
   ],
   imports: [
     CommonModule,
@@ -66,6 +74,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     NgOptimizedImage,
+    MatTooltipModule,
+    MatMenuModule,
+    MatIconModule,
+    MatChipsModule,
   ],
   exports: [
     DesignSystemModule,
@@ -88,15 +100,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgbPopoverModule,
     UtcToLocalPipe,
     RemoveSelectedItemPipe,
+    MatTooltipModule,
+    MatMenuModule,
+    MatIconModule,
+    MatChipsModule,
+    AsPipe,
+    AnatomyMatMenu,
   ],
 })
 export class SharedModule {}
-
-
-
-
-
-
-
-
 
