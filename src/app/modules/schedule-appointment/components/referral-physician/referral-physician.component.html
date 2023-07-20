@@ -8,7 +8,7 @@
       </div>
     </ng-container>
     <ng-template #loaded>
-      <section class="d-flex flex-column dfm-gap-16 flex-1">
+      <section class="d-flex flex-column dfm-gap-24 flex-1">
         <ng-container *ngIf="filteredPhysicians$$ | async as physician">
           <ng-container *ngIf="siteDetails$$ | async as physicianEnale">
             <dfm-input-dropdown
@@ -27,14 +27,17 @@
             <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
               {{ 'RequiredField' | translate }}
             </span>
-            <span class="upload-text">Upload Referring Note</span>
+            <span class="upload-text">Upload Referring Note <small>(pdf, jpg, jpeg, png)</small></span>
             <div class="upload-main-container">
               <div class="upload-container">
                 <div class="upload-section d-flex flex-column align-items-center">
-                 <div class="upload-button">
+                  <input type="file" (change)="uploadRefferingNote($event)" #fileUpload style="display: none;">
+                 <div class="upload-button" (click)="fileUpload.click()">
                   <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px">
                 </div>
                 <p class="upload-text">Upload Document</p>
+                <p class="upload-text" [style.color]="(documentUploadProcess | async)?.includes('Failed')? 'red': ''" >{{documentUploadProcess | async}}</p>
+
                 </div>
                  <div class="or-btn"><span>OR</span></div>
                  <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
