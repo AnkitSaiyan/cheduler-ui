@@ -31,6 +31,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public documentUploadProcess = new BehaviorSubject<string>('')
 
+  public signalrFileName: string = '';
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -76,6 +78,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         }
       },
     });
+
+    this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe(data => {
+      console.log('signalData', data);
+      this.signalrFileName = data?.fileName;
+    })
   }
 
   override ngOnDestroy() {

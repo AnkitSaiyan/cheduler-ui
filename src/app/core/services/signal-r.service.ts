@@ -3,19 +3,26 @@ import * as signalR from '@microsoft/signalr';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
 import { NotificationDataService } from './notification-data.service';
 import { NotificationType } from 'diflexmo-angular-design';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
-  private hubConnection!: signalR.HubConnection;
+	private hubConnection!: signalR.HubConnection;
+	
+	private docData= new Subject<any>()
 
   constructor(private notificationService : NotificationDataService) {
     this.createConnection();
 	this.startConnection();
 	this.registerForDocument();
   }
+	
+	get documentData() {
+		return this.docData.asObservable();
+	}
 	
 	private createConnection() {
 		const SubDomain: string = window.location.host.split('.')[0];
@@ -43,7 +50,8 @@ export class SignalRService {
 	private registerForDocument(): void {
 		this.hubConnection.on('UploadDocument', (param: string) => {
 			console.log(param);
-			this.notificationService.showNotification("Document recived");
+			// this.docData.next(param)
+			this.notificationService.showNotification("Document uploaded successfully!");
 		});
 	}
 }
