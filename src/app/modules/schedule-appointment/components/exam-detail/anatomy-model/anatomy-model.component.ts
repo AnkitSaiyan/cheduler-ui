@@ -1,17 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, startWith, take, takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
+import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { Exam } from 'src/app/shared/models/exam.model';
 import { NameValue } from 'src/app/shared/models/name-value.model';
+import { BodyType } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-anatomy-model',
   templateUrl: './anatomy-model.component.html',
   styleUrls: ['./anatomy-model.component.scss'],
 })
-export class AnatomyModelComponent implements OnInit {
-  constructor(private dialogSvc: ModalService, private fb: FormBuilder, public examSvc: ExamService) {}
+export class AnatomyModelComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  constructor(
+    private dialogSvc: ModalService,
+    private fb: FormBuilder,
+    public examSvc: ExamService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+  ) {
+    super();
+  }
 
   public filterForm!: FormGroup;
 
@@ -80,17 +91,27 @@ export class AnatomyModelComponent implements OnInit {
       comments: ['', []],
     });
 
-    this.filterForm.get('bodyStructure')?.valueChanges.subscribe((value) => {
-      if (value === 'bones') {
-        this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
-      }
-    });
+    this.filterForm
+      .get('bodyStructure')
+      ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        if (value === 'bones') {
+          this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
+          this.examSvc.selectedGender$$.next(BodyType.Skeleton);
+          this.examSvc.selectedGender$$.next(BodyType.Skeleton);
+        }
+      });
 
-    this.examSvc.getExams().pipe(take(1)).subscribe();
-  }
-
-  public clickTest(name: string) {
-    console.log(name);
+    this.filterForm
+      .get('gender')
+      ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        if (value === 'male') {
+          this.examSvc.selectedGender$$.next(BodyType.Male);
+        } else {
+          this.examSvc.selectedGender$$.next(BodyType.Female);
+        }
+      });
   }
 
   public close() {
@@ -98,27 +119,15 @@ export class AnatomyModelComponent implements OnInit {
   }
 
   public onExamSelect(value: string) {
-    const [category, exam] = value.split(this.examSvc.separator);
-    this.examSvc.addExam(category as any, exam, true);
-    this.addExamForm.get('exam')?.reset();
+    this.examSvc.filterExams$.pipe(take(1)).subscribe((allExams) => {
+      const exam = allExams?.find((val: any) => val.value === value) as Exam;
+      this.examSvc.addExam(exam.bodyPart + ` [${exam.gender}]`, exam, true);
+      this.addExamForm.get('exam')?.reset();
+    });
+  }
+
+  public override ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

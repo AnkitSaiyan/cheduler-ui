@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { AnatomyMatMenu } from 'src/app/shared/components/anatomy-mat-menu/anatomy-mat-menu';
 import { BodyMaleBack } from 'src/app/shared/utils/anatomy.enum';
+import { BodyType } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-organ-male-back-model',
@@ -10,6 +11,7 @@ import { BodyMaleBack } from 'src/app/shared/utils/anatomy.enum';
 })
 export class OrganMaleBackModelComponent extends AnatomyMatMenu<BodyMaleBack> implements OnDestroy {
   public category = BodyMaleBack;
+  public gender = BodyType;
   constructor(public examSvc: ExamService) {
     super();
   }
@@ -18,4 +20,7 @@ export class OrganMaleBackModelComponent extends AnatomyMatMenu<BodyMaleBack> im
     super.ngOnDestroy();
   }
 }
+
+
+
 

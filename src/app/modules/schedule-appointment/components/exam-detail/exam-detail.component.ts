@@ -9,6 +9,8 @@ import { NameValue } from '../../../../shared/models/name-value.model';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
+import { Exam } from 'src/app/shared/models/exam.model';
+import { ExamService } from 'src/app/core/services/exam.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -35,6 +37,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     public loaderSvc: LoaderService,
     private modalSvc: ModalService,
+    private examSvc: ExamService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -89,18 +92,39 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
               name: exam.name,
               value: exam.id,
               description: exam.instructions,
+              gender: exam.gender,
+              bodyPart: exam.bodyPart,
             };
           });
         }),
         takeUntil(this.destroy$$),
       )
       .subscribe({
-        next: (exams) => this.filteredExams$$.next(exams),
+        next: (exams: any[]) => {
+          this.examSvc.setExam({ ...this.examModifiedData(exams) });
+          this.filteredExams$$.next(exams);
+        },
       });
   }
 
   override ngOnDestroy() {
     super.ngOnDestroy();
+  }
+
+  private examModifiedData(exams: Exam[]): any {
+    return exams.reduce((acc, curr) => {
+      if (acc[curr.gender]) {
+        if (acc[curr.gender][curr.bodyPart]) {
+          acc[curr.gender][curr.bodyPart] = [...acc[curr.gender][curr.bodyPart], curr];
+        } else {
+          acc[curr.gender][curr.bodyPart] = [curr];
+        }
+      } else {
+        acc[curr.gender] = {};
+        acc[curr.gender][curr.bodyPart] = [curr];
+      }
+      return acc;
+    }, {});
   }
 
   private createForm(examDetails?, isEdit?) {
@@ -199,6 +223,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       ...this.examForm.value,
       exams: this.examForm.value.exams.map((exam) => exam.exam),
     } as ExamDetails;
+
+    // debugger;
 
     if (this.editData) {
       this.editData.physicianId = this.examForm.controls['physician'].value;
