@@ -21,7 +21,7 @@ export class UploadDocumentComponent implements OnInit {
   public documentUploadProcess = new BehaviorSubject<string>('Upload document')
 
   constructor(private route: ActivatedRoute, private landingSvc : LandingService, private notificationService : NotificationDataService) {
-    this.uniqueId = this.route.snapshot?.params['id'];
+    this.uniqueId = this.route.snapshot?.queryParams['id'];
     // this.uniqueId =  "1a9d30ea-08ba-4322-bc32-6182b9272f5d"
   }
 
