@@ -49,8 +49,8 @@ export class SignalRService {
 
 	private registerForDocument(): void {
 		this.hubConnection.on('UploadDocument', (param: string) => {
-			console.log(param);
-			// this.docData.next(param)
+			// console.log(param);
+			this.docData.next(param)
 			this.notificationService.showNotification("Document uploaded successfully!");
 		});
 	}
