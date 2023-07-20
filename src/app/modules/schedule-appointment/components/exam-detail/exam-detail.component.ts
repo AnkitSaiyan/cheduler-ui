@@ -37,7 +37,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     public loaderSvc: LoaderService,
     private modalSvc: ModalService,
-    private examSvc: ExamService,
+    public examSvc: ExamService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -208,23 +208,33 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.examForm.reset();
   }
 
+  public isDisabled() {
+    return !Object.values(this.examSvc.selectedExam)
+      .flatMap((val) => val)
+      .map((item: any) => item.value).length;
+  }
+
   public saveExamDetails() {
     // this.editData = {};
-    if (this.examForm.invalid) {
-      this.examForm.markAllAsTouched();
+    // if (this.examForm.invalid) {
+    //   this.examForm.markAllAsTouched();
+    //   return;
+    // }
+
+    // if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
+    //   return;
+    // }
+
+    const selectedExams = Object.values(this.examSvc.selectedExam)
+      .flatMap((val) => val)
+      .map((item: any) => item.value);
+    if (!selectedExams.length) {
       return;
     }
-
-    if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
-      return;
-    }
-
     const examDetails = {
       ...this.examForm.value,
-      exams: this.examForm.value.exams.map((exam) => exam.exam),
+      exams: selectedExams,
     } as ExamDetails;
-
-    // debugger;
 
     if (this.editData) {
       this.editData.physicianId = this.examForm.controls['physician'].value;
