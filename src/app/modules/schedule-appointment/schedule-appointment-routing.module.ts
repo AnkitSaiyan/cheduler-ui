@@ -7,7 +7,6 @@ import { ExamDetailComponent } from './components/exam-detail/exam-detail.compon
 import { OverviewComponent } from './components/overview/overview.component';
 import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
-import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
 
 const scheduleAppointmentRoutes: Routes = [
   {
