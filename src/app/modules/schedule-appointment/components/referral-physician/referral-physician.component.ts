@@ -8,6 +8,7 @@ import { LoaderService } from 'src/app/core/services/loader.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
+import { SignalRService } from 'src/app/core/services/signal-r.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 import { NameValue } from 'src/app/shared/models/name-value.model';
@@ -38,8 +39,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     public loaderSvc: LoaderService,
     private landingService: LandingService,
     private modalSvc: ModalService,
-    private notificationService : NotificationDataService
-
+    private notificationService: NotificationDataService,
+    private singnalRSvc: SignalRService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);

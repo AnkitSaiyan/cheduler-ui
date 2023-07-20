@@ -10,11 +10,12 @@
         </div>
       </div>
       <div class="d-flex dfm-gap-6 flex-column" *ngIf="!(isQrValid | async)">
-        <img src="../../../../assets/images/qr-code.png" alt="">
+        <img src="../../../../assets/images/qr-code.png" alt="Invalid QR">
         <span class="icon-text">The QR has been expired.</span>
       </div>
-      <div class="upload-img-desc">
-        <span *ngIf="!((documentUploadProcess | async)?.includes('Failed'))" >{{uploadFileName}}</span>
+      <div class="upload-img-desc flex-column dfm-gap-10">
+        <span *ngIf="!((documentUploadProcess | async)?.includes('Failed'))" style="color: blue;" >{{uploadFileName}}</span>
+        <span *ngIf="((documentUploadProcess | async)?.includes('Uploaded'))">Your document has been upload successfully! Please continue your appointment booking process.</span>
       </div>
     </div>
   <!-- </div> -->
