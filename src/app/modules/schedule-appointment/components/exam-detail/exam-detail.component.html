@@ -20,23 +20,52 @@
               [required]="+physicianEnale?.doctorReferringConsent === 0"
               [showDescription]="false"
               size="md"
+              class="input-w-300"
             >
               {{ physician }}
             </dfm-input-dropdown>
             <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
               {{ 'RequiredField' | translate }}
             </span>
+            <span class="upload-text">Upload Referring Note</span>
+            <div class="upload-main-container">
+              <div class="upload-container">
+                <div class="upload-section d-flex flex-column align-items-center">
+                 <div class="upload-button">
+                  <!-- <dfm-button color="primary" size="lg">
+                    Upload Document
+                  </dfm-button> -->
+                  <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px">
+                </div>
+                <p class="upload-text">Upload Document</p>
+                </div>
+                 <div class="or-btn"><span>OR</span></div>
+                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
+                 <div class="upload-button">
+                  <img src="../../../../../assets/images/phone-scan.png" alt="" width="40px">
+                  
+                  <!-- <dfm-button color="secondary" size="lg">
+                    Upload Document From Mobile Device
+                  </dfm-button> -->
+                 </div>
+                <p class="upload-text">Upload Document <br>From Mobile Device</p>
+                  <!-- <span (click)="uploadDocumentFromMobile()">
+                    <img src="../../../../../assets/images/qr-code.png" alt="" width="30px">
+                  </span> -->
+                </div>
+              </div>
+            </div>
           </ng-container>
         </ng-container>
         <!-- ===============||Comments Section added for mobile view============|| -->
-        <section class="comments-mv">
+        <!-- <section class="comments-mv">
           <dfm-text-area formControlName="comments" label="{{'Comments' | translate}}" placeholder="{{ 'EnterComments' | translate }}"></dfm-text-area>
-        </section>
+        </section> -->
         <!-- ===============||Comments Section added for mobile view ends============|| -->
 
-        <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
+        <!-- <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span> -->
 
-        <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
+        <!-- <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
           <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
             <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
               <div>
@@ -66,24 +95,24 @@
               {{ 'RequiredField' | translate }}</small
             >
             <small class="validation-error" *ngIf="creds?.get('uncombinableError')?.value">{{ 'EXAM.UNCOMBINABLE_ERROR' | translate }}</small>
-          </div>
+          </div> -->
 
           <!-- <span class="validation-error" >
             {{examForm.value['exams'] | json }}</span> -->
-          <div class="add-exam-btn"></div>
-        </div>
+          <!-- <div class="add-exam-btn"></div> -->
+        <!-- </div> -->
 
-        <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
+        <!-- <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
           <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
             <dfm-icon name="plus"></dfm-icon>
           </div>
           <dfm-button color="link" size="sm">
             <span>{{ 'ClickToAddMoreExam' | translate }}</span></dfm-button
           >
-        </div>
+        </div> -->
       </section>
       <!-- ===============||Comments Section added for Desktop view============|| -->
-      <section class="comments-btn flex-1">
+      <!-- <section class="comments-btn flex-1">
         <div class="comments-section">
           <dfm-text-area
             formControlName="comments"
@@ -91,7 +120,7 @@
             placeholder="{{ 'EnterComments' | translate }}"
           ></dfm-text-area>
         </div>
-      </section>
+      </section> -->
       <!-- ===============||Comments Section added for Desktop view ends============|| -->
 
       <!--Right Section Ends Here=================-->

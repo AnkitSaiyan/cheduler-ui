@@ -9,6 +9,7 @@ import { AppointmentSlotComponent } from './components/appointment-slot/appointm
 import { ConfirmAppointmentComponent } from './components/confirm-appointment/confirm-appointment.component';
 import { ScheduleAppointmentRoutingModule } from './schedule-appointment-routing.module';
 import { ScheduleAppointmentComponent } from './pages/schedule-appointment.component';
+import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ScheduleAppointmentComponent } from './pages/schedule-appointment.compo
     ExamDetailComponent,
     AppointmentSlotComponent,
     ConfirmAppointmentComponent,
+    ReferralPhysicianComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

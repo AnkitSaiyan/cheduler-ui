@@ -6,17 +6,18 @@ import {takeUntil} from "rxjs";
 @Component({
   selector: 'dfm-progress-bar',
   templateUrl: './progress-bar.component.html',
-  styleUrls: ['./progress-bar.component.scss']
+  styleUrls: ['./progress-bar.component.scss'],
 })
 export class ProgressBarComponent extends DestroyableComponent implements OnInit, OnDestroy {
   public url!: string;
 
   public urlObj = {
-    exam: 0,
-    slot: 1,
-    'basic-details': 2,
-    confirm: 3,
-  }
+    'referral-physician': 0,
+    exam: 1,
+    slot: 2,
+    'basic-details': 3,
+    confirm: 4,
+  };
 
   public status: string = '';
 

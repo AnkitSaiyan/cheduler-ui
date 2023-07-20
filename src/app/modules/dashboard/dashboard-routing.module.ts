@@ -6,6 +6,7 @@ import { ExamDetailComponent } from '../schedule-appointment/components/exam-det
 import { ConfirmAppointmentComponent } from '../schedule-appointment/components/confirm-appointment/confirm-appointment.component';
 import { BasicDetailComponent } from '../schedule-appointment/components/basic-detail/basic-detail.component';
 import { AppointmentSlotComponent } from '../schedule-appointment/components/appointment-slot/appointment-slot.component';
+import { ReferralPhysicianComponent } from '../schedule-appointment/components/referral-physician/referral-physician.component';
 
 const dashboardRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ const dashboardRoutes: Routes = [
       {
         path: 'schedule/exam',
         component: ExamDetailComponent,
+      },
+      {
+        path: 'schedule/referral-physician',
+        component: ReferralPhysicianComponent,
       },
       {
         path: 'schedule/slot',
