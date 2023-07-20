@@ -110,11 +110,11 @@
     <dfm-button color="secondary" size="lg" routerLink="../referral-physician" class="exam-next-btn"> {{"Back" | translate}}</dfm-button>
       <dfm-button color="secondary" size="sm" routerLink="../referral-physician" class="exam-next-btn-mv"> {{"Back" | translate}}</dfm-button>
 
-    <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="examForm.invalid">
+    <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="isDisabled()">
       {{ 'Next' | translate }}
     </dfm-button>
 
-    <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="examForm.invalid">
+    <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="isDisabled()">
       {{ 'Next' | translate }}
     </dfm-button>
   </div>

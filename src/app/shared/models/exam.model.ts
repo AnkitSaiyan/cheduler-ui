@@ -1,3 +1,4 @@
+import { BodyType } from '../utils/const';
 import { PracticeAvailability } from './practice.model';
 
 export interface Exam {
@@ -7,6 +8,8 @@ export interface Exam {
   info: string;
   instructions: string;
   uncombinables: number[];
+  gender: BodyType;
+  bodyPart: string;
 }
 
 export interface CreateExamRequestData {

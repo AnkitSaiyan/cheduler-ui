@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { AnatomyMatMenu } from 'src/app/shared/components/anatomy-mat-menu/anatomy-mat-menu';
 import { BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
+import { BodyType } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-organ-male-front-model',
@@ -13,10 +14,14 @@ export class OrganMaleFrontModelComponent extends AnatomyMatMenu<BodyMaleFront> 
     super();
   }
   public category = BodyMaleFront;
+  public gender = BodyType;
   public override ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 }
+
+
+
 
 
 

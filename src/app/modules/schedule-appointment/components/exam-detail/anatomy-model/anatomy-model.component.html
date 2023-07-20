@@ -80,7 +80,7 @@
       <div class="d-flex flex-column ">
         <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
           <dfm-input-dropdown
-            [items]="((examSvc.filterExams$$ | async) ?? [] | removeSelectedItem : examSvc.selectedExam[examSvc.selectedCategory$$.value] ?? [])"
+            [items]="((examSvc.filterExams$ | async) ?? [])"
             formControlName="exam"
             size="sm"
             label="Exam"
@@ -101,14 +101,14 @@
       <div class="exam-container" >
         <div class="exam-list">
           <div *ngFor="let item of examSvc.selectedExam | keyvalue">
-            <p>{{ item.key | as | titlecase}}</p>
+            <p>{{ (item.key | as).replace('_',' ') | titlecase}}</p>
             <div class="exam">
               <mat-chip
                 disableRipple
                 *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
                 (removed)="examSvc.addExam(item.key, exam)"
               >
-                {{ exam }}
+                {{ exam.name }}
                 <button matChipRemove >
                   <mat-icon color="primary">cancel</mat-icon>
                 </button>
