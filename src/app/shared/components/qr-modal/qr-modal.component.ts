@@ -17,12 +17,15 @@ import { LoaderService } from 'src/app/core/services/loader.service';
         </div>
       </ng-container>
       <ng-template #loaded>
-        <div class="flex-1 d-flex justify-content-center mt-2">
+        <div *ngIf="counter" class="flex-1 d-flex justify-content-center mt-2">
           <img [src]="img | async" alt="QR" width="200px" />
         </div>
         <span class="flex-1 d-flex justify-content-center mb-2 gap-2 flex-column">
           <span *ngIf="counter" class="flex-1 justify-content-center dfm-color-primary d-flex">0{{ minutes }}:{{ seconds }}</span>
-          <a *ngIf="!counter" class="flex-1 justify-content-center d-flex dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a>
+          <span *ngIf="!counter" class="flex-1 justify-content-center d-flex flex-column align-items-center dfm-gap-12">
+          <img src="../../../../assets/images/qr-code.png" class="qr-expire-img" alt="QR">
+          <span>Your QR has been expired. Please generate a new QR.</span>
+          <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a></span>
         </span>
       </ng-template>
       <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">Done</dfm-button>
@@ -44,6 +47,11 @@ import { LoaderService } from 'src/app/core/services/loader.service';
         margin: 20px 10px 0 10px;
         text-align: center;
       }
+
+      .qr-expire-img{
+        width: 20vh;
+        background-color: #e0dde4;
+      }
     `,
   ],
 })
@@ -54,7 +62,7 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   public seconds!: string;
 
-  public counter = 300;
+  public counter!: number;
 
   constructor(
     private dialogSvc: ModalService,
