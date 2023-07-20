@@ -61,7 +61,7 @@ export class LandingService {
   }
 
   public getQr(): Observable<any> {
-    let params = new HttpParams().append('url', window.location.origin+`/upload-documemt/?id=qrcodeid`);
+    let params = new HttpParams().append('url', window.location.origin+`/upload-document/?id=qrcodeid`);
     return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getqrcode`, { params })
       .pipe(
       map((response) => response.data),
