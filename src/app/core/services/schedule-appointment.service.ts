@@ -179,11 +179,12 @@ export class ScheduleAppointmentService {
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
+    this.loaderSvc.spinnerActivate();
     return this.httpWithInterceptor
       .get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`, {
         headers: { SubDomain: this.SubDomain },
       })
-      .pipe(map((response) => response.data));
+      .pipe(map((response) => response.data), tap(()=> this.loaderSvc.spinnerDeactivate()));
   }
 
   public get exams$(): Observable<Exam[]> {

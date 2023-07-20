@@ -40,6 +40,7 @@ import { ReferralPhysicianComponent } from './components/referral-physician/refe
     OrganFemaleBackModelComponent,
     OrganFemaleFrontModelComponent,
     ReferralPhysicianComponent,
+    ReferralPhysicianComponent,
   ],
   imports: [CommonModule, SharedModule, ScheduleAppointmentRoutingModule, ReactiveFormsModule],
 })

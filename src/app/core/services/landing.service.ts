@@ -1,4 +1,4 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -58,5 +58,37 @@ export class LandingService {
         headers: { SubDomain: this.SubDomain },
       })
       .pipe(map((response) => response?.data));
+  }
+
+  public getQr(): Observable<any> {
+    let params = new HttpParams().append('url', window.location.origin+`/upload-documemt/?id=qrcodeid`);
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getqrcode`, { params })
+      .pipe(
+      map((response) => response.data),
+      tap(),
+    );
+  }
+
+  public validateQr(uniqueId:string):Observable<any> {
+    let params = new HttpParams().append('uniqueId', uniqueId);
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/validate`, { params })
+      .pipe(
+      map((response) => response.statusCode),
+      tap(),
+    );
+  }
+
+  public uploadDocumnet(file: any, uniqueId: string):Observable<any> {
+    const formData = new FormData();
+    formData.append('File', file);
+    formData.append('ApmtQRCodeId', uniqueId);
+    formData.append('FileData', '');
+    formData.append('FileName', '');
+    
+    return this.httpClient.post<any>(`${environment.serverBaseUrl}/qrcode/upload`,  formData )
+      .pipe(
+      map((response) => response.data),
+      tap(),
+    );
   }
 }

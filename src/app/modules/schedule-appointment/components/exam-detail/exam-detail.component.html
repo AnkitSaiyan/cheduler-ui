@@ -1,11 +1,7 @@
 <div
   class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16"
 >
-  <form
-    [formGroup]="examForm"
-    class="exam-form-container dfm-card dfm-gap-16"
-    [style.gridColj]="'repeat(2, 1fr)'"
-  >
+  <form [formGroup]="examForm" class="exam-form-container dfm-card dfm-gap-16" [style.gridColj]="'repeat(2, 1fr)'">
     <ng-container *ngIf="loaderSvc.isSpinnerActive$ | async; else loaded">
       <div class="d-flex justify-content-center align-items-center w-full flex-1">
         <mat-spinner diameter="48"></mat-spinner>
@@ -13,8 +9,7 @@
     </ng-container>
 
     <ng-template #loaded>
-
-      <ng-container >
+      <ng-container>
         <!-- <ng-container *ngSwitchCase="'all'">
           <section class="d-flex flex-column dfm-gap-16 flex-1">
             <ng-container *ngIf="filteredPhysicians$$ | async as physician">
@@ -107,8 +102,8 @@
   </form>
 
   <div class="d-flex justify-content-center dfm-gap-16">
-    <dfm-button color="secondary" size="lg" routerLink="../referral-physician" class="exam-next-btn"> {{"Back" | translate}}</dfm-button>
-      <dfm-button color="secondary" size="sm" routerLink="../referral-physician" class="exam-next-btn-mv"> {{"Back" | translate}}</dfm-button>
+    <dfm-button color="secondary" size="lg" routerLink="../referral-physician" class="exam-next-btn"> {{ 'Back' | translate }}</dfm-button>
+    <dfm-button color="secondary" size="sm" routerLink="../referral-physician" class="exam-next-btn-mv"> {{ 'Back' | translate }}</dfm-button>
 
     <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn" [disabled]="isDisabled()">
       {{ 'Next' | translate }}
@@ -118,5 +113,4 @@
       {{ 'Next' | translate }}
     </dfm-button>
   </div>
-
 </div>

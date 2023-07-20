@@ -45,6 +45,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
       next: (examDetails) => {
         if (localStorage.getItem('appointmentDetails')) {
@@ -237,7 +238,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     } as ExamDetails;
 
     if (this.editData) {
-      this.editData.physicianId = this.examForm.controls['physician'].value;
+      this.editData.pis.examForm.controls['physician'].value;
       this.editData.doctorId = this.examForm.controls['physician'].value;
       this.editData.comments = this.examForm.controls['comments'].value;
       const exams: any = [];
@@ -256,6 +257,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.scheduleAppointmentSvc.setExamDetails(examDetails);
 
     this.router.navigate(['../slot'], { relativeTo: this.route, replaceUrl: true });
+    hysicianId = th;
   }
 
   // public removeSelectedItems(items: any) {

@@ -9,9 +9,3 @@ export class RemoveSelectedItemPipe implements PipeTransform {
     return value.filter((val) => !selectedValue.includes(val.originalValue));
   }
 }
-
-
-
-
-
-
