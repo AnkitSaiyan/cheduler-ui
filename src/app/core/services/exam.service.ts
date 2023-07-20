@@ -21,9 +21,9 @@ export class ExamService {
           return value[this.selectedGender$$.value][this.selectedCategory$$.value];
         }
         if (this.selectedGender$$.value) {
-          return Object.values(value[this.selectedGender$$.value]).flatMap((val) => val);
+          return Object.values(value[this.selectedGender$$.value])?.flatMap((val) => val);
         }
-        return Object.values(value[BodyType.Male]).flatMap((val) => val);
+        return Object.values(value?.[BodyType.Male] ?? {})?.flatMap((val) => val);
       }),
     );
   }
@@ -72,6 +72,8 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
 
 
 
