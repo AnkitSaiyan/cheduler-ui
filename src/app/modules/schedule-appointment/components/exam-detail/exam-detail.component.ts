@@ -11,6 +11,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
 import { Exam } from 'src/app/shared/models/exam.model';
 import { ExamService } from 'src/app/core/services/exam.service';
+import { BodyType } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -115,19 +116,22 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   private examModifiedData(exams: Exam[]): any {
-    return exams.reduce((acc, curr) => {
-      if (acc[curr.gender]) {
-        if (acc[curr.gender][curr.bodyPart]) {
-          acc[curr.gender][curr.bodyPart] = [...acc[curr.gender][curr.bodyPart], curr];
+    return exams.reduce(
+      (acc, curr) => {
+        if (acc[curr.gender]) {
+          if (acc[curr.gender][curr.bodyPart]) {
+            acc[curr.gender][curr.bodyPart] = [...acc[curr.gender][curr.bodyPart], curr];
+          } else {
+            acc[curr.gender][curr.bodyPart] = [curr];
+          }
         } else {
+          acc[curr.gender] = {};
           acc[curr.gender][curr.bodyPart] = [curr];
         }
-      } else {
-        acc[curr.gender] = {};
-        acc[curr.gender][curr.bodyPart] = [curr];
-      }
-      return acc;
-    }, {});
+        return acc;
+      },
+      { [BodyType.Female]: {}, [BodyType.Male]: {}, [BodyType.Skeleton]: {} },
+    );
   }
 
   private createForm(examDetails?, isEdit?) {
