@@ -1,7 +1,15 @@
 <div class="upload-main-container">
   <!-- <div class="container"> -->
     <!-- <div class="back-container"></div> -->
-    <div class="front-container">
+    <ng-container *ngIf="(loaderSvc.isSpinnerActive$ | async); else container">
+      <div class="d-flex justify-content-center align-items-center w-full flex-1">
+        <mat-spinner diameter="48"></mat-spinner>
+      </div>
+    </ng-container>
+
+    <ng-template #container>
+      <div class="front-container">
+      <ng-container *ngIf="!((documentUploadProcess | async)?.includes('Uploaded')); else icon">
       <div class="upload-document-btn" *ngIf="(isQrValid | async)">
         <div class="light-circle">
           <input type="file" (change)="uploadRefferingNote($event)" />
@@ -13,10 +21,13 @@
         <img src="../../../../assets/images/qr-code.png" alt="Invalid QR">
         <span class="icon-text">The QR has been expired.</span>
       </div>
-      <div class="upload-img-desc flex-column dfm-gap-10">
-        <span *ngIf="!((documentUploadProcess | async)?.includes('Failed'))" style="color: blue;" >{{uploadFileName}}</span>
-        <span *ngIf="((documentUploadProcess | async)?.includes('Uploaded'))">Your document has been upload successfully! Please continue your appointment booking process.</span>
+    </ng-container>
+    <ng-template #icon> <dfm-icon name="check" class="right-icon"></dfm-icon></ng-template>
+      <div *ngIf="((documentUploadProcess | async)?.includes('Uploaded'))" class="upload-img-desc flex-column dfm-gap-10">
+        <span style="color: blue;" >{{uploadFileName}}</span>
+        <span >Your document has been upload successfully! Please continue your appointment booking process.</span>
       </div>
     </div>
+  </ng-template>
   <!-- </div> -->
 </div>
