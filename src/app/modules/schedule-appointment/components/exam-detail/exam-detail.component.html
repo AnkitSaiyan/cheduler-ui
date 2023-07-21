@@ -9,9 +9,64 @@
     </ng-container>
 
     <ng-template #loaded>
-      <ng-container>
-        <dfm-anatomy-model [addExamForm]="addExamForm"></dfm-anatomy-model>
-      </ng-container>
+      <div class="exam-section-mv">
+        <section class="d-flex flex-column dfm-gap-16 flex-1">
+          <section class="comments-mv">
+            <dfm-text-area
+              formControlName="comments"
+              label="{{ 'Comments' | translate }}"
+              placeholder="{{ 'EnterComments' | translate }}"
+            ></dfm-text-area>
+          </section>
+
+          <span class="select-exam-detail">{{ 'SelectExamsBelow' | translate }}</span>
+
+          <div class="d-flex flex-column dfm-gap-8" formArrayName="exams">
+            <div class="d-flex flex-column" [formGroupName]="i" *ngFor="let creds of examCount().controls; let i = index">
+              <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
+                <div>
+                  <dfm-input-dropdown
+                    [items]="items | removeSelectedItem : examForm.value?.exams : i"
+                    formControlName="exam"
+                    label="{{ 'Exam' | translate }} *"
+                    placeholder="{{ 'SelectExam' | translate }}"
+                    size="md"
+                    [showDescription]="false"
+                  >
+                    {{ items }}
+                  </dfm-input-dropdown>
+                </div>
+                <div class="trash-btn" (click)="removeExam(i)">
+                  <dfm-icon
+                    [name]="'trash-01'"
+                    ngbPopover="{{ 'Delete' | translate }}"
+                    triggers="mouseenter:mouseleave"
+                    popoverClass="popover-p-8"
+                    [openDelay]="200"
+                    *ngIf="examCount().length > 1"
+                  ></dfm-icon>
+                </div>
+              </div>
+              <small class="validation-error" *ngIf="creds.get('exam')?.hasError('required') && creds.get('exam')?.touched">
+                {{ 'RequiredField' | translate }}</small
+              >
+              <small class="validation-error" *ngIf="creds?.get('uncombinableError')?.value">{{ 'EXAM.UNCOMBINABLE_ERROR' | translate }}</small>
+            </div>
+
+            <div class="add-exam-btn"></div>
+          </div>
+
+          <div class="add-more-btn d-flex align-items-center dfm-gap-8 pointer add more-btn" (click)="addExam()">
+            <div style="width: 24px; height: 24px" class="dfm-bg-color-primary text-white rounded-circle">
+              <dfm-icon name="plus"></dfm-icon>
+            </div>
+            <dfm-button color="link" size="sm">
+              <span>{{ 'ClickToAddMoreExam' | translate }}</span></dfm-button
+            >
+          </div>
+        </section>
+      </div>
+      <dfm-anatomy-model [addExamForm]="addExamForm"></dfm-anatomy-model>
     </ng-template>
   </form>
 
@@ -23,7 +78,7 @@
       {{ 'Next' | translate }}
     </dfm-button>
 
-    <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv" [disabled]="isDisabled()">
+    <dfm-button color="primary" size="sm" (click)="saveExamDetails(true)" class="exam-next-btn-mv" [disabled]="examForm.invalid">
       {{ 'Next' | translate }}
     </dfm-button>
   </div>

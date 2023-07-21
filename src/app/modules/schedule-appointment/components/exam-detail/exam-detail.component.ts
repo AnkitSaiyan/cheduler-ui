@@ -159,7 +159,10 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     if (!isEdit) {
       const fa = this.examForm.get('exams') as FormArray;
       if (examDetails && examDetails?.exams?.length) {
-        examDetails.examsData.forEach((exam) => {
+        examDetails.exams.forEach((exam) => {
+          fa.push(this.newExam(+exam));
+        });
+        examDetails?.examsData.forEach((exam) => {
           this.examSvc.addExam(exam.bodyPart + ' [' + exam.gender + ']', exam);
         });
       } else {
@@ -235,16 +238,16 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       .map((item: any) => item.value).length;
   }
 
-  public saveExamDetails() {
+  public saveExamDetails(isFromMobile: boolean = false) {
     // this.editData = {};
-    // if (this.examForm.invalid) {
-    //   this.examForm.markAllAsTouched();
-    //   return;
-    // }
+    if (isFromMobile && this.examForm.invalid) {
+      this.examForm.markAllAsTouched();
+      return;
+    }
 
-    // if (this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
-    //   return;
-    // }
+    if (isFromMobile && this.examCount().controls.some((control) => control.get('uncombinableError')?.value)) {
+      return;
+    }
 
     const selectedExams = Object.values(this.examSvc.selectedExam).flatMap((val) => val);
     const selectedExamIds = selectedExams?.map(({ value }: any) => value);
@@ -254,14 +257,14 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     const examDetails = {
       ...this.examForm.value,
       comments: this.addExamForm.controls['comments']?.value,
-      exams: selectedExamIds,
+      exams: isFromMobile ? this.examForm.value.exams.map((exam) => exam.exam) : selectedExamIds,
       examsData: selectedExams,
     } as ExamDetails;
 
     if (this.editData) {
       this.editData.physicianId = this.examForm.controls['physician'].value;
       this.editData.doctorId = this.examForm.controls['physician'].value;
-      this.editData.comments = this.addExamForm.controls['comments'].value;
+      this.editData.comments = isFromMobile ? this.examForm.controls['comments'].value : this.addExamForm.controls['comments'].value;
       const exams: any = [];
       this.examForm.value.exams.forEach((element) => {
         const previousExam = this.editData.exams?.find(({ id }) => id === element.exam);

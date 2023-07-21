@@ -9,6 +9,9 @@
 .exam-next-btn-mv {
   display: none;
 }
+.exam-section-mv {
+  display: none;
+}
 .comments-section-mv {
   display: none !important;
 }
@@ -17,6 +20,9 @@
 }
 .comments-mv {
   display: none !important;
+}
+dfm-anatomy-model {
+  display: block;
 }
 .comments-section {
   // border: 1px solid green;
@@ -251,6 +257,9 @@
   .basic-details-bar {
     display: none;
   }
+    dfm-anatomy-model {
+      display: none;
+    }
   .basic-details-bar-mv {
     display: block;
   }
@@ -260,6 +269,9 @@
   .exam-next-btn-mv {
     display: block !important;
   }
+        .exam-section-mv {
+          display: block !important;
+        }
   .add-more-btn {
     display: block !important;
     display: flex !important;
