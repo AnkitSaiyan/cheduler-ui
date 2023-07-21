@@ -78,7 +78,7 @@
       <span>Add Exams</span>
 
       <div class="d-flex flex-column ">
-        <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
+        <div class="d-flex dfm-gap-8 flex-nowrap align-items-end" >
           <dfm-input-dropdown
             [items]="((examSvc.filterExams$ | async) ?? [])"
             formControlName="exam"

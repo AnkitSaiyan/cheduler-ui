@@ -163,7 +163,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
           fa.push(this.newExam(+exam));
         });
         examDetails?.examsData.forEach((exam) => {
-          this.examSvc.addExam(exam.bodyPart + ' [' + exam.gender + ']', exam);
+          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyPart + ']', exam);
         });
       } else {
         fa.push(this.newExam());
