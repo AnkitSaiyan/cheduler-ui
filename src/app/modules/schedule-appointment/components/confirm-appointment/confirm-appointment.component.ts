@@ -420,7 +420,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       timeZone = timeZone.slice(1);
     }
 
-    const qrCodeId = localStorage.getItem('qrId') || '';
+    const qrCodeId = (JSON.parse(localStorage.getItem('siteDetails') || '{}')?.qrId) || '';
 
     requestData = {
       ...requestData,
