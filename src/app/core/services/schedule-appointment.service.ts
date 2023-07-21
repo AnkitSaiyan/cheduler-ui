@@ -109,6 +109,7 @@ export class ScheduleAppointmentService {
     localStorage.removeItem('slotDetails');
     localStorage.removeItem('edit');
     localStorage.removeItem('appointmentDetails');
+    localStorage.removeItem('referringDetails')
     this.examDetails$$.next({} as ExamDetails);
     this.slotDetails$$.next({} as SlotDetails);
     this.basicDetails$$.next({});
