@@ -36,13 +36,13 @@
   flex-direction: column;
   .upload-img-desc{
     position: absolute;
-    top: 60vh;
+    top: 52vh;
     display: flex;
     justify-content: center;
     align-items: center;
     span{
       font-weight: 500;
-      font-size: 14px;
+      font-size: 18px;
       text-align: center;
       margin: 0 5px;
     }
@@ -90,6 +90,11 @@
         cursor: pointer;
     }
   }
+}
+
+.right-icon{
+  width: 30vh !important;
+  color: var(--dfm-green);
 }
 
 @keyframes slide-up {
@@ -141,9 +146,9 @@
     overflow: hidden;
     align-items: center;
     .upload-img-desc{
-      top: 50vh;
+      top: 48vh;
       span{
-        font-size: 14px;
+        font-size: 18px;
         text-align: center;
       }
     }

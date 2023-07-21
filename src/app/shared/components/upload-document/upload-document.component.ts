@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
+import { LoaderService } from 'src/app/core/services/loader.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 
 @Component({
@@ -14,22 +15,27 @@ export class UploadDocumentComponent implements OnInit {
 
   private uniqueId: string = '';
 
-  isQrValid = new Subject();
+  isQrValid = new BehaviorSubject<boolean>(true);
   
   public uploadFileName: string = '';
 
   public documentUploadProcess = new BehaviorSubject<string>('Upload document')
 
-  constructor(private route: ActivatedRoute, private landingSvc : LandingService, private notificationService : NotificationDataService) {
+  constructor(private route: ActivatedRoute, private landingSvc : LandingService, private notificationService : NotificationDataService, public loaderSvc: LoaderService) {
     this.uniqueId = this.route.snapshot?.queryParams['id'];
     // this.uniqueId =  "1a9d30ea-08ba-4322-bc32-6182b9272f5d"
   }
 
   ngOnInit(): void {
-    this.landingSvc.validateQr(this.uniqueId).subscribe({
-      next: (res) => this.isQrValid.next(true),
-      error: (err) => this.isQrValid.next(false),
-    })
+    this.loaderSvc.spinnerActivate();
+    this.landingSvc.validateQr(this.uniqueId).subscribe(
+      {
+        next: (res) => { this.isQrValid.next(true);  this.loaderSvc.spinnerDeactivate()},
+        error: (err) => { this.isQrValid.next(false), this.loaderSvc.spinnerDeactivate()},
+      // complete: () => this.loaderSvc.spinnerDeactivate(),
+      }
+    )
+    
   }
 
   public uploadRefferingNote(event: any) {
