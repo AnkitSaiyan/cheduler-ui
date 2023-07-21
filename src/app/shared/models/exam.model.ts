@@ -8,7 +8,7 @@ export interface Exam {
   info: string;
   instructions: string;
   uncombinables: number[];
-  gender: BodyType;
+  bodyType: BodyType;
   bodyPart: string;
 }
 

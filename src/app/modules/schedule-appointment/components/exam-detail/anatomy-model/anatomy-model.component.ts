@@ -92,8 +92,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       .subscribe((value) => {
         if (value === 'bones') {
           this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
-          this.examSvc.selectedGender$$.next(BodyType.Skeleton);
-          this.examSvc.selectedGender$$.next(BodyType.Skeleton);
+          this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
+          this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
         }
       });
 
@@ -102,9 +102,9 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
       .subscribe((value) => {
         if (value === 'male') {
-          this.examSvc.selectedGender$$.next(BodyType.Male);
+          this.examSvc.selectedBodyType$$.next(BodyType.Male);
         } else {
-          this.examSvc.selectedGender$$.next(BodyType.Female);
+          this.examSvc.selectedBodyType$$.next(BodyType.Female);
         }
       });
   }
@@ -116,7 +116,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
   public onExamSelect(value: string) {
     this.examSvc.filterExams$.pipe(take(1)).subscribe((allExams) => {
       const exam = allExams?.find((val: any) => val.value === value) as Exam;
-      this.examSvc.addExam(exam.bodyPart + ` [${exam.gender}]`, exam, true);
+      this.examSvc.addExam(exam.bodyPart + ` [${exam.bodyType}]`, exam, true);
       this.addExamForm.get('exam')?.reset();
     });
   }
@@ -125,5 +125,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     super.ngOnDestroy();
   }
 }
+
+
 
 

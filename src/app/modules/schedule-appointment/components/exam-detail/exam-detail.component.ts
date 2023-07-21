@@ -99,14 +99,14 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
         first(),
         map((exams) => {
           return exams
-            .filter((exam) => exam.bodyPart && exam.gender)
+            .filter((exam) => exam.bodyPart && exam.bodyType)
             .map((exam) => {
               this.examIdsToUncombinables.set(+exam.id, new Set(exam.uncombinables));
               return {
                 name: exam.name,
                 value: exam.id,
                 description: exam.instructions,
-                gender: exam.gender,
+                bodyType: exam.bodyType,
                 bodyPart: exam.bodyPart,
               };
             });
@@ -129,15 +129,15 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   private examModifiedData(exams: Exam[]): any {
     return exams.reduce(
       (acc, curr) => {
-        if (acc[curr.gender]) {
-          if (acc[curr.gender][curr.bodyPart]) {
-            acc[curr.gender][curr.bodyPart] = [...acc[curr.gender][curr.bodyPart], curr];
+        if (acc[curr.bodyType]) {
+          if (acc[curr.bodyType][curr.bodyPart]) {
+            acc[curr.bodyType][curr.bodyPart] = [...acc[curr.bodyType][curr.bodyPart], curr];
           } else {
-            acc[curr.gender][curr.bodyPart] = [curr];
+            acc[curr.bodyType][curr.bodyPart] = [curr];
           }
         } else {
-          acc[curr.gender] = {};
-          acc[curr.gender][curr.bodyPart] = [curr];
+          acc[curr.bodyType] = {};
+          acc[curr.bodyType][curr.bodyPart] = [curr];
         }
         return acc;
       },

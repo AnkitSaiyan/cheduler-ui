@@ -10,26 +10,26 @@ export class ExamService {
   public selectedExam: any = {};
   private allExams$$ = new BehaviorSubject<any>(null);
   public selectedCategory$$ = new BehaviorSubject<string>('');
-  public selectedGender$$ = new BehaviorSubject<string | undefined>(undefined);
+  public selectedBodyType$$ = new BehaviorSubject<string | undefined>(undefined);
   constructor() {}
 
   public get filterExams$(): any {
-    return combineLatest([this.selectedCategory$$, this.allExams$$, this.selectedGender$$]).pipe(
+    return combineLatest([this.selectedCategory$$, this.allExams$$, this.selectedBodyType$$]).pipe(
       switchMap(() => this.allExams$$),
       map((value) => {
-        if (this.selectedCategory$$.value && this.selectedGender$$.value) {
-          return value[this.selectedGender$$.value][this.selectedCategory$$.value];
+        if (this.selectedCategory$$.value && this.selectedBodyType$$.value) {
+          return value[this.selectedBodyType$$.value][this.selectedCategory$$.value];
         }
-        if (this.selectedGender$$.value) {
-          return Object.values(value[this.selectedGender$$.value])?.flatMap((val) => val);
+        if (this.selectedBodyType$$.value) {
+          return Object.values(value[this.selectedBodyType$$.value])?.flatMap((val) => val);
         }
         return Object.values(value?.[BodyType.Male] ?? {})?.flatMap((val) => val);
       }),
     );
   }
 
-  public setCategory(category: BodyMaleFront | BodyMaleBack | any, gender?: BodyType) {
-    this.selectedGender$$.next(gender);
+  public setCategory(category: BodyMaleFront | BodyMaleBack | any, bodyType?: BodyType) {
+    this.selectedBodyType$$.next(bodyType);
     this.selectedCategory$$.next(category);
   }
 
@@ -41,7 +41,7 @@ export class ExamService {
   public resetExamValue() {
     this.selectedExam = {};
     this.selectedCategory$$.next('');
-    this.selectedGender$$.next(undefined);
+    this.selectedBodyType$$.next(undefined);
   }
 
   public getExams$(): Observable<any> {
@@ -78,6 +78,8 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
 
 
 
