@@ -53,11 +53,17 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       )
       .subscribe((event) => {
         if (event.id === 1 && event.url === event.urlAfterRedirects)
-          this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => this.siteDetails$$.next(res?.data));
+          this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
+            this.siteDetails$$.next(res?.data);
+          });
       });
   }
 
   public ngOnInit(): void {
+    const qrDetails = JSON.parse(localStorage.getItem('qrDetails') || '{}');
+
+    if(qrDetails?.fileName) this.signalrFileName = qrDetails?.fileName;
+
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
     this.scheduleAppointmentSvc.physicians$
@@ -82,6 +88,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       console.log('signalData', data);
       this.signalrFileName = data?.fileName;
+      const obj = {
+        qrId: data.appointmentQrcodeId,
+        fileName : data.fileName       
+      }
+      localStorage.setItem('qrDetails',JSON.stringify(obj));
     });
   }
 

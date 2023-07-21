@@ -87,7 +87,6 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
       .pipe(takeUntil(this.destroy$$))
       .subscribe((res) => {
         console.log('QR', res);
-        localStorage.setItem('qrId', res.qrCodeId);
         this.img = of(this._sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${res.qrCodeContent}`));
         this.countdown();
       });
