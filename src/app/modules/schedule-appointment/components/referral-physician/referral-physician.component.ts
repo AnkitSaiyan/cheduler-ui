@@ -168,6 +168,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     if (directUpload) {
       this.documentUploadProcess.next(fileName);
       this.signalRFileName = ''
+      this.referringDetails.qrId = '';
     } else {
       this.documentUploadProcess.next('');
       this.signalRFileName = fileName
