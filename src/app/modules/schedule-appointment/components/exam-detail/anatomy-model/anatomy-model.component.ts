@@ -25,7 +25,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
   }
 
   public filterForm!: FormGroup;
-
+  @Input()
   public addExamForm!: FormGroup;
 
   public filter = [
@@ -86,11 +86,6 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       side: ['front', [Validators.required]],
     });
 
-    this.addExamForm = this.fb.group({
-      exam: [null, []],
-      comments: ['', []],
-    });
-
     this.filterForm
       .get('bodyStructure')
       ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
@@ -130,4 +125,5 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     super.ngOnDestroy();
   }
 }
+
 

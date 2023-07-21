@@ -38,6 +38,12 @@ export class ExamService {
     this.allExams$$.next(exams);
   }
 
+  public resetExamValue() {
+    this.selectedExam = {};
+    this.selectedCategory$$.next('');
+    this.selectedGender$$.next(undefined);
+  }
+
   public getExams$(): Observable<any> {
     return this.allExams$$.asObservable();
   }
@@ -72,6 +78,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 

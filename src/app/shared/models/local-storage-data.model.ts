@@ -1,7 +1,10 @@
+import { Exam } from './exam.model';
+
 export interface ExamDetails {
   physician: number | string;
   exams: number[];
   comments?: string;
+  examsData?: any[];
 }
 
 export interface SlotDetails {
@@ -10,5 +13,4 @@ export interface SlotDetails {
     [key: number]: any;
   };
 }
-
 
