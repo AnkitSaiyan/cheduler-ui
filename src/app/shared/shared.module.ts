@@ -32,6 +32,7 @@ import { AsPipe } from './pipes/as.pipe';
 import { QrModalComponent } from './components/qr-modal/qr-modal.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 import { AnatomyMatMenu } from './components/anatomy-mat-menu/anatomy-mat-menu';
+import { RemoveSelectedItemFormAnatomyPipe } from './pipes/remove-selected-item-anatomy.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -58,6 +59,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     QrModalComponent,
     UploadDocumentComponent,
     AnatomyMatMenu,
+    RemoveSelectedItemFormAnatomyPipe,
   ],
   imports: [
     CommonModule,
@@ -106,7 +108,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatChipsModule,
     AsPipe,
     AnatomyMatMenu,
+    RemoveSelectedItemFormAnatomyPipe,
   ],
 })
 export class SharedModule {}
+
 
