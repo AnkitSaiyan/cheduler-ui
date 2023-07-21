@@ -87,16 +87,18 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       .pipe(
         first(),
         map((exams) => {
-          return exams.map((exam) => {
-            this.examIdsToUncombinables.set(+exam.id, new Set(exam.uncombinables));
-            return {
-              name: exam.name,
-              value: exam.id,
-              description: exam.instructions,
-              gender: exam.gender,
-              bodyPart: exam.bodyPart,
-            };
-          });
+          return exams
+            .filter((exam) => exam.bodyPart && exam.gender)
+            .map((exam) => {
+              this.examIdsToUncombinables.set(+exam.id, new Set(exam.uncombinables));
+              return {
+                name: exam.name,
+                value: exam.id,
+                description: exam.instructions,
+                gender: exam.gender,
+                bodyPart: exam.bodyPart,
+              };
+            });
         }),
         takeUntil(this.destroy$$),
       )
