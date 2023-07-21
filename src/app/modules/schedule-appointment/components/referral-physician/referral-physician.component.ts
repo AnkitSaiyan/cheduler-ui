@@ -31,7 +31,13 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public documentUploadProcess = new BehaviorSubject<string>('');
 
-  public signalrFileName: string = '';
+  public signalRFileName: string = '';
+
+  public referringDetails!: {
+    qrId: string;
+    fileName: string;
+    physician: any;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +52,12 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
+    this.referringDetails = {
+      qrId: '',
+      fileName: '',
+      physician: []
+    }
+
     this.router.events
       .pipe(
         filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd),
@@ -60,9 +72,12 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public ngOnInit(): void {
-    const qrDetails = JSON.parse(localStorage.getItem('qrDetails') || '{}');
+    const qrDetails:any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
 
-    if(qrDetails?.fileName) this.signalrFileName = qrDetails?.fileName;
+    if (qrDetails?.fileName) {
+      this.referringDetails = qrDetails;
+      this.updateFileName(this.referringDetails.fileName, !this.referringDetails.qrId )
+    }
 
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
@@ -74,25 +89,14 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       .subscribe({
         next: (staffs) => this.filteredPhysicians$$.next(staffs),
       });
-
-    this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
-      next: (examDetails) => {
-        if (localStorage.getItem('appointmentDetails')) {
-          this.createForm(examDetails);
-        } else {
-          this.createForm(examDetails);
-        }
-      },
-    });
+      this.createForm(qrDetails);
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       console.log('signalData', data);
-      this.signalrFileName = data?.fileName;
-      const obj = {
-        qrId: data.appointmentQrcodeId,
-        fileName : data.fileName       
-      }
-      localStorage.setItem('qrDetails',JSON.stringify(obj));
+      this.modalSvc.close();
+      this.updateFileName(data.fileName, false);
+      this.referringDetails.qrId = data.appointmentQrcodeId,
+      this.referringDetails.fileName = data.fileName;       
     });
   }
 
@@ -100,9 +104,9 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     super.ngOnDestroy();
   }
 
-  private createForm(examDetails?) {
+  private createForm(data) {
     this.examForm = this.fb.group({
-      physician: [examDetails?.physician ? examDetails.physician : '', []],
+      physician: [data?.physician ? data.physician : '', []],
     });
   }
 
@@ -111,6 +115,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.examForm.markAllAsTouched();
       return;
     }
+    this.referringDetails.physician = this.examForm.value.physician;
+    localStorage.setItem('referringDetails', JSON.stringify(this.referringDetails))
     this.router.navigate(['../exam'], { relativeTo: this.route, replaceUrl: true });
   }
 
@@ -131,7 +137,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   private uploadDocument(file: any) {
     this.landingService.uploadDocumnet(file, '').subscribe({
-      next: (res) => this.documentUploadProcess.next(this.uploadFileName),
+      next: (res) => {
+        this.referringDetails.fileName = this.uploadFileName
+        this.updateFileName(this.uploadFileName, true);
+      },
       error: (err) => this.documentUploadProcess.next('Failed to upload'),
     });
   }
@@ -153,13 +162,16 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   public uploadDocumentFromMobile() {
     const modalRef = this.modalSvc.open(QrModalComponent, {});
 
-    // modalRef.closed
-    //   .pipe(
-    //     filter((res) => !!res),
-    //     take(1),
-    //   )
-    //   .subscribe({
-    //     next: () =>
-    //   });
+  }
+
+  private updateFileName(fileName:string, directUpload:boolean) {
+    if (directUpload) {
+      this.documentUploadProcess.next(fileName);
+      this.signalRFileName = ''
+      this.referringDetails.qrId = '';
+    } else {
+      this.documentUploadProcess.next('');
+      this.signalRFileName = fileName
+      }
   }
 }
