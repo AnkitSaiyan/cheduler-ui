@@ -219,6 +219,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     this.isButtonDisable$$.next(true);
 
+    const physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -236,7 +237,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             socialSecurityNumber: null,
           }
         : this.basicDetails),
-      doctorId: this.examDetails.physician,
+      doctorId: physicianDetails.physician,
+      qrCodeId: physicianDetails.qrId,
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -329,9 +331,9 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //     c: true,
     //   },
     // });
-
     this.isButtonDisable$$.next(true);
-
+    
+    const physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -349,7 +351,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             socialSecurityNumber: null,
           }
         : this.basicDetails),
-      doctorId: this.examDetails.physician,
+      doctorId: physicianDetails.physician,
+      qrCodeId: physicianDetails.qrId,
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -420,12 +423,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       timeZone = timeZone.slice(1);
     }
 
-    const qrCodeId = (JSON.parse(localStorage.getItem('siteDetails') || '{}')?.qrId) || '';
+    
 
     requestData = {
       ...requestData,
       patientTimeZone: timeZone ?? '',
-      qrCodeId
     };
 
     if (requestData) {
