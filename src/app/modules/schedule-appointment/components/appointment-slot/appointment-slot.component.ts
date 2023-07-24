@@ -77,8 +77,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       if (this.editData?.exam) {
         const exams = [...this.editData.exams];
         exams.forEach((exam) => {
-          const start = this.dateTo24TimeString(exam.startedAt);
-          const end = this.dateTo24TimeString(exam.endedAt);
+          const start = this.dateTo24TimeString(exam?.startedAt);
+          const end = this.dateTo24TimeString(exam?.endedAt);
 
           this.toggleSlotSelection(
             {

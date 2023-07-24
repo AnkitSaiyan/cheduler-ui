@@ -83,7 +83,7 @@
 
     <section class="appointment-slot-sec-2 flex-1" *ngIf="selectedDate$$.value">
       <ng-container *ngIf="!isSlotCombinable ; else elseBlock">
-        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails.exams ; let i = index;">
+        <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails?.exams ; let i = index;">
           <div class="d-flex flex-column gap-1">
             <div class="d-flex flex-column gap-1">
               <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
@@ -98,7 +98,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span>{{ editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal: true }}</span>
+                <span>{{ editData?.exams[i]?.startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData?.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal: true }}</span>
               </div>
             </div>
 
@@ -142,15 +142,15 @@
             <div class="d-flex flex-column gap-2">
               <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
                 <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails.exams; let i =index">  {{ examIdToName[exam]?.name }} {{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+                <span *ngFor="let exam of examsDetails?.exams; let i =index">  {{ examIdToName[exam]?.name }} {{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
               </div>
 
               <div class="d-flex flex-wrap  gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'Instructions' | translate }}: </span>
 
-                <ng-container *ngIf="examsDetails.exams.length > 1; else oneExam">
+                <ng-container *ngIf="examsDetails?.exams?.length && examsDetails.exams.length > 1; else oneExam" >
                   <ul style="max-height:140px; overflow-y:auto;">
-                    <li *ngFor="let exam of examsDetails.exams">
+                    <li *ngFor="let exam of examsDetails?.exams">
                       <span class="font-weight-medium ">{{ examIdToName[exam]?.name }} - </span>
                       <span class="instructions-value-text">{{ !!examIdToName[exam]?.instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
                     </li>
@@ -164,7 +164,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails.exams; let i =index"> <span>{{editData.exams[i].startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal : true }}</span>{{i !== (examsDetails.exams.length - 1) ? ',' : ''}}</span>
+                <span *ngFor="let exam of examsDetails?.exams; let i =index"> <span>{{editData?.exams[i]?.startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData?.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal : true }}</span>{{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
               </div>
             </div>
 
@@ -181,7 +181,7 @@
                 </div>
                 <ng-template #showSlot2>
                   <div class="slot-timing d-flex align-items-center gap-3 flex-wrap slot-timing-mv">
-                    <ng-container *ngIf="examsDetails.exams?.length">
+                    <ng-container *ngIf="examsDetails?.exams?.length">
                       <div
                         class="time-slot-text dfm-p-8 text-center text-sm font-weight-medium w-128"
                         *ngFor="let slot of examIdToAppointmentSlots[+examsDetails.exams[0]]"
@@ -191,7 +191,7 @@
                           'time-slot-selected-text': selectedTimeSlot[+examsDetails.exams[0]]?.slot === slot.start + '-' + slot.end
                         }"
                       >
-                        {{ slot.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot.end?.slice(0, -3) | dfmUtcToLocal : true }}
+                        {{ slot?.start?.slice(0, -3) | dfmUtcToLocal : true }} - {{ slot?.end?.slice(0, -3) | dfmUtcToLocal : true }}
                       </div>
                     </ng-container>
                   </div>
