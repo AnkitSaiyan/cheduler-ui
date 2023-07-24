@@ -84,7 +84,7 @@
             formControlName="exam"
             size="sm"
             label="Exam"
-            [placeholder]="'Select '+((examSvc.selectedCategory$$ | async) ?? '' | lowercase)+ ' exam'"
+            [placeholder]="'Select '+(examSvc.selectedCategory | lowercase)+ 'exam'"
           ></dfm-input-dropdown>
 
           <dfm-button

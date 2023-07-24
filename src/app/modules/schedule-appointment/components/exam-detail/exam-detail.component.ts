@@ -251,7 +251,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
     const selectedExams = Object.values(this.examSvc.selectedExam).flatMap((val) => val);
     const selectedExamIds = selectedExams?.map(({ value }: any) => value);
-    if (!selectedExamIds.length) {
+    if (!isFromMobile && !selectedExamIds.length) {
       return;
     }
     const examDetails = {
