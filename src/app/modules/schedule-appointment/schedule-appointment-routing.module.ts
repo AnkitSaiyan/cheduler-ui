@@ -37,6 +37,11 @@ const scheduleAppointmentRoutes: Routes = [
         path: 'confirm',
         component: ConfirmAppointmentComponent,
       },
+      {
+        path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
     ],
   },
 ];
