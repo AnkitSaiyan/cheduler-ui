@@ -91,6 +91,17 @@
             [showDescription]="false"
           ></dfm-input-dropdown>
 
+          <dfm-button-icon
+							color="primary"
+							size="md"
+							icon="x-close"
+							ngbPopover="{{ 'Reset' | translate }}"
+							triggers="mouseenter:mouseleave"
+							popoverClass="popover-p-8"
+							[openDelay]="200"
+							(click)="examSvc.setCategory('')"
+						></dfm-button-icon>
+
           <dfm-button
             color="primary"
             size="sm"

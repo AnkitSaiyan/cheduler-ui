@@ -85,7 +85,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
               bodyType: element.bodyType,
               bodyPart: element.bodyPart,
             };
-            this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyPart + ']', exam);
+            this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
           });
         } else {
           this.createForm(examDetails, false);
@@ -171,7 +171,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
           fa.push(this.newExam(+exam));
         });
         examDetails?.examsData.forEach((exam) => {
-          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyPart + ']', exam);
+          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
         });
       } else {
         fa.push(this.newExam());
@@ -257,7 +257,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       return;
     }
 
-    const selectedExams = Object.values(this.examSvc.selectedExam).flatMap((val) => val);
+    const selectedExams: any[] = Object.values(this.examSvc.selectedExam).flatMap((val) => val);
     const selectedExamIds = selectedExams?.map(({ value }: any) => value);
     if (!isFromMobile && !selectedExamIds.length) {
       return;
@@ -274,15 +274,27 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       this.editData.doctorId = this.examForm.controls['physician'].value;
       this.editData.comments = isFromMobile ? this.examForm.controls['comments'].value : this.addExamForm.controls['comments'].value;
       const exams: any = [];
-      this.examForm.value.exams.forEach((element) => {
-        const previousExam = this.editData.exams?.find(({ id }) => id === element.exam);
-        if (previousExam) {
-          exams.push({ ...previousExam });
-        } else {
-          exams.push({ id: element.exam });
-        }
-      });
-      this.editData.exams = exams;
+      if (isFromMobile) {
+        this.examForm.value.exams.forEach((element) => {
+          const previousExam = this.editData.exams?.find(({ id }) => id === element.exam);
+          if (previousExam) {
+            exams.push({ ...previousExam });
+          } else {
+            exams.push({ id: element.exam });
+          }
+        });
+        this.editData.exams = exams;
+      } else {
+        selectedExams?.forEach((exam) => {
+          const previousExam = this.editData.exams?.find(({ id }) => id === exam.value);
+          if (previousExam) {
+            exams.push({ ...previousExam });
+          } else {
+            exams.push({ ...exam, id: exam.value });
+          }
+        });
+        this.editData.exams = exams;
+      }
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
 
