@@ -110,6 +110,9 @@ dfm-input-dropdown {
   overflow: auto;
 }
 
+.model-container {
+  width: min(380px, 29vw);
+}
 .mat-chip {
   display: flex;
   align-items: center;
