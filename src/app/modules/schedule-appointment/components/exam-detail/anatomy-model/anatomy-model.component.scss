@@ -13,6 +13,9 @@
     //color: var(--dfm-primary);
     cursor: pointer;
   }
+p {
+  white-space: pre-wrap;
+}
 
   .basic-basea {
     display: flex;
@@ -34,6 +37,9 @@
   }
 }
 
+dfm-input-dropdown {
+  min-width: 150px;
+}
 .popover-content {
   // padding: 24px;
 
@@ -87,7 +93,7 @@
   flex-direction: column;
   gap: 16px;
   max-width: 40%;
-  
+
     .exam-list {
       display: flex;
       flex-wrap: wrap;
