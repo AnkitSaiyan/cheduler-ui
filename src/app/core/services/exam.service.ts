@@ -38,7 +38,7 @@ export class ExamService {
   }
 
   public setExam(exams: any) {
-    console.log(exams, 'exam');
+
     this.allExams$$.next(exams);
   }
 

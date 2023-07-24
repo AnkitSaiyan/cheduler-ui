@@ -23,7 +23,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
   private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
 
-  public patientSSN= new FormControl('');
+  public patientSSN = new FormControl('');
 
   constructor(
     private authService: AuthService,
@@ -31,13 +31,12 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalSvc : ModalService
+    private modalSvc: ModalService,
   ) {
     super();
   }
 
   public ngOnInit(): void {
-    this.authService.authUser$.subscribe(console.log);
     combineLatest([this.authService.authUser$, this.scheduleAppointmentSvc.basicDetails$])
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([userDetail, basicDetails]) => {
@@ -53,7 +52,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
         this.createForm(formData);
         setTimeout(() => {
-        if (userDetail) {
+          if (userDetail) {
             this.basicDetailsForm.patchValue({
               patientFname: userDetail?.givenName,
               patientLname: userDetail?.surname,
@@ -63,11 +62,11 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
             });
             Object.keys(this.basicDetailsForm.controls).forEach((control) => this.basicDetailsForm.get(control)?.disable());
           }
-          if(userDetail?.socialSecurityNumber){
+          if (userDetail?.socialSecurityNumber) {
             this.patientSSN.setValue(userDetail.socialSecurityNumber);
             this.patientSSN.disable();
-          }else{
-            this.patientSSN.setValue(basicDetails.socialSecurityNumber ?? "");
+          } else {
+            this.patientSSN.setValue(basicDetails.socialSecurityNumber ?? '');
           }
         }, 0);
       });
@@ -101,7 +100,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       localStorage.setItem('appointmentDetails', JSON.stringify(this.editData));
     }
 
-    this.scheduleAppointmentSvc.setBasicDetails({...this.basicDetailsForm.value, socialSecurityNumber: this.patientSSN.value });
+    this.scheduleAppointmentSvc.setBasicDetails({ ...this.basicDetailsForm.value, socialSecurityNumber: this.patientSSN.value });
     this.router.navigate(['../confirm'], { relativeTo: this.route, replaceUrl: true });
   }
 
@@ -126,7 +125,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
   }
 
   private createForm(basicDetails, isDisable = false) {
-    // console.log(basicDetails);
+    //
     this.basicDetailsForm = this.fb.group({
       patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
       patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
@@ -134,6 +133,5 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
       socialSecurityNumber: [{ value: basicDetails?.socialSecurityNumber, disabled: isDisable }],
     });
-
   }
 }

@@ -7,51 +7,48 @@ import { Subject } from 'rxjs';
 
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SignalRService {
-	private hubConnection!: signalR.HubConnection;
-	
-	private docData= new Subject<any>()
+  private hubConnection!: signalR.HubConnection;
 
-  constructor(private notificationService : NotificationDataService) {
+  private docData = new Subject<any>();
+
+  constructor(private notificationService: NotificationDataService) {
     this.createConnection();
-	this.startConnection();
-	this.registerForDocument();
+    this.startConnection();
+    this.registerForDocument();
   }
-	
-	get documentData() {
-		return this.docData.asObservable();
-	}
-	
-	private createConnection() {
-		const SubDomain: string = window.location.host.split('.')[0];
-		const options: IHttpConnectionOptions = {
-			headers: { SubDomain },
-		};
 
-		this.hubConnection = new signalR.HubConnectionBuilder()
-			.withUrl(`https://diflexmo-scheduler-api-dev.azurewebsites.net/informhub`, options)
-			.configureLogging(signalR.LogLevel.Debug)
-			.build();
-	}
+  get documentData() {
+    return this.docData.asObservable();
+  }
 
-	private startConnection(): void {
-		this.hubConnection
-			.start()
-			.then(() => {
-				console.log('Connection started.');
-			})
-			.catch((err) => {
-				console.log('Opps!');
-			});
-	}
+  private createConnection() {
+    const SubDomain: string = window.location.host.split('.')[0];
+    const options: IHttpConnectionOptions = {
+      headers: { SubDomain },
+    };
 
-	private registerForDocument(): void {
-		this.hubConnection.on('UploadDocument', (param: string) => {
-			// console.log(param);
-			this.docData.next(param)
-			this.notificationService.showNotification("Document uploaded successfully!");
-		});
-	}
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(`https://diflexmo-scheduler-api-dev.azurewebsites.net/informhub`, options)
+      .configureLogging(signalR.LogLevel.Debug)
+      .build();
+  }
+
+  private startConnection(): void {
+    this.hubConnection
+      .start()
+      .then(() => {})
+      .catch((err) => {});
+  }
+
+  private registerForDocument(): void {
+    this.hubConnection.on('UploadDocument', (param: string) => {
+      //
+      this.docData.next(param);
+      this.notificationService.showNotification('Document uploaded successfully!');
+    });
+  }
 }
+

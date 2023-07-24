@@ -40,7 +40,7 @@ export class AuthComponent extends DestroyableComponent implements OnInit, OnDes
     });
     this.isLoggedIn$ = this.authService.isLoggedIn$.pipe(tap((isLoggedIn) => {
       if (isLoggedIn) {
-        console.log({ isLoggedIn });
+
         this.router.navigate(['/dashboard']);
       }
     }));

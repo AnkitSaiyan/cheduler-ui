@@ -75,11 +75,10 @@ export class ScheduleAppointmentService {
   }
 
   public get slotDetails$(): Observable<SlotDetails> {
-    console.log(!this.slotDetails$$.value?.selectedDate);
+
     if (!this.slotDetails$$.value?.selectedDate) {
       const slotDetails = localStorage.getItem('slotDetails');
       if (slotDetails) {
-        console.log('inn');
         this.slotDetails$$.next(JSON.parse(slotDetails));
       }
     }
@@ -283,7 +282,7 @@ export class ScheduleAppointmentService {
               return this.getAppointmentModified(response.data) as Appointment;
             }),
             catchError((e) => {
-              console.log('error', e);
+
               return of({} as Appointment);
             }),
           );

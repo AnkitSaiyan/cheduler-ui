@@ -32,7 +32,7 @@ export class ScheduleAppointmentComponent extends DestroyableComponent implement
     combineLatest([this.routerStateSvc.listenForUrlChange$(), this.scheduleAppointmentSvc.examDetails$])
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([url, examDetails]) => {
-        console.log(url.includes('confirm'), Object.keys(examDetails).length, examDetails);
+
         if (url.includes('confirm') && !Object.keys(examDetails).length) {
           this.router.navigate(['/', 'dashboard'], {
             replaceUrl: true,

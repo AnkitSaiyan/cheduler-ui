@@ -191,7 +191,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       )
       .subscribe({
         next: (value) => {
-          console.log(value);
+
         },
       });
   }
