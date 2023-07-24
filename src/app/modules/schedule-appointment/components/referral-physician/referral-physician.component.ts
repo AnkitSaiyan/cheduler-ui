@@ -39,6 +39,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     physician: any;
   }
 
+  public isEdit: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -72,7 +74,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public ngOnInit(): void {
-    const qrDetails:any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
+    const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
+    this.isEdit = localStorage.getItem('edit') == 'true'
 
     if (qrDetails?.fileName) {
       this.referringDetails = qrDetails;
@@ -125,12 +128,17 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.uploadFileName = event.target.files[0].name;
     var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
     var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    const fileSize = event.target.files[0].size / 1024 / 1024 > 10;
 
     if (allowedExtensions.indexOf(extension) === -1) {
       // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
-      this.notificationService.showNotification('File format not allowed', NotificationType.WARNING);
+      this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
-    } else {
+    } else if (fileSize) { 
+      this.notificationService.showNotification('File size should not be greater than 10 MB.', NotificationType.WARNING);
+      this.documentUploadProcess.next('Failed to upload');
+    }
+    else {
       this.onFileChange(event);
     }
   }
