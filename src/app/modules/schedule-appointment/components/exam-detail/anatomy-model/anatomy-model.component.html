@@ -100,6 +100,7 @@
 							popoverClass="popover-p-8"
 							[openDelay]="200"
 							(click)="examSvc.setCategory('')"
+              [disabled]="!examSvc.selectedCategory.length"
 						></dfm-button-icon>
 
           <dfm-button
