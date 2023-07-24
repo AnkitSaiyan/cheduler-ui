@@ -86,7 +86,7 @@
             [items]="((examSvc.filterExams$ | async) ?? []) | removeSelectedItemFormAnatomy : this.examSvc.selectedExam"
             formControlName="exam"
             size="sm"
-            label="Exam"
+            label="Exam *"
             [placeholder]="'Select '+(examSvc.selectedCategory | lowercase)+ 'exam'"
             [showDescription]="false"
           ></dfm-input-dropdown>
