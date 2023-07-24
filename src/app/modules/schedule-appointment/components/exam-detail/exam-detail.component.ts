@@ -78,6 +78,14 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
           this.editData.exams.forEach((element, index) => {
             this.addExam();
             items.at(index).patchValue({ exam: element.id });
+            const exam = {
+              name: element.name,
+              value: element.id,
+              description: element.instructions,
+              bodyType: element.bodyType,
+              bodyPart: element.bodyPart,
+            };
+            this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyPart + ']', exam);
           });
         } else {
           this.createForm(examDetails, false);
