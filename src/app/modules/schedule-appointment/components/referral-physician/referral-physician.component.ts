@@ -154,7 +154,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.landingService.uploadDocumnet(file, '').subscribe({
       next: (res) => {
         this.referringDetails.fileName = this.uploadFileName
-        this.referringDetails.qrId = res?.data?.apmtDocUniqueId
+        this.referringDetails.qrId = res?.apmtDocUniqueId
         this.updateFileName(this.uploadFileName, true);
       },
       error: (err) => this.documentUploadProcess.next('Failed to upload'),
