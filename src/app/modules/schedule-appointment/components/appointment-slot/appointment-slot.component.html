@@ -164,7 +164,7 @@
 
               <div *ngIf="editData?.exams" class="d-flex gap-2 align-items-start text-sm">
                 <span class="font-weight-medium">{{ 'SelectedSlot' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails?.exams; let i =index"> <span>{{editData?.exams[i]?.startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData?.exams[i]?.endedAt | date : 'HH:mm' | dfmUtcToLocal : true }}</span>{{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
+                <span> {{editData?.exams?.[0]?.startedAt | date : 'HH:mm' | dfmUtcToLocal : true }} - {{ editData?.exams?.[editData?.exams?.length  - 1]?.endedAt | date : 'HH:mm' | dfmUtcToLocal : true }}</span>
               </div>
             </div>
 
