@@ -146,8 +146,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     return new Promise((resolve) => {
       const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
         data: {
-          titleText: 'Are you sure you want to switch the gender?',
-          bodyText: 'Switching will discard the previously added exams',
+          titleText: 'Confirmation',
+          bodyText: 'Are you sure you want to switch the gender? Warning: Switching will discard the previously added exams',
           confirmButtonText: 'Proceed',
         } as DialogData,
       });
@@ -157,6 +157,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
 
 
 
