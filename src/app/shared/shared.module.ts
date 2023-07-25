@@ -33,6 +33,7 @@ import { QrModalComponent } from './components/qr-modal/qr-modal.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 import { AnatomyMatMenu } from './components/anatomy-mat-menu/anatomy-mat-menu';
 import { RemoveSelectedItemFormAnatomyPipe } from './pipes/remove-selected-item-anatomy.pipe';
+import { DocumentViewModalComponent } from './components/document-view-modal/document-view-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UploadDocumentComponent,
     AnatomyMatMenu,
     RemoveSelectedItemFormAnatomyPipe,
+    DocumentViewModalComponent,
   ],
   imports: [
     CommonModule,

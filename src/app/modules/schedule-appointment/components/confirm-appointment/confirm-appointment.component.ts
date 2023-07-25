@@ -238,7 +238,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           }
         : this.basicDetails),
       doctorId: this.physicianDetails.physician,
-      qrCodeId: this.physicianDetails.qrId,
+      qrCodeId: this.physicianDetails.qrId ?? "",
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -350,7 +350,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           }
         : this.basicDetails),
       doctorId: this.physicianDetails.physician,
-      qrCodeId: this.physicianDetails.qrId,
+      qrCodeId: this.physicianDetails.qrId ?? "",
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
