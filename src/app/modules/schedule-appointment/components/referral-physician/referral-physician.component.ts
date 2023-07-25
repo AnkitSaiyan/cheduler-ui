@@ -129,13 +129,15 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadRefferingNote(event: any) {
-    this.documentUploadProcess.next('Uploading...');
     this.uploadFileName = event.target.files[0].name;
     var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
     var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
     const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
-    if (allowedExtensions.indexOf(extension) === -1) {
+    if (!event.target.files.length) {
+      return
+    }
+    else if (allowedExtensions.indexOf(extension) === -1) {
       // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
       this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
@@ -144,6 +146,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.documentUploadProcess.next('Failed to upload');
     }
     else {
+      this.documentUploadProcess.next('Uploading...');
       this.onFileChange(event);
     }
   }
@@ -152,6 +155,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.landingService.uploadDocumnet(file, '').subscribe({
       next: (res) => {
         this.referringDetails.fileName = this.uploadFileName
+        this.referringDetails.qrId = res?.apmtDocUniqueId
         this.updateFileName(this.uploadFileName, true);
       },
       error: (err) => this.documentUploadProcess.next('Failed to upload'),
@@ -190,7 +194,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     if (directUpload) {
       this.documentUploadProcess.next(fileName);
       this.signalRFileName = ''
-      this.referringDetails.qrId = '';
     } else {
       this.documentUploadProcess.next('');
       this.signalRFileName = fileName

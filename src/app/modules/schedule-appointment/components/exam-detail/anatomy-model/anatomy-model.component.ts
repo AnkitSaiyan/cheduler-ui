@@ -132,7 +132,13 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
 
   public async onGenderChange(event: any, value: string) {
     const previousValue = this.filterForm?.get('gender')?.value;
-    if (value === previousValue) return;
+    if (
+      value === previousValue ||
+      !Object.keys(this.examSvc.selectedExam)?.some((val) => val.includes(value === 'male' ? BodyType.Female : BodyType.Male))
+    ) {
+      this.filterForm?.get('gender')?.setValue(value);
+      return;
+    }
     event.preventDefault();
     let confirm = await this.showConfirm();
     if (!confirm) {
@@ -157,6 +163,9 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
+
 
 
 
