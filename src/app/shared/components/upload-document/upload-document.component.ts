@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
@@ -19,7 +19,11 @@ export class UploadDocumentComponent implements OnInit {
   
   public uploadFileName: string = '';
 
-  public documentUploadProcess = new BehaviorSubject<string>('Upload document')
+  public documentUploadProcess = new BehaviorSubject<string>('Upload document');
+
+  private fileSize!:number
+
+
 
   constructor(private route: ActivatedRoute, private landingSvc : LandingService, private notificationService : NotificationDataService, public loaderSvc: LoaderService) {
     this.uniqueId = this.route.snapshot?.queryParams['id'];
@@ -27,6 +31,8 @@ export class UploadDocumentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.landingSvc.siteDetails$.pipe(take(1)).subscribe((res) => this.fileSize = res?.data?.documentSizeInKb/1024)
+
     this.loaderSvc.spinnerActivate();
     this.landingSvc.validateQr(this.uniqueId).subscribe(
       {
@@ -42,9 +48,13 @@ export class UploadDocumentComponent implements OnInit {
     this.uploadFileName = event.target.files[0].name;
     var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
     var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (allowedExtensions.indexOf(extension) === -1) {
-      this.notificationService.showNotification("File format not allowed", NotificationType.WARNING);
+      this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
+      this.documentUploadProcess.next('Failed to upload');
+    } else if (fileSize) { 
+      this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else {
       this.documentUploadProcess.next('Uploading...');

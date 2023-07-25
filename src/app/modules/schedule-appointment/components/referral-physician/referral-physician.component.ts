@@ -39,7 +39,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     physician: any;
   }
 
+  private fileSize!: number;
+
   public isEdit: boolean = false;
+
+  public imageSrc: any;
 
   constructor(
     private fb: FormBuilder,
@@ -95,11 +99,12 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.createForm(qrDetails);
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
-
       this.modalSvc.close();
       this.updateFileName(data.fileName, false);
       (this.referringDetails.qrId = data.appointmentQrcodeId), (this.referringDetails.fileName = data.fileName);
     });
+
+    this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe(res => this.fileSize = res.documentSizeInKb/1024)
   }
 
   override ngOnDestroy() {
@@ -127,14 +132,14 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.uploadFileName = event.target.files[0].name;
     var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
     var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
-    const fileSize = event.target.files[0].size / 1024 / 1024 > 10;
+    const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (allowedExtensions.indexOf(extension) === -1) {
       // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
       this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else if (fileSize) { 
-      this.notificationService.showNotification('File size should not be greater than 10 MB.', NotificationType.WARNING);
+      this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     }
     else {
@@ -160,6 +165,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         const reader = new FileReader();
         reader.onload = (e: any) => {
           resolve(files[0]);
+          this.imageSrc = reader.result;
         };
         reader.readAsDataURL(files[0]);
       }
@@ -167,8 +173,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadDocumentFromMobile() {
-    const modalRef = this.modalSvc.open(QrModalComponent, {});
-
+    this.modalSvc.open(QrModalComponent, {});
   }
 
   private updateFileName(fileName:string, directUpload:boolean) {
@@ -180,6 +185,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.documentUploadProcess.next('');
       this.signalRFileName = fileName
       }
+  }
+  public clearFile() {
+      this.documentUploadProcess.next('');
+      this.signalRFileName = ''
+      this.referringDetails.qrId = '';
   }
 }
 

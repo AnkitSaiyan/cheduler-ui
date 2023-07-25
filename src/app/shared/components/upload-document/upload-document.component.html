@@ -12,7 +12,7 @@
       <ng-container *ngIf="!((documentUploadProcess | async)?.includes('Uploaded')); else icon">
       <div class="upload-document-btn" *ngIf="(isQrValid | async)">
         <div class="light-circle">
-          <input type="file" (change)="uploadRefferingNote($event)" />
+          <input type="file" (change)="uploadRefferingNote($event)" accept = "application/pdf,image/*" />
           <img src="../../../../assets/images/upload-icon.png" alt="upload-icon" />
           <span class="icon-text"[style.color]="(documentUploadProcess | async)?.includes('Failed')? 'red': ''" >{{documentUploadProcess | async}}</span>
         </div>

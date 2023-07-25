@@ -49,6 +49,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   private authUser: AuthUser | undefined;
   private selectedLang!: string;
   private appointmentRefresh$$ = new BehaviorSubject<undefined>(undefined);
+  physicianDetails: any;
 
   constructor(
     private authService: AuthService,
@@ -84,6 +85,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public ngOnInit(): void {
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+    this.physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
@@ -218,8 +220,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     // });
 
     this.isButtonDisable$$.next(true);
-
-    const physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -237,8 +237,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             socialSecurityNumber: null,
           }
         : this.basicDetails),
-      doctorId: physicianDetails.physician,
-      qrCodeId: physicianDetails.qrId,
+      doctorId: this.physicianDetails.physician,
+      qrCodeId: this.physicianDetails.qrId,
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
@@ -332,8 +332,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
     this.isButtonDisable$$.next(true);
-
-    const physicianDetails = JSON.parse(localStorage.getItem('referringDetails') || '{}') || '';
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -351,8 +349,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             socialSecurityNumber: null,
           }
         : this.basicDetails),
-      doctorId: physicianDetails.physician,
-      qrCodeId: physicianDetails.qrId,
+      doctorId: this.physicianDetails.physician,
+      qrCodeId: this.physicianDetails.qrId,
       comments: this.examDetails?.comments,
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
