@@ -15,6 +15,7 @@
               [label]="item.name"
               [checkedValue]="item.value"
               [formControlName]="category.formName"
+              (click)="category.click ? onGenderChange($event, item.value): ''"
             ></dfm-radio-button>
           </ng-container>
         </div>
