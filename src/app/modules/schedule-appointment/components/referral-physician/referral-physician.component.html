@@ -27,7 +27,7 @@
             <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
               {{ 'RequiredField' | translate }}
             </span>
-            <ng-container *ngIf="!physicianEnale?.editUploadedDocument && !isEdit">
+            <ng-container *ngIf="!(!physicianEnale?.editUploadedDocument && isEdit)">
             <span class="upload-text">Upload Referring Note <small>(pdf, jpg, jpeg, png)</small></span>
             <div class="upload-main-container">
               <div class="upload-container">
