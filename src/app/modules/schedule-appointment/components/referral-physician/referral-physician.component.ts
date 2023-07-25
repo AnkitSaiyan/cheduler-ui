@@ -10,6 +10,7 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 import { NameValue } from 'src/app/shared/models/name-value.model';
 
@@ -173,8 +174,17 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadDocumentFromMobile() {
-    this.modalSvc.open(QrModalComponent, {});
-  }
+  this.modalSvc.open(DocumentViewModalComponent, {
+    data: {
+
+    },
+    options: {
+      size: 'xl',
+      backdrop: true,
+      centered: true,
+      modalDialogClass: 'ad-ap-modal-shadow',
+    },
+  })}
 
   private updateFileName(fileName:string, directUpload:boolean) {
     if (directUpload) {
