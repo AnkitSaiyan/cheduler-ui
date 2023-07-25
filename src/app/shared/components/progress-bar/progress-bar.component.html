@@ -7,9 +7,9 @@
         'progress-bar-marker-completed': urlObj['referral-physician'] < urlObj[url]
       }"
     >
-      <span *ngIf="urlObj.exam >= urlObj[url]">1</span>
+      <span *ngIf="urlObj['referral-physician'] >= urlObj[url]">1</span>
       <div class="progress-bar-tick-mark">
-        <dfm-icon name="check" *ngIf="urlObj.exam < urlObj[url]"></dfm-icon>
+        <dfm-icon name="check" *ngIf="urlObj['referral-physician'] < urlObj[url]"></dfm-icon>
       </div>
     </div>
     <span class="progress-bar-text">Referral Physician</span>

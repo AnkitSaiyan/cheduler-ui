@@ -45,7 +45,7 @@
   width: 100%;
   gap: 20px;
   overflow-x: auto;
-  height: 130vh;
+  max-height: 130vh;
 }
 // .display-boxes{
 //     // border: 3px solid green;
@@ -278,7 +278,7 @@
 }
 
 .exam-section {
-  flex: 0 0 47%;
+  // flex: 0 0 47%;
   background: #f8fafc;
   border: 1px solid rgba(224, 221, 228, 0.5);
   border-radius: 8px;
