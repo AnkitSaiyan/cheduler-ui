@@ -13,6 +13,20 @@
     //color: var(--dfm-primary);
     cursor: pointer;
   }
+dfm-button-icon {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  overflow: hidden;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+p {
+  white-space: pre-wrap;
+}
 
   .basic-basea {
     display: flex;
@@ -34,6 +48,9 @@
   }
 }
 
+dfm-input-dropdown {
+  min-width: 160px;
+}
 .popover-content {
   // padding: 24px;
 
@@ -87,7 +104,7 @@
   flex-direction: column;
   gap: 16px;
   max-width: 40%;
-  
+
     .exam-list {
       display: flex;
       flex-wrap: wrap;
@@ -104,6 +121,9 @@
   overflow: auto;
 }
 
+.model-container {
+  width: min(380px, 29vw);
+}
 .mat-chip {
   display: flex;
   align-items: center;
@@ -155,4 +175,5 @@ p {
     gap: 8px;
     flex-direction: column;
   }
+
 }

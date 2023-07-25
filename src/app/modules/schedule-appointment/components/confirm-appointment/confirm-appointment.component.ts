@@ -332,8 +332,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
     //   },
     // });
     this.isButtonDisable$$.next(true);
-    
-    const physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
+
+    const physicianDetails = JSON.parse(localStorage.getItem('referringDetails') || '{}') || '';
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
     delete combinableSelectedTimeSlot.userList;
@@ -423,7 +423,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       timeZone = timeZone.slice(1);
     }
 
-    
+
 
     requestData = {
       ...requestData,
@@ -545,7 +545,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
   public onAddNewAppointment() {
     this.scheduleAppointmentSvc.resetDetails(true);
-    this.router.navigate(['../exam'], {
+    this.router.navigate(['../referral-physician'], {
       relativeTo: this.route,
     });
   }

@@ -20,56 +20,59 @@
         </div>
       </div>
 
-      <ng-container [ngSwitch]="filterForm.getRawValue()?.gender">
-        <ng-container *ngSwitchCase="'male'">
-          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
-            <ng-container *ngSwitchCase="'front'">
-              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                <ng-container *ngSwitchCase="'organs'">
-                  <dfm-organ-male-front-model ></dfm-organ-male-front-model>
+      <div class="model-container">
+        <ng-container [ngSwitch]="filterForm.getRawValue()?.gender">
+          <ng-container *ngSwitchCase="'male'">
+            <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
+              <ng-container *ngSwitchCase="'front'">
+                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                  <ng-container *ngSwitchCase="'organs'">
+                    <dfm-organ-male-front-model ></dfm-organ-male-front-model>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'bones'">
+                    <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
+                  </ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="'bones'">
-                  <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
+              </ng-container>
+              <ng-container *ngSwitchCase="'back'">
+                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                  <ng-container *ngSwitchCase="'organs'">
+                    <dfm-organ-male-back-model ></dfm-organ-male-back-model>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'bones'">
+                    <dfm-skeleton-male-back-model></dfm-skeleton-male-back-model>
+                  </ng-container>
                 </ng-container>
               </ng-container>
             </ng-container>
-            <ng-container *ngSwitchCase="'back'">
-              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                <ng-container *ngSwitchCase="'organs'">
-                  <dfm-organ-male-back-model ></dfm-organ-male-back-model>
+          </ng-container>
+          <ng-container *ngSwitchCase="'female'">
+            <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
+              <ng-container *ngSwitchCase="'front'">
+                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                  <ng-container *ngSwitchCase="'organs'">
+                    <dfm-organ-female-front-model ></dfm-organ-female-front-model>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'bones'">
+                    <dfm-skeleton-female-front-model></dfm-skeleton-female-front-model>
+                  </ng-container>
                 </ng-container>
-                <ng-container *ngSwitchCase="'bones'">
-                  <dfm-skeleton-male-back-model></dfm-skeleton-male-back-model>
+              </ng-container>
+              <ng-container *ngSwitchCase="'back'">
+                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
+                  <ng-container *ngSwitchCase="'organs'">
+                    <dfm-organ-female-back-model ></dfm-organ-female-back-model>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'bones'">
+                    <dfm-skeleton-female-back-model></dfm-skeleton-female-back-model>
+                  </ng-container>
                 </ng-container>
               </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="'female'">
-          <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
-            <ng-container *ngSwitchCase="'front'">
-              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                <ng-container *ngSwitchCase="'organs'">
-                  <dfm-organ-female-front-model ></dfm-organ-female-front-model>
-                </ng-container>
-                <ng-container *ngSwitchCase="'bones'">
-                  <dfm-skeleton-female-front-model></dfm-skeleton-female-front-model>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-            <ng-container *ngSwitchCase="'back'">
-              <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                <ng-container *ngSwitchCase="'organs'">
-                  <dfm-organ-female-back-model ></dfm-organ-female-back-model>
-                </ng-container>
-                <ng-container *ngSwitchCase="'bones'">
-                  <dfm-skeleton-female-back-model></dfm-skeleton-female-back-model>
-                </ng-container>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-        </ng-container>
-      </ng-container>
+      </div>
+
 
 
     </section>
@@ -77,15 +80,28 @@
     <section class="selected-exam dfm-gap-24">
       <span>Add Exams</span>
 
-      <div class="d-flex flex-column ">
-        <div class="d-flex dfm-gap-8 flex-wrap align-items-end" >
+      <div class="d-flex flex-column">
+        <div class="d-flex dfm-gap-8 flex-nowrap align-items-end" >
           <dfm-input-dropdown
-            [items]="((examSvc.filterExams$ | async) ?? [])"
+            [items]="((examSvc.filterExams$ | async) ?? []) | removeSelectedItemFormAnatomy : this.examSvc.selectedExam"
             formControlName="exam"
             size="sm"
-            label="Exam"
-            [placeholder]="'Select '+((examSvc.selectedCategory$$ | async) ?? '' | lowercase)+ ' exam'"
+            label="Exam *"
+            [placeholder]="'Select '+(examSvc.selectedCategory | lowercase)+ 'exam'"
+            [showDescription]="false"
           ></dfm-input-dropdown>
+
+          <dfm-button-icon
+							color="primary"
+							size="md"
+							icon="x-close"
+							ngbPopover="{{ 'Reset' | translate }}"
+							triggers="mouseenter:mouseleave"
+							popoverClass="popover-p-8"
+							[openDelay]="200"
+							(click)="examSvc.setCategory('')"
+              [disabled]="!examSvc.selectedCategory.length"
+						></dfm-button-icon>
 
           <dfm-button
             color="primary"

@@ -95,11 +95,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.createForm(qrDetails);
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
-      console.log('signalData', data);
+
       this.modalSvc.close();
       this.updateFileName(data.fileName, false);
-      this.referringDetails.qrId = data.appointmentQrcodeId,
-      this.referringDetails.fileName = data.fileName;       
+      (this.referringDetails.qrId = data.appointmentQrcodeId), (this.referringDetails.fileName = data.fileName);
     });
   }
 
@@ -183,3 +182,4 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       }
   }
 }
+

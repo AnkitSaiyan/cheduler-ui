@@ -77,9 +77,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       if (this.editData?.exam) {
         const exams = [...this.editData.exams];
         exams.forEach((exam) => {
-          const start = this.dateTo24TimeString(exam.startedAt);
-          const end = this.dateTo24TimeString(exam.endedAt);
-          console.log({ exam });
+          const start = this.dateTo24TimeString(exam?.startedAt);
+          const end = this.dateTo24TimeString(exam?.endedAt);
+
           this.toggleSlotSelection(
             {
               start,
@@ -177,7 +177,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         }
       });
 
-    this.selectedDate$$.subscribe(console.log);
 
     this.selectedDate$$
       .pipe(
@@ -212,7 +211,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           Object.keys(this.examIdToAppointmentSlots).forEach((id) => {
             this.sortArrayObject(this.examIdToAppointmentSlots[id], 'start');
           });
-          console.log({ examIdToSlots });
 
           // appointmentSlot?.slots?.forEach((slot: any) => {
           //   if (!this.examIdToAppointmentSlots[slot.examId]) {
@@ -244,7 +242,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           //   }
           // });
           this.loadingSlots$$.next(false);
-          console.log(this.examIdToAppointmentSlots);
         },
         error: () => this.loadingSlots$$.next(false),
       });
@@ -279,7 +276,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public toggleSlotSelection(slot: ModifiedSlot, isEdit: boolean = false) {
-    console.log(slot, 'slot');
+
     if (!this.isSlotAvailable(slot) && !isEdit) {
       return;
     }
@@ -293,7 +290,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         roomList: slot?.roomList ?? [],
         userList: slot?.userList ?? [],
       };
-      console.log(this.selectedTimeSlot, slot);
     }
     if (isEdit) {
       if (this.editSelectedTimeSlot[slot.examId]?.slot === `${slot.start}-${slot.end}`) {
@@ -306,10 +302,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           roomList: slot?.roomList ?? [],
           userList: slot?.userList ?? [],
         };
-        console.log(this.editSelectedTimeSlot, slot);
       }
     }
-    console.log(this.selectedTimeSlot);
+
   }
 
   public toggleSlotSelectionCombinable(slot: ModifiedSlot) {

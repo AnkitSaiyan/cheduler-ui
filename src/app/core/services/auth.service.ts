@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   public get userId(): string | undefined {
-    console.log('ide req');
+
     return this.authUser$$.value?.id;
   }
 
@@ -56,15 +56,15 @@ export class AuthService {
   }
 
   public initializeUser(): Observable<any> {
-    console.log('initializing user...');
+
 
     const user = this.msalService.instance.getActiveAccount();
     const userId = user?.localAccountId ?? '';
 
-    console.log('user', user);
+
     const tenantIds = (user?.idTokenClaims as any)?.extension_Tenants?.split(',');
 
-    console.log('tenantIds', tenantIds);
+
 
     if (!tenantIds?.some((value) => value === EXT_Patient_Tenant)) {
       this.logout();

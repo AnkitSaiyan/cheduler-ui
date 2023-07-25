@@ -33,8 +33,12 @@ export class ExamService {
     this.selectedCategory$$.next(category);
   }
 
+  public get selectedCategory() {
+    return this.selectedCategory$$?.value?.length ? this.selectedCategory$$.value + ' ' : '';
+  }
+
   public setExam(exams: any) {
-    console.log(exams, 'exam');
+
     this.allExams$$.next(exams);
   }
 
@@ -78,6 +82,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 
