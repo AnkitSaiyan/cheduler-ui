@@ -15,6 +15,7 @@
               [label]="item.name"
               [checkedValue]="item.value"
               [formControlName]="category.formName"
+              (click)="category.click ? onGenderChange($event, item.value): ''"
             ></dfm-radio-button>
           </ng-container>
         </div>
@@ -99,8 +100,8 @@
 							triggers="mouseenter:mouseleave"
 							popoverClass="popover-p-8"
 							[openDelay]="200"
-							(click)="examSvc.setCategory('')"
-              [disabled]="!examSvc.selectedCategory.length"
+							(click)="examSvc.setCategory(''); addExamForm.get('exam')?.reset()"
+              [disabled]="!examSvc.selectedCategory.length && !addExamForm.value?.exam"
 						></dfm-button-icon>
 
           <dfm-button

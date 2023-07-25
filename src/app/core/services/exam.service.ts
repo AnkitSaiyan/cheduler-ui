@@ -38,7 +38,6 @@ export class ExamService {
   }
 
   public setExam(exams: any) {
-
     this.allExams$$.next(exams);
   }
 
@@ -77,11 +76,21 @@ export class ExamService {
   public isExamSelected(): boolean {
     return !!Object.keys(this.selectedExam).length;
   }
-  public removeExam(exam: any) {}
+  public removeExamByGender(gender: BodyType) {
+    Object.keys(this.selectedExam).forEach((key: string) => {
+      if (key.includes(gender)) {
+        delete this.selectedExam[key];
+      }
+    });
+  }
   public get examFormValue() {
     return this.selectedExam;
   }
 }
+
+
+
+
 
 
 

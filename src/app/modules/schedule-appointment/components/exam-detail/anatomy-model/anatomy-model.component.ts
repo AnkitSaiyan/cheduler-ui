@@ -4,6 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, startWith, take, takeUntil } fro
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
+import { ConfirmActionModalComponent, DialogData } from 'src/app/shared/components/confirm-action-modal/confirm-action-modal.component';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { Exam } from 'src/app/shared/models/exam.model';
 import { NameValue } from 'src/app/shared/models/name-value.model';
@@ -20,6 +21,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     private fb: FormBuilder,
     public examSvc: ExamService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
+    private modalSvc: ModalService,
   ) {
     super();
   }
@@ -32,6 +34,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     {
       name: 'Body Structure',
       formName: 'bodyStructure',
+      click: false,
       children: [
         {
           name: 'Body',
@@ -46,6 +49,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     {
       name: 'Gender',
       formName: 'gender',
+      click: true,
       children: [
         {
           name: 'Male',
@@ -60,6 +64,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     {
       name: 'Side',
       formName: 'side',
+      click: false,
       children: [
         {
           name: 'Front',
@@ -124,7 +129,60 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
   public override ngOnDestroy(): void {
     super.ngOnDestroy();
   }
+
+  public async onGenderChange(event: any, value: string) {
+    const previousValue = this.filterForm?.get('gender')?.value;
+    if (value === previousValue) return;
+    event.preventDefault();
+    let confirm = await this.showConfirm();
+    if (!confirm) {
+      return;
+    }
+    this.examSvc.removeExamByGender(value === 'male' ? BodyType.Female : BodyType.Male);
+    this.filterForm?.get('gender')?.setValue(value);
+  }
+
+  private showConfirm(): Promise<Boolean> {
+    return new Promise((resolve) => {
+      const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
+        data: {
+          titleText: 'Confirmation',
+          bodyText: 'Are you sure you want to switch the gender? Warning: Switching will discard the previously added exams',
+          confirmButtonText: 'Proceed',
+        } as DialogData,
+      });
+      modalRef.closed.pipe(take(1)).subscribe({
+        next: (result) => resolve(result),
+      });
+    });
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
