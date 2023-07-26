@@ -2,6 +2,12 @@
   padding: 48px;
 }
 
+.clear-icon{
+  display: inline-flex;
+  height: 1.5em;
+  color: var(--dfm-danger-500);
+}
+
 .input-w-300 {
   max-width: 300px !important;
 }
