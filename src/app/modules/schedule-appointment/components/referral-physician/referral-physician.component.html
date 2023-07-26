@@ -41,6 +41,7 @@
                     {{ documentUploadProcess | async }} 
                      <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="x-close"></dfm-icon>
                   </p>
+                  <div *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">View</div>
                 </div>
                 <div class="or-btn"><span>OR</span></div>
                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
@@ -51,6 +52,7 @@
                   <p class="file-name">{{ signalRFileName }}
                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="x-close"></dfm-icon>
                   </p>
+                  <div *ngIf="signalRFileName" class="view-link" (click)="viewDocument()">View</div>
                 </div>
               </div>
             </div>

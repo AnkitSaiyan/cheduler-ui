@@ -23,7 +23,9 @@
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{"Referring Note" | translate}} :</td>
-              <td class="user-info" [style.color]="physicianDetails?.fileName? 'blue': 'black'" >{{ physicianDetails?.fileName | dashIfNothing }} </td>
+              <td *ngIf="!physicianDetails?.fileName" class="user-info" >—</td>
+              <td *ngIf="physicianDetails?.fileName" class="view-link" (click)="viewDocument()">View</td>
+              <td></td>
             </tr>
           </table>
         </div>

@@ -9,7 +9,7 @@
     gap: 10px;
     padding:10px ;
     .top-img{
-        max-height: 500px;
+        // max-height: 500px;
         overflow: hidden;
         display: flex;
         justify-content: center;
@@ -19,7 +19,8 @@
             // width: 100%;
             // object-fit: contain;
             // border-radius: 8px;
-            max-width: 700px;
+            max-width: 50vw;
+            max-height: 30vw;
 
         }
     }
@@ -31,7 +32,7 @@
         gap: 3px;
         border-radius: 8px;
         .bottom-img-item{
-            width: 108px;
+            width: 5vw;
             height: auto;
             border-radius: 4px;
             overflow: hidden;
@@ -55,4 +56,18 @@
             }
         }
     }
+}
+
+.top-pdf{
+    height: 50vh !important;
+}
+
+.bottom-pdf{
+    height: 10vh !important;
+}
+
+.loader{
+    height: 50vh;
+    background-color: white;
+    border-radius: 5px;
 }

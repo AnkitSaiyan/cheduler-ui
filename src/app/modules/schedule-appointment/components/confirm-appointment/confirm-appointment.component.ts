@@ -20,6 +20,7 @@ import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
 import { DUTCH_BE, ENG_BE} from '../../../../shared/utils/const';
 import {UtcToLocalPipe} from "../../../../shared/pipes/utc-to-local.pipe";
+import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 
 @Component({
   selector: 'dfm-confirm-appointment',
@@ -593,5 +594,19 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       const [start, end] = slot.split('-');
       return `${this.utcToLocalPipe.transform(start, true)}-${this.utcToLocalPipe.transform(end, true)}`;
     });
+  }
+
+  public viewDocument() {
+    this.modalSvc.open(DocumentViewModalComponent, {
+      data: {
+        id: this.physicianDetails.qrId
+      },
+      options: {
+        size: 'xl',
+        backdrop: true,
+        centered: true,
+        modalDialogClass: 'ad-ap-modal-shadow',
+      },
+    })
   }
 }

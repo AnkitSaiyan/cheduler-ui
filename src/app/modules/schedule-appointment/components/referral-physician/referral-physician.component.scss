@@ -1,3 +1,9 @@
+.view-link{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .exam-form-container {
   padding: 48px;
 }
@@ -6,6 +12,7 @@
   display: inline-flex;
   height: 1.5em;
   color: var(--dfm-danger-500);
+  cursor: pointer;
 }
 
 .input-w-300 {

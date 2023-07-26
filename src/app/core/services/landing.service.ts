@@ -92,4 +92,15 @@ export class LandingService {
       tap(),
     );
   }
+
+  public getDocumentById$(id: number | string): Observable<any> {
+    let params = new HttpParams(); //appointmentId
+    const idType = typeof(id) == 'number' ? 'appointmentId' : 'qrCodeId';
+    params = params.append(idType, id);
+    let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
+		return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getdocuments`, {params, headers}).pipe(
+		  map((response) => response.data),
+		  tap(() => {}),
+		);
+	  }
 }

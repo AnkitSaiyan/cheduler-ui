@@ -10,6 +10,17 @@
   // overflow-y: auto;
 }
 
+.referral-note{
+  padding-left: 18px;
+  display: flex;
+}
+
+.view-link{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .upcoming-appointments-section {
   display: flex;
   flex-direction: column;
