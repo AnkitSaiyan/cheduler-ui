@@ -1,7 +1,7 @@
 <div
   class="exam-form-main-container d-flex flex-column justify-content-center align-items-center main-exam-container dfm-gap-24 dfm-p-16 border-r-16"
 >
-  <form [formGroup]="examForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
+  <form [formGroup]="physicianForm" class="exam-form-container dfm-card d-flex dfm-gap-16">
     <ng-container *ngIf="loaderSvc.isSpinnerActive$ | async; else loaded">
       <div class="d-flex justify-content-center align-items-center w-full flex-1">
         <mat-spinner diameter="48"></mat-spinner>
@@ -24,7 +24,7 @@
             >
               {{ physician }}
             </dfm-input-dropdown>
-            <span class="validation-error" *ngIf="examForm.controls['physician'].hasError('required') && examForm.controls['physician'].touched">
+            <span class="validation-error" *ngIf="physicianForm.controls['physician'].hasError('required') && physicianForm.controls['physician'].touched">
               {{ 'RequiredField' | translate }}
             </span>
             <ng-container *ngIf="!(!physicianEnale?.editUploadedDocument && isEdit)">
@@ -39,7 +39,7 @@
                   <p class="upload-text">Upload Document</p>
                   <p class="file-name" [style.color]="(documentUploadProcess | async)?.includes('Failed') ? 'red' : ''">
                     {{ documentUploadProcess | async }} 
-                     <!-- <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="x-close"></dfm-icon> -->
+                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="x-close"></dfm-icon>
                   </p>
                 </div>
                 <div class="or-btn"><span>OR</span></div>
@@ -49,7 +49,7 @@
                   </div>
                   <p class="upload-text">Upload Document <br />From Mobile Device</p>
                   <p class="file-name">{{ signalRFileName }}
-                    <!-- <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="x-close"></dfm-icon> -->
+                    <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="x-close"></dfm-icon>
                   </p>
                 </div>
               </div>
@@ -61,7 +61,7 @@
     </ng-template>
   </form>
 
-  <dfm-button color="primary" size="lg" (click)="saveExamDetails()" class="exam-next-btn">
+  <dfm-button color="primary" size="lg" [disabled]="!physicianForm.valid" (click)="saveExamDetails()" class="exam-next-btn">
     {{ 'Next' | translate }}
   </dfm-button>
 

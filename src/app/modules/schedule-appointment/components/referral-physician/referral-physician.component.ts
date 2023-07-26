@@ -10,6 +10,7 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 import { NameValue } from 'src/app/shared/models/name-value.model';
 
@@ -19,7 +20,7 @@ import { NameValue } from 'src/app/shared/models/name-value.model';
   styleUrls: ['./referral-physician.component.scss'],
 })
 export class ReferralPhysicianComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  public examForm!: FormGroup;
+  public physicianForm!: FormGroup;
 
   public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
 
@@ -37,6 +38,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     qrId: string;
     fileName: string;
     physician: any;
+    directUpload: boolean;
   }
 
   private fileSize!: number;
@@ -61,7 +63,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.referringDetails = {
       qrId: '',
       fileName: '',
-      physician: []
+      physician: [],
+      directUpload: true,
     }
 
     this.router.events
@@ -83,7 +86,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
     if (qrDetails?.fileName) {
       this.referringDetails = qrDetails;
-      this.updateFileName(this.referringDetails.fileName, !this.referringDetails.qrId )
+      this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload )
     }
 
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
@@ -101,7 +104,9 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
       this.updateFileName(data.fileName, false);
-      (this.referringDetails.qrId = data.appointmentQrcodeId), (this.referringDetails.fileName = data.fileName);
+      this.referringDetails.qrId = data.appointmentQrcodeId;
+      this.referringDetails.fileName = data.fileName;
+      this.referringDetails.directUpload = false;
     });
 
     this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe(res => this.fileSize = res.documentSizeInKb/1024)
@@ -112,17 +117,17 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   private createForm(data) {
-    this.examForm = this.fb.group({
+    this.physicianForm = this.fb.group({
       physician: [data?.physician ? data.physician : '', []],
     });
   }
 
   public saveExamDetails() {
-    if (this.examForm.invalid) {
-      this.examForm.markAllAsTouched();
+    if (this.physicianForm.invalid) {
+      this.physicianForm.markAllAsTouched();
       return;
     }
-    this.referringDetails.physician = this.examForm.value.physician;
+    this.referringDetails.physician = this.physicianForm.value.physician;
     localStorage.setItem('referringDetails', JSON.stringify(this.referringDetails))
     this.router.navigate(['../exam'], { relativeTo: this.route, replaceUrl: true });
   }
@@ -155,13 +160,14 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       next: (res) => {
         this.referringDetails.fileName = this.uploadFileName
         this.referringDetails.qrId = res?.apmtDocUniqueId
+        this.referringDetails.directUpload = true;
         this.updateFileName(this.uploadFileName, true);
       },
       error: (err) => this.documentUploadProcess.next('Failed to upload'),
     });
   }
 
-  private onFileChange(event: Event) {
+  private onFileChange(event: any) {
     new Promise((resolve) => {
       const { files } = event.target as HTMLInputElement;
 
@@ -173,11 +179,14 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         };
         reader.readAsDataURL(files[0]);
       }
-    }).then((res) => this.uploadDocument(res));
+    }).then((res) => {
+      this.uploadDocument(res);
+      event.target.value = "";
+    });
   }
 
   public uploadDocumentFromMobile() {
-    this.modalSvc.open(QrModalComponent, {});
+    this.modalSvc.open(QrModalComponent, {})
   }
 
   private updateFileName(fileName:string, directUpload:boolean) {
