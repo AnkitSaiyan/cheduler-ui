@@ -18,7 +18,7 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   private downloadableImage!: string;
 
-  private fileName!: string;
+  public fileName!: string;
 
   public isImage: boolean = true;
 
