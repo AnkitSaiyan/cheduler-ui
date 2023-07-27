@@ -45,6 +45,11 @@
           </div>
 
           <div class="flex-item-row">
+            <div class="referral-note">
+              <span class="mb-1" >Referral Note :&nbsp;&nbsp;</span>
+              <span *ngIf="!item.documentCount" class="mb-1" >—</span>
+              <span *ngIf="item.documentCount" class="view-link" (click)="viewDocument(item.id)">View</span>
+            </div>
             <div *ngFor="let exam of item.exams" class="exam-section">
               <div class="mb-3">
                 <span class="appointment-exam-text mb-1">{{"Exam" | translate}} : {{ exam.name }} </span>

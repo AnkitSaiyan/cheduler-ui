@@ -14,6 +14,7 @@ import {ExamDetails} from 'src/app/shared/models/local-storage-data.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
 import { DUTCH_BE, ENG_BE } from '../../../../shared/utils/const';
+import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 
 @Component({
   selector: 'dfm-appointment',
@@ -144,5 +145,19 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         this.scheduleAppointmentService.editDetails$$.next({isEdit: true, id: item.id});
         this.router.navigate(['/dashboard/schedule/slot']);
       });
+  }
+
+  public viewDocument(id) {
+    this.modalSvc.open(DocumentViewModalComponent, {
+      data: {
+        id
+      },
+      options: {
+        size: 'xl',
+        backdrop: true,
+        centered: true,
+        modalDialogClass: 'ad-ap-modal-shadow',
+      },
+    })
   }
 }

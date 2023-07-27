@@ -1,11 +1,18 @@
+.view-link{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .exam-form-container {
   padding: 48px;
 }
 
 .clear-icon{
   display: inline-flex;
-  height: 1.5em;
-  color: var(--dfm-danger-500);
+  height: 18px;
+  color: var(--dfm-primary);
+  cursor: pointer;
 }
 
 .input-w-300 {
@@ -114,7 +121,7 @@
     font-weight: 500;
     font-size: 14px;
     color: blue;
-    width: 10em;
+    width: 144px;
     text-align: center;
   }
   .or-btn {

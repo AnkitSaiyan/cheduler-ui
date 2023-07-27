@@ -134,6 +134,12 @@ gap: 8px;
   min-width: 128px !important;
 }
 
+.view-link{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
   .main-container{

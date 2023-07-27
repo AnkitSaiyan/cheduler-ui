@@ -199,9 +199,25 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       }
   }
   public clearFile() {
-      this.documentUploadProcess.next('');
-      this.signalRFileName = ''
-      this.referringDetails.qrId = '';
+    this.documentUploadProcess.next('');
+    this.signalRFileName = ''
+    this.referringDetails.qrId = '';
+    this.referringDetails.fileName = "";
+
+  }
+
+  public viewDocument() {
+    this.modalSvc.open(DocumentViewModalComponent, {
+      data: {
+        id: this.referringDetails.qrId
+      },
+      options: {
+        size: 'xl',
+        backdrop: true,
+        centered: true,
+        modalDialogClass: 'ad-ap-modal-shadow',
+      },
+    })
   }
 }
 

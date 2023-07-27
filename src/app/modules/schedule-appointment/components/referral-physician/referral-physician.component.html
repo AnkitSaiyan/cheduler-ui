@@ -38,9 +38,10 @@
                   </div>
                   <p class="upload-text">Upload Document</p>
                   <p class="file-name" [style.color]="(documentUploadProcess | async)?.includes('Failed') ? 'red' : ''">
-                    {{ documentUploadProcess | async }} 
-                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="x-close"></dfm-icon>
+                    {{ documentUploadProcess | async }}&nbsp;
+                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="trash-01"></dfm-icon>
                   </p>
+                  <div *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">View</div>
                 </div>
                 <div class="or-btn"><span>OR</span></div>
                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
@@ -48,9 +49,10 @@
                     <img src="../../../../../assets/images/phone-scan.png" alt="" width="40px" />
                   </div>
                   <p class="upload-text">Upload Document <br />From Mobile Device</p>
-                  <p class="file-name">{{ signalRFileName }}
-                    <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="x-close"></dfm-icon>
+                  <p class="file-name">{{ signalRFileName }}&nbsp;
+                    <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="trash-01"></dfm-icon>
                   </p>
+                  <div *ngIf="signalRFileName" class="view-link" (click)="viewDocument()">View</div>
                 </div>
               </div>
             </div>
