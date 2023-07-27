@@ -50,5 +50,9 @@ export class SignalRService {
       this.notificationService.showNotification('Document uploaded successfully!');
     });
   }
+
+  public getConnectionId(): Promise<any> {
+    return this.hubConnection.invoke('getconnectionid');
+	}
 }
 

@@ -61,8 +61,10 @@ export class LandingService {
       .pipe(map((response) => response?.data));
   }
 
-  public getQr(): Observable<any> {
-    let params = new HttpParams().append('url', window.location.origin + `/upload-document/?id=qrcodeid`);
+  public getQr(connectionId): Observable<any> {
+    let params = new HttpParams()
+      .append('signalRConnectionId', connectionId)
+      .append('url', window.location.origin + `/upload-document/?id=qrcodeid`);
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
     return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getqrcode`, { params, headers }).pipe(
       map((response) => response.data),
