@@ -6,6 +6,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
+import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 
 @Component({
   selector: 'dfm-qr-modal',
@@ -72,17 +73,23 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
     private landingSvc: LandingService,
     private _sanitizer: DomSanitizer,
     public loaderSvc: LoaderService,
-    private signalrSvc: SignalRService
+    private signalrSvc: SignalRService,
+    private notificationSvc: NotificationDataService
   ) {
     super();
   }
 
   public ngOnInit() {
 
-    this.signalrSvc.getConnectionId().then(res => {
-      this.connectionId = res;
-      this.getQR();
-    })
+    this.signalrSvc.getConnectionId()
+      .then(res => {
+        this.connectionId = res;
+        this.getQR();
+      })
+      .catch(err => {
+        console.log(err);
+        this.notificationSvc.showNotification(err);
+      });
   }
 
   public override ngOnDestroy() {
