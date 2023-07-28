@@ -5,6 +5,7 @@ import { Observable, of, takeUntil, timer } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
+import { SignalRService } from 'src/app/core/services/signal-r.service';
 
 @Component({
   selector: 'dfm-qr-modal',
@@ -64,17 +65,24 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   public counter!: number;
 
+  private connectionId!: any;
+
   constructor(
     private dialogSvc: ModalService,
     private landingSvc: LandingService,
     private _sanitizer: DomSanitizer,
     public loaderSvc: LoaderService,
+    private signalrSvc: SignalRService
   ) {
     super();
   }
 
   public ngOnInit() {
-    this.getQR();
+
+    this.signalrSvc.getConnectionId().then(res => {
+      this.connectionId = res;
+      this.getQR();
+    })
   }
 
   public override ngOnDestroy() {
@@ -83,10 +91,9 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   public getQR() {
     this.landingSvc
-      .getQr()
+      .getQr(this.connectionId)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((res) => {
-
         this.img = of(this._sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${res.qrCodeContent}`));
         this.countdown();
       });
