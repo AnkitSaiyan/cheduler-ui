@@ -12,12 +12,21 @@ import { BodyType } from 'src/app/shared/utils/const';
 export class OrganFemaleFrontModelComponent extends AnatomyMatMenu<BodyFemaleFront> implements OnDestroy {
   public category = BodyFemaleFront;
   public gender = BodyType;
+  private previousElement!: HTMLElement;
   constructor(public examSvc: ExamService) {
     super();
   }
 
   public override ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  public fillColor(ele:Event) {
+    const element = ele.target as HTMLElement;
+    element?.classList.toggle('fill');
+    if (this.previousElement && this.previousElement?.id != element.id)
+      this.previousElement?.classList.remove('fill');
+    this.previousElement = element;
   }
 }
 

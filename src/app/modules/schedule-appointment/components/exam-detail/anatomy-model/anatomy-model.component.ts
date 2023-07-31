@@ -137,6 +137,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       !Object.keys(this.examSvc.selectedExam)?.some((val) => val.includes(value === 'male' ? BodyType.Female : BodyType.Male))
     ) {
       this.filterForm?.get('gender')?.setValue(value);
+      this.addExamForm.get('exam')?.setValue('');
       return;
     }
     event.preventDefault();
@@ -146,6 +147,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     }
     this.examSvc.removeExamByGender(value === 'male' ? BodyType.Female : BodyType.Male);
     this.filterForm?.get('gender')?.setValue(value);
+    this.addExamForm.get('exam')?.setValue('');
   }
 
   private showConfirm(): Promise<Boolean> {

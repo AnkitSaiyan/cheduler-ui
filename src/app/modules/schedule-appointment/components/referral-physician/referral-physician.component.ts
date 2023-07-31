@@ -81,12 +81,23 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public ngOnInit(): void {
-    const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
-    this.isEdit = localStorage.getItem('edit') == 'true'
-
-    if (qrDetails?.fileName) {
-      this.referringDetails = qrDetails;
-      this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload )
+    this.isEdit = localStorage.getItem('edit') == 'true';
+    if (this.isEdit) {
+      const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
+      const appointmentDetail = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
+      if (appointmentDetail?.documentCount) {
+        this.landingService.getDocumentById$(appointmentDetail?.id).pipe(takeUntil(this.destroy$$))
+          .subscribe(res => {
+            this.referringDetails.fileName = res.fileName;
+            this.referringDetails.directUpload = !res.isUploadedFromQR;
+            this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
+          });
+      }
+      if (qrDetails?.fileName) {
+        this.referringDetails = qrDetails;
+        this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
+      }
     }
 
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
@@ -99,7 +110,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       .subscribe({
         next: (staffs) => this.filteredPhysicians$$.next(staffs),
       });
-      this.createForm(qrDetails);
+      this.createForm(this.referringDetails);
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
@@ -209,7 +220,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   public viewDocument() {
     this.modalSvc.open(DocumentViewModalComponent, {
       data: {
-        id: this.referringDetails.qrId
+        id: this.referringDetails.qrId || localStorage.getItem('appointmentId'),
       },
       options: {
         size: 'xl',

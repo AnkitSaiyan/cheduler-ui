@@ -15,8 +15,17 @@ export class OrganMaleFrontModelComponent extends AnatomyMatMenu<BodyMaleFront> 
   }
   public category = BodyMaleFront;
   public gender = BodyType;
+  private previousElement!: HTMLElement;
   public override ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  public fillColor(ele:Event) {
+    const element = ele.target as HTMLElement;
+    element?.classList.toggle('fill');
+    if (this.previousElement && this.previousElement?.id != element.id)
+      this.previousElement?.classList.remove('fill');
+    this.previousElement = element;
   }
 }
 

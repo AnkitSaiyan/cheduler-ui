@@ -599,7 +599,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   public viewDocument() {
     this.modalSvc.open(DocumentViewModalComponent, {
       data: {
-        id: this.physicianDetails.qrId
+        id: this.physicianDetails.qrId || localStorage.getItem('appointmentId'),
       },
       options: {
         size: 'xl',

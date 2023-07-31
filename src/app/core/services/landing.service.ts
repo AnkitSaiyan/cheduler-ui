@@ -87,6 +87,7 @@ export class LandingService {
     formData.append('ApmtQRCodeId', uniqueId);
     formData.append('FileData', '');
     formData.append('FileName', '');
+    formData.append('AppointmentId', (localStorage.getItem('appointmentId') ?? 0).toString());
 
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
     return this.httpClient.post<any>(`${environment.serverBaseUrl}/qrcode/upload`, formData, { headers }).pipe(
@@ -95,9 +96,9 @@ export class LandingService {
     );
   }
 
-  public getDocumentById$(id: number | string): Observable<any> {
+  public getDocumentById$(id: any): Observable<any> {
     let params = new HttpParams(); //appointmentId
-    const idType = typeof(id) == 'number' ? 'appointmentId' : 'qrCodeId';
+    const idType = isNaN(id) ? 'qrCodeId' : 'appointmentId';
     params = params.append(idType, id);
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
 		return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getdocuments`, {params, headers}).pipe(
