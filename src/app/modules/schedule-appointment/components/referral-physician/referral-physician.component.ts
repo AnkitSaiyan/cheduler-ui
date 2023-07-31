@@ -39,7 +39,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     fileName: string;
     physician: any;
     directUpload: boolean;
-  }
+  };
 
   private fileSize!: number;
 
@@ -65,7 +65,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       fileName: '',
       physician: [],
       directUpload: true,
-    }
+    };
 
     this.router.events
       .pipe(
@@ -82,23 +82,26 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public ngOnInit(): void {
     this.isEdit = localStorage.getItem('edit') == 'true';
+    const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
     if (this.isEdit) {
-      const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
       const appointmentDetail = JSON.parse(localStorage.getItem('appointmentDetails') || '');
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
-        this.landingService.getDocumentById$(appointmentDetail?.id).pipe(takeUntil(this.destroy$$))
-          .subscribe(res => {
+        this.landingService
+          .getDocumentById$(appointmentDetail?.id)
+          .pipe(takeUntil(this.destroy$$))
+          .subscribe((res) => {
             this.referringDetails.fileName = res.fileName;
             this.referringDetails.directUpload = !res.isUploadedFromQR;
+            this.referringDetails.qrId = res.apmtQRCodeId;
             this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
           });
       }
-      if (qrDetails?.fileName) {
-        this.referringDetails = qrDetails;
-        this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
-      }
     }
+    if (qrDetails?.fileName) {
+      this.referringDetails = qrDetails;
+      this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
+    } else if (qrDetails.physician) this.referringDetails.physician = qrDetails.physician;
 
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
 
@@ -139,7 +142,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       return;
     }
     this.referringDetails.physician = this.physicianForm.value.physician;
-    localStorage.setItem('referringDetails', JSON.stringify(this.referringDetails))
+    localStorage.setItem('referringDetails', JSON.stringify(this.referringDetails));
     this.router.navigate(['../exam'], { relativeTo: this.route, replaceUrl: true });
   }
 
@@ -150,17 +153,15 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (!event.target.files.length) {
-      return
-    }
-    else if (allowedExtensions.indexOf(extension) === -1) {
+      return;
+    } else if (allowedExtensions.indexOf(extension) === -1) {
       // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
       this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else if (fileSize) { 
       this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
-    }
-    else {
+    } else {
       this.documentUploadProcess.next('Uploading...');
       this.onFileChange(event);
     }
@@ -169,8 +170,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   private uploadDocument(file: any) {
     this.landingService.uploadDocumnet(file, '').subscribe({
       next: (res) => {
-        this.referringDetails.fileName = this.uploadFileName
-        this.referringDetails.qrId = res?.apmtDocUniqueId
+        this.referringDetails.fileName = this.uploadFileName;
+        this.referringDetails.qrId = res?.apmtDocUniqueId;
         this.referringDetails.directUpload = true;
         this.updateFileName(this.uploadFileName, true);
       },
@@ -192,29 +193,29 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       }
     }).then((res) => {
       this.uploadDocument(res);
-      event.target.value = "";
+      event.target.value = '';
     });
   }
 
   public uploadDocumentFromMobile() {
-    this.modalSvc.open(QrModalComponent, {})
+    this.modalSvc.open(QrModalComponent, {});
   }
 
-  private updateFileName(fileName:string, directUpload:boolean) {
+  private updateFileName(fileName: string, directUpload: boolean) {
     if (directUpload) {
       this.documentUploadProcess.next(fileName);
-      this.signalRFileName = ''
+      this.signalRFileName = '';
     } else {
       this.documentUploadProcess.next('');
-      this.signalRFileName = fileName
-      }
+      this.signalRFileName = fileName;
+    }
   }
   public clearFile() {
+    this.landingService.deleteDocument(this.referringDetails.qrId).pipe(takeUntil(this.destroy$$)).subscribe();
     this.documentUploadProcess.next('');
-    this.signalRFileName = ''
+    this.signalRFileName = '';
     this.referringDetails.qrId = '';
-    this.referringDetails.fileName = "";
-
+    this.referringDetails.fileName = '';
   }
 
   public viewDocument() {
@@ -228,7 +229,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         centered: true,
         modalDialogClass: 'ad-ap-modal-shadow',
       },
-    })
+    });
   }
 }
 

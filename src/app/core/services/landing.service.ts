@@ -105,5 +105,13 @@ export class LandingService {
 		  map((response) => response.data),
 		  tap(() => {}),
 		);
-	  }
+  }
+  
+  public deleteDocument(qrId: string): Observable<any> {
+    let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
+    return this.httpClient.delete<any>(`${environment.serverBaseUrl}/qrcode/${qrId}`, { headers }).pipe(
+      map((response) => response.statusCode),
+      tap(),
+    );
+  }
 }

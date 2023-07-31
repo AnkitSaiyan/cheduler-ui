@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { AnatomyMatMenu } from 'src/app/shared/components/anatomy-mat-menu/anatomy-mat-menu';
 import { Skeleton } from 'src/app/shared/utils/anatomy.enum';
@@ -15,6 +16,9 @@ export class SkeletonMaleFrontModelComponent extends AnatomyMatMenu<Skeleton> im
   private previousElement!: HTMLElement;
   constructor(public examSvc: ExamService) {
     super();
+    this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe(res => {
+      if (!res && this.previousElement) this.previousElement?.classList.remove('fill');
+    });
   }
 
   public override ngOnDestroy(): void {
