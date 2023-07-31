@@ -1,9 +1,9 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TranslateService } from '@ngx-translate/core';
 import { EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import {BehaviorSubject, filter, of, switchMap, takeUntil, tap} from 'rxjs';
+import { BehaviorSubject, filter, of, switchMap, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import { Router } from '@angular/router';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
@@ -17,7 +17,7 @@ import { NotificationDataService } from './core/services/notification-data.servi
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent extends DestroyableComponent implements OnInit, OnDestroy {
+export class AppComponent extends DestroyableComponent implements OnDestroy {
   public loading$$ = new BehaviorSubject<boolean>(false);
 
   constructor(
@@ -32,42 +32,6 @@ export class AppComponent extends DestroyableComponent implements OnInit, OnDest
     super();
     this.setupLanguage();
     this.setupUser();
-  }
-
-  public ngOnInit(): void {
-    // this.msalBroadcastService.msalSubject$
-    //   .pipe(
-    //     filter((msg: EventMessage) => msg.eventType === EventType.ACCOUNT_ADDED || msg.eventType === EventType.ACCOUNT_REMOVED),
-    //     takeUntil(this.destroy$$),
-    //   )
-    //   .subscribe({
-    //     next: () => {
-    //       this.checkAndSetActiveAccount();
-    //     },
-    //   });
-    // this.msalBroadcastService.msalSubject$
-    //   .pipe(
-    //     filter(
-    //       (msg: EventMessage) =>
-    //         msg.eventType === EventType.LOGIN_SUCCESS ||
-    //         msg.eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
-    //         msg.eventType === EventType.SSO_SILENT_SUCCESS,
-    //     ),
-    //     // eslint-disable-next-line no-underscore-dangle
-    //     takeUntil(this.destroy$$),
-    //   )
-    //   .subscribe({
-    //     next: (result: EventMessage) => {
-    //       const payload = result.payload as AuthenticationResult;
-    //       const idToken = payload.idTokenClaims as IdTokenClaimsWithPolicyId;
-    //
-    //       if (idToken.acr === AuthConfig.authFlow || idToken.tfp === AuthConfig.authFlow) {
-    //         this.authService.instance.setActiveAccount(payload.account);
-    //       }
-    //
-    //       // return result;
-    //     },
-    //   });
   }
 
   public override ngOnDestroy(): void {
