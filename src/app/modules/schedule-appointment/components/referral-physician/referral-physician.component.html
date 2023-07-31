@@ -63,11 +63,11 @@
     </ng-template>
   </form>
 
-  <dfm-button color="primary" size="lg" [disabled]="!physicianForm.valid" (click)="saveExamDetails()" class="exam-next-btn">
+  <dfm-button color="primary" size="lg" [disabled]="!physicianForm?.valid" (click)="saveExamDetails()" class="exam-next-btn">
     {{ 'Next' | translate }}
   </dfm-button>
 
-  <dfm-button color="primary" size="sm" (click)="saveExamDetails()" class="exam-next-btn-mv">
+  <dfm-button color="primary" size="sm" [disabled]="!physicianForm?.valid" (click)="saveExamDetails()" class="exam-next-btn-mv">
     {{ 'Next' | translate }}
   </dfm-button>
 </div>
