@@ -235,12 +235,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
-            socialSecurityNumber: null,
+            // socialSecurityNumber: null,
           }
-        : this.basicDetails),
+        : this.basicDetails), 
       doctorId: this.physicianDetails.physician,
       qrCodeId: this.physicianDetails.qrId ?? "",
       comments: this.examDetails?.comments,
+      socialSecurityNumber: this.basicDetails?.socialSecurityNumber ?? '',
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
@@ -347,12 +348,13 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
-            socialSecurityNumber: null,
+            // socialSecurityNumber: null,
           }
         : this.basicDetails),
       doctorId: this.physicianDetails.physician,
       qrCodeId: this.physicianDetails.qrId ?? "",
       comments: this.examDetails?.comments,
+      socialSecurityNumber: this.basicDetails.socialSecurityNumber ?? '',
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
       slot: combinableSelectedTimeSlot?.exams?.length
         ? combinableSelectedTimeSlot
@@ -444,7 +446,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
-                      socialSecurityNumber: null,
+                      // socialSecurityNumber: null,
                       fromPatient: true,
                     }
                   : { ...requestData, fromPatient: true },
@@ -484,7 +486,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                       patientLname: null,
                       patientEmail: null,
                       patientTel: null,
-                      socialSecurityNumber: null,
+                      // socialSecurityNumber: null,
                     }
                   : { ...requestData },
               ),

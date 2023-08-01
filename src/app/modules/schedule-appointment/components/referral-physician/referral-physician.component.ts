@@ -107,7 +107,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
-        map((staff) => staff.map(({ firstname, id }) => ({ name: firstname, value: id }))),
+        map((staff) => staff.map(({ firstname, lastname, id }) => ({ name: firstname + ' ' + lastname, value: id }))),
         takeUntil(this.destroy$$),
       )
       .subscribe({
