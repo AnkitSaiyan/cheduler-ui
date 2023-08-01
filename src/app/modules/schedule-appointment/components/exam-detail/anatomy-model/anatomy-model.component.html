@@ -7,7 +7,7 @@
           <h5>Filters</h5>
         </div>
         <div *ngFor="let category of filter" class="filter-items">
-          <ng-container *ngIf="!(filterForm.value?.bodyStructure !== 'organs' && category.name !== 'Body Structure')">
+          <ng-container *ngIf="!(filterForm.value?.bodyStructure !== 'organs' && category.name !== 'BODY_STEUCTURE')">
             <h6>{{ category.name | translate }}</h6>
             <dfm-radio-button
               *ngFor="let item of category.children"
