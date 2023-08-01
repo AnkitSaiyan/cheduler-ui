@@ -198,7 +198,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadDocumentFromMobile() {
-    this.modalSvc.open(QrModalComponent, {});
+    this.modalSvc.open(QrModalComponent, {
+      data: {
+        id: localStorage.getItem('appointmentId') || '0',
+      }
+    });
   }
 
   private updateFileName(fileName: string, directUpload: boolean) {
