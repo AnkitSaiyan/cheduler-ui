@@ -66,7 +66,8 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
             this.patientSSN.setValue(userDetail.socialSecurityNumber);
             this.patientSSN.disable();
           } else {
-            this.patientSSN.setValue(basicDetails.socialSecurityNumber ?? '');
+            this.patientSSN.setValue(basicDetails.socialSecurityNumber ??
+              (JSON.parse(localStorage.getItem('appointmentDetails') || '{}')?.socialSecurityNumber) ?? '');
           }
         }, 0);
       });
