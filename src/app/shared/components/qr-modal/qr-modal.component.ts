@@ -30,7 +30,7 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
           <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a></span>
         </span>
       </ng-template>
-      <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">Done</dfm-button>
+      <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">{{'Close'|translate}}</dfm-button>
     </div>
   `,
   styles: [

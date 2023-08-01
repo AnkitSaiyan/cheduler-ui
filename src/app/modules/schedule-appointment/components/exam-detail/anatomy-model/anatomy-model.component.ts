@@ -32,7 +32,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
 
   public filter = [
     {
-      name: 'Body Structure',
+      name: 'BODY_STEUCTURE',
       formName: 'bodyStructure',
       click: false,
       children: [
