@@ -23,8 +23,9 @@
             </tr>
             <tr>
               <td class="text-primary table-title text-nowrap">{{ 'Referring Note' | translate }} :</td>
-              <td *ngIf="!physicianDetails?.fileName && !editData?.documentCount" class="user-info">—</td>
-              <td *ngIf="physicianDetails?.fileName || editData?.documentCount" class="view-link" (click)="viewDocument()">View</td>
+              <td *ngIf="!physicianDetails?.fileName && (!editData?.documentCount || physicianDetails.physician)" class="user-info">—</td>
+              <td *ngIf="physicianDetails?.fileName || (editData?.documentCount && !physicianDetails.physician)" class="view-link"
+                (click)="viewDocument()">View</td>
               <td></td>
             </tr>
           </table>

@@ -282,7 +282,18 @@
   "Nov": "Nov",
   "Dec": "Dec",
   "RevokeAccessConfirmationPopUp": "Please note that revoking access to this lab will cancel all your appointments. Are you sure you want to continue?",
-
+  "BODY_STEUCTURE" : "Body Structure",
+  "UPLOAD_DOCUMENT": "Upload Document",
+  "FROM_MOBILE_DEVICE": "From Mobile Device",
+  "Body": "Body",
+  "Bones": "Bones",
+  "Gender":"Gender",
+  "Male": "Male",
+  "Female": "Femail",
+  "Side": "Side",
+  "Front": "Front",
+  "Reset": "Reset",
+  "Close": "Close",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These exams probably cannot be planned together",
     "MESSAGE": {

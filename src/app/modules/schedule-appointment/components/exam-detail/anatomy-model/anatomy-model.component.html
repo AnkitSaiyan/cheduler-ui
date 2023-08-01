@@ -8,12 +8,12 @@
         </div>
         <div *ngFor="let category of filter" class="filter-items">
           <ng-container *ngIf="!(filterForm.value?.bodyStructure !== 'organs' && category.name !== 'Body Structure')">
-            <h6>{{ category.name }}</h6>
+            <h6>{{ category.name | translate }}</h6>
             <dfm-radio-button
               *ngFor="let item of category.children"
               class="font-weight-normal"
-              [label]="item.name"
-              [checkedValue]="item.value"
+              [label]="item.name | translate"
+              [checkedValue]="item.value |translate"
               [formControlName]="category.formName"
               (click)="category.click ? onGenderChange($event, item.value): ''"
             ></dfm-radio-button>
