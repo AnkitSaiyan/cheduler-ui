@@ -66,7 +66,9 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   public counter!: number;
 
-  private connectionId!: any;
+  private connectionId!: string;
+
+  private appointmentId!: string;
 
   constructor(
     private dialogSvc: ModalService,
@@ -74,13 +76,26 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
     private _sanitizer: DomSanitizer,
     public loaderSvc: LoaderService,
     private signalrSvc: SignalRService,
-    private notificationSvc: NotificationDataService
+    private notificationSvc: NotificationDataService,
+    private modalSvc: ModalService
   ) {
     super();
   }
 
   public ngOnInit() {
+    this.modalSvc.dialogData$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
+      this.appointmentId = data.id
+      this.getSignalrId();
+    });
 
+    
+  }
+
+  public override ngOnDestroy() {
+    super.ngOnDestroy();
+  }
+
+  private getSignalrId() {
     this.signalrSvc.getConnectionId()
       .then(res => {
         this.connectionId = res;
@@ -92,13 +107,9 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
       });
   }
 
-  public override ngOnDestroy() {
-    super.ngOnDestroy();
-  }
-
   public getQR() {
     this.landingSvc
-      .getQr(this.connectionId)
+      .getQr(this.connectionId, this.appointmentId)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((res) => {
         this.img = of(this._sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${res.qrCodeContent}`));
