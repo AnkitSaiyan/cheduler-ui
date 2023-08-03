@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { LandingService } from 'src/app/core/services/landing.service';
+import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 
 @Component({
   selector: 'dfm-document-view-modal',
@@ -16,13 +17,15 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   public image = new Subject<any>();
 
-  private downloadableImage!: string;
+  private downloadableDoc!: string;
 
   public fileName!: string;
 
   public isImage: boolean = true;
 
-  constructor(private modalSvc: ModalService, private landingSvc: LandingService) {
+  private isDownloadClick: boolean = false;
+
+  constructor(private modalSvc: ModalService, private landingSvc: LandingService, private notificationService : NotificationDataService) {
     super();
   }
 
@@ -33,30 +36,32 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   }
 
   public getDocument(id) {
-    this.landingSvc.getDocumentById$(id).subscribe((res) => {
+    this.landingSvc.getDocumentById$(id, true).pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       this.isImage = !res.fileName.includes('.pdf');
-      this.setFile(res, this.isImage);
+      if(!this.downloadableDoc)
+      this.image.next((this.isImage ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
+      this.fileName = res.fileName;
+    });
+    this.landingSvc.getDocumentById$(id, false).pipe(take(1)).subscribe((res) => {
+      this.image.next((!res.fileName.includes('.pdf') ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
+      this.downloadableDoc = (res.fileName.includes('.pdf') ? this.base64PdfStart : this.base64ImageStart) + res.fileData;
+      if (this.isDownloadClick) this.downloadDocument();
     });
   }
 
   public downloadDocument() {
-    const linkSource = this.downloadableImage;
+    if (!this.downloadableDoc) {
+      this.isDownloadClick = true;
+      this.notificationService.showNotification('Downloading in progress...');
+      return;
+    }
+    const linkSource = this.downloadableDoc;
     const downloadLink = document.createElement('a');
     const fileName = this.fileName;
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
-  }
-
-  private setFile(docData, isImg: boolean) {
-    if (!isImg) {
-      this.image.next(this.base64PdfStart + docData.fileData);
-      this.downloadableImage = this.base64PdfStart + docData.fileData;
-    } else {
-      this.image.next(this.base64ImageStart + docData.fileData);
-      this.downloadableImage = this.base64ImageStart + docData.fileData;
-    }
-    this.fileName = docData.fileName;
+    this.isDownloadClick = false;
   }
 
   public closeModal() {

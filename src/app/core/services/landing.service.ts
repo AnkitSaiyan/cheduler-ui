@@ -97,10 +97,11 @@ export class LandingService {
     );
   }
 
-  public getDocumentById$(id: any): Observable<any> {
+  public getDocumentById$(id: any, isPreview:boolean): Observable<any> {
     let params = new HttpParams(); //appointmentId
     const idType = isNaN(id) ? 'qrCodeId' : 'appointmentId';
     params = params.append(idType, id);
+    params = params.append('isPreview', isPreview);
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
 		return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getdocuments`, {params, headers}).pipe(
 		  map((response) => response.data),
