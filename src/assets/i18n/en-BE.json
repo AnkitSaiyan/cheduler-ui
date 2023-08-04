@@ -294,6 +294,8 @@
   "Front": "Front",
   "Reset": "Reset",
   "Close": "Close",
+  "AddExam": "Add Exam",
+  "Select": "Select",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These exams probably cannot be planned together",
     "MESSAGE": {

@@ -182,6 +182,7 @@
   "ClickScheduleAppointment": "Klik hierboven om een afspraak te boeken",
   "SelectExamsBelow": "Selecteer onderzoek(en) hieronder",
   "SelectExam": "Selecteer onderzoek",
+  "Select": "Selecteer",
   "SelectSlot": "Gekozen tijdslot",
   "BasicDetails": "Persoonlijke gegevens",
   "Confirm": "Bevestig",
@@ -295,6 +296,7 @@
   "Front": "Voorkant",
   "Reset": "Resetten",
   "Close": "Close",
+  "AddExam": "Bijvoegen Onderzoek",
 
   "EXAM": {
     "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",

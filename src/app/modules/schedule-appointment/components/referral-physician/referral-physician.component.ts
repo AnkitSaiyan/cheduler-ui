@@ -88,7 +88,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
         this.landingService
-          .getDocumentById$(appointmentDetail?.id)
+          .getDocumentById$(appointmentDetail?.id, true)
           .pipe(takeUntil(this.destroy$$))
           .subscribe((res) => {
             this.referringDetails.fileName = res.fileName;
@@ -155,7 +155,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     if (!event.target.files.length) {
       return;
     } else if (allowedExtensions.indexOf(extension) === -1) {
-      // alert('Invalid file Format. Only ' + allowedExtensions.join(', ') + ' are allowed.');
       this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else if (fileSize) { 
