@@ -112,6 +112,10 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
           this.examSvc.selectedBodyType$$.next(BodyType.Female);
         }
       });
+
+    this.filterForm.valueChanges.pipe(takeUntil(this.destroy$$)).subscribe(() => {
+      this.examSvc.setCategory('');
+    });
   }
 
   public close() {
@@ -165,6 +169,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
 
 
 
