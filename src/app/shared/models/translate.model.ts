@@ -23,6 +23,34 @@ export const Translate = Object.freeze({
       [DUTCH_BE]: 'Afspraak succesvol geannuleerd',
     },
     
-  }
+  },
+  Error: {
+		Forbidden: {
+			[ENG_BE]: 'Forbidden! You are not permitted to perform this action',
+			[DUTCH_BE]: 'Verboden! U mag deze actie niet uitvoeren',
+		},
+		Unauthorized: {
+			[ENG_BE]: 'Unauthorized! You are not authorized',
+			[DUTCH_BE]: 'Ongeoorloofd! Jij bent niet geautoriseerd',
+		},
+		SomethingWrong: {
+			[ENG_BE]: 'Something Went Wrong',
+			[DUTCH_BE]: 'Er is iets fout gegaan',
+		},
+		FailedToSave: {
+			[ENG_BE]: 'Failed to save the appointment',
+			[DUTCH_BE]: 'Afspraak werd niet weerhouden',
+		},
+		BackendCodes: {
+			[ENG_BE]: {
+				MSG_400_QR_EXPIRED: 'Your QR code has expired.',
+				MSG_400_QR_INVALID: 'QR is not valid.',
+			},
+			[DUTCH_BE]: {
+				MSG_400_QR_EXPIRED: '(NL) Your QR code has expired.',
+				MSG_400_QR_INVALID: '(NL) QR is not valid',
+			},
+		},
+	},
   
 });

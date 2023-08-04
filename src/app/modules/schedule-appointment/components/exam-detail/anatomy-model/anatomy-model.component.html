@@ -79,7 +79,7 @@
     </section>
 
     <section class="selected-exam dfm-gap-24">
-      <span>Add Exams</span>
+      <span>{{'AddExam' | translate}}</span>
 
       <div class="d-flex flex-column">
         <div class="d-flex dfm-gap-8 flex-nowrap align-items-end" >
@@ -87,8 +87,8 @@
             [items]="((examSvc.filterExams$ | async) ?? []) | removeSelectedItemFormAnatomy : this.examSvc.selectedExam"
             formControlName="exam"
             size="sm"
-            label="Exam *"
-            [placeholder]="'Select '+(examSvc.selectedCategory | lowercase)+ 'exam'"
+            label="{{ 'Exam' | translate }} *"
+            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}} {{'Exams' | translate }}"
             [showDescription]="false"
           ></dfm-input-dropdown>
 

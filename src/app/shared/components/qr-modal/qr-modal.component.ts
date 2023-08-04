@@ -7,6 +7,9 @@ import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
+import { NotificationType } from 'diflexmo-angular-design';
+import { Translate } from '../../models/translate.model';
+import { ENG_BE } from '../../utils/const';
 
 @Component({
   selector: 'dfm-qr-modal',
@@ -25,12 +28,13 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
         <span class="flex-1 d-flex justify-content-center mb-2 gap-2 flex-column">
           <span *ngIf="counter" class="flex-1 justify-content-center dfm-color-primary d-flex">0{{ minutes }}:{{ seconds }}</span>
           <span *ngIf="!counter" class="flex-1 justify-content-center d-flex flex-column align-items-center dfm-gap-12">
-          <img src="../../../../assets/images/qr-code.png" class="qr-expire-img" alt="QR">
-          <span>Your QR has been expired. Please generate a new QR.</span>
-          <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a></span>
+            <img src="../../../../assets/images/qr-code.png" class="qr-expire-img" alt="QR" />
+            <span>Your QR has been expired. Please generate a new QR.</span>
+            <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a></span
+          >
         </span>
       </ng-template>
-      <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">{{'Close'|translate}}</dfm-button>
+      <dfm-button color="primary" class="d-flex justify-content-center mb-2" (click)="close()" size="sm">{{ 'Close' | translate }}</dfm-button>
     </div>
   `,
   styles: [
@@ -50,7 +54,7 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
         text-align: center;
       }
 
-      .qr-expire-img{
+      .qr-expire-img {
         width: 20vh;
         background-color: #e0dde4;
       }
@@ -70,6 +74,8 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   private appointmentId!: string;
 
+  private language = ENG_BE;
+
   constructor(
     private dialogSvc: ModalService,
     private landingSvc: LandingService,
@@ -77,18 +83,17 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
     public loaderSvc: LoaderService,
     private signalrSvc: SignalRService,
     private notificationSvc: NotificationDataService,
-    private modalSvc: ModalService
+    private modalSvc: ModalService,
   ) {
     super();
   }
 
   public ngOnInit() {
+    this.language = localStorage.getItem('lang') || ENG_BE;
     this.modalSvc.dialogData$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
-      this.appointmentId = data.id
+      this.appointmentId = data.id;
       this.getSignalrId();
     });
-
-    
   }
 
   public override ngOnDestroy() {
@@ -96,12 +101,13 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
   }
 
   private getSignalrId() {
-    this.signalrSvc.getConnectionId()
-      .then(res => {
+    this.signalrSvc
+      .getConnectionId()
+      .then((res) => {
         this.connectionId = res;
         this.getQR();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.notificationSvc.showNotification(err);
       });
@@ -111,9 +117,17 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
     this.landingSvc
       .getQr(this.connectionId, this.appointmentId)
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((res) => {
-        this.img = of(this._sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${res.qrCodeContent}`));
-        this.countdown();
+      .subscribe({
+        next: (res) => {
+          this.img = of(this._sanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64, ${res.qrCodeContent}`));
+          this.countdown();
+        },
+        error: (err) => {
+          this.notificationSvc.showNotification(
+            Translate.Error.BackendCodes[this.language][err?.error?.message] || Translate.Error.SomethingWrong[this.language],
+            NotificationType.DANGER,
+          );
+        }
       });
   }
 
@@ -126,13 +140,12 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
         else {
           --this.counter;
           this.minutes = Math.floor(this.counter / 60);
-          this.seconds = (this.counter % 60) < 10 ? '0' + (this.counter % 60) : (this.counter % 60).toString();
+          this.seconds = this.counter % 60 < 10 ? '0' + (this.counter % 60) : (this.counter % 60).toString();
         }
-     });
+      });
   }
 
   public close() {
     this.dialogSvc.close();
   }
-
 }
