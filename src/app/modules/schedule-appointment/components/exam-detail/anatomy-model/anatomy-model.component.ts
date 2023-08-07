@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, distinctUntilChanged, startWith, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, startWith, take, takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
@@ -113,9 +113,22 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
         }
       });
 
-    this.filterForm.valueChanges.pipe(takeUntil(this.destroy$$)).subscribe(() => {
-      this.examSvc.setCategory('');
-    });
+    this.filterForm.valueChanges
+      .pipe(
+        takeUntil(this.destroy$$),
+        map(({ bodyStructure, gender }) => {
+          if (bodyStructure === 'bones') {
+            return BodyType.Skeleton;
+          }
+          if (gender === 'female') {
+            return BodyType.Female;
+          }
+          return BodyType.Male;
+        }),
+      )
+      .subscribe((value) => {
+        this.examSvc.setCategory('', value);
+      });
   }
 
   public close() {
@@ -169,6 +182,13 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
+
+
+
+
+
 
 
 

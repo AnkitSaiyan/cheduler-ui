@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, Observable, switchMap } from 'rxjs';
 import { BodyMaleBack, BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 import { BodyType } from 'src/app/shared/utils/const';
 
@@ -16,6 +16,7 @@ export class ExamService {
   public get filterExams$(): any {
     return combineLatest([this.selectedCategory$$, this.allExams$$, this.selectedBodyType$$]).pipe(
       switchMap(() => this.allExams$$),
+      filter(Boolean),
       map((value) => {
         if (this.selectedCategory$$.value && this.selectedBodyType$$.value) {
           return value[this.selectedBodyType$$.value][this.selectedCategory$$.value];
@@ -87,6 +88,9 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
 
 
 
