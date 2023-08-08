@@ -11,6 +11,7 @@ import { RouterStateService } from '../../../core/services/router-state.service'
 import { AuthService } from '../../../core/services/auth.service';
 import { ScheduleAppointmentService } from '../../../core/services/schedule-appointment.service';
 import { DUTCH_BE, ENG_BE } from '../../utils/const';
+import { SignalRService } from 'src/app/core/services/signal-r.service';
 
 @Component({
   selector: 'dfm-header',
@@ -50,6 +51,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private landingService: LandingService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private shareDataSvc: ShareDataService,
+    private signalrSvc: SignalRService
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);

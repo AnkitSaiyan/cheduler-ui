@@ -108,8 +108,9 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
         this.getQR();
       })
       .catch((err) => {
-        console.log(err);
-        this.notificationSvc.showNotification(err);
+        this.notificationSvc.showNotification(Translate.Error.SomethingWrong[this.language], NotificationType.DANGER);
+        this.signalrSvc.makeConnection();
+        this.close();
       });
   }
 

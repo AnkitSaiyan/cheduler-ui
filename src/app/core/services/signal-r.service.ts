@@ -5,7 +5,6 @@ import { NotificationDataService } from './notification-data.service';
 import { NotificationType } from 'diflexmo-angular-design';
 import { Subject } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +14,10 @@ export class SignalRService {
   private docData = new Subject<any>();
 
   constructor(private notificationService: NotificationDataService) {
+    this.makeConnection();
+  }
+
+  public makeConnection() {
     this.createConnection();
     this.startConnection();
     this.registerForDocument();
@@ -55,4 +58,3 @@ export class SignalRService {
     return this.hubConnection.invoke('getconnectionid');
 	}
 }
-
