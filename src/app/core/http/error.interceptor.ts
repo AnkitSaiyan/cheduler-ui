@@ -56,9 +56,9 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
 
           } else if (err?.error?.message && typeof err.error.message === 'string') {
-            errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || err.error.message;
+            errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
           } else if (err?.message && typeof err?.message === 'string') {
-            errorMessage = err.message;
+            errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
           }
         }
       }
