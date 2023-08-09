@@ -44,6 +44,8 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
   siteDetails$$: BehaviorSubject<any>;
 
+  public pathname = location?.pathname;
+
   constructor(
     private routerStateSvc: RouterStateService,
     private authSvc: AuthService,

@@ -1,9 +1,10 @@
 <div class="nav-bar" [ngClass]="{ 'header-logged-in': (isLoggedIn$ | async) }">
   <div class="nav-logo pointer" *ngIf="siteDetails$$ | async as siteDetails">
     <img class="object-fit-contain" *ngIf="siteDetails['data']?.logo"
-         src="{{ base64Start + siteDetails['data']?.logo }}" alt="CHEDULER"/>
+      [routerLink]="pathname.includes('upload') ? null : '/'" src="{{ base64Start + siteDetails['data']?.logo }}"
+      alt="CHEDULER" />
     <img *ngIf="!siteDetails['data']?.logo" ngSrc="../../../../assets/images/diflexmo-logo.svg" alt="CHEDULER"
-         height="16" width="134"/>
+      [routerLink]="pathname.includes('upload') ? null : '/'" height="16" width="134" />
   </div>
 
   <div class="nav-items-right">
