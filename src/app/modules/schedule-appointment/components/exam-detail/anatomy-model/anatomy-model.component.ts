@@ -96,7 +96,6 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
       .subscribe((value) => {
         if (value === 'bones') {
-          this.filterForm.patchValue({ gender: 'male', side: 'front' }, { emitEvent: false, onlySelf: true });
           this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
           this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
         }
@@ -182,6 +181,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
 
 
 
