@@ -28,7 +28,7 @@
               {{ 'RequiredField' | translate }}
             </span>
             <ng-container *ngIf="!(!physicianEnale?.editUploadedDocument && isEdit)">
-            <span class="upload-text">Upload Referring Note <small>(pdf, jpg, jpeg, png)</small></span>
+            <span class="upload-text">{{'UploadReferringNote' | translate}} <small>(pdf, jpg, jpeg, png)</small></span>
             <div class="upload-main-container">
               <div class="upload-container">
                 <div class="upload-section d-flex flex-column align-items-center">
@@ -41,9 +41,9 @@
                     {{ documentUploadProcess | async }}&nbsp;
                      <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="trash-01"></dfm-icon>
                   </p>
-                  <div *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">View</div>
+                  <div *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
                 </div>
-                <div class="or-btn"><span>OR</span></div>
+                <div class="or-btn"><span>{{'Or' | translate}}</span></div>
                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
                   <div class="upload-button" (click)="uploadDocumentFromMobile()">
                     <img src="../../../../../assets/images/phone-scan.png" alt="" width="40px" />
@@ -52,7 +52,7 @@
                   <p class="file-name">{{ signalRFileName }}&nbsp;
                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="trash-01"></dfm-icon>
                   </p>
-                  <div *ngIf="signalRFileName" class="view-link" (click)="viewDocument()">View</div>
+                  <div *ngIf="signalRFileName" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
                 </div>
               </div>
             </div>

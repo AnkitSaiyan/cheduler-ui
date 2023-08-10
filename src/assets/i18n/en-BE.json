@@ -296,6 +296,11 @@
   "Close": "Close",
   "AddExam": "Add Exam",
   "Select": "Select",
+  "ReferralPhysician":"Referral Physician",
+  "BackBody":"Back",
+  "ReferralNote":"Referral Note",
+  "UploadReferringNote": "Upload Referring Note",
+  "PLEASE_ENTER_A_VALID_MOBILE_NUMBER": "Please enter a valid mobile number",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These exams probably cannot be planned together",
     "MESSAGE": {

@@ -22,10 +22,10 @@
               <td class="user-info" >{{ basicDetails?.socialSecurityNumber | dashIfNothing }}</td>
             </tr>
             <tr>
-              <td class="text-primary table-title text-nowrap">{{ 'Referring Note' | translate }} :</td>
+              <td class="text-primary table-title text-nowrap">{{ 'ReferralNote' | translate }} :</td>
               <td *ngIf="!physicianDetails?.fileName && (!editData?.documentCount || physicianDetails.physician)" class="user-info">—</td>
               <td *ngIf="physicianDetails?.fileName || (editData?.documentCount && !physicianDetails.physician)" class="view-link"
-                (click)="viewDocument()">View</td>
+                (click)="viewDocument()">{{"View"|translate}}</td>
               <td></td>
             </tr>
           </table>

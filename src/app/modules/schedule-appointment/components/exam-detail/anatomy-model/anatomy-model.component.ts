@@ -71,7 +71,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
           value: 'front',
         },
         {
-          name: 'Back',
+          name: 'BackBody',
           value: 'back',
         },
       ],
