@@ -14,9 +14,6 @@ import { AnatomyModelComponent } from './components/exam-detail/anatomy-model/an
 import { SkeletonMaleFrontModelComponent } from './components/exam-detail/models/skeleton-male-front-model/skeleton-male-front-model.component';
 import { OrganMaleFrontModelComponent } from './components/exam-detail/models/organ-male-front-model/organ-male-front-model.component';
 import { OrganMaleBackModelComponent } from './components/exam-detail/models/organ-male-back-model/organ-male-back-model.component';
-import { SkeletonMaleBackModelComponent } from './components/exam-detail/models/skeleton-male-back-model/skeleton-male-back-model.component';
-import { SkeletonFemaleBackModelComponent } from './components/exam-detail/models/skeleton-female-back-model/skeleton-female-back-model.component';
-import { SkeletonFemaleFrontModelComponent } from './components/exam-detail/models/skeleton-female-front-model/skeleton-female-front-model.component';
 import { OrganFemaleBackModelComponent } from './components/exam-detail/models/organ-female-back-model/organ-female-back-model.component';
 import { OrganFemaleFrontModelComponent } from './components/exam-detail/models/organ-female-front-model/organ-female-front-model.component';
 import { ReferralPhysicianComponent } from './components/referral-physician/referral-physician.component';
@@ -32,9 +29,6 @@ import { ReferralPhysicianComponent } from './components/referral-physician/refe
     BodyPartsComponent,
     AnatomyModelComponent,
     SkeletonMaleFrontModelComponent,
-    SkeletonMaleBackModelComponent,
-    SkeletonFemaleBackModelComponent,
-    SkeletonFemaleFrontModelComponent,
     OrganMaleFrontModelComponent,
     OrganMaleBackModelComponent,
     OrganFemaleBackModelComponent,

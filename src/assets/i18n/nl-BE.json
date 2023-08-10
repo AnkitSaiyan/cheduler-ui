@@ -284,14 +284,14 @@
   "Dec": "Dec",
   "RevokeAccessConfirmationPopUp": "Houd er rekening mee dat het intrekken van de toegang tot dit lab alle afspraken annuleert. Weet je zeker dat je door wilt gaan?",
   "NoUpcomingAppointmentsFound": "Geen Aankomende afspraken gevonden",
-  "BODY_STEUCTURE" : "Lichaamsstructuur",
+  "BODY_STEUCTURE": "Lichaamsstructuur",
   "UPLOAD_DOCUMENT": "Document opladen",
   "FROM_MOBILE_DEVICE": "van mobiel apparaat",
   "Body": "Lichaam",
   "Bones": "Geraamte",
   "Gender": "Geslacht",
   "Male": "Mannelijk",
-  "Female": "Vrouwelijk",  
+  "Female": "Vrouwelijk",
   "Side": "Zijdelings",
   "Front": "Voorkant",
   "Reset": "Resetten",
@@ -305,10 +305,11 @@
   "EXAM": {
     "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",
     "MESSAGE": {
-      "NO_INSTRUCTION": "No Instruction for this exam"
+      "NO_INSTRUCTION": "Geen instructie voor dit examen"
     }
   }
 }
+
 
 
 
