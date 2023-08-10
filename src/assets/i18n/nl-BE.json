@@ -288,7 +288,7 @@
   "UPLOAD_DOCUMENT": "Document opladen",
   "FROM_MOBILE_DEVICE": "van mobiel apparaat",
   "Body": "Lichaam",
-  "Bones": "Bones",
+  "Bones": "Geraamte",
   "Gender": "Geslacht",
   "Male": "Mannelijk",
   "Female": "Vrouwelijk",  
@@ -297,7 +297,11 @@
   "Reset": "Resetten",
   "Close": "Close",
   "AddExam": "Bijvoegen Onderzoek",
-
+  "ReferralPhysician":"Verwijzende Dokter",
+  "BackBody":"Achterkant",
+  "ReferralNote":"Verwijzende Opmerking",
+  "UploadReferringNote": "Upload een verwijsbrief",
+  "PLEASE_ENTER_A_VALID_MOBILE_NUMBER": "Voer een geldig mobiel nummer in",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",
     "MESSAGE": {
