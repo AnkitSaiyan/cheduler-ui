@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
 import { BehaviorSubject, filter, takeUntil, map } from 'rxjs';
@@ -130,7 +130,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   private createForm(data) {
     this.physicianForm = this.fb.group({
-      physician: [data?.physician ? data.physician : '', []],
+      physician: [data?.physician ?? '', [Validators.required]],
     });
   }
 
