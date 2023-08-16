@@ -32,7 +32,7 @@
             <div class="upload-main-container">
               <div class="upload-container">
                 <div class="upload-section d-flex flex-column align-items-center">
-                  <input type="file"  accept = "application/pdf,image/*" (change)="uploadRefferingNote($event)" #fileUpload style="display: none" />
+                  <input type="file"  accept = ".pdf, .jpg, .jpeg, .png" (change)="uploadRefferingNote($event)" #fileUpload style="display: none" />
                   <div class="upload-button" (click)="fileUpload.click()">
                     <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px" />
                   </div>

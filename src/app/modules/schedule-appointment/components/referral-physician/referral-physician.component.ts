@@ -24,8 +24,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public filteredPhysicians$$ = new BehaviorSubject<NameValue[] | null>(null);
 
-  public filteredExams$$ = new BehaviorSubject<NameValue[] | null>(null);
-
   public siteDetails$$: BehaviorSubject<any>;
 
   public uploadFileName: string = '';

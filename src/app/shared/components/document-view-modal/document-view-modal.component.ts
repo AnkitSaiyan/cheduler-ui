@@ -11,9 +11,9 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
   styleUrls: ['./document-view-modal.component.scss'],
 })
 export class DocumentViewModalComponent extends DestroyableComponent implements OnInit {
-  private base64ImageStart = 'data:image/*;base64,';
+  private readonly base64ImageStart = 'data:image/*;base64,';
 
-  private base64PdfStart = 'data:application/pdf;base64,';
+  private readonly base64PdfStart = 'data:application/pdf;base64,';
 
   public image = new Subject<any>();
 
