@@ -92,11 +92,9 @@ export class UploadDocumentComponent implements OnInit {
       const { files } = event.target as HTMLInputElement;
 
       if (files && files?.length) {
-        // let file;
         const reader = new FileReader();
         reader.onload = (e: any) => {
           resolve(files[0]);
-          // this.uploadDocument(file)
         };
         reader.readAsDataURL(files[0]);
       }
