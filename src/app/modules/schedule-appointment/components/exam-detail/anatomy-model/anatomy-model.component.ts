@@ -31,21 +31,21 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
   public addExamForm!: FormGroup;
 
   public filter = [
-    {
-      name: 'BODY_STEUCTURE',
-      formName: 'bodyStructure',
-      click: false,
-      children: [
-        {
-          name: 'Body',
-          value: 'organs',
-        },
-        {
-          name: 'Bones',
-          value: 'bones',
-        },
-      ],
-    },
+    // {
+    //   name: 'BODY_STEUCTURE',
+    //   formName: 'bodyStructure',
+    //   click: false,
+    //   children: [
+    //     {
+    //       name: 'Body',
+    //       value: 'organs',
+    //     },
+    //     {
+    //       name: 'Bones',
+    //       value: 'bones',
+    //     },
+    //   ],
+    // },
     {
       name: 'Gender',
       formName: 'gender',
