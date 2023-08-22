@@ -25,7 +25,7 @@
     <ng-template #icon> <dfm-icon name="check" class="right-icon"></dfm-icon></ng-template>
       <div *ngIf="((documentUploadProcess | async)?.includes('Uploaded'))" class="upload-img-desc flex-column dfm-gap-10">
         <span style="color: blue;" >{{uploadFileName}}</span>
-        <span >Your document has been upload successfully! Please continue your appointment booking process.</span>
+        <span >{{'YOUR_DOCUMNENT_UPLOAD_SUCCESSFULLY' | translate}}</span>
         <dfm-button color="primary" size="lg" (click)="documentUploadProcess.next('Upload document')" >{{'Edit'|translate}}</dfm-button>
       </div>
     </div>

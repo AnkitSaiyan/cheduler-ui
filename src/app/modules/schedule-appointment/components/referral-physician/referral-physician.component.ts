@@ -159,7 +159,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
       this.documentUploadProcess.next('Failed to upload');
     } else {
-      this.documentUploadProcess.next('Uploading...');
+      this.documentUploadProcess.next('Uploading');
       this.onFileChange(event);
     }
   }

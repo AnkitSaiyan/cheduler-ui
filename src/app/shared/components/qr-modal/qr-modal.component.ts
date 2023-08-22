@@ -15,7 +15,7 @@ import { ENG_BE } from '../../utils/const';
   selector: 'dfm-qr-modal',
   template: `
     <div class="container">
-      <h5 class="dfm-color-primary font-weight-high qr-heading">Scan QR code to upload referral note from Mobile device</h5>
+      <h5 class="dfm-color-primary font-weight-high qr-heading">{{'SCAN_QR_CODE_TO_UPLOAD_REFERRAL_NOTE_FROM_MOBILE_DEVICE' | translate}}</h5>
       <ng-container *ngIf="!(img | async); else loaded">
         <div class="d-flex justify-content-center align-items-center w-full flex-1">
           <mat-spinner diameter="48"></mat-spinner>

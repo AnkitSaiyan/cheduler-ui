@@ -152,13 +152,13 @@
                   <ul style="max-height:140px; overflow-y:auto;">
                     <li *ngFor="let exam of examsDetails?.exams">
                       <span class="font-weight-medium ">{{ examIdToName[exam]?.name }} - </span>
-                      <span class="instructions-value-text">{{ !!examIdToName[exam]?.instructions ? examIdToName[exam].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                      <span class="instructions-value-text">{{ !!examIdToName[exam]?.instructions | dashIfNothing}}</span>
                     </li>
                   </ul>
                 </ng-container>
 
                 <ng-template #oneExam>
-                  <span>{{ !!examIdToName[examsDetails.exams[0]]?.instructions ? examIdToName[examsDetails.exams[0]].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.' }}</span>
+                  <span>{{ !!examIdToName[examsDetails.exams[0]]?.instructions | dashIfNothing }}</span>
                 </ng-template>
               </div>
 

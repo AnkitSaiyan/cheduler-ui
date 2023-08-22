@@ -88,7 +88,7 @@
             formControlName="exam"
             size="sm"
             label="{{ 'Exam' | translate }} *"
-            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}} {{'Exams' | translate }}"
+            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}}{{'Exams' | translate }}"
             [showDescription]="false"
           ></dfm-input-dropdown>
 
@@ -109,12 +109,13 @@
             size="sm"
             (click)="onExamSelect(addExamForm.value.exam)"
             [disabled]="!addExamForm.value?.exam"
-            >Add Exam</dfm-button
+            >{{'AddExam' | translate}}</dfm-button
           >
         </div>
       </div>
-
-      <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">Selected Exams</span>
+      <small class="text-wrap" *ngIf="(examSvc.filterExams$ | async) && examSvc.selectedCategory" >{{'EXAM_EXIST_FOR_SELECTED_BODY_PART' | translate}}</small>
+      <small class="text-wrap text-danger" *ngIf="!(examSvc.filterExams$ | async)" >{{'NO_EXAM_FOR_SELECTED_BODY_PART' | translate}}</small>
+      <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">{{'SelectedExam' | translate}}</span>
       <div class="exam-container" >
         <div class="exam-list">
           <div *ngFor="let item of examSvc.selectedExam | keyvalue">
@@ -127,7 +128,7 @@
               >
                 {{ exam.name }}
                 <button matChipRemove >
-                  <mat-icon color="primary">cancel</mat-icon>
+                  <mat-icon color="primary">{{'cancel' | translate}}</mat-icon>
                 </button>
               </mat-chip>
             </div>

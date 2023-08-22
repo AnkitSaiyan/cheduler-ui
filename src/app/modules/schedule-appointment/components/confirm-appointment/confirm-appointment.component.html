@@ -71,13 +71,13 @@
               <ul style="list-style-type: disc; max-height: 150px; overflow-y: auto;">
                 <li *ngFor="let exam of exams">
                   <span class="font-weight-medium ">{{ exam?.name }} - </span>
-                  <span class="instructions-value-text">{{ exam?.instructions?.length ? exam.instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.'}}</span>
+                  <span class="instructions-value-text">{{ exam?.instructions | dashIfNothing}}</span>
                 </li>
               </ul>
             </ng-container>
 
             <ng-template #oneExam>
-              <span>{{ exams?.[0]?.instructions?.length ? exams?.[0].instructions : ('EXAM.MESSAGE.NO_INSTRUCTION' | translate) + '.'}}</span>
+              <span>{{ exams?.[0]?.instructions | dashIfNothing}}</span>
             </ng-template>
           </ng-container>
         </ng-container>
