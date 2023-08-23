@@ -296,7 +296,8 @@
   "Front": "Voorkant",
   "Reset": "Resetten",
   "Close": "Sluiten",
-  "AddExam": "Onderzoek toevoegen",
+  "AddExamBtn": "Onderzoek toevoegen",
+  "AddExam": "Aanduiden onderzoek",
   "ReferralPhysician": "Verwijzende dokter",
   "BackBody": "Achterkant",
   "ReferralNote": "Verwijsbrief",
@@ -307,6 +308,7 @@
   "SelectedExam": "Geselecteerd Onderzoek",
   "NO_EXAM_FOR_SELECTED_BODY_PART": "Er bestaat geen onderzoek voor het gekozen lichaamsdeel. Kies een onderzoek uit de lijst rechts, en klik daarna op 'Onderzoek toevoegen.",
   "EXAM_EXIST_FOR_SELECTED_BODY_PART": "'Voor het gekozen lichaamsdeel bestaan 1 of meerdere onderzoeken: kies uit de lijst rechts, en klik daarn op 'Onderzoek toevoegen.",
+  "Filters":"Filters",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",
     "MESSAGE": {

@@ -4,7 +4,7 @@
       <div class="d-flex filter" [formGroup]="filterForm">
         <div class="d-flex heading">
           <mat-icon>tune</mat-icon>
-          <h5>Filters</h5>
+          <h5>{{'Filters' | translate}}</h5>
         </div>
         <div *ngFor="let category of filter" class="filter-items">
           <ng-container *ngIf="!(filterForm.value?.bodyStructure !== 'organs' && category.name !== 'BODY_STEUCTURE')">
@@ -88,7 +88,7 @@
             formControlName="exam"
             size="sm"
             label="{{ 'Exam' | translate }} *"
-            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}}{{'Exams' | translate }}"
+            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}}{{ (examSvc.selectedCategory ? 'Exams' : '') | translate }}"
             [showDescription]="false"
           ></dfm-input-dropdown>
 
@@ -109,7 +109,7 @@
             size="sm"
             (click)="onExamSelect(addExamForm.value.exam)"
             [disabled]="!addExamForm.value?.exam"
-            >{{'AddExam' | translate}}</dfm-button
+            >{{'AddExamBtn' | translate}}</dfm-button
           >
         </div>
       </div>

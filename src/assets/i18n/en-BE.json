@@ -294,6 +294,7 @@
   "Front": "Front",
   "Reset": "Reset",
   "Close": "Close",
+  "AddExamBtn": "Add examination",
   "AddExam": "Add examination",
   "Select": "Select",
   "ReferralPhysician": "Referral physician",
@@ -306,6 +307,7 @@
   "SelectedExam": "Selected Examination",
   "NO_EXAM_FOR_SELECTED_BODY_PART": "For the selected body part, no examination exist.",
   "EXAM_EXIST_FOR_SELECTED_BODY_PART": "For the selected body part, choose an examination from the dropdown list and click Add examination.",
+  "Filters":"Filters",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These examinations probably cannot be planned together",
     "MESSAGE": {

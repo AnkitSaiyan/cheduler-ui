@@ -3,7 +3,9 @@ import * as signalR from '@microsoft/signalr';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
 import { NotificationDataService } from './notification-data.service';
 import { NotificationType } from 'diflexmo-angular-design';
-import { Subject } from 'rxjs';
+import { Subject, take } from 'rxjs';
+import { Translate } from 'src/app/shared/models/translate.model';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +15,16 @@ export class SignalRService {
 
   private docData = new Subject<any>();
 
-  constructor(private notificationService: NotificationDataService) {
+  private selectedLang!: string;
+
+  constructor(private notificationService: NotificationDataService, private shareDataSvc: ShareDataService) {
     this.makeConnection();
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(take(1))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+      });
   }
 
   public makeConnection() {
@@ -48,9 +58,8 @@ export class SignalRService {
 
   private registerForDocument(): void {
     this.hubConnection.on('UploadDocument', (param: string) => {
-      //
       this.docData.next(param);
-      this.notificationService.showNotification('Document uploaded successfully!');
+      this.notificationService.showNotification(Translate.Success.DocumentUploadSuccess[this.selectedLang]);
     });
   }
 

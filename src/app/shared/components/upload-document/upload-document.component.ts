@@ -20,7 +20,7 @@ export class UploadDocumentComponent implements OnInit {
 
   public uploadFileName: string = '';
 
-  public documentUploadProcess = new BehaviorSubject<string>('Upload document');
+  public documentUploadProcess = new BehaviorSubject<string>('UPLOAD_DOCUMENT');
 
   private fileSize!: number;
 
