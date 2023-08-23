@@ -21,7 +21,11 @@ export const Translate = Object.freeze({
     AppointmentCancelledSuccessfully: {
       [ENG_BE]: 'Appointment cancel successfully',
       [DUTCH_BE]: 'Afspraak succesvol geannuleerd',
-    },
+	},
+	DocumentUploadSuccess: {
+	  [ENG_BE]: 'Your document has been uploaded succesfully!',
+	  [DUTCH_BE]: 'Het document is succesvol opgeladen.',
+	},
     
   },
   Error: {
