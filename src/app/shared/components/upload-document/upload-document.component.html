@@ -1,6 +1,4 @@
 <div class="upload-main-container">
-  <!-- <div class="container"> -->
-    <!-- <div class="back-container"></div> -->
     <ng-container *ngIf="(loaderSvc.isSpinnerActive$ | async); else container">
       <div class="d-flex justify-content-center align-items-center w-full flex-1">
         <mat-spinner diameter="48"></mat-spinner>
@@ -14,12 +12,12 @@
         <div class="light-circle">
           <input type="file" (change)="uploadRefferingNote($event)" accept = "image/*, application/pdf" />
           <img src="../../../../assets/images/upload-icon.png" alt="upload-icon" />
-          <span class="icon-text"[style.color]="(documentUploadProcess | async)?.includes('Failed')? 'red': ''" >{{((documentUploadProcess | async) ?? '') | translate}}</span>
+          <span class="icon-text"[style.color]="(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') ? 'red': ''" >{{((documentUploadProcess | async) ?? '') | translate}}</span>
         </div>
       </div>
       <div class="d-flex dfm-gap-6 flex-column" *ngIf="!(isQrValid | async)">
         <img src="../../../../assets/images/qr-code.png" alt="Invalid QR">
-        <span class="icon-text">The QR has been expired.</span>
+        <span class="icon-text">{{'QR_EXPIRED' | translate}}</span>
       </div>
     </ng-container>
     <ng-template #icon> <dfm-icon name="check" class="right-icon"></dfm-icon></ng-template>

@@ -10,6 +10,7 @@ import { NotificationDataService } from 'src/app/core/services/notification-data
 import { NotificationType } from 'diflexmo-angular-design';
 import { Translate } from '../../models/translate.model';
 import { ENG_BE } from '../../utils/const';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'dfm-qr-modal',
@@ -29,8 +30,8 @@ import { ENG_BE } from '../../utils/const';
           <span *ngIf="counter" class="flex-1 justify-content-center dfm-color-primary d-flex">0{{ minutes }}:{{ seconds }}</span>
           <span *ngIf="!counter" class="flex-1 justify-content-center d-flex flex-column align-items-center dfm-gap-12">
             <img src="../../../../assets/images/qr-code.png" class="qr-expire-img" alt="QR" />
-            <span>Your QR has been expired. Please generate a new QR.</span>
-            <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">Generate new QR code</a></span
+            <span>{{'QR_EXPIRE_REGENERATE' |  translate }}</span>
+            <a class="dfm-color-primary" href="javascript:void(0);" (click)="getQR()">{{'GENERATE_NEW_QR' | translate}}</a></span
           >
         </span>
       </ng-template>
@@ -74,7 +75,7 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
 
   private appointmentId!: string;
 
-  private language = ENG_BE;
+  private selectedLang = ENG_BE;
 
   constructor(
     private dialogSvc: ModalService,
@@ -84,12 +85,19 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
     private signalrSvc: SignalRService,
     private notificationSvc: NotificationDataService,
     private modalSvc: ModalService,
+    private shareDataSvc: ShareDataService,
   ) {
     super();
+
+    this.shareDataSvc
+    .getLanguage$()
+    .pipe(takeUntil(this.destroy$$))
+    .subscribe((lang) => {
+      this.selectedLang = lang;
+    });
   }
 
   public ngOnInit() {
-    this.language = localStorage.getItem('lang') || ENG_BE;
     this.modalSvc.dialogData$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.appointmentId = data.id;
       this.getSignalrId();
@@ -108,7 +116,7 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
         this.getQR();
       })
       .catch((err) => {
-        this.notificationSvc.showNotification(Translate.Error.SomethingWrong[this.language], NotificationType.DANGER);
+        this.notificationSvc.showNotification(Translate.Error.SomethingWrong[this.selectedLang], NotificationType.DANGER);
         this.signalrSvc.makeConnection();
         this.close();
       });
@@ -125,7 +133,7 @@ export class QrModalComponent extends DestroyableComponent implements OnInit, On
         },
         error: (err) => {
           this.notificationSvc.showNotification(
-            Translate.Error.BackendCodes[this.language][err?.error?.message] || Translate.Error.SomethingWrong[this.language],
+            Translate.Error.BackendCodes[this.selectedLang][err?.error?.message] || Translate.Error.SomethingWrong[this.selectedLang],
             NotificationType.DANGER,
           );
         }

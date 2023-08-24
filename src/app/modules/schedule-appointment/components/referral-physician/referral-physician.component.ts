@@ -9,10 +9,12 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
+import { ShareDataService } from 'src/app/services/share-data.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 import { NameValue } from 'src/app/shared/models/name-value.model';
+import { Translate } from 'src/app/shared/models/translate.model';
 
 @Component({
   selector: 'dfm-referral-physician',
@@ -45,6 +47,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public imageSrc: any;
 
+  private selectedLang!: string;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -55,6 +59,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     private modalSvc: ModalService,
     private notificationService: NotificationDataService,
     private singnalRSvc: SignalRService,
+    private shareDataSvc: ShareDataService,
+
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -75,6 +81,13 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
           this.landingService.siteDetails$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
             this.siteDetails$$.next(res?.data);
           });
+      });
+    
+      this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
       });
   }
 
@@ -153,11 +166,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     if (!event.target.files.length) {
       return;
     } else if (allowedExtensions.indexOf(extension) === -1) {
-      this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
-      this.documentUploadProcess.next('Failed to upload');
+      this.notificationService.showNotification(Translate.FileFormatNotAllowed[this.selectedLang], NotificationType.WARNING);
+      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
     } else if (fileSize) { 
       this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
-      this.documentUploadProcess.next('Failed to upload');
+      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
     } else {
       this.documentUploadProcess.next('Uploading');
       this.onFileChange(event);
@@ -172,7 +185,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         this.referringDetails.directUpload = true;
         this.updateFileName(this.uploadFileName, true);
       },
-      error: (err) => this.documentUploadProcess.next('Failed to upload'),
+      error: (err) => this.documentUploadProcess.next('FAILED_TO_UPLOAD'),
     });
   }
 
