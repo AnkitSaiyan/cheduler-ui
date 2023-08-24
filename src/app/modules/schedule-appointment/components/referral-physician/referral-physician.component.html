@@ -37,11 +37,11 @@
                     <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px" />
                   </div>
                   <p class="upload-text">{{'UPLOAD_DOCUMENT' | translate}}</p>
-                  <p class="file-name" [style.color]="(documentUploadProcess | async)?.includes('Failed') ? 'red' : ''">
+                  <p class="file-name" [style.color]="(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') ? 'red' : ''">
                     {{ (documentUploadProcess | async)  ?? '' | translate }}&nbsp;
-                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" name="trash-01"></dfm-icon>
+                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') && !(documentUploadProcess | async)?.includes('Uploading') && (documentUploadProcess | async)" name="trash-01"></dfm-icon>
                   </p>
-                  <div *ngIf="!(documentUploadProcess | async)?.includes('Failed') && !(documentUploadProcess | async)?.includes('Uploading...') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
+                  <div *ngIf="!(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') && !(documentUploadProcess | async)?.includes('Uploading') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
                 </div>
                 <div class="or-btn"><span>{{'Or' | translate | uppercase}}</span></div>
                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">

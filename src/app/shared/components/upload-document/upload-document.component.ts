@@ -7,13 +7,15 @@ import { LoaderService } from 'src/app/core/services/loader.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { Translate } from '../../models/translate.model';
 import { ENG_BE } from '../../utils/const';
+import { ShareDataService } from 'src/app/services/share-data.service';
+import { DestroyableComponent } from '../destroyable/destroyable.component';
 
 @Component({
   selector: 'dfm-upload-document',
   templateUrl: './upload-document.component.html',
   styleUrls: ['./upload-document.component.scss'],
 })
-export class UploadDocumentComponent implements OnInit {
+export class UploadDocumentComponent extends DestroyableComponent implements OnInit {
   private uniqueId: string = '';
 
   isQrValid = new BehaviorSubject<boolean>(true);
@@ -24,19 +26,27 @@ export class UploadDocumentComponent implements OnInit {
 
   private fileSize!: number;
 
-  private language = ENG_BE;
+  private selectedLang = ENG_BE;
 
   constructor(
     private route: ActivatedRoute,
     private landingSvc: LandingService,
     private notificationService: NotificationDataService,
     public loaderSvc: LoaderService,
+    private shareDataSvc: ShareDataService
   ) {
+    super();
     this.uniqueId = this.route.snapshot?.queryParams['id'];
+
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+      });
   }
 
   ngOnInit(): void {
-    this.language = localStorage.getItem('lang') || ENG_BE;
     this.landingSvc.siteDetails$.pipe(take(1)).subscribe((res) => (this.fileSize = res?.data?.documentSizeInKb / 1024));
 
     this.loaderSvc.spinnerActivate();
@@ -49,7 +59,7 @@ export class UploadDocumentComponent implements OnInit {
         this.isQrValid.next(false);
         this.loaderSvc.spinnerDeactivate();
         this.notificationService.showNotification(
-          Translate.Error.BackendCodes[this.language][err?.error?.message] || Translate.Error.SomethingWrong[this.language],
+          Translate.Error.BackendCodes[this.selectedLang][err?.error?.message] || Translate.Error.SomethingWrong[this.selectedLang],
           NotificationType.DANGER,
         );
       },
@@ -63,13 +73,13 @@ export class UploadDocumentComponent implements OnInit {
     const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (allowedExtensions.indexOf(extension) === -1) {
-      this.notificationService.showNotification('File format not allowed.', NotificationType.WARNING);
-      this.documentUploadProcess.next('Failed to upload');
+      this.notificationService.showNotification(Translate.FileFormatNotAllowed[this.selectedLang], NotificationType.WARNING);
+      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
     } else if (fileSize) {
-      this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
-      this.documentUploadProcess.next('Failed to upload');
+      this.notificationService.showNotification(`${Translate.FileNotGreaterThan[this.selectedLang]} ${this.fileSize} MB.`, NotificationType.WARNING);
+      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
     } else {
-      this.documentUploadProcess.next('Uploading...');
+      this.documentUploadProcess.next('Uploading');
       this.onFileChange(event);
     }
   }
@@ -78,9 +88,9 @@ export class UploadDocumentComponent implements OnInit {
     this.landingSvc.uploadDocumnet(file, this.uniqueId).subscribe({
       next: (res) => this.documentUploadProcess.next('Uploaded'),
       error: (err) => {
-        this.documentUploadProcess.next('Failed to upload');
+        this.documentUploadProcess.next('FAILED_TO_UPLOAD');
         this.notificationService.showNotification(
-          Translate.Error.BackendCodes[this.language][err?.error?.message] || Translate.Error.SomethingWrong[this.language],
+          Translate.Error.BackendCodes[this.selectedLang][err?.error?.message] || Translate.Error.SomethingWrong[this.selectedLang],
           NotificationType.DANGER,
         );
       },
