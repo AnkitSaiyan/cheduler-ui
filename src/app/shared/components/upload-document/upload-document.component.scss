@@ -23,7 +23,7 @@
   }
 }
 .front-container {
-  // padding: 20px;
+  padding: 5px;
   position: relative;
   width: 60%;
   height: 75vh;
@@ -139,6 +139,7 @@
     height: 100% !important;
   }
   .front-container {
+    padding: 5px;
     background-color:var(--dfm-primary-lighter);
     height: inherit;
     width: 100%;
@@ -155,14 +156,14 @@
   }
   .upload-document-btn {
     // top: -80px;
-    width: 180px;
-    height: 180px;
+    width: 190px;
+    height: 190px;
     top: 50%;
     left:50%;
     transform: translate(-50%, -50%);
     .light-circle {
-      width: 140px;
-      height: 140px;
+      width: 150px;
+      height: 150px;
       img {
         width: 40px;
         transition: 0.3s;

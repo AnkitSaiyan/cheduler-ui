@@ -15,7 +15,7 @@ const dashboardRoutes: Routes = [
     children: [
       {
         path: '',
-        component: OverviewComponent,
+        component: ReferralPhysicianComponent,
       },
       {
         path: 'schedule/exam',

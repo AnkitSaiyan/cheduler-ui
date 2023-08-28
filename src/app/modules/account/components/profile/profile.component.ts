@@ -53,7 +53,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
     this.userForm = this.fb.group({
       givenName: [{ value: userDetails?.patientFname, disabled: false }, [Validators.required]],
       surname: [{ value: userDetails?.patientLname, disabled: false }, [Validators.required]],
-      phone: [{ value: userDetails?.patientTel, disabled: false }, [Validators.required, Validators.minLength(10)]],
+      phone: [{ value: userDetails?.patientTel, disabled: false }, [Validators.required]],
       email: [{ value: userDetails?.patientEmail, disabled: true }, [Validators.required]],
       socialSecurityNumber: [{ value: userDetails?.patientEmail, disabled: false }],
     });

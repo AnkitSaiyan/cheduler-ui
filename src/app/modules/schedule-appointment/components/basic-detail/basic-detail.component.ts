@@ -130,7 +130,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     this.basicDetailsForm = this.fb.group({
       patientFname: [{ value: basicDetails?.patientFname, disabled: isDisable }, [Validators.required]],
       patientLname: [{ value: basicDetails?.patientLname, disabled: isDisable }, [Validators.required]],
-      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required, Validators.minLength(10)]],
+      patientTel: [{ value: basicDetails?.patientTel, disabled: isDisable }, [Validators.required]],
       patientEmail: [{ value: basicDetails?.patientEmail, disabled: isDisable }, [Validators.required]],
       socialSecurityNumber: [{ value: basicDetails?.socialSecurityNumber, disabled: isDisable }],
     });
