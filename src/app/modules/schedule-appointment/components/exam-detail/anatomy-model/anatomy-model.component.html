@@ -114,7 +114,7 @@
         </div>
       </div>
       <small class="text-wrap" *ngIf="(examSvc.filterExams$ | async) && examSvc.selectedCategory" >{{'EXAM_EXIST_FOR_SELECTED_BODY_PART' | translate}}</small>
-      <small class="text-wrap text-danger" *ngIf="!(examSvc.filterExams$ | async)" >{{'NO_EXAM_FOR_SELECTED_BODY_PART' | translate}}</small>
+      <small class="text-wrap text-danger" *ngIf="!(examSvc.filterExams$ | async) && examSvc.selectedCategory" >{{'NO_EXAM_FOR_SELECTED_BODY_PART' | translate}}</small>
       <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">{{'SelectedExam' | translate}}</span>
       <div class="exam-container" >
         <div class="exam-list">
