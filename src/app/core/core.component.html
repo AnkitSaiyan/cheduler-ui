@@ -5,7 +5,7 @@
     <mat-progress-bar *ngIf="(isLoaderActive$$ | async) && (isLoggedIn$ | async) === false" mode="indeterminate"></mat-progress-bar>
 
     <div class="body-content scrollbar-w-8" [ngClass]="{ 'body-content-logged-in': isLoggedIn$ | async }">
-      <dfm-sub-header *ngIf="url !== '/privacy/policy' && (url.includes('schedule') || ((isLoggedIn$ | async) && url !== '/'))"></dfm-sub-header>
+      <!-- <dfm-sub-header *ngIf="url !== '/privacy/policy' && (url.includes('schedule') || ((isLoggedIn$ | async) && url !== '/'))"></dfm-sub-header> -->
       <router-outlet ></router-outlet>
       <dfm-notification></dfm-notification>
       <dfm-footer></dfm-footer>

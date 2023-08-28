@@ -39,7 +39,7 @@ const scheduleAppointmentRoutes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'overview',
+        redirectTo: 'referral-physician',
         pathMatch: 'full',
       },
     ],

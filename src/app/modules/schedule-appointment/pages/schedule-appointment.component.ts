@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { DestroyableComponent } from '../../../shared/components/destroyable/destroyable.component';
-import { combineLatest, filter, pairwise, takeUntil, tap } from 'rxjs';
+import { combineLatest, filter, map, pairwise, takeUntil, tap } from 'rxjs';
 import { ScheduleAppointmentService } from '../../../core/services/schedule-appointment.service';
 import { Router, RoutesRecognized } from '@angular/router';
+import { LandingService } from 'src/app/core/services/landing.service';
 
 @Component({
   selector: 'dfm-schedule-appointment',
@@ -15,7 +16,9 @@ export class ScheduleAppointmentComponent extends DestroyableComponent implement
 
   public status!: string;
 
-  constructor(private routerStateSvc: RouterStateService, private scheduleAppointmentSvc: ScheduleAppointmentService, private router: Router) {
+  public siteSetting: any;
+
+  constructor(private routerStateSvc: RouterStateService, private scheduleAppointmentSvc: ScheduleAppointmentService, private router: Router, private landingService: LandingService) {
     super();
 
     this.routerStateSvc
@@ -29,6 +32,15 @@ export class ScheduleAppointmentComponent extends DestroyableComponent implement
   }
 
   public ngOnInit(): void {
+
+    this.landingService.siteDetails$
+      .pipe(
+        map((details) => {
+          this.siteSetting = details?.data;
+          localStorage.setItem('siteDetails', JSON.stringify(details));
+        }),
+      ).subscribe();
+
     combineLatest([this.routerStateSvc.listenForUrlChange$(), this.scheduleAppointmentSvc.examDetails$])
       .pipe(takeUntil(this.destroy$$))
       .subscribe(([url, examDetails]) => {

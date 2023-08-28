@@ -150,7 +150,7 @@
       color="primary"
       size="lg"
       leadingIcon="chevron-left"
-      [routerLink]="(isLoggedIn$ | async) ? ['/'] : ['/schedule/overview']"
+      [routerLink]="(isLoggedIn$ | async) ? ['/'] : ['/']"
       *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled"
       class="back-btn2"
       >{{ 'GoToDashboard' | translate }}
@@ -158,7 +158,7 @@
     <dfm-button
       color="primary"
       size="sm"
-      routerLink="../overview"
+      routerLink="../referral-physician"
       *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled"
       class="back-btn2-mv"
     >
