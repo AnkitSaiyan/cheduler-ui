@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { BehaviorSubject, debounce, debounceTime, filter, Observable, Subject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, debounce, debounceTime, filter, map, Observable, Subject, take, takeUntil } from 'rxjs';
 import { ConfirmActionModalComponent, DialogData } from '../shared/components/confirm-action-modal/confirm-action-modal.component';
 import { AuthService } from './services/auth.service';
 import { ModalService } from './services/modal.service';
@@ -8,6 +8,7 @@ import { NotificationDataService } from './services/notification-data.service';
 import { RouterStateService } from './services/router-state.service';
 import { DestroyableComponent } from '../shared/components/destroyable/destroyable.component';
 import { LoaderService } from './services/loader.service';
+import { ScheduleAppointmentService } from './services/schedule-appointment.service';
 
 @Component({
   selector: 'dfm-core',
@@ -27,6 +28,8 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     private routerStateSvc: RouterStateService,
     public loaderService: LoaderService,
     private cdr: ChangeDetectorRef,
+    private router: Router,
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
   ) {
     super();
   }
@@ -40,6 +43,18 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     this.isLoggedIn$.pipe(takeUntil(this.destroy$$), debounceTime(500)).subscribe((value) => {
       this.alreadyLogin$$.next(!value);
     });
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map((event) => (event as NavigationEnd).url),
+        filter((url: string) => url === '/'),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe({
+        next: () => {
+          this.scheduleAppointmentSvc.resetDetails();
+        },
+      });
   }
 
   public ngAfterViewInit(): void {
@@ -53,6 +68,14 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     super.ngOnDestroy();
   }
 }
+
+
+
+
+
+
+
+
 
 
 
