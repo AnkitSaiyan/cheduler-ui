@@ -150,7 +150,7 @@
       color="primary"
       size="lg"
       leadingIcon="chevron-left"
-      [routerLink]="(isLoggedIn$ | async) ? ['/'] : ['/']"
+      [routerLink]="['/']"
       *ngIf="(appointment$$ | async)?.approval === appointmentStatusEnum.Cancelled"
       class="back-btn2"
       >{{ 'GoToDashboard' | translate }}

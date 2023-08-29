@@ -22,6 +22,12 @@
     // }
   }
 }
+
+.file-name {
+    color: blue;
+    overflow-wrap: break-word;
+  }
+
 .front-container {
   padding: 5px;
   position: relative;
@@ -45,6 +51,7 @@
       font-size: 18px;
       text-align: center;
       margin: 0 5px;
+      max-width: 58vw;
     }
   }
 }
@@ -151,6 +158,7 @@
       span{
         font-size: 18px;
         text-align: center;
+        max-width: 80vw;
       }
     }
   }

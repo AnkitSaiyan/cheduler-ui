@@ -9,14 +9,11 @@
   <ng-template #elseBlock>
     <div class="overview-main-container d-flex flex-column align-items-center bg-white border-r-16">
       <h5 class="dfm-color-primary font-weight-high hello-user-text">
-        <!-- <span *ngIf="(isLoggedIn$ | async) === false">
+        <span *ngIf="(isLoggedIn$ | async) === false">
           {{"HelloUser" | translate}}!
         </span>
         <span *ngIf="(isLoggedIn$ | async) === true">
           {{"Hello" | translate}} {{ userName$ | async }}!
-        </span> -->
-        <span>
-          {{"HelloUser" | translate}}!
         </span>
       </h5>
     

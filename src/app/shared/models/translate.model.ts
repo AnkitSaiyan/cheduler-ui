@@ -50,8 +50,8 @@ export const Translate = Object.freeze({
         MSG_400_QR_INVALID: 'QR is not valid.',
       },
       [DUTCH_BE]: {
-        MSG_400_QR_EXPIRED: '(NL) Your QR code has expired.',
-        MSG_400_QR_INVALID: '(NL) QR is not valid',
+        MSG_400_QR_EXPIRED: 'Uw QR-code is verlopen.',
+        MSG_400_QR_INVALID: 'QR is niet geldig.',
       },
     },
   },
