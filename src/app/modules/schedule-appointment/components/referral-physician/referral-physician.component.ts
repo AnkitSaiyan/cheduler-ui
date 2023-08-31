@@ -60,7 +60,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     private notificationService: NotificationDataService,
     private singnalRSvc: SignalRService,
     private shareDataSvc: ShareDataService,
-
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -82,8 +81,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
             this.siteDetails$$.next(res?.data);
           });
       });
-    
-      this.shareDataSvc
+
+    this.shareDataSvc
       .getLanguage$()
       .pipe(takeUntil(this.destroy$$))
       .subscribe((lang) => {
@@ -124,7 +123,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       .subscribe({
         next: (staffs) => this.filteredPhysicians$$.next(staffs),
       });
-      this.createForm(this.referringDetails);
+    this.createForm(this.referringDetails);
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
@@ -134,7 +133,13 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.referringDetails.directUpload = false;
     });
 
-    this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe(res => this.fileSize = res.documentSizeInKb/1024)
+    this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
+      this.fileSize = res.documentSizeInKb / 1024;
+      if (+res?.doctorReferringConsent === 1) {
+        this.physicianForm.get('physician')?.removeValidators(Validators.required);
+        this.physicianForm.updateValueAndValidity();
+      }
+    });
   }
 
   override ngOnDestroy() {
@@ -168,7 +173,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     } else if (allowedExtensions.indexOf(extension) === -1) {
       this.notificationService.showNotification(Translate.FileFormatNotAllowed[this.selectedLang], NotificationType.WARNING);
       this.documentUploadProcess.next('FAILED_TO_UPLOAD');
-    } else if (fileSize) { 
+    } else if (fileSize) {
       this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
       this.documentUploadProcess.next('FAILED_TO_UPLOAD');
     } else {
@@ -211,7 +216,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.modalSvc.open(QrModalComponent, {
       data: {
         id: localStorage.getItem('appointmentId') || '0',
-      }
+      },
     });
   }
 
@@ -246,4 +251,3 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
-
