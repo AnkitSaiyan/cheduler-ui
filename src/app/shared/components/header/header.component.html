@@ -24,7 +24,7 @@
         {{ 'Login' | translate }}
       </dfm-button>
 
-      <dfm-button color="primary" size="lg" class="button-design schedule-btn" routerLink="/schedule/referral-physician">
+      <dfm-button color="primary" size="lg" class="button-design schedule-btn" routerLink="/schedule/referral-physician" (click)="resetAppointmentData()">
         {{ 'ScheduleAppointment' | translate }}
       </dfm-button>
     </ng-container>

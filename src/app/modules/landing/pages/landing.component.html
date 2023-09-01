@@ -27,11 +27,11 @@
         Schedule Appointment
       </dfm-button> -->
       <div class="mt-4 sc-btn">
-        <dfm-button color="primary" size="lg" class="button-design schedule-button" routerLink="/schedule/referral-physician">
+        <dfm-button color="primary" size="lg" class="button-design schedule-button" routerLink="/schedule/referral-physician" (click)="resetAppointmentData()">
           {{ 'ScheduleAppointment' | translate }}
         </dfm-button>
       </div>
-      <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule/referral-physician">
+      <dfm-button [color]="'primary'" [size]="'sm'" class="schedule-sm-button-mv" routerLink="/schedule/referral-physician" (click)="resetAppointmentData()">
         {{ 'ScheduleAppointment' | translate }}
       </dfm-button>
     </div>

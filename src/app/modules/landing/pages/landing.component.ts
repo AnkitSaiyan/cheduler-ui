@@ -5,6 +5,7 @@ import { LandingService } from '../../../core/services/landing.service';
 import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';
 import { ShareDataService } from 'src/app/services/share-data.service';
 import { DUTCH_BE, ENG_BE } from 'src/app/shared/utils/const';
+import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 
 @Component({
   selector: 'dfm-landing',
@@ -26,7 +27,12 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
 
   introductoryTextEnglish: object = {};
 
-  constructor(private landingService: LandingService, private utcToLocalPipe: UtcToLocalPipe, private shareDataSvc: ShareDataService) {
+  constructor(
+    private landingService: LandingService,
+    private utcToLocalPipe: UtcToLocalPipe,
+    private shareDataSvc: ShareDataService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+  ) {
     super();
     this.workingHours$$ = new BehaviorSubject<any[]>([]);
     this.info$$ = new BehaviorSubject<any[]>([]);
@@ -66,5 +72,9 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
       .subscribe({
         next: (lang) => (this.selectedLang = lang),
       });
+  }
+
+  resetAppointmentData() {
+    this.scheduleAppointmentSvc.resetDetails();
   }
 }

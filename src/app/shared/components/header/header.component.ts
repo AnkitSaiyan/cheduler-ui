@@ -53,7 +53,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
     private landingService: LandingService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private shareDataSvc: ShareDataService,
-    private signalrSvc: SignalRService
+    private signalrSvc: SignalRService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -104,9 +104,12 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
 
     if (this.url.includes('confirm')) {
       this.scheduleAppointmentSvc.resetDetails(true);
-
     }
 
     this.authSvc.loginWithRedirect().pipe(take(1)).subscribe();
+  }
+
+  resetAppointmentData() {
+    this.scheduleAppointmentSvc.resetDetails();
   }
 }

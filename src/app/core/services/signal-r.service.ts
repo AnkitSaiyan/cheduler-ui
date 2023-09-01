@@ -19,12 +19,9 @@ export class SignalRService {
 
   constructor(private notificationService: NotificationDataService, private shareDataSvc: ShareDataService) {
     this.makeConnection();
-    this.shareDataSvc
-      .getLanguage$()
-      .pipe(take(1))
-      .subscribe((lang) => {
-        this.selectedLang = lang;
-      });
+    this.shareDataSvc.getLanguage$().subscribe((lang) => {
+      this.selectedLang = lang;
+    });
   }
 
   public makeConnection() {
@@ -67,3 +64,4 @@ export class SignalRService {
     return this.hubConnection.invoke('getconnectionid');
 	}
 }
+

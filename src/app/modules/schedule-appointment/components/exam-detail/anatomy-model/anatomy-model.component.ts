@@ -4,11 +4,13 @@ import { BehaviorSubject, distinctUntilChanged, map, startWith, take, takeUntil 
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
+import { ShareDataService } from 'src/app/services/share-data.service';
 import { ConfirmActionModalComponent, DialogData } from 'src/app/shared/components/confirm-action-modal/confirm-action-modal.component';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { Exam } from 'src/app/shared/models/exam.model';
 import { NameValue } from 'src/app/shared/models/name-value.model';
-import { BodyType } from 'src/app/shared/utils/const';
+import { Translate } from 'src/app/shared/models/translate.model';
+import { BodyType, ENG_BE } from 'src/app/shared/utils/const';
 
 @Component({
   selector: 'dfm-anatomy-model',
@@ -16,14 +18,22 @@ import { BodyType } from 'src/app/shared/utils/const';
   styleUrls: ['./anatomy-model.component.scss'],
 })
 export class AnatomyModelComponent extends DestroyableComponent implements OnInit, OnDestroy {
+  private selectedLang = ENG_BE;
   constructor(
     private dialogSvc: ModalService,
     private fb: FormBuilder,
     public examSvc: ExamService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private modalSvc: ModalService,
+    private shareDataSvc: ShareDataService,
   ) {
     super();
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((lang) => {
+        this.selectedLang = lang;
+      });
   }
 
   public filterForm!: FormGroup;
@@ -171,7 +181,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
         data: {
           titleText: 'Confirmation',
-          bodyText: 'Are you sure you want to switch the gender? Warning: Switching will discard the previously added exams',
+          bodyText: Translate[this.selectedLang].AreYouWantToChangeGender,
           confirmButtonText: 'Proceed',
         } as DialogData,
       });
@@ -181,6 +191,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
 
 
 

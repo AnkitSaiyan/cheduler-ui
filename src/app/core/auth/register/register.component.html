@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule/referral-physician">
+    <dfm-button [color]="'secondary'" [size]="'lg'" class="d-flex justify-content-center" routerLink="/schedule/referral-physician" (click)="resetAppointmentData()">
       {{"ScheduleAppointment" | translate}}
     </dfm-button>
   </section>

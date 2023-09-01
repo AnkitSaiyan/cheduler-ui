@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {DestroyableComponent} from '../../../shared/components/destroyable/destroyable.component';
 import {AuthService} from '../../services/auth.service';
 import {ModalService} from '../../services/modal.service';
+import { ScheduleAppointmentService } from '../../services/schedule-appointment.service';
 
 @Component({
   selector: 'dfm-login',
@@ -28,7 +29,12 @@ export class LoginComponent extends DestroyableComponent implements OnDestroy {
     },
   ];
 
-  constructor(private authService: AuthService, private router: Router, private modalService: ModalService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private modalService: ModalService,
+    private scheduleAppointmentSvc: ScheduleAppointmentService,
+  ) {
     super();
   }
 
@@ -36,6 +42,9 @@ export class LoginComponent extends DestroyableComponent implements OnDestroy {
     super.ngOnDestroy();
   }
 
-  logInUser() {
+  resetAppointmentData() {
+    this.scheduleAppointmentSvc.resetDetails();
   }
+
+  logInUser() {}
 }

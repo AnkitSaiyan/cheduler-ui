@@ -40,4 +40,7 @@ export class OverviewComponent implements OnInit {
   login() {
     this.authSvc.loginWithRedirect().pipe(take(1)).subscribe();
   }
+  resetAppointmentData() {
+    this.scheduleAppointmentSvc.resetDetails();
+  }
 }

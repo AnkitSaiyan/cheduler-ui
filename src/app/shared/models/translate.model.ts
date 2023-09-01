@@ -63,4 +63,10 @@ export const Translate = Object.freeze({
     [ENG_BE]: 'File size should not be greater than',
     [DUTCH_BE]: 'De bestandsgrootte mag niet groter zijn dan.',
   },
+  AreYouWantToChangeGender: {
+    [ENG_BE]: 'Are you sure you want to switch the gender? Warning: Switching will discard the previously added exams.',
+    [DUTCH_BE]:
+      'Weet je zeker dat je van geslacht wilt veranderen? Waarschuwing: als u overschakelt, worden de eerder toegevoegde onderzoeken verwijderd.',
+  },
 });
+
