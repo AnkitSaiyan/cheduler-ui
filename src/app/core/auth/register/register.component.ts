@@ -30,6 +30,6 @@ export class RegisterComponent {
     // });
   }
   resetAppointmentData() {
-    this.scheduleAppointmentSvc.resetDetails();
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 }

@@ -75,6 +75,6 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
   }
 
   resetAppointmentData() {
-    this.scheduleAppointmentSvc.resetDetails();
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 }

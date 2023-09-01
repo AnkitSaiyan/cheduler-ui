@@ -52,7 +52,7 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
       )
       .subscribe({
         next: () => {
-          this.scheduleAppointmentSvc.resetDetails();
+          this.scheduleAppointmentSvc.resetDetails(true);
         },
       });
   }
@@ -68,6 +68,7 @@ export class CoreComponent extends DestroyableComponent implements OnInit, OnDes
     super.ngOnDestroy();
   }
 }
+
 
 
 

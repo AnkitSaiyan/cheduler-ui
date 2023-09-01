@@ -43,7 +43,7 @@ export class LoginComponent extends DestroyableComponent implements OnDestroy {
   }
 
   resetAppointmentData() {
-    this.scheduleAppointmentSvc.resetDetails();
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 
   logInUser() {}

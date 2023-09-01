@@ -110,6 +110,6 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   resetAppointmentData() {
-    this.scheduleAppointmentSvc.resetDetails();
+    this.scheduleAppointmentSvc.resetDetails(true);
   }
 }

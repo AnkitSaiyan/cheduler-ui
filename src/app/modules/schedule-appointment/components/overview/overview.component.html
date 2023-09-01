@@ -21,13 +21,13 @@
 
   <div class="d-flex justify-content-center" *ngIf="!(siteSetting?.disableAppointment)">
     <dfm-button [color]="'primary'" [size]="'lg'" (click)="removeEditStorage()"
-                [routerLink]="(isLoggedIn$ | async) ? './schedule/referral-physician' : '/schedule/referral-physician'" class="sa-btn" (click)="resetAppointmentData()"> {{"ScheduleAppointment" | translate}}
+                [routerLink]="(isLoggedIn$ | async) ? './schedule/referral-physician' : '/schedule/referral-physician'" class="sa-btn" (click)="removeEditStorage()"> {{"ScheduleAppointment" | translate}}
     </dfm-button>
   </div>
 
   <div class="d-flex justify-content-center" *ngIf="!siteSetting?.disableAppointment">
     <dfm-button [color]="'primary'" [size]="'sm'" (click)="removeEditStorage()"
-                [routerLink]="(isLoggedIn$ | async) ? './schedule/referral-physician' : '/schedule/referral-physician'" class="sa-btn-mv" (click)="resetAppointmentData()"> {{"ScheduleAppointment" | translate}}
+                [routerLink]="(isLoggedIn$ | async) ? './schedule/referral-physician' : '/schedule/referral-physician'" class="sa-btn-mv" (click)="removeEditStorage()"> {{"ScheduleAppointment" | translate}}
     </dfm-button>
   </div>
 
