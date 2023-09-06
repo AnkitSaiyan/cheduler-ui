@@ -315,6 +315,7 @@
   "FAILED_TO_UPLOAD": "Uploaden is mislukt",
   "Uploaded": "Geüpload",
   "QR_EXPIRED": " De QR is verlopen",
+  "CreateAccount":"Account aanmaken",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "Deze examens kunnen waarschijnlijk niet samen gepland worden",
     "MESSAGE": {
