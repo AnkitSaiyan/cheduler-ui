@@ -287,7 +287,7 @@
   "FROM_MOBILE_DEVICE": "From mobile device",
   "Body": "Body",
   "Bones": "Bones",
-  "Gender": "Gender",
+  "Gender": "Sex",
   "Male": "Male",
   "Female": "Female",
   "Side": "Side",
@@ -314,6 +314,7 @@
   "FAILED_TO_UPLOAD": "Failed to upload",
   "Uploaded": "Uploaded",
   "QR_EXPIRED": "The QR has been expired.",
+  "CreateAccount":"Create Account",  
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These examinations probably cannot be planned together",
     "MESSAGE": {
