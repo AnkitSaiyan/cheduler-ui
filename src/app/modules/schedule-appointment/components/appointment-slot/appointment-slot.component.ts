@@ -127,7 +127,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       }
 
       if (slotDetails?.selectedSlots) {
-        this.selectedTimeSlot = { ...slotDetails.selectedSlots };
+        setTimeout(() => {
+          this.selectedTimeSlot = { ...slotDetails.selectedSlots };
+        }, 100);
       }
 
       this.updateCalendarDays();

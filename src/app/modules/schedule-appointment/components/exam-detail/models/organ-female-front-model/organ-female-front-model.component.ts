@@ -16,7 +16,7 @@ export class OrganFemaleFrontModelComponent extends AnatomyMatMenu<BodyFemaleFro
   private previousElement!: HTMLElement;
   constructor(public examSvc: ExamService) {
     super();
-    this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe(res => {
+    this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       if (!res && this.previousElement) this.previousElement?.classList.remove('fill');
     });
   }
@@ -25,14 +25,18 @@ export class OrganFemaleFrontModelComponent extends AnatomyMatMenu<BodyFemaleFro
     super.ngOnDestroy();
   }
 
-  public fillColor(ele:Event) {
+  public fillColor(ele: Event) {
     const element = ele.target as HTMLElement;
     element?.classList.toggle('fill');
-    if (this.previousElement && this.previousElement?.id != element.id)
-      this.previousElement?.classList.remove('fill');
+    if (this.previousElement && this.previousElement?.id != element.id) this.previousElement?.classList.remove('fill');
     this.previousElement = element;
   }
+
+  public handleMissingImage(event: Event) {
+    (event.target as HTMLImageElement).style.display = 'none';
+  }
 }
+
 
 
 
