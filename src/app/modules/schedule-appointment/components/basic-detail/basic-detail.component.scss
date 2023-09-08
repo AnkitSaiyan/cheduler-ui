@@ -1,8 +1,16 @@
 .basic-details-form {
   padding:48px;
 }
-.dfm-card{
-  // width: 50%;
+
+.vl {
+  border-left: 1px solid var(--dfm-primary);
+}
+
+.login-container{
+  display: flex;
+  justify-content: space-between !important;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .select-exam-bar-mv{
@@ -38,6 +46,10 @@
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
+  .vl{
+    display: none;
+  }
+
   .form-group{
     width: 100%;
   }
