@@ -59,10 +59,13 @@
           <hr class="bg-gray" width="100px"/>
         </div>
       </div>
-      <div class="d-flex flex-row justify-content-center">
+      <div class="login-container">
         <span>{{"AlreadyHaveAnAccount" | translate}}? <span class="text-primary pointer underline-primary"
-            (click)="logInUser()">{{"Login" | translate}}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span>{{"CreateAccount" | translate}}? <span class="text-primary pointer underline-primary" (click)="logInUser()">{{"SignUp" |
-              translate}}</span></span></span>
+            (click)="logInUser()">{{"Login" | translate}}</span></span>
+            <span class="vl"></span>
+            <span>{{"CreateAccount" |
+          translate}}? <span class="text-primary pointer underline-primary" (click)="logInUser()">{{"SignUp" |
+            translate}}</span></span>
       </div>
     </section>
 
