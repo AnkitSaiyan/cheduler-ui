@@ -8,7 +8,7 @@
             trailingIcon="chevron-left"
             color="link"
             size="sm"
-            [disabled]="selectedCalendarDate$$.value.getMonth() <= today.getMonth()"
+            [disabled]="selectedCalendarDate$$.value.getMonth() <= today.getMonth() && selectedCalendarDate$$.value.getFullYear() == today.getFullYear()"
             (click)="prevButton.disabled ? $event.preventDefault() : changeMonth(-1)"
           ></dfm-button>
 
