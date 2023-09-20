@@ -7,14 +7,14 @@
     <form [formGroup]="userForm" class="my-profile-section dfm-card w-fit">
       <div class="form-group-container d-flex justify-content-center p-3 gap-4">
         <div class="form-group">
-          <dfm-input formControlName="givenName" type="text" size="sm" label="{{'FirstName' | translate}}*"
+          <dfm-input formControlName="givenName" #firstName [dfmNameInput]="firstName" type="text" size="sm" label="{{'FirstName' | translate}}*"
                      placeholder="{{'EnterFirstName' | translate}}"></dfm-input>
                      <span class="validation-error" *ngIf="userForm.controls['givenName'].hasError('required') && userForm.controls['givenName'].touched">
                       {{ 'RequiredField' | translate }}
                     </span>
         </div>
         <div class="form-group">
-          <dfm-input formControlName="surname" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
+          <dfm-input formControlName="surname" #lastName [dfmNameInput]="lastName" type="text" size="sm" label="{{'LastName' | translate}}*" placeholder="{{'EnterLastName' | translate}}"></dfm-input>
           <span class="validation-error" *ngIf="userForm.controls['surname'].hasError('required') && userForm.controls['surname'].touched">
             {{ 'RequiredField' | translate }}
           </span>
@@ -30,7 +30,7 @@
           <small *ngIf="userForm.get('email')?.hasError('email')" class="validation-error">{{'InvalidEmail' | translate}}.</small>
         </div>
         <div class="form-group">
-          <dfm-input formControlName="phone" type="number" size="sm" label="{{'PhoneNumber' | translate}}*"
+          <dfm-input formControlName="phone" type="text" #phone [dfmNumberInput]="phone" size="sm" label="{{'PhoneNumber' | translate}}*"
                      placeholder="{{'EnterTelephone' | translate}}"></dfm-input>
                      <span class="validation-error" *ngIf="!userForm.controls['phone'].valid && userForm.controls['phone'].touched">
                       {{ 'Please Enter Valid Mobile Number' | translate }}
@@ -39,7 +39,7 @@
       </div>
       <div class="form-group-container d-flex p-3 gap-4">
         <div class="form-group">
-          <dfm-input  type="number" size="md" label="{{'socialSecurityNumber' | translate}}"
+          <dfm-input  type="text" #ssn [dfmSsnInput]="ssn" size="md" label="{{'socialSecurityNumber' | translate}}"
                      placeholder="{{'enterSocialSecurityNumber' | translate}}" formControlName="socialSecurityNumber"></dfm-input>
         </div>
       </div>
