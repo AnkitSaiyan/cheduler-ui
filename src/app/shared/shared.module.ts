@@ -35,6 +35,9 @@ import { AnatomyMatMenu } from './components/anatomy-mat-menu/anatomy-mat-menu';
 import { RemoveSelectedItemFormAnatomyPipe } from './pipes/remove-selected-item-anatomy.pipe';
 import { DocumentViewModalComponent } from './components/document-view-modal/document-view-modal.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { NumberInputDirective } from './directives/number-input.directive';
+import { SsnInputDirective } from './directives/ssn-input.directive';
+import { NameInputDirective } from './directives/name-input.directive';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -64,6 +67,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     RemoveSelectedItemFormAnatomyPipe,
     DocumentViewModalComponent,
     SafePipe,
+    NumberInputDirective,
+    SsnInputDirective,
+    NameInputDirective,
   ],
   imports: [
     CommonModule,
@@ -113,6 +119,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     AsPipe,
     AnatomyMatMenu,
     RemoveSelectedItemFormAnatomyPipe,
+    NumberInputDirective,
+    SsnInputDirective,
+    NameInputDirective,
   ],
 })
 export class SharedModule {}

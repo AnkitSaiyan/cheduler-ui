@@ -4,7 +4,7 @@
     <div class="form-group-container d-flex justify-content-center gap-4">
       <div>
       <div class="form-group">
-        <dfm-input type="text" size="sm" label="{{'FirstName' | translate}} *" placeholder="{{'EnterFirstName' | translate}}"
+        <dfm-input #firstName [dfmNameInput]="firstName" type="text" size="sm" label="{{'FirstName' | translate}} *" placeholder="{{'EnterFirstName' | translate}}"
                    formControlName="patientFname">
                   </dfm-input>
                   <span class="validation-error" *ngIf="basicDetailsForm.controls['patientFname'].hasError('required') && basicDetailsForm.controls['patientFname'].touched">
@@ -13,7 +13,7 @@
                   </div>
                 </div>
       <div class="form-group">
-        <dfm-input type="text" size="sm" label="{{'LastName' | translate}} *" placeholder="{{'EnterLastName' | translate}}"
+        <dfm-input type="text" #lastName [dfmNameInput]="lastName" size="sm" label="{{'LastName' | translate}} *" placeholder="{{'EnterLastName' | translate}}"
                    formControlName="patientLname"></dfm-input>
                    <span class="validation-error" *ngIf="basicDetailsForm.controls['patientLname'].hasError('required') && basicDetailsForm.controls['patientLname'].touched">
                     {{ 'RequiredField' | translate }}
@@ -32,7 +32,7 @@
       </div>
 
       <div class="form-group">
-        <dfm-input type="number" size="sm" label="{{'PhoneNumber' | translate}} *" placeholder="{{'EnterPhoneNumber' | translate}}"
+        <dfm-input type="text" #phone [dfmNumberInput]="phone" size="sm" label="{{'PhoneNumber' | translate}} *" placeholder="{{'EnterPhoneNumber' | translate}}"
                    formControlName="patientTel"></dfm-input>
                    <span class="validation-error" *ngIf="!basicDetailsForm.controls['patientTel'].valid && basicDetailsForm.controls['patientTel'].touched">
                     {{ 'PLEASE_ENTER_A_VALID_MOBILE_NUMBER' | translate }}
@@ -42,7 +42,7 @@
 
     <div class="form-group-container d-flex flex-wrap mt-3 gap-4">
       <div class="form-group flex-1">
-        <dfm-input [formControl]="patientSSN" type="number" size="md" label="{{'socialSecurityNumber' | translate}}"
+        <dfm-input [formControl]="patientSSN" type="text" #ssn [dfmSsnInput]="ssn"  size="md" label="{{'socialSecurityNumber' | translate}}"
                    placeholder="{{'enterSocialSecurityNumber' | translate}}"></dfm-input>
       </div>
       <div class="flex-1">
