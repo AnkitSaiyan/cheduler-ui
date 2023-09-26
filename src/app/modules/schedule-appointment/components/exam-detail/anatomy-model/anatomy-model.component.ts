@@ -18,7 +18,6 @@ import { BodyType, ENG_BE } from 'src/app/shared/utils/const';
   styleUrls: ['./anatomy-model.component.scss'],
 })
 export class AnatomyModelComponent extends DestroyableComponent implements OnInit, OnDestroy {
-  private selectedLang = ENG_BE;
   constructor(
     private dialogSvc: ModalService,
     private fb: FormBuilder,
@@ -92,11 +91,11 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
 
   public allexams: NameValue[] = [];
 
-  public separator = ' :;: ';
+  private selectedLang = ENG_BE;
 
   ngOnInit() {
     this.filterForm = this.fb.group({
-      gender: ['male', [Validators.required]],
+      gender: [localStorage.getItem('gender') || 'male', [Validators.required]],
       bodyStructure: ['organs', [Validators.required]],
       side: ['front', [Validators.required]],
     });
@@ -107,7 +106,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       .subscribe((value) => {
         if (value === 'bones') {
           this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
-          this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
+          // this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
         }
       });
 
@@ -115,6 +114,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       .get('gender')
       ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
       .subscribe((value) => {
+        localStorage.setItem('gender', value);
         if (value === 'male') {
           this.examSvc.selectedBodyType$$.next(BodyType.Male);
         } else {
@@ -181,7 +181,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
         data: {
           titleText: 'Confirmation',
-          bodyText: Translate[this.selectedLang].AreYouWantToChangeGender,
+          bodyText: Translate.AreYouWantToChangeGender[this.selectedLang],
           confirmButtonText: 'Proceed',
         } as DialogData,
       });
