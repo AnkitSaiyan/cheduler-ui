@@ -168,7 +168,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
         data: {
           titleText: 'Confirmation',
-          bodyText: Translate.AreYouWantToChangeGender[this.selectedLang],
+          bodyText: Translate['AreYouWantToChangeGender'][this.selectedLang],
           confirmButtonText: 'Proceed',
         } as DialogData,
       });
@@ -178,21 +178,6 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

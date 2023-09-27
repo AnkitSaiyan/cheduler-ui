@@ -12,17 +12,23 @@ import { LoaderService } from './loader.service';
 })
 export class BodyPartService {
   private httpWithOutInterceptor: HttpClient;
+  private SubDomain: string = '';
   constructor(private httpBackend: HttpBackend, private loaderSvc: LoaderService) {
     this.httpWithOutInterceptor = new HttpClient(this.httpBackend);
+    this.SubDomain = window.location.host.split('.')[0];
   }
 
   private bodyPart = new Map<number | BodyType, BodyPart | BodyPart[]>();
 
   public allBodyPart$(): Observable<BodyPart[]> {
-    return this.httpWithOutInterceptor.get<BaseResponse<BodyPart[]>>(`${environment.serverBaseUrl}/common/getbodyparts`).pipe(
-      map((response) => response.data),
-      tap(this.setBodyPart.bind(this)),
-    );
+    return this.httpWithOutInterceptor
+      .get<BaseResponse<BodyPart[]>>(`${environment.serverBaseUrl}/common/getbodyparts`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(
+        map((response) => response.data),
+        tap(this.setBodyPart.bind(this)),
+      );
   }
 
   public get maleBodyPart(): BodyPart[] {
@@ -60,4 +66,5 @@ export class BodyPartService {
       });
   }
 }
+
 

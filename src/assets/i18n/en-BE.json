@@ -307,18 +307,30 @@
   "SelectedExam": "Selected Examination",
   "NO_EXAM_FOR_SELECTED_BODY_PART": "For the selected body part, no examination exist.",
   "EXAM_EXIST_FOR_SELECTED_BODY_PART": "For the selected body part, choose an examination from the dropdown list and click Add examination.",
-  "Filters":"Filters",
+  "Filters": "Filters",
   "Uploading": "Uploading...",
   "QR_EXPIRE_REGENERATE": "Your QR has been expired. Please generate a new QR.",
   "GENERATE_NEW_QR": "Generate a new QR code.",
   "FAILED_TO_UPLOAD": "Failed to upload",
   "Uploaded": "Uploaded",
   "QR_EXPIRED": "The QR has been expired.",
-  "CreateAccount":"Create Account",  
+  "CreateAccount": "Create Account",
   "EXAM": {
     "UNCOMBINABLE_ERROR": "These examinations probably cannot be planned together",
     "MESSAGE": {
       "NO_INSTRUCTION": "No instruction for this examination"
     }
+  },
+  "DESIGN_SYSTEM": {
+    "ERROR": {
+      "REQUIRED_FIELD": "This field is required"
+    },
+    "INPUT_DROPDOWN": {
+      "SELECT_ALL": "Select all",
+      "NO_ITEMS": "No items found",
+      "LOADING": "Loading"
+    }
   }
 }
+
+
