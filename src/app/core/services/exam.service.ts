@@ -14,18 +14,18 @@ export class ExamService {
   public selectedBodyType$$ = new BehaviorSubject<string | undefined>(undefined);
   constructor(private bodyPartSvc: BodyPartService) {}
 
-  public get filterExams$(): any {
+  public get filterExams$(): Observable<any[]> {
     return combineLatest([this.selectedCategory$$, this.allExams$$, this.selectedBodyType$$]).pipe(
       switchMap(() => this.allExams$$),
       filter(Boolean),
       map((value) => {
         if (this.selectedCategory$$.value && this.selectedBodyType$$.value) {
-          return value[this.selectedBodyType$$.value][this.selectedCategory$$.value];
+          return value[this.selectedBodyType$$.value][this.selectedCategory$$.value] ?? [];
         }
         if (this.selectedBodyType$$.value) {
-          return value[this.selectedBodyType$$.value + 'AllExam'];
+          return value[this.selectedBodyType$$.value + 'AllExam'] ?? [];
         }
-        return value?.[BodyType.Male + 'AllExam'];
+        return value?.[BodyType.Male + 'AllExam'] ?? [];
       }),
     );
   }
@@ -101,7 +101,12 @@ export class ExamService {
     }
   }
 
-  public isExamSelected(): boolean {
+  public isExamSelected(examId?: string | number): boolean {
+    if (examId) {
+      return Object.values(this.selectedExam)?.some((exams: any) => {
+        return exams?.some((item) => item.value === examId);
+      });
+    }
     return !!Object.keys(this.selectedExam).length;
   }
   public removeExamByGender(gender: BodyType) {
@@ -115,6 +120,9 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
 
 
 
