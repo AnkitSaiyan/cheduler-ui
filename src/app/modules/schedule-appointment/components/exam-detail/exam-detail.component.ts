@@ -12,6 +12,7 @@ import { DestroyableComponent } from '../../../../shared/components/destroyable/
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
+import { BodyPartService } from 'src/app/core/services/body-part.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -43,6 +44,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     public loaderSvc: LoaderService,
     private modalSvc: ModalService,
     public examSvc: ExamService,
+    private bodyPartSvc: BodyPartService,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -135,22 +137,29 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   private examModifiedData(exams: Exam[]): any {
-    return exams.reduce(
-      (acc, curr) => {
-        if (acc[curr.bodyType]) {
-          if (acc[curr.bodyType][curr.bodyPart]) {
-            acc[curr.bodyType][curr.bodyPart] = [...acc[curr.bodyType][curr.bodyPart], curr];
+    const modifiedExamList = {
+      male: {},
+      female: {},
+      maleAllExam: [],
+      femaleAllExam: [],
+    };
+
+    exams.forEach((exam) => {
+      const bodyTypes = exam.bodyType?.split(',');
+      bodyTypes.forEach((bodyType) => {
+        modifiedExamList[bodyType + 'AllExam'] = [...modifiedExamList[bodyType + 'AllExam'], { ...exam, bodyPart: null }];
+      });
+      exam.bodyPart?.forEach(({ id }) => {
+        bodyTypes.forEach((bodyType) => {
+          if (modifiedExamList[bodyType]?.[id]) {
+            modifiedExamList[bodyType][id] = [...modifiedExamList[bodyType?.[0]]?.[id], { ...exam, bodyPart: id, bodyType }];
           } else {
-            acc[curr.bodyType][curr.bodyPart] = [curr];
+            modifiedExamList[bodyType][id] = [{ ...exam, bodyPart: id, bodyType }];
           }
-        } else {
-          acc[curr.bodyType] = {};
-          acc[curr.bodyType][curr.bodyPart] = [curr];
-        }
-        return acc;
-      },
-      { [BodyType.Female]: {}, [BodyType.Male]: {}, [BodyType.Skeleton]: {} },
-    );
+        });
+      });
+    });
+    return modifiedExamList;
   }
 
   private createForm(examDetails?, isEdit?) {
@@ -198,9 +207,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
         take(1),
       )
       .subscribe({
-        next: (value) => {
-
-        },
+        next: (value) => {},
       });
   }
 

@@ -9,10 +9,11 @@ export const DUTCH_BE = 'nl-BE';
 export const EXT_Patient_Tenant = 'NPXN';
 
 export enum BodyType {
-  Male = 'male_body',
-  Female = 'female_body',
-  Skeleton = 'skeleton',
+  Male = 'male',
+  Female = 'female',
+  Common = 'common',
 }
+
 
 
 

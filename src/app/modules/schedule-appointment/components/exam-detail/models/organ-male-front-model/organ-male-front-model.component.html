@@ -5,7 +5,7 @@
     <path id="mfb_2" (mouseover)="neckTrigger.openMenu()" (mouseleave)="onMouseLeave(neckTrigger,category.Neck)"  (mouseout)="$event.stopPropagation();neckTrigger.openMenu()" #neckTrigger="matMenuTrigger" (click)="$event.stopPropagation();examSvc.setCategory(category.Neck, gender.Male); fillColor($event)" [matMenuTriggerFor]="neck"  class="neck" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M345.667,243.167c15.667-0.833,41.167-2.166,45.333,3.667c4.167,5.833,15.834,6,19.667,0c3.833-6,38.028-6.245,50.833-4.333c4.95,0.739,9.833,0.81,14.438,0.363c10.976-1.066,20.373-5.078,25.342-10.017c-8.889,0.081-18.524-5.195-31.03-10.721C454.125,215,445.625,206.25,445,203.5s0.125-34.5,0.875-44.5c-9.208,14.333-24.041,23-45.708,23C378.5,182,359,162.667,356,158.667c2.167,6.333,1.5,29.833,0.75,45.333c-8.5,15.25-40,24-48,27.5c2.042,1.655,10.695,6.598,20.857,9.508C334.793,242.493,340.373,243.448,345.667,243.167z"/>
     <path id="mfb_3"  (mouseover)="chestTrigger.openMenu()" (mouseleave)="onMouseLeave(chestTrigger,category.Chest)"  (mouseout)="$event.stopPropagation();chestTrigger.openMenu()" #chestTrigger="matMenuTrigger" (click)="$event.stopPropagation();examSvc.setCategory(category.Chest, gender.Male); fillColor($event)" [matMenuTriggerFor]="chest" class="chest" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M524.5,294c-2.018-20.749-37.75-48.25-48.562-51.137c-4.605,0.447-9.488,0.376-14.438-0.363c-12.805-1.911-47-1.667-50.833,4.333c-3.833,6-15.5,5.833-19.667,0c-4.167-5.833-29.667-4.5-45.333-3.667c-5.294,0.281-10.873-0.674-16.059-2.159c-8.004,3.48-46.033,26.426-52.127,58.308c-0.46,2.402-0.744,4.852-0.814,7.351c-1,35.667,0.003,72.11-0.165,85.722c0.383-0.096,9.665,25.111,12.165,30.778c2.5,5.667,5.083,17.833,8.583,24.583C305.5,455.5,344,473,370.5,466s36.5-6.244,65,0.128c28.5,6.372,52.668-2.794,73.084-27.211c1.25-3.25,4.75-11.75,5.333-15s2.667-6.999,4.084-9.749c1.417-2.75,7.455-21.675,8.005-21.176C526.678,379.65,525.667,306.001,524.5,294z"/>
     <path id="mfb_4"  (mouseover)="abdomenTrigger.openMenu()" (mouseleave)="onMouseLeave(abdomenTrigger,category.Abdomen)"  (mouseout)="$event.stopPropagation();abdomenTrigger.openMenu()" #abdomenTrigger="matMenuTrigger" (click)="$event.stopPropagation();examSvc.setCategory(category.Abdomen, gender.Male); fillColor($event)" [matMenuTriggerFor]="abdomen" class="abdomen" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M435.5,466.128C407,459.756,397,459,370.5,466s-65-10.5-73.25-18.25c3.5,6.75,2,12,3.75,17.75s5,21.334,0.5,41.501c-4.5,20.167-1.667,35.666-0.5,40.166c0.785,3.029,2.326,5.001,1.419,8.814C314,567.5,332.834,590.5,402.917,590.5s86.417-20.498,98.75-33.499c-1.666-4.5-0.501-12,2.499-21.167s-3.499-44.667-3.833-52.833c-0.334-8.166,2.501-21.5,2.751-27.584c0.25-6.084,4.25-13.25,5.5-16.5C488.168,463.334,464,472.5,435.5,466.128z"/>
-    <path id="mfb_5"  (mouseover)="pelvisTrigger.openMenu()" (mouseleave)="onMouseLeave(pelvisTrigger,category.Pelvis)"  (mouseout)="$event.stopPropagation();pelvisTrigger.openMenu()" #pelvisTrigger="matMenuTrigger" (click)="$event.stopPropagation();examSvc.setCategory(category.Pelvis, gender.Male); fillColor($event)" [matMenuTriggerFor]="pelvis" class="pelvis" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M501.667,557.001C489.334,570.002,473,590.5,402.917,590.5s-88.917-23-100.498-34.52c-0.44,1.852-1.458,4.137-3.419,7.188c-2.708,4.214-5.009,15.491-6.673,27.332c10.34,9.027,56.211,47.94,84.084,82.636c7.636,9.505,13.921,18.693,17.755,26.864c1-2.167,2.75-2.833,6.833-3.167c4.083-0.334,5.75,0.834,6.917,1.584c3.8-7.69,10.229-16.519,18.101-25.734c28.214-33.03,74.964-71.046,85.649-79.515C510.667,579.502,503.333,561.501,501.667,557.001z"/>
+    <path id="mfb_5"  class="pelvis" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M501.667,557.001C489.334,570.002,473,590.5,402.917,590.5s-88.917-23-100.498-34.52c-0.44,1.852-1.458,4.137-3.419,7.188c-2.708,4.214-5.009,15.491-6.673,27.332c10.34,9.027,56.211,47.94,84.084,82.636c7.636,9.505,13.921,18.693,17.755,26.864c1-2.167,2.75-2.833,6.833-3.167c4.083-0.334,5.75,0.834,6.917,1.584c3.8-7.69,10.229-16.519,18.101-25.734c28.214-33.03,74.964-71.046,85.649-79.515C510.667,579.502,503.333,561.501,501.667,557.001z"/>
     <path id="mfb_6"  (click)="$event.stopPropagation();examSvc.setCategory(category.ShoulderRt, gender.Male); fillColor($event)" (mouseover)="shoulderRtTrigger.openMenu()" (mouseleave)="onMouseLeave(shoulderRtTrigger,category.ShoulderRt)"  (mouseout)="$event.stopPropagation();shoulderRtTrigger.openMenu()" #shoulderRtTrigger="matMenuTrigger"  [matMenuTriggerFor]="shoulderRt" class="shoulder-rt" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M277.48,299.316c6.094-31.882,44.122-54.828,52.127-58.308c-10.162-2.91-18.816-7.852-20.857-9.508c-8,3.5-15.5,2-26.75,4.25S240.5,249,228.5,273.5s-9.5,57-9.25,65.75c0.034,1.202,0.012,2.258-0.058,3.222C232.058,327.083,262.9,323.345,277.48,299.316z"/>
     <path id="mfb_7"  (click)="$event.stopPropagation();examSvc.setCategory(category.ShoulderLt, gender.Male); fillColor($event)" (mouseover)="shoulderLtTrigger.openMenu()" (mouseleave)="onMouseLeave(shoulderLtTrigger,category.ShoulderLt)"  (mouseout)="$event.stopPropagation();shoulderLtTrigger.openMenu()" #shoulderLtTrigger="matMenuTrigger"  [matMenuTriggerFor]="shoulderLt" class="shoulder-lt" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M524.5,294c13.5,30.001,46.022,30.211,58.595,48.44c-0.768-3.438-1.004-7.947-0.345-14.44c1.931-19.007-4.875-52.125-17.875-68.5s-53.125-26.75-63.595-26.654c-4.969,4.939-14.366,8.951-25.342,10.017C486.75,245.75,522.482,273.251,524.5,294z"/>
     <path id="mfb_8"  (click)="$event.stopPropagation();examSvc.setCategory(category.ArmRt, gender.Male); fillColor($event)" (mouseover)="armRtTrigger.openMenu()" (mouseleave)="onMouseLeave(armRtTrigger,category.ArmRt)"  (mouseout)="$event.stopPropagation();armRtTrigger.openMenu()" #armRtTrigger="matMenuTrigger"  [matMenuTriggerFor]="armRt" class="arm-rt" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke" d="M276.667,306.667c0.07-2.499,0.354-4.949,0.814-7.351c-14.58,24.029-45.423,27.768-58.288,43.156c-0.437,6.049-2.914,8.093-7.442,14.778C206.5,365,196.5,396.5,193,408.5c-0.507,1.738-0.896,3.229-1.221,4.551c-1.413,17.735,10.718,25.876,24.421,31.618c11.394,4.774,24.501,8.306,33.45,1.543c0.711-1.544,1.634-3.368,2.85-5.712c3.5-6.75,23.363-47.953,24.001-48.111C276.669,378.777,275.667,342.334,276.667,306.667z"/>
@@ -33,7 +33,7 @@
   <mat-menu [hasBackdrop]="false" #head="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="headTrigger.openMenu(); onMouseEnter(headTrigger,category.Head)" (mouseleave)="onMouseLeave(headTrigger,category.Head)" (mouseout)="$event.stopPropagation();headTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Head</h5>
+        <h5 class="dfm-p-8">{{category.Head | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.Head]" (click)="$event.stopPropagation();examSvc.addExam(category.Head +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -49,7 +49,7 @@
   <mat-menu [hasBackdrop]="false" #neck="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="neckTrigger.openMenu();onMouseEnter(neckTrigger,category.Neck)" (mouseleave)="onMouseLeave(neckTrigger,category.Neck)"  (mouseout)="$event.stopPropagation();neckTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Neck</h5>
+        <h5 class="dfm-p-8">{{category.Neck | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.Neck]" (click)="$event.stopPropagation();examSvc.addExam(category.Neck +' ['+ gender.Male+']',exam)" >
             {{ exam.name }}
@@ -64,7 +64,7 @@
   <mat-menu [hasBackdrop]="false" #chest="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="chestTrigger.openMenu(); onMouseEnter(chestTrigger,category.Chest)" (mouseleave)="onMouseLeave(chestTrigger,category.Chest)" (mouseout)="$event.stopPropagation();chestTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Chest</h5>
+        <h5 class="dfm-p-8">{{category.Chest | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.Chest]" (click)="$event.stopPropagation();examSvc.addExam(category.Chest +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -79,7 +79,7 @@
   <mat-menu [hasBackdrop]="false" #abdomen="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="abdomenTrigger.openMenu(); onMouseEnter(abdomenTrigger,category.Abdomen)" (mouseleave)="onMouseLeave(abdomenTrigger,category.Abdomen)" (mouseout)="$event.stopPropagation();abdomenTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Abdomen</h5>
+        <h5 class="dfm-p-8">{{category.Abdomen | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.Abdomen]" (click)="$event.stopPropagation();examSvc.addExam(category.Abdomen +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -91,25 +91,10 @@
         </div>
     </div>
   </mat-menu>
-  <mat-menu [hasBackdrop]="false" #pelvis="matMenu">
-    <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="pelvisTrigger.openMenu(); onMouseEnter(pelvisTrigger,category.Pelvis)" (mouseleave)="onMouseLeave(pelvisTrigger,category.Pelvis)" (mouseout)="$event.stopPropagation();pelvisTrigger.openMenu()">
-      <div class="popover-content">
-        <h5 class="dfm-p-8">Pelvis</h5>
-        <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.Pelvis]" (click)="$event.stopPropagation();examSvc.addExam(category.Pelvis +' ['+ gender.Male+']', exam)" >
-            {{ exam.name }}
-          </button>
-          <ng-container *ngIf="!exams[gender.Male][category.Pelvis]?.length">
-            <span class="no-exam">{{ 'NoExamsFound' | translate }}</span>
-          </ng-container>
-        </div>
-        </div>
-    </div>
-  </mat-menu>
   <mat-menu [hasBackdrop]="false" #shoulderRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="shoulderRtTrigger.openMenu(); onMouseEnter(shoulderRtTrigger,category.ShoulderRt)" (mouseleave)="onMouseLeave(shoulderRtTrigger,category.ShoulderRt, true)" (mouseout)="$event.stopPropagation();shoulderRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Shoulder-Rt</h5>
+        <h5 class="dfm-p-8">{{category.ShoulderRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ShoulderRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -124,7 +109,7 @@
   <mat-menu [hasBackdrop]="false" #shoulderLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="shoulderLtTrigger.openMenu(); onMouseEnter(shoulderLtTrigger,category.ShoulderLt)" (mouseleave)="onMouseLeave(shoulderLtTrigger,category.ShoulderLt)" (mouseout)="$event.stopPropagation();shoulderLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Shoulder-Lt</h5>
+        <h5 class="dfm-p-8">{{category.ShoulderLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ShoulderLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -139,7 +124,7 @@
   <mat-menu [hasBackdrop]="false" #armRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="armRtTrigger.openMenu(); onMouseEnter(armRtTrigger,category.ArmRt)" (mouseleave)="onMouseLeave(armRtTrigger,category.ArmRt ,true)" (mouseout)="$event.stopPropagation();armRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Arm-rt</h5>
+        <h5 class="dfm-p-8">{{category.ArmRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ArmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -154,7 +139,7 @@
   <mat-menu [hasBackdrop]="false" #armLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="armLtTrigger.openMenu(); onMouseEnter(armLtTrigger,category.ArmLt)" (mouseleave)="onMouseLeave(armLtTrigger,category.ArmLt, true)" (mouseout)="$event.stopPropagation();armLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Arm-Lt</h5>
+        <h5 class="dfm-p-8">{{category.ArmLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ArmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -169,7 +154,7 @@
   <mat-menu [hasBackdrop]="false" #elbowRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="elbowRtTrigger.openMenu(); onMouseEnter(elbowRtTrigger,category.ElbowRt)" (mouseleave)="onMouseLeave(elbowRtTrigger,category.ElbowRt, true)" (mouseout)="$event.stopPropagation();elbowRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Elbow-Rt</h5>
+        <h5 class="dfm-p-8">{{category.ElbowRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ElbowRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -184,7 +169,7 @@
   <mat-menu [hasBackdrop]="false" #elbowLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="elbowLtTrigger.openMenu(); onMouseEnter(elbowLtTrigger,category.ElbowLt)" (mouseleave)="onMouseLeave(elbowLtTrigger,category.ElbowLt, true)" (mouseout)="$event.stopPropagation();elbowLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Elbow-Lt</h5>
+        <h5 class="dfm-p-8">{{category.ElbowLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ElbowLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -199,7 +184,7 @@
   <mat-menu [hasBackdrop]="false" #forearmRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="forearmRtTrigger.openMenu(); onMouseEnter(forearmRtTrigger,category.ForearmRt)" (mouseleave)="onMouseLeave(forearmRtTrigger,category.ForearmRt ,true)" (mouseout)="$event.stopPropagation();forearmRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Forearm-Rt</h5>
+        <h5 class="dfm-p-8">{{category.ForearmRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ForearmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -214,7 +199,7 @@
   <mat-menu [hasBackdrop]="false" #forearmLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="forearmLtTrigger.openMenu(); onMouseEnter(forearmLtTrigger,category.ForearmLt)" (mouseleave)="onMouseLeave(forearmLtTrigger,category.ForearmLt ,true)" (mouseout)="$event.stopPropagation();forearmLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Forearm-Lt</h5>
+        <h5 class="dfm-p-8">{{category.ForearmLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ForearmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -229,7 +214,7 @@
   <mat-menu [hasBackdrop]="false" #wristRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="wristRtTrigger.openMenu(); onMouseEnter(wristRtTrigger,category.WristRt)" (mouseleave)="onMouseLeave(wristRtTrigger,category.WristRt ,true)" (mouseout)="$event.stopPropagation();wristRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Wrist-Rt</h5>
+        <h5 class="dfm-p-8">{{category.WristRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.WristRt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -244,7 +229,7 @@
   <mat-menu [hasBackdrop]="false" #wristLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="wristLtTrigger.openMenu(); onMouseEnter(wristLtTrigger,category.WristLt)" (mouseleave)="onMouseLeave(wristLtTrigger,category.WristLt ,true)" (mouseout)="$event.stopPropagation();wristLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Wrist-Lt</h5>
+        <h5 class="dfm-p-8">{{category.WristLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.WristLt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -259,7 +244,7 @@
   <mat-menu [hasBackdrop]="false" #handRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="handRtTrigger.openMenu(); onMouseEnter(handRtTrigger,category.HandRt)" (mouseleave)="onMouseLeave(handRtTrigger,category.HandRt ,true)" (mouseout)="$event.stopPropagation();handRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Hand-Rt</h5>
+        <h5 class="dfm-p-8">{{category.HandRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.HandRt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -274,7 +259,7 @@
   <mat-menu [hasBackdrop]="false" #handLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="handLtTrigger.openMenu(); onMouseEnter(handLtTrigger,category.HandLt)" (mouseleave)="onMouseLeave(handLtTrigger,category.HandLt ,true)" (mouseout)="$event.stopPropagation();handLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Hand-Lt</h5>
+        <h5 class="dfm-p-8">{{category.HandLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.HandLt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -289,7 +274,7 @@
   <mat-menu [hasBackdrop]="false" #thighRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="thighRtTrigger.openMenu(); onMouseEnter(thighRtTrigger,category.ThighRt)" (mouseleave)="onMouseLeave(thighRtTrigger,category.ThighRt ,true)" (mouseout)="$event.stopPropagation();thighRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Thigh-Rt</h5>
+        <h5 class="dfm-p-8">{{category.ThighRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ThighRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -304,7 +289,7 @@
   <mat-menu [hasBackdrop]="false" #thighLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="thighLtTrigger.openMenu(); onMouseEnter(thighLtTrigger,category.ThighLt)" (mouseleave)="onMouseLeave(thighLtTrigger,category.ThighLt ,true)" (mouseout)="$event.stopPropagation();thighLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Thigh-Lt</h5>
+        <h5 class="dfm-p-8">{{category.ThighLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.ThighLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -319,7 +304,7 @@
   <mat-menu [hasBackdrop]="false" #kneeRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="kneeRtTrigger.openMenu(); onMouseEnter(kneeRtTrigger,category.KneeRt)" (mouseleave)="onMouseLeave(kneeRtTrigger,category.KneeRt ,true)" (mouseout)="$event.stopPropagation();kneeRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Knee-Rt</h5>
+        <h5 class="dfm-p-8">{{category.KneeRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.KneeRt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -334,7 +319,7 @@
   <mat-menu [hasBackdrop]="false" #kneeLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="kneeLtTrigger.openMenu(); onMouseEnter(kneeLtTrigger,category.KneeLt)" (mouseleave)="onMouseLeave(kneeLtTrigger,category.KneeLt ,true)" (mouseout)="$event.stopPropagation();kneeLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Knee-Lt</h5>
+        <h5 class="dfm-p-8">{{category.KneeLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.KneeLt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -349,7 +334,7 @@
   <mat-menu [hasBackdrop]="false" #legRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="legRtTrigger.openMenu(); onMouseEnter(legRtTrigger,category.LegRt)" (mouseleave)="onMouseLeave(legRtTrigger,category.LegRt ,true)" (mouseout)="$event.stopPropagation();legRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Leg-Rt</h5>
+        <h5 class="dfm-p-8">{{category.LegRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.LegRt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -364,7 +349,7 @@
   <mat-menu [hasBackdrop]="false" #legLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="legLtTrigger.openMenu(); onMouseEnter(legLtTrigger,category.LegLt)" (mouseleave)="onMouseLeave(legLtTrigger,category.LegLt ,true)" (mouseout)="$event.stopPropagation();legLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Leg-Lt</h5>
+        <h5 class="dfm-p-8">{{category.LegLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.LegLt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -379,7 +364,7 @@
   <mat-menu [hasBackdrop]="false" #ankleRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="ankleRtTrigger.openMenu(); onMouseEnter(ankleRtTrigger,category.AnkleRt)" (mouseleave)="onMouseLeave(ankleRtTrigger,category.AnkleRt ,true)" (mouseout)="$event.stopPropagation();ankleRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Ankle-Rt</h5>
+        <h5 class="dfm-p-8">{{category.AnkleRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.AnkleRt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -394,7 +379,7 @@
   <mat-menu [hasBackdrop]="false" #ankleLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="ankleLtTrigger.openMenu(); onMouseEnter(ankleLtTrigger,category.AnkleLt)" (mouseleave)="onMouseLeave(ankleLtTrigger,category.AnkleLt ,true)" (mouseout)="$event.stopPropagation();ankleLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Ankle-Lt</h5>
+        <h5 class="dfm-p-8">{{category.AnkleLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.AnkleLt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -409,7 +394,7 @@
   <mat-menu [hasBackdrop]="false" #footRt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="footRtTrigger.openMenu(); onMouseEnter(footRtTrigger,category.FootRt)" (mouseleave)="onMouseLeave(footRtTrigger,category.FootRt ,true)" (mouseout)="$event.stopPropagation();footRtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Foot-Rt</h5>
+        <h5 class="dfm-p-8">{{category.FootRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.FootRt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootRt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}
@@ -424,7 +409,7 @@
   <mat-menu [hasBackdrop]="false" #footLt="matMenu">
     <div class="rm-li-menus" aria-labelledby="dropdownManual" (mouseover)="footLtTrigger.openMenu(); onMouseEnter(footLtTrigger,category.FootLt)" (mouseleave)="onMouseLeave(footLtTrigger,category.FootLt ,true)" (mouseout)="$event.stopPropagation();footLtTrigger.openMenu()">
       <div class="popover-content">
-        <h5 class="dfm-p-8">Foot-Lt</h5>
+        <h5 class="dfm-p-8">{{category.FootLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item  *ngFor="let exam of exams[gender.Male][category.FootLt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootLt +' ['+ gender.Male+']', exam)" >
             {{ exam.name }}

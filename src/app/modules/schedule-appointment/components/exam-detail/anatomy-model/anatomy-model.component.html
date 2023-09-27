@@ -26,48 +26,20 @@
           <ng-container *ngSwitchCase="'male'">
             <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
               <ng-container *ngSwitchCase="'front'">
-                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                  <ng-container *ngSwitchCase="'organs'">
-                    <dfm-organ-male-front-model ></dfm-organ-male-front-model>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'bones'">
-                    <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
-                  </ng-container>
-                </ng-container>
+                <dfm-organ-male-front-model ></dfm-organ-male-front-model>
               </ng-container>
               <ng-container *ngSwitchCase="'back'">
-                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                  <ng-container *ngSwitchCase="'organs'">
-                    <dfm-organ-male-back-model ></dfm-organ-male-back-model>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'bones'">
-                    <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
-                  </ng-container>
-                </ng-container>
+                <dfm-organ-male-back-model ></dfm-organ-male-back-model>
               </ng-container>
             </ng-container>
           </ng-container>
           <ng-container *ngSwitchCase="'female'">
             <ng-container [ngSwitch]="filterForm.getRawValue()?.side">
               <ng-container *ngSwitchCase="'front'">
-                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                  <ng-container *ngSwitchCase="'organs'">
-                    <dfm-organ-female-front-model ></dfm-organ-female-front-model>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'bones'">
-                    <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
-                  </ng-container>
-                </ng-container>
+                <dfm-organ-female-front-model ></dfm-organ-female-front-model>
               </ng-container>
               <ng-container *ngSwitchCase="'back'">
-                <ng-container [ngSwitch]="filterForm.getRawValue()?.bodyStructure">
-                  <ng-container *ngSwitchCase="'organs'">
-                    <dfm-organ-female-back-model ></dfm-organ-female-back-model>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'bones'">
-                    <dfm-skeleton-male-front-model></dfm-skeleton-male-front-model>
-                  </ng-container>
-                </ng-container>
+                <dfm-organ-female-back-model ></dfm-organ-female-back-model>
               </ng-container>
             </ng-container>
           </ng-container>
@@ -124,7 +96,7 @@
               <mat-chip
                 disableRipple
                 *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
-                (removed)="examSvc.addExam(item.key, exam)"
+                (removed)="examSvc.remove(item.key, exam)"
               >
                 {{ exam.name }}
                 <button matChipRemove >

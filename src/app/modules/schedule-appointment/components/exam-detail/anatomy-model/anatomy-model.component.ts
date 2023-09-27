@@ -101,16 +101,6 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
 
     this.filterForm
-      .get('bodyStructure')
-      ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
-      .subscribe((value) => {
-        if (value === 'bones') {
-          this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
-          // this.examSvc.selectedBodyType$$.next(BodyType.Skeleton);
-        }
-      });
-
-    this.filterForm
       .get('gender')
       ?.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$$))
       .subscribe((value) => {
@@ -125,10 +115,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     this.filterForm.valueChanges
       .pipe(
         takeUntil(this.destroy$$),
-        map(({ bodyStructure, gender }) => {
-          if (bodyStructure === 'bones') {
-            return BodyType.Skeleton;
-          }
+        map(({ gender }) => {
           if (gender === 'female') {
             return BodyType.Female;
           }
@@ -191,6 +178,10 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
+
+
+
+
 
 
 

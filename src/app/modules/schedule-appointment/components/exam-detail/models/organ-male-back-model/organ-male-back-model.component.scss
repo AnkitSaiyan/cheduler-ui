@@ -11,7 +11,7 @@
       stroke-opacity: 1;
     }
 
-    >path:hover {
+        >path:hover:not(.sole) {
       fill: var(--dfm-primary);
     }
   }
