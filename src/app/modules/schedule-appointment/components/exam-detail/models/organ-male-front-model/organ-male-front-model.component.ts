@@ -4,6 +4,7 @@ import { AnatomyMatMenu } from 'src/app/shared/components/anatomy-mat-menu/anato
 import { BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 import { BodyType } from 'src/app/shared/utils/const';
 import { takeUntil } from 'rxjs';
+import { BodyPartService } from 'src/app/core/services/body-part.service';
 
 @Component({
   selector: 'dfm-organ-male-front-model',
@@ -11,7 +12,7 @@ import { takeUntil } from 'rxjs';
   styleUrls: ['./organ-male-front-model.component.scss'],
 })
 export class OrganMaleFrontModelComponent extends AnatomyMatMenu<BodyMaleFront> implements OnDestroy {
-  constructor(public examSvc: ExamService) {
+  constructor(public examSvc: ExamService, public bodyPartSvc: BodyPartService) {
     super();
     this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       if (!res && this.previousElement) this.previousElement?.classList.remove('fill');
@@ -35,6 +36,7 @@ export class OrganMaleFrontModelComponent extends AnatomyMatMenu<BodyMaleFront> 
     (event.target as HTMLImageElement).style.display = 'none';
   }
 }
+
 
 
 

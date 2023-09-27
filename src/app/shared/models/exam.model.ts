@@ -1,4 +1,5 @@
 import { BodyType } from '../utils/const';
+import { BodyPart } from './body-part.model';
 import { PracticeAvailability } from './practice.model';
 
 export interface Exam {
@@ -9,7 +10,7 @@ export interface Exam {
   instructions: string;
   uncombinables: number[];
   bodyType: BodyType;
-  bodyPart: string;
+  bodyPart: BodyPart[];
 }
 
 export interface CreateExamRequestData {

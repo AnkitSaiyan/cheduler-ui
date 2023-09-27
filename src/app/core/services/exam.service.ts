@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, filter, map, Observable, switchMap } from 'rxjs';
 import { BodyMaleBack, BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 import { BodyType } from 'src/app/shared/utils/const';
+import { BodyPartService } from './body-part.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class ExamService {
   private allExams$$ = new BehaviorSubject<any>(null);
   public selectedCategory$$ = new BehaviorSubject<string>('');
   public selectedBodyType$$ = new BehaviorSubject<string | undefined>(undefined);
-  constructor() {}
+  constructor(private bodyPartSvc: BodyPartService) {}
 
   public get filterExams$(): any {
     return combineLatest([this.selectedCategory$$, this.allExams$$, this.selectedBodyType$$]).pipe(
@@ -22,9 +23,9 @@ export class ExamService {
           return value[this.selectedBodyType$$.value][this.selectedCategory$$.value];
         }
         if (this.selectedBodyType$$.value) {
-          return Object.values(value[this.selectedBodyType$$.value])?.flatMap((val) => val);
+          return value[this.selectedBodyType$$.value + 'AllExam'];
         }
-        return Object.values(value?.[BodyType.Male] ?? {})?.flatMap((val) => val);
+        return value?.[BodyType.Male + 'AllExam'];
       }),
     );
   }
@@ -56,7 +57,26 @@ export class ExamService {
     return this.allExams$$.value;
   }
 
-  public addExam(category: any, exam: any, onlyAdd: boolean = false) {
+  public addExam(categoryType: any, exam: any, onlyAdd: boolean = false) {
+    let category = this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName + ' ' + categoryType?.split(' ')?.[1];
+    if (!this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName) {
+      category = 'Selected Exam';
+    }
+    let isExamExist = false;
+    Object.entries(this.selectedExam).forEach(([key, exams]: [any, any]) => {
+      exams.forEach((item) => {
+        if (item.value === exam.value) {
+          this.selectedExam[key] = [...this.selectedExam[key].filter((value) => value.value !== exam.value)];
+          if (!this.selectedExam[key].length) {
+            delete this.selectedExam[key];
+          }
+          isExamExist = true;
+        }
+      });
+    });
+    if (isExamExist) {
+      return;
+    }
     if (this.selectedExam[category]) {
       if (onlyAdd && this.selectedExam[category].find((value) => value.value === exam.value)) {
         return;
@@ -74,6 +94,13 @@ export class ExamService {
     }
   }
 
+  public remove(category: any, exam: any) {
+    this.selectedExam[category] = [...this.selectedExam[category].filter((value) => value.value !== exam.value)];
+    if (!this.selectedExam[category].length) {
+      delete this.selectedExam[category];
+    }
+  }
+
   public isExamSelected(): boolean {
     return !!Object.keys(this.selectedExam).length;
   }
@@ -88,6 +115,34 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

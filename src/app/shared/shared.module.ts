@@ -38,7 +38,7 @@ import { SafePipe } from './pipes/safe.pipe';
 import { NumberInputDirective } from './directives/number-input.directive';
 import { SsnInputDirective } from './directives/ssn-input.directive';
 import { NameInputDirective } from './directives/name-input.directive';
-
+import { IdToBodyPartPipe } from './pipes/id-to-body-part.pipe';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -70,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NumberInputDirective,
     SsnInputDirective,
     NameInputDirective,
+    IdToBodyPartPipe,
   ],
   imports: [
     CommonModule,
@@ -122,8 +123,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     NumberInputDirective,
     SsnInputDirective,
     NameInputDirective,
+    IdToBodyPartPipe,
   ],
 })
 export class SharedModule {}
+
 
 

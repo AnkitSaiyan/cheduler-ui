@@ -3,7 +3,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EventMessage, EventType, InteractionStatus } from '@azure/msal-browser';
 import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
-import { BehaviorSubject, filter, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, filter, of, switchMap, take, tap } from 'rxjs';
 import { NotificationType } from 'diflexmo-angular-design';
 import { Router } from '@angular/router';
 import defaultLanguage from '../assets/i18n/nl-BE.json';
@@ -11,6 +11,7 @@ import englishLanguage from '../assets/i18n/en-BE.json';
 import { DestroyableComponent } from './shared/components/destroyable/destroyable.component';
 import { AuthService } from './core/services/auth.service';
 import { NotificationDataService } from './core/services/notification-data.service';
+import { BodyPartService } from './core/services/body-part.service';
 
 @Component({
   selector: 'dfm-root',
@@ -28,10 +29,12 @@ export class AppComponent extends DestroyableComponent implements OnDestroy {
     private userAuthSvc: AuthService,
     private notificationSvc: NotificationDataService,
     private router: Router,
+    private bodyPartSvc: BodyPartService,
   ) {
     super();
     this.setupLanguage();
     this.setupUser();
+    this.bodyPartSvc.allBodyPart$().pipe(take(1)).subscribe();
   }
 
   public override ngOnDestroy(): void {
