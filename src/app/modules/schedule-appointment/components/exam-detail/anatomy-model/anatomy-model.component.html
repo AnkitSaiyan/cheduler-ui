@@ -60,7 +60,7 @@
             formControlName="exam"
             size="sm"
             label="{{ 'Exam' | translate }} *"
-            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory | lowercase}}{{ (examSvc.selectedCategory ? 'Exams' : '') | translate }}"
+            placeholder="{{'Select' | translate}} {{examSvc.selectedCategory }}{{ (examSvc.selectedCategory ? 'Exams' : '') | translate }}"
             [showDescription]="false"
           ></dfm-input-dropdown>
 

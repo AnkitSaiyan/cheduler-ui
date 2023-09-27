@@ -36,7 +36,7 @@ export class ExamService {
   }
 
   public get selectedCategory() {
-    return this.selectedCategory$$?.value?.length ? this.selectedCategory$$.value + ' ' : '';
+    return this.selectedCategory$$?.value?.length ? this.bodyPartSvc.getBodyPartById(+this.selectedCategory$$.value).bodypartName + ' ' : '';
   }
 
   public setExam(exams: any) {
@@ -120,6 +120,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 
