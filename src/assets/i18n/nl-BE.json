@@ -321,5 +321,16 @@
     "MESSAGE": {
       "NO_INSTRUCTION": "Geen instructie voor dit examen"
     }
+  },
+  "DESIGN_SYSTEM": {
+    "ERROR": {
+      "REQUIRED_FIELD": "Dit veld is vereist"
+    },
+    "INPUT_DROPDOWN": {
+      "SELECT_ALL": "Selecteer alle",
+      "NO_ITEMS": "Geen items gevonden",
+      "LOADING": "Loaden"
+    }
   }
 }
+
