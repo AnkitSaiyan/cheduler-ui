@@ -152,7 +152,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       exam.bodyPart?.forEach(({ id }) => {
         bodyTypes.forEach((bodyType) => {
           if (modifiedExamList[bodyType]?.[id]) {
-            modifiedExamList[bodyType][id] = [...modifiedExamList[bodyType?.[0]]?.[id], { ...exam, bodyPart: id, bodyType }];
+            modifiedExamList[bodyType][id] = [...modifiedExamList[bodyType]?.[id], { ...exam, bodyPart: id, bodyType }];
           } else {
             modifiedExamList[bodyType][id] = [{ ...exam, bodyPart: id, bodyType }];
           }
