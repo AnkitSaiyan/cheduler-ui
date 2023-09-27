@@ -50,13 +50,13 @@
 
     </section>
 
-    <section class="selected-exam dfm-gap-24">
+    <section class="selected-exam dfm-gap-24" *ngIf="examSvc.filterExams$ | async  as filterExams">
       <span>{{'AddExam' | translate}}</span>
 
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column" >
         <div class="d-flex dfm-gap-8 flex-nowrap align-items-end" >
           <dfm-input-dropdown
-            [items]="((examSvc.filterExams$ | async) ?? []) | removeSelectedItemFormAnatomy : this.examSvc.selectedExam"
+            [items]="filterExams"
             formControlName="exam"
             size="sm"
             label="{{ 'Exam' | translate }} *"
@@ -85,7 +85,7 @@
           >
         </div>
       </div>
-      <small class="text-wrap" *ngIf="(examSvc.filterExams$ | async) && examSvc.selectedCategory" >{{'EXAM_EXIST_FOR_SELECTED_BODY_PART' | translate}}</small>
+      <small class="text-wrap" *ngIf="filterExams.length && examSvc.selectedCategory && !examSvc.isExamSelected()" >{{'EXAM_EXIST_FOR_SELECTED_BODY_PART' | translate}}</small>
       <small class="text-wrap text-danger" *ngIf="!(examSvc.filterExams$ | async) && examSvc.selectedCategory" >{{'NO_EXAM_FOR_SELECTED_BODY_PART' | translate}}</small>
       <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">{{'SelectedExam' | translate}}</span>
       <div class="exam-container" >

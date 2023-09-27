@@ -485,7 +485,8 @@ dfm-notification {
       // border-radius: px;
       // color: var(--dfm-primary);
       &.selected {
-        color: var(--dfm-primary);
+        background: var(--dfm-primary);
+          color: #ffffff;
       }
     }
                 >span,

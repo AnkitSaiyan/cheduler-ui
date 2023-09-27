@@ -37,7 +37,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.Breasts | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.Breasts]" (click)="$event.stopPropagation();examSvc.addExam(category.Breasts + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Breasts]" (click)="$event.stopPropagation();examSvc.addExam(category.Breasts + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.Breasts]?.length">
@@ -52,7 +52,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.Head | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.Head]" (click)="$event.stopPropagation();$event.stopPropagation();examSvc.addExam(category.Head + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Head]" (click)="$event.stopPropagation();$event.stopPropagation();examSvc.addExam(category.Head + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.Head]?.length">
@@ -68,7 +68,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.Neck | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.Neck]" (click)="$event.stopPropagation();examSvc.addExam(category.Neck + ' ['+gender.Female+']' ,exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Neck]" (click)="$event.stopPropagation();examSvc.addExam(category.Neck + ' ['+gender.Female+']' ,exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.Neck]?.length">
@@ -83,7 +83,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.Breasts | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.Breasts]" (click)="$event.stopPropagation();examSvc.addExam(category.Breasts + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Breasts]" (click)="$event.stopPropagation();examSvc.addExam(category.Breasts + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.Breasts]?.length">
@@ -98,7 +98,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.Abdomen | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.Abdomen]" (click)="$event.stopPropagation();examSvc.addExam(category.Abdomen + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Abdomen]" (click)="$event.stopPropagation();examSvc.addExam(category.Abdomen + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.Abdomen]?.length">
@@ -113,7 +113,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ShoulderRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ShoulderRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ShoulderRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ShoulderRt]?.length">
@@ -128,7 +128,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ShoulderLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ShoulderLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ShoulderLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ShoulderLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ShoulderLt]?.length">
@@ -143,7 +143,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ArmRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ArmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ArmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ArmRt]?.length">
@@ -158,7 +158,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ArmLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ArmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ArmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ArmLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ArmLt]?.length">
@@ -173,7 +173,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ElbowRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ElbowRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ElbowRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ElbowRt]?.length">
@@ -188,7 +188,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ElbowLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ElbowLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ElbowLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ElbowLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ElbowLt]?.length">
@@ -203,7 +203,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ForearmRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ForearmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ForearmRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ForearmRt]?.length">
@@ -218,7 +218,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ForearmLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ForearmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ForearmLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ForearmLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ForearmLt]?.length">
@@ -233,7 +233,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.WristRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.WristRt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.WristRt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.WristRt]?.length">
@@ -248,7 +248,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.WristLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.WristLt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.WristLt]" (click)="$event.stopPropagation();examSvc.addExam(category.WristLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.WristLt]?.length">
@@ -263,7 +263,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.HandRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.HandRt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.HandRt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.HandRt]?.length">
@@ -278,7 +278,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.HandLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.HandLt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.HandLt]" (click)="$event.stopPropagation();examSvc.addExam(category.HandLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.HandLt]?.length">
@@ -293,7 +293,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ThighRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ThighRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ThighRt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ThighRt]?.length">
@@ -308,7 +308,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.ThighLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.ThighLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.ThighLt]" (click)="$event.stopPropagation();examSvc.addExam(category.ThighLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.ThighLt]?.length">
@@ -323,7 +323,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.KneeRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.KneeRt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.KneeRt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.KneeRt]?.length">
@@ -338,7 +338,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.KneeLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.KneeLt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.KneeLt]" (click)="$event.stopPropagation();examSvc.addExam(category.KneeLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.KneeLt]?.length">
@@ -353,7 +353,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.LegRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.LegRt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.LegRt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.LegRt]?.length">
@@ -368,7 +368,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.LegLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.LegLt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.LegLt]" (click)="$event.stopPropagation();examSvc.addExam(category.LegLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.LegLt]?.length">
@@ -383,7 +383,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.AnkleRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.AnkleRt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.AnkleRt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.AnkleRt]?.length">
@@ -398,7 +398,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.AnkleLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.AnkleLt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.AnkleLt]" (click)="$event.stopPropagation();examSvc.addExam(category.AnkleLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.AnkleLt]?.length">
@@ -413,7 +413,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.FootRt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.FootRt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootRt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.FootRt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootRt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.FootRt]?.length">
@@ -428,7 +428,7 @@
       <div class="popover-content">
         <h5 class="dfm-p-8">{{category.FootLt | idToBodyPart}}</h5>
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item  *ngFor="let exam of exams[gender.Female][category.FootLt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootLt + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.FootLt]" (click)="$event.stopPropagation();examSvc.addExam(category.FootLt + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
           <ng-container *ngIf="!exams[gender.Female][category.FootLt]?.length">
