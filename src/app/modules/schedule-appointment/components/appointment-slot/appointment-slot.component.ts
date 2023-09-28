@@ -123,7 +123,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       if (slotDetails?.selectedDate) {
         const date = new Date(slotDetails.selectedDate);
         this.selectedDate$$.next(date);
-        this.selectedCalendarDate$$.next(date);
+        // this.selectedCalendarDate$$.next(date);
       }
 
       if (slotDetails?.selectedSlots) {
@@ -274,7 +274,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     this.updateCalendarDays();
 
-    this.selectedTimeSlot = [];
+    // this.selectedTimeSlot = [];
   }
 
   public toggleSlotSelection(slot: ModifiedSlot, isEdit: boolean = false) {
@@ -477,8 +477,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.offDays = [];
     this.holidays = [];
     this.pastDays = [];
-    this.selectedTimeSlot = {};
-    this.examIdToAppointmentSlots = {};
+    // this.selectedTimeSlot = {};
+    // this.examIdToAppointmentSlots = {};
   }
 
   private resetSlots() {
