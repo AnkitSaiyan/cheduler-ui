@@ -8,11 +8,14 @@ export const DUTCH_BE = 'nl-BE';
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const EXT_Patient_Tenant = 'NPXN';
 
+export const SELECTED_EXAM = 'Selected Exam';
+
 export enum BodyType {
   Male = 'male',
   Female = 'female',
   Common = 'common',
 }
+
 
 
 

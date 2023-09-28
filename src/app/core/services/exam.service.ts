@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, filter, map, Observable, switchMap } from 'rxjs';
 import { BodyMaleBack, BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
-import { BodyType } from 'src/app/shared/utils/const';
+import { BodyType, SELECTED_EXAM } from 'src/app/shared/utils/const';
 import { BodyPartService } from './body-part.service';
 
 @Injectable({
@@ -60,7 +60,7 @@ export class ExamService {
   public addExam(categoryType: any, exam: any, onlyAdd: boolean = false) {
     let category = this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName + ' ' + categoryType?.split(' ')?.[1];
     if (!this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName) {
-      category = 'Selected Exam';
+      category = SELECTED_EXAM;
     }
     let isExamExist = false;
     Object.entries(this.selectedExam).forEach(([key, exams]: [any, any]) => {
@@ -111,7 +111,7 @@ export class ExamService {
   }
   public removeExamByGender(gender: BodyType) {
     Object.keys(this.selectedExam).forEach((key: string) => {
-      if (key.includes(gender)) {
+      if (key.includes(gender) || key.includes(SELECTED_EXAM)) {
         delete this.selectedExam[key];
       }
     });
@@ -120,6 +120,8 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
+
 
 
 

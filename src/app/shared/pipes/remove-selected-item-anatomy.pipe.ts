@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { BodyPartService } from 'src/app/core/services/body-part.service';
 import { ExamService } from 'src/app/core/services/exam.service';
+import { SELECTED_EXAM } from '../utils/const';
 
 @Pipe({
   name: 'removeSelectedItemFormAnatomy',
@@ -14,11 +15,12 @@ export class RemoveSelectedItemFormAnatomyPipe implements PipeTransform {
         !selectedValue?.[
           this.bodyPartSvc.getBodyPartById(+value?.bodyPart)?.bodypartName
             ? `${this.bodyPartSvc.getBodyPartById(+value?.bodyPart)?.bodypartName} [${value.bodyType}]`
-            : 'Selected Exam'
+            : SELECTED_EXAM
         ]?.find((val) => val.value === value.value),
     );
   }
 }
+
 
 
 
