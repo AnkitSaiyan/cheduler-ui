@@ -25,7 +25,7 @@ export enum BodyMaleFront {
   AnkleLt = '23',
   FootRt = '26',
   FootLt = '27',
-  Pelvis = 'Pelvis',
+  Pelvis = '40',
 }
 
 export enum BodyFemaleFront {
@@ -56,7 +56,7 @@ export enum BodyFemaleFront {
   AnkleLt = '23',
   FootRt = '26',
   FootLt = '27',
-  Pelvis = 'Pelvis',
+  Pelvis = '40',
 }
 
 export enum BodyMaleBack {
@@ -175,6 +175,7 @@ export enum Skeleton {
 }
 
 export type BodyPartCategory = BodyMaleFront | BodyMaleBack | BodyFemaleBack | BodyFemaleFront;
+
 
 
 

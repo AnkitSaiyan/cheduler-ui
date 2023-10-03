@@ -86,9 +86,14 @@
         <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" *ngFor="let exam of examsDetails?.exams ; let i = index;">
           <div class="d-flex flex-column gap-1">
             <div class="d-flex flex-column gap-1">
-              <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
-                <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
-                <span>{{ examIdToName[exam]?.name }}</span>
+              <div class="d-flex gap-4  justify-content-start text-sm">
+                <div class="d-flex gap-2 justify-content-start text-sm">
+                  <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
+                </div>
+                <div class="d-flex gap-2 align-items-center justify-content-start text-sm flex-wrap">
+
+                  <span>{{ examIdToName[exam]?.name }}</span>
+                </div>
               </div>
 
               <div class="d-flex gap-2 align-items-start text-sm">
@@ -140,9 +145,13 @@
         <div class="time-slot-container d-flex flex-column dfm-card dfm-p-24 w-100" >
           <div class="d-flex flex-column gap-2">
             <div class="d-flex flex-column gap-2">
-              <div class="d-flex gap-2 align-items-center justify-content-start text-sm">
-                <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
-                <span *ngFor="let exam of examsDetails?.exams; let i =index">  {{ examIdToName[exam]?.name }} {{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
+              <div class="d-flex gap-4 justify-content-start text-sm">
+                <div class="d-flex gap-2 justify-content-start text-sm">
+                  <span class="font-weight-medium">{{ 'ExamName' | translate }}: </span>
+                </div>
+                <div class="d-flex gap-2 align-items-center justify-content-start text-sm flex-wrap">
+                  <span *ngFor="let exam of examsDetails?.exams; let i =index">  {{ examIdToName[exam]?.name }}{{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
+                </div>
               </div>
 
               <div class="d-flex flex-wrap  gap-2 align-items-start text-sm">

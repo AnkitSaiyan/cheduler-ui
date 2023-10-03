@@ -90,21 +90,20 @@
       <span *ngIf="examSvc.isExamSelected()" class="dfm-main-500">{{'SelectedExam' | translate}}</span>
       <div class="exam-container" >
         <div class="exam-list">
-          <div *ngFor="let item of examSvc.selectedExam | keyvalue">
-            <p>{{ (item.key | as).replace('_',' ') | titlecase}}</p>
-            <div class="exam">
-              <mat-chip
-                disableRipple
-                *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
-                (removed)="examSvc.remove(item.key, exam)"
-              >
-                {{ exam.name }}
-                <button matChipRemove >
-                  <mat-icon color="primary">{{'cancel' | translate}}</mat-icon>
-                </button>
-              </mat-chip>
+            <div class="exam" >
+              <ng-container *ngFor="let item of examSvc.selectedExam | keyvalue">
+                <mat-chip
+                  disableRipple
+                  *ngFor="let exam of examSvc.selectedExam[item.key | as: 'string']"
+                  (removed)="examSvc.remove(item.key, exam)"
+                >
+                  {{ exam.name }}
+                  <button matChipRemove >
+                    <mat-icon color="primary">{{'cancel' | translate}}</mat-icon>
+                  </button>
+                </mat-chip>
+              </ng-container>
             </div>
-          </div>
         </div>
       </div>
       <div class="comments-section" >
