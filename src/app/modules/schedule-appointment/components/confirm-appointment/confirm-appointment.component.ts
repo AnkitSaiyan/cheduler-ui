@@ -50,7 +50,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   private authUser: AuthUser | undefined;
   private selectedLang!: string;
   private appointmentRefresh$$ = new BehaviorSubject<undefined>(undefined);
-  physicianDetails: any;
+  public physicianDetails: any;
+  public instructionSectionView: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -156,7 +157,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         .forEach((exam) => {
           this.examIdToName[+exam.id] = { name: exam.name, info: exam.info, instructions: exam.instructions ?? '' };
         });
-
+      const examArr = [...Object.values(this.examIdToName).map((value) => value)];
+      this.instructionSectionView = examArr.some(({ instructions }) => !!instructions);
       this.exams$$.next(exams);
     });
 
