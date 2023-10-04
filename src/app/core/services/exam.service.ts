@@ -58,7 +58,7 @@ export class ExamService {
   }
 
   public addExam(categoryType: any, exam: any, onlyAdd: boolean = false) {
-    let category = this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName + ' ' + categoryType?.split(' ')?.[1];
+    let category = categoryType;
     if (!this.bodyPartSvc.getBodyPartById(+categoryType?.split(' ')?.[0])?.bodypartName) {
       category = SELECTED_EXAM;
     }
@@ -120,6 +120,7 @@ export class ExamService {
     return this.selectedExam;
   }
 }
+
 
 
 

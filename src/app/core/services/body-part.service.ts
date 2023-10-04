@@ -1,21 +1,35 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, combineLatest, filter, map, takeUntil, tap } from 'rxjs';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { BodyPart } from 'src/app/shared/models/body-part.model';
-import { BodyType } from 'src/app/shared/utils/const';
+import { BodyType, ENG_BE } from 'src/app/shared/utils/const';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from './loader.service';
+import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BodyPartService {
+export class BodyPartService extends DestroyableComponent implements OnDestroy {
   private httpWithOutInterceptor: HttpClient;
   private SubDomain: string = '';
-  constructor(private httpBackend: HttpBackend, private loaderSvc: LoaderService) {
+  private bodyPart$$ = new BehaviorSubject<BodyPart[]>([]);
+  constructor(private httpBackend: HttpBackend, private sharedDataSvc: ShareDataService) {
+    super();
     this.httpWithOutInterceptor = new HttpClient(this.httpBackend);
     this.SubDomain = window.location.host.split('.')[0];
+    combineLatest([this.bodyPart$$, this.sharedDataSvc.getLanguage$()])
+      .pipe(
+        filter(([bodyPart]) => !!bodyPart.length),
+        takeUntil(this.destroy$$),
+      )
+      .subscribe(([bodyPart, lang]) => this.setBodyPart(bodyPart, lang));
+  }
+
+  public override ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   private bodyPart = new Map<number | BodyType, BodyPart | BodyPart[]>();
@@ -27,7 +41,7 @@ export class BodyPartService {
       })
       .pipe(
         map((response) => response.data),
-        tap(this.setBodyPart.bind(this)),
+        tap((data) => this.bodyPart$$.next(data)),
       );
   }
 
@@ -51,11 +65,12 @@ export class BodyPartService {
     return this.bodyPart.get(type) as BodyPart[];
   }
 
-  private setBodyPart(bodyParts: BodyPart[]) {
-    this.bodyPart.set(BodyType.Common, bodyParts),
+  private setBodyPart(bodyParts: BodyPart[], lang: string) {
+    const modifiedBodyPart = bodyParts.map((data) => ({ ...data, bodypartName: lang === ENG_BE ? data.bodypartName : data.bodypartNameNl }));
+    this.bodyPart.set(BodyType.Common, modifiedBodyPart),
       this.bodyPart.set(BodyType.Male, []),
       this.bodyPart.set(BodyType.Female, []),
-      bodyParts.forEach((bodyPart) => {
+      modifiedBodyPart.forEach((bodyPart) => {
         this.bodyPart.set(bodyPart.id, bodyPart);
         if (bodyPart.isMale) {
           this.bodyPart.set(BodyType.Male, [...(this.bodyPart.get(BodyType.Male) as BodyPart[]), bodyPart]);
@@ -66,5 +81,6 @@ export class BodyPartService {
       });
   }
 }
+
 
 

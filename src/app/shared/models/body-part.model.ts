@@ -1,8 +1,10 @@
 export interface BodyPart {
-	id: number;
-	bodypartName: string;
-	bodypartAlias: string;
-	isMale: boolean;
-	isFemale: boolean;
+  id: number;
+  bodypartName: string;
+  bodypartAlias: string;
+  bodypartNameNl: string;
+  isMale: boolean;
+  isFemale: boolean;
 }
+
 

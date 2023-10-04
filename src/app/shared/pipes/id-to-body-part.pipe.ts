@@ -5,12 +5,14 @@ import { BodyPart } from '../models/body-part.model';
 
 @Pipe({
   name: 'idToBodyPart',
+  pure: false,
 })
 export class IdToBodyPartPipe implements PipeTransform {
   constructor(private bodyPartSvc: BodyPartService) {}
   transform(value: BodyPartCategory, key: keyof BodyPart = 'bodypartName'): any {
-    return this.bodyPartSvc.getBodyPartById(+value)?.[key] ?? '';
+    return this.bodyPartSvc.getBodyPartById(+value)?.[key] ?? value;
   }
 }
+
 
 

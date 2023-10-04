@@ -292,6 +292,8 @@
   "Gender": "Geslacht",
   "Male": "Mannelijk",
   "Female": "Vrouwelijk",
+  "[male]": "[Mannelijk]",
+  "[female]": "[Vrouwelijk]",
   "Side": "Zijde",
   "Front": "Voorkant",
   "Reset": "Resetten",
@@ -333,4 +335,5 @@
     }
   }
 }
+
 

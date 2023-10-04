@@ -106,10 +106,8 @@ dfm-input-dropdown {
   max-width: 40%;
 
     .exam-list {
-      display: grid;
-        grid-template-columns: 1fr 1fr;
+      display: flex;
       gap: 12px;
-      // max-height: 40vh;
       overflow: auto;
       flex-direction: column !important;
     }
