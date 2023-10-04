@@ -53,6 +53,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public isEdit$$ = new BehaviorSubject<boolean>(false);
 
+  public instructionSectionView: boolean = false;
+
   constructor(
     private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
@@ -135,11 +137,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       this.updateCalendarDays();
     });
 
-    this.scheduleAppointmentSvc.exams$.pipe(takeUntil(this.destroy$$)).subscribe((exams) =>
+    this.scheduleAppointmentSvc.exams$.pipe(takeUntil(this.destroy$$)).subscribe((exams) => {
       exams.forEach((exam) => {
         this.examIdToName[+exam.id] = { name: exam.name, info: exam.info, instructions: exam.instructions ?? '' };
-      }),
-    );
+      });
+      this.instructionSectionView = this.examsDetails?.exams?.some((exam) => !!this.examIdToName[exam]?.instructions);
+    });
 
     this.selectedCalendarDate$$
       .asObservable()

@@ -63,16 +63,18 @@
         <span class="time-text dfm-color-primary text-nowrap">{{ 'Comments' | translate }} : </span>
         <span class="time-span">{{ examDetails?.comments | dashIfNothing }}</span>
       </div>
-      <div class="instructions-text-section">
+      <div class="instructions-text-section" *ngIf="instructionSectionView">
         <span class="font-weight-medium text-primary instructions-text">{{ 'Instructions' | translate }}&nbsp;:&nbsp;</span>
         <ng-container *ngIf="exams$$ | async">
           <ng-container *ngIf="examIdToName | objectTOArray as exams;">
             <ng-container *ngIf="exams.length > 1; else oneExam">
               <ul style="list-style-type: disc; max-height: 150px; overflow-y: auto;">
-                <li *ngFor="let exam of exams">
+                <ng-container *ngFor="let exam of exams">
+                <li *ngIf="exam?.instructions">
                   <span class="font-weight-medium ">{{ exam?.name }} - </span>
                   <span class="instructions-value-text">{{ exam?.instructions | dashIfNothing}}</span>
                 </li>
+              </ng-container>
               </ul>
             </ng-container>
 
