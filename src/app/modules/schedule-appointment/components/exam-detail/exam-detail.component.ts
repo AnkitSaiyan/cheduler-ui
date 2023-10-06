@@ -70,9 +70,8 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
             comments: this.editData.comments,
             physician: this.editData.doctorId,
           };
-          setTimeout(() => {
-            this.examForm.patchValue(examData);
-          }, 200);
+
+          this.examForm.patchValue(examData);
 
           const items = this.examForm.get('exams') as FormArray;
 
@@ -175,17 +174,19 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     });
 
     if (!isEdit) {
-      const fa = this.examForm.get('exams') as FormArray;
-      if (examDetails && examDetails?.exams?.length) {
-        examDetails.exams.forEach((exam) => {
-          fa.push(this.newExam(+exam));
-        });
-        examDetails?.examsData.forEach((exam) => {
-          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
-        });
-      } else {
-        fa.push(this.newExam());
-      }
+    setTimeout(() => {
+        const fa = this.examForm.get('exams') as FormArray;
+        if (examDetails && examDetails?.exams?.length) {
+          examDetails.exams.forEach((exam) => {
+            fa.push(this.newExam(+exam));
+          });
+          examDetails?.examsData.forEach((exam) => {
+            this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
+          });
+        } else {
+          fa.push(this.newExam());
+        }
+      }, 200);
     }
   }
 
