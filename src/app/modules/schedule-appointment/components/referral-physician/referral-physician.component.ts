@@ -123,10 +123,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       .subscribe({
         next: (staffs) => {
           this.filteredPhysicians$$.next(staffs);
-          if (this.referringDetails?.physician)
+          if (this.referringDetails.physician.length)
             setTimeout(() => {
               this.physicianForm.patchValue({
-                physician: this.referringDetails?.physician,
+                physician: this.referringDetails.physician,
               });
             }, 0);
         },
