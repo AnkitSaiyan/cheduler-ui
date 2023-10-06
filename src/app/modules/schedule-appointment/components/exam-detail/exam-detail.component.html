@@ -26,7 +26,7 @@
               <div class="d-flex dfm-gap-8" *ngIf="filteredExams$$ | async as items">
                 <div>
                   <dfm-input-dropdown
-                    [items]="items | removeSelectedItem : examForm.value?.exams : i"
+                    [items]="items "
                     formControlName="exam"
                     label="{{ 'Exam' | translate }} *"
                     placeholder="{{ 'SelectExam' | translate }}"
