@@ -66,7 +66,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.referringDetails = {
       qrId: '',
       fileName: '',
-      physician: [],
+      physician: '',
       directUpload: true,
     };
 
@@ -123,7 +123,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       .subscribe({
         next: (staffs) => {
           this.filteredPhysicians$$.next(staffs);
-          if (this.referringDetails.physician.length)
+          if (this.referringDetails.physician)
             setTimeout(() => {
               this.physicianForm.patchValue({
                 physician: this.referringDetails.physician,
