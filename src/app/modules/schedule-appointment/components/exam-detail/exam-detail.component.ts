@@ -70,8 +70,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
             comments: this.editData.comments,
             physician: this.editData.doctorId,
           };
-
-          this.examForm.patchValue(examData);
+          setTimeout(() => {
+            this.examForm.patchValue(examData);
+          }, 200);
 
           const items = this.examForm.get('exams') as FormArray;
 
