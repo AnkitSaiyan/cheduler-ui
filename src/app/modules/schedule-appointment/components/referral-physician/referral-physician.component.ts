@@ -155,8 +155,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.physicianForm.patchValue({
         physician: data?.physician
       })
-      console.log(this.physicianForm.value, data);
-    }, 500);
+      // console.log(this.physicianForm.value, data);
+    }, 200);
   }
 
   public saveExamDetails() {
