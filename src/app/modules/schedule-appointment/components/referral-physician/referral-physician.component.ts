@@ -129,7 +129,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
                 physician: this.referringDetails.physician,
               });
               console.log(this.referringDetails, this.physicianForm, staffs);
-            }, 200);
+            }, 50);
         },
       });
     this.createForm(this.referringDetails);
