@@ -150,6 +150,12 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.physicianForm = this.fb.group({
       physician: [data?.physician ?? '', [Validators.required]],
     });
+    if (data?.physician)
+    setTimeout(() => {
+      this.physicianForm.patchValue({
+        physician: data?.physician
+      })
+    }, 0);
   }
 
   public saveExamDetails() {
