@@ -121,7 +121,15 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
         takeUntil(this.destroy$$),
       )
       .subscribe({
-        next: (staffs) => this.filteredPhysicians$$.next(staffs),
+        next: (staffs) => {
+          this.filteredPhysicians$$.next(staffs);
+          if (this.referringDetails?.physician)
+            setTimeout(() => {
+              this.physicianForm.patchValue({
+                physician: this.referringDetails?.physician,
+              });
+            }, 0);
+        },
       });
     this.createForm(this.referringDetails);
 
@@ -150,13 +158,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.physicianForm = this.fb.group({
       physician: [data?.physician ?? '', [Validators.required]],
     });
-    if (data?.physician)
-    setTimeout(() => {
-      this.physicianForm.patchValue({
-        physician: data?.physician
-      })
-      // console.log(this.physicianForm.value, data);
-    }, 200);
   }
 
   public saveExamDetails() {
