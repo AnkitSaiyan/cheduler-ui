@@ -223,12 +223,12 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       uncombinableError: [false, []],
     });
 
+    if (exam)
     setTimeout(() => {
       fg.patchValue({
         exam: exam
       });
-      console.log(exam, this.examForm);
-    }, 1000);
+    }, 200);
 
     fg.get('exam')
       ?.valueChanges.pipe(
