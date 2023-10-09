@@ -191,7 +191,9 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       } else {
         fa.push(this.newExam());
       }
-    }, 500);
+      console.log(examDetails, this.examForm);
+      
+    }, 1000);
   }
 
   public examCount(): FormArray {
