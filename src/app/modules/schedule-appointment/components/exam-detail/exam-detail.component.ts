@@ -174,20 +174,24 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     });
 
     if (!isEdit) {
-    setTimeout(() => {
-        const fa = this.examForm.get('exams') as FormArray;
-        if (examDetails && examDetails?.exams?.length) {
-          examDetails.exams.forEach((exam) => {
-            fa.push(this.newExam(+exam));
-          });
-          examDetails?.examsData.forEach((exam) => {
-            this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
-          });
-        } else {
-          fa.push(this.newExam());
-        }
-      }, 200);
+      this.addExamData(examDetails)
     }
+  }
+
+  private addExamData(examDetails) {
+    setTimeout(() => {
+      const fa = this.examForm.get('exams') as FormArray;
+      if (examDetails && examDetails?.exams?.length) {
+        examDetails.exams.forEach((exam) => {
+          fa.push(this.newExam(+exam));
+        });
+        examDetails?.examsData.forEach((exam) => {
+          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
+        });
+      } else {
+        fa.push(this.newExam());
+      }
+    }, 500);
   }
 
   public examCount(): FormArray {
