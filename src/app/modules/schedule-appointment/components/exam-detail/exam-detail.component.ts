@@ -228,7 +228,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       fg.patchValue({
         exam: exam
       });
-    }, 200);
+    }, 500);
 
     fg.get('exam')
       ?.valueChanges.pipe(
