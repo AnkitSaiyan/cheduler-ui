@@ -179,7 +179,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   private addExamData(examDetails) {
-    setTimeout(() => {
       const fa = this.examForm.get('exams') as FormArray;
       if (examDetails && examDetails?.exams?.length) {
         examDetails.exams.forEach((exam) => {
@@ -191,9 +190,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       } else {
         fa.push(this.newExam());
       }
-      console.log(examDetails, this.examForm);
-      
-    }, 1000);
   }
 
   public examCount(): FormArray {
@@ -226,6 +222,13 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       instructions: [this.filteredExams$$.value?.find((e) => +e.value === +e)?.description],
       uncombinableError: [false, []],
     });
+
+    setTimeout(() => {
+      fg.patchValue({
+        exam: exam
+      });
+      console.log(exam, this.examForm);
+    }, 1000);
 
     fg.get('exam')
       ?.valueChanges.pipe(
