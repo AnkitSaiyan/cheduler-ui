@@ -83,10 +83,10 @@
       <div class="popover-content">
         <!-- <h5 class="dfm-p-8">{{category.Breasts | idToBodyPart}}</h5> -->
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
-          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Breasts]" (click)="$event.stopPropagation();examSvc.addExam(category.Breasts + ' ['+gender.Female+']' , exam)" >
+          <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"   *ngFor="let exam of exams[gender.Female][category.Chest]" (click)="$event.stopPropagation();examSvc.addExam(category.Chest + ' ['+gender.Female+']' , exam)" >
             {{ exam.name }}
           </button>
-          <ng-container *ngIf="!exams[gender.Female][category.Breasts]?.length">
+          <ng-container *ngIf="!exams[gender.Female][category.Chest]?.length">
             <span class="no-exam">{{ 'NoExamsFound' | translate }}</span>
           </ng-container>
         </div>
