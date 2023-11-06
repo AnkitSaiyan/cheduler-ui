@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, debounceTime, filter, first, map, take, takeUntil } from 'rxjs';
@@ -45,6 +45,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     private modalSvc: ModalService,
     public examSvc: ExamService,
     private bodyPartSvc: BodyPartService,
+    private cdr: ChangeDetectorRef,
   ) {
     super();
     this.siteDetails$$ = new BehaviorSubject<any[]>([]);
@@ -128,6 +129,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
           this.allExams$$.next(exams);
           this.examSvc.setExam({ ...this.examModifiedData(exams) });
           this.filteredExams$$.next(exams);
+          this.cdr.detectChanges();
         },
       });
   }
@@ -169,27 +171,32 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       comments: [examDetails?.comments ?? examDetails.comments, []],
       uncombinableError: [false, []],
     });
-    this.addExamForm.patchValue({
-      comments: examDetails?.comments ? examDetails.comments : '',
-    });
+    this.examForm
+      .get('comments')
+      ?.valueChanges.pipe(takeUntil(this.destroy$$))
+      .subscribe((value) => {
+        this.addExamForm.patchValue({
+          comments: value ? value : '',
+        });
+      });
 
     if (!isEdit) {
-      this.addExamData(examDetails)
+      this.addExamData(examDetails);
     }
   }
 
   private addExamData(examDetails) {
-      const fa = this.examForm.get('exams') as FormArray;
-      if (examDetails && examDetails?.exams?.length) {
-        examDetails.exams.forEach((exam) => {
-          fa.push(this.newExam(+exam));
-        });
-        examDetails?.examsData.forEach((exam) => {
-          this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
-        });
-      } else {
-        fa.push(this.newExam());
-      }
+    const fa = this.examForm.get('exams') as FormArray;
+    if (examDetails && examDetails?.exams?.length) {
+      examDetails.exams.forEach((exam) => {
+        fa.push(this.newExam(+exam));
+      });
+      examDetails?.examsData.forEach((exam) => {
+        this.examSvc.addExam(exam.bodyPart + ' [' + exam.bodyType + ']', exam);
+      });
+    } else {
+      fa.push(this.newExam());
+    }
   }
 
   public examCount(): FormArray {
@@ -224,11 +231,11 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     });
 
     if (exam)
-    setTimeout(() => {
-      fg.patchValue({
-        exam: exam
-      });
-    }, 500);
+      setTimeout(() => {
+        fg.patchValue({
+          exam: exam,
+        });
+      }, 500);
 
     fg.get('exam')
       ?.valueChanges.pipe(
