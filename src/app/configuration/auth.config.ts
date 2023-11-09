@@ -11,7 +11,7 @@ export class AuthConfig {
     },
     {
       url: environment.userManagementApiUrl,
-      scope: 'https://diflexmoauth.onmicrosoft.com/usermanagement.api/usermanagement.api',
+      scope: 'https://diflexmoauthdev.onmicrosoft.com/usermanagement.api/usermanagement.api',
     },
   ];
 
