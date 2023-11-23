@@ -6,13 +6,11 @@ import { ExamService } from 'src/app/core/services/exam.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { Exam } from 'src/app/shared/models/exam.model';
-import { BodyType } from 'src/app/shared/utils/const';
 import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 import { ExamDetails } from '../../../../shared/models/local-storage-data.model';
 import { NameValue } from '../../../../shared/models/name-value.model';
 import { AnatomyModelComponent } from './anatomy-model/anatomy-model.component';
-import { BodyPartService } from 'src/app/core/services/body-part.service';
 
 @Component({
   selector: 'dfm-exam-detail',
@@ -44,7 +42,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     public loaderSvc: LoaderService,
     private modalSvc: ModalService,
     public examSvc: ExamService,
-    private bodyPartSvc: BodyPartService,
     private cdr: ChangeDetectorRef,
   ) {
     super();
@@ -166,11 +163,15 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   private createForm(examDetails?, isEdit?) {
     this.examForm = this.fb.group({
-      physician: [examDetails?.physician ? examDetails.physician : '', []],
+      physician: [examDetails.physician ?? '', []],
       exams: this.fb.array([], Validators.required),
-      comments: [examDetails?.comments ?? examDetails.comments, []],
+      comments: [examDetails?.comments ?? '', []],
       uncombinableError: [false, []],
     });
+    this.addExamForm.patchValue({
+      comments: examDetails?.comments ?? '',
+    });
+
     this.examForm
       .get('comments')
       ?.valueChanges.pipe(takeUntil(this.destroy$$))
@@ -272,7 +273,6 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public saveExamDetails(isFromMobile: boolean = false) {
-    // this.editData = {};
     if (isFromMobile && this.examForm.invalid) {
       this.examForm.markAllAsTouched();
       return;
