@@ -35,10 +35,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  align-items: center;
   flex-direction: row;
   padding: 12px 12px 12px 12px;
-  // gap: 3px;
 }
 .form-group{
   width: 265px;
@@ -54,14 +52,10 @@
     width: 100%;
   }
   .exam-main-container {
-    // background-color: #d3d3d3 !important;
-    // border: 1px solid red;
     width: 100%;
   }
   .basic-details-progress-bar {
-    // border: 1px solid red;
     margin-top: 45px !important;
-    // border: 1px solid red;
     width: 100%;
   }
   .basic-details-progress-bar .progress-button {
@@ -84,7 +78,6 @@
   }
   .form-group-container {
     width: 100%;
-    // border: 1px solid red;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,22 +94,18 @@
   }
   .exam-container {
     width: 100% !important;
-    // border: 1px solid blue;
     padding: 0px !important;
     display: flex !important;
     flex-direction: column !important;
   }
   .exam-container .left-container {
     width: 100% !important;
-    // border: 1px solid black;
   }
   .exam-container .right-container {
     width: 100% !important;
-    // border: 1px solid red;
   }
 
   .exam {
-    // border: 1px solid red;
     display: none !important;
   }
   .exam-text-area-mv {
@@ -124,7 +113,6 @@
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
-    // border: 1px solid red !important;
   }
   .exam-text-area {
     display: none !important;
@@ -144,8 +132,6 @@
   .form-container-mv {
     width: 100%;
     box-shadow: none !important;
-    // background-color:#fff;
-    // border: 1px solid red;
     padding: 0px!important;
   }
   .form-mv {
@@ -155,12 +141,7 @@
     padding: 0px !important;
     background-color: #f2f4f7 !important;
     box-shadow: none !important;
-    // border: 1px solid red;
   }
-  // .form-group-container {
-  //   display: flex !important;
-  //   flex-direction: column !important;
-  // }
 
   .select-exam-bar{
     display: none;

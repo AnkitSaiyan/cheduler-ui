@@ -1,5 +1,5 @@
 .sub-header-main-container {
-  background-color:var(--dfm-secondary-lighter);
+  background-color: var(--dfm-secondary-lighter);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -15,16 +15,19 @@
   .sub-header-img-container {
     display: flex;
     justify-content: end;
-    img{
+
+    img {
       width: 305px;
     }
   }
 }
-.welcome-text{
-  font-size: 31px!important;
+
+.welcome-text {
+  font-size: 31px !important;
 }
-.schedule-text{
-  font-size: 24px!important;
+
+.schedule-text {
+  font-size: 24px !important;
 }
 
 
@@ -42,9 +45,11 @@
     display: none;
 
   }
+
   .home-menu {
     display: none;
   }
+
   .navbar {
     margin-top: 0px;
     display: flex;
@@ -54,44 +59,47 @@
     position: fixed;
     top: 0;
     left: 0;
-    height: 45px!important;
-    // transform: translate(-50%, -50%);
-    // border: 1px solid red;
-    background-color:var(--dfm-primary-lighter);
+    background-color: var(--dfm-primary-lighter);
     width: 100%;
     padding: 0px 10px 0px 10px;
-    // border: 1px solid red;
-    height: 48px!important;
+    height: 48px !important;
   }
+
   .dashboard-text {
     display: block;
     font-size: 20px;
     font-weight: 400;
     color: #531422;
   }
+
   .menu {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0px;
-    // border: 1px solid black;
   }
+
   .sub-menu {
-    display: none!important;
+    display: none !important;
     top: 40px;
   }
+
   .arrow-btn {
     display: block;
   }
+
   .register-btn {
     display: none;
   }
+
   .add-user-btn-mv {
     display: none;
   }
+
   .lang-btn {
-    display: none;
+    display: none !important;
   }
+
   .navbar img {
     display: block;
   }
@@ -99,31 +107,35 @@
   .small-container {
     display: none;
   }
+
   .language-btn {
     display: none;
   }
-  .nav-brand{
-    margin: 3px 0px 0px 0px!important;
+
+  .nav-brand {
+    margin: 3px 0px 0px 0px !important;
   }
-  .sub-header-main{
+
+  .sub-header-main {
     display: none;
   }
-  .lang-btn-mv{
-    display: block!important;
+
+  .lang-btn-mv {
+    display: block !important;
     font-size: 13px;
   }
-  .lang-btn{
-    display: none!important;
+
+  .header-login-btn {
+    display: block !important;
   }
-  .header-login-btn{
-    display: block!important;
-  }
-  .header-register-btn{
-    display: block!important;
+
+  .header-register-btn {
+    display: block !important;
   }
 }
-@media (min-width: 320px) and (max-width: 374px){
-  .lang-btn-mv{
-    gap:5px!important
+
+@media (min-width: 320px) and (max-width: 374px) {
+  .lang-btn-mv {
+    gap: 5px !important
   }
 }

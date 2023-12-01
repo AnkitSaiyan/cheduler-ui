@@ -5,7 +5,6 @@ import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { BodyPart } from 'src/app/shared/models/body-part.model';
 import { BodyType, ENG_BE } from 'src/app/shared/utils/const';
 import { environment } from 'src/environments/environment';
-import { LoaderService } from './loader.service';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { ShareDataService } from 'src/app/services/share-data.service';
 
@@ -67,9 +66,9 @@ export class BodyPartService extends DestroyableComponent implements OnDestroy {
 
   private setBodyPart(bodyParts: BodyPart[], lang: string) {
     const modifiedBodyPart = bodyParts.map((data) => ({ ...data, bodypartName: lang === ENG_BE ? data.bodypartName : data.bodypartNameNl }));
-    this.bodyPart.set(BodyType.Common, modifiedBodyPart),
-      this.bodyPart.set(BodyType.Male, []),
-      this.bodyPart.set(BodyType.Female, []),
+    this.bodyPart.set(BodyType.Common, modifiedBodyPart);
+    this.bodyPart.set(BodyType.Male, []);
+    this.bodyPart.set(BodyType.Female, []);
       modifiedBodyPart.forEach((bodyPart) => {
         this.bodyPart.set(bodyPart.id, bodyPart);
         if (bodyPart.isMale) {

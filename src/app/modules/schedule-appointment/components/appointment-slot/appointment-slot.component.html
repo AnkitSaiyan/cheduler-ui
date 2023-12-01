@@ -17,10 +17,7 @@
         </div>
 
         <table class="calender-month-view">
-          <!--          <div class="position-absolute" style="top: 0; bottom: 0; left: 0; right: 0;">-->
-          <!--            <div class="block-loader"></div>-->
-          <!--          </div>-->
-
+          <caption></caption>
           <thead class="calender-month-view-weekday">
             <th>{{ weekdayEnum.MON | weekdayToName : true | uppercase | translate }}</th>
             <th>{{ weekdayEnum.TUE | weekdayToName : true | uppercase | translate }}</th>
@@ -114,7 +111,6 @@
                   <span class="font-weight-medium">{{ 'Slots' | translate }} </span>
                   <span *ngIf="examIdToAppointmentSlots[exam]">({{ examIdToAppointmentSlots[exam]?.length }})</span>
                   <span *ngIf="!examIdToAppointmentSlots[exam] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
-                  <!-- <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span> -->
                 </div>
                 <div class="d-flex justify-content-center" *ngIf="loadingSlots$$ | async; else showSlot1">
                   <mat-spinner  diameter="36"></mat-spinner>
@@ -190,7 +186,6 @@
                   <span class="font-weight-medium">{{ 'Slots' | translate }}: </span>
                   <span *ngIf="examsDetails?.exams?.length && examIdToAppointmentSlots[+examsDetails.exams[0]]">({{ examIdToAppointmentSlots[+examsDetails.exams[0]]?.length }})</span>
                   <span *ngIf="examsDetails?.exams?.length && !examIdToAppointmentSlots[+examsDetails.exams[0]] && (loadingSlots$$ | async) === false">{{ 'NoSlotFound' | translate }}</span>
-                  <!-- <span *ngIf="loadingSlots$$ | async">{{('LoadingSlots' | translate)}}...</span> -->
                 </div>
                 <div class="d-flex justify-content-center" *ngIf="loadingSlots$$ | async; else showSlot2">
                   <mat-spinner  diameter="36"></mat-spinner>

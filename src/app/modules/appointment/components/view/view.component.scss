@@ -30,7 +30,6 @@
 }
 
 .upcoming-appointments-details {
-    padding: 5px;
     border-radius: 8px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     display: flex;
@@ -81,7 +80,6 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    /* gap: 10px; */
 }
 
 .menu-item {
@@ -165,7 +163,6 @@
 
 .bg-lite-gray {
     width: 600px;
-    border: none;
     min-width: 50px;
     border: 2px solid #b0b3b7;
 }

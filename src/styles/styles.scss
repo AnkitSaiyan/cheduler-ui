@@ -90,8 +90,9 @@ $diflexmo-patient-theme: mat.define-light-theme((
 
 // Global styling
 body {
-  font-family: 'Montserrat', sans-serif;
   box-sizing: border-box;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 *{
@@ -100,11 +101,6 @@ body {
 
 
 // Custom styling classes
-// .hoverable-btn:hover{
-//   background-color: var(--dfm-primary);
-//   color: #fff!important;
-//   border-radius: 8px;
-// }
 .border-r-8 {
   border-radius: 8px;
 }
@@ -141,8 +137,6 @@ body {
   background: white;
   border-radius: 16px;
   box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
-  //height: fit-content;
-  //flex: 1;
 }
 
 .dfm-color-primary {
@@ -197,7 +191,6 @@ body {
   dfm-input-dropdown {
     input {
       background: var(--dfm-primary) !important;
-      border: none!important;
       display: flex!important;
       flex-direction: row!important;
       justify-content: flex-start!important;
@@ -219,9 +212,7 @@ body {
   dfm-icon {
     color: var(--dfm-secondary) !important;
     width: 12px!important;
-    // border: 1px solid red;
     padding: 0px!important;
-    // margin: 10px 0px 0px 0px!important;
   }
 }
 
@@ -232,8 +223,6 @@ dfm-footer {
   dfm-button{
     text-decoration: underline!important;
     color:#531422;
-    // background-color: #f4e3cf!important;
-    // font-size: 14px!important;
   }
 
 }
@@ -243,7 +232,6 @@ dfm-footer {
 }
 .register-menu{
   dfm-button{
-    // border: 1px solid red!important;
     box-shadow: none!important;
     border: none!important;
   }
@@ -275,7 +263,6 @@ dfm-footer {
   display: flex;
   flex-shrink: 0;
   flex-direction: row;
-  // align-items: flex-end!important;
   justify-content:space-between!important;
   padding: 16px!important;
   border: none!important;
@@ -305,7 +292,6 @@ dfm-footer {
 // notification styling
 dfm-notification {
   .dfm-notification {
-    //animation: fromRight 1s ease !important;
     top: 72px !important;
     right: 0 !important;
     z-index: 2000 !important;
@@ -408,7 +394,6 @@ dfm-notification {
 //popover
 
 .popover {
-  border: none;
   box-shadow: 0 .125rem 1.00rem rgba(0, 0, 0, .075);
   border: 1px solid var(--dfm-main-200);
   max-width: inherit;
@@ -456,20 +441,17 @@ dfm-notification {
 }
 
 .popover-content {
-  // padding: 24px;
   min-width: 180px;
 
   >h5 {
     padding: 4px 12px 0 12px;
     font-weight: 500;
-    // color: var(--dfm-primary);
   }
 
   .exam-list {
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    // gap: 8px;
 
     >button:hover {
       background: var(--dfm-primary);
@@ -481,9 +463,6 @@ dfm-notification {
       width: 100%;
       max-height: 32px;
         line-height: 32px;
-
-      // border-radius: px;
-      // color: var(--dfm-primary);
       &.selected {
         background: var(--dfm-primary);
           color: #ffffff;
@@ -498,7 +477,5 @@ dfm-notification {
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+

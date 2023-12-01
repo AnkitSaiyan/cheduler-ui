@@ -31,13 +31,11 @@
 @media (min-width: 180px) and (max-width: 680px) {
   .overview-main-container{
     width: 100%;
-    // border: 1px solid red;
     margin: 20px 0px 0px 0px;
   }
   .container.main {
     margin-top: 80px !important;
     width: 90%;
-    margin: auto;
     border-radius: 4px;
   }
   .click-above-text{
@@ -68,8 +66,6 @@
     display: flex!important;
     flex-direction: row!important;
     align-items: center;
-    // gap:5px!important;
-    // border: 1px solid red;
     line-height: 10px!important;
     font-size: 13px;
   }
@@ -94,10 +90,6 @@
   .check-above-text{
     font-size: 14px!important;
   }
-  // .account-login-block{
-  //   font-size: 11px!important;
-  //   font-weight: 600;
-  // }
   .login-text{
     font-size: 15px;
   }

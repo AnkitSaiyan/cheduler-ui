@@ -9,7 +9,8 @@
   transition: all 100ms linear;
 }
 
-.appointment-slot-sec-1, .appointment-slot-sec-2 {
+.appointment-slot-sec-1,
+.appointment-slot-sec-2 {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -24,11 +25,12 @@
 
 .appointment-slot-sec-2 {
   overflow-y: auto;
-  //max-height: 440px;
 }
 
-table, th, tr, td {
-  //border: 1px solid var(--dfm-main-300);
+table,
+th,
+tr,
+td {
   border-collapse: collapse;
 }
 
@@ -41,17 +43,19 @@ table, th, tr, td {
 .slot-timing {
   max-height: 140px;
   overflow-y: auto;
+
+
+&::-webkit-scrollbar {
+  height: 10px;
 }
-.slot-timing{
-  &::-webkit-scrollbar{
-    height: 10px;
-  }
-  &::-webkit-scrollbar-thumb{
+
+&::-webkit-scrollbar-thumb {
   background-color: var(--dfm-primary);
   width: 10px;
 }
-
 }
+
+
 
 .calender-month-view {
   transition: all 150ms linear;
@@ -59,12 +63,12 @@ table, th, tr, td {
   height: 100%;
   position: relative;
 
-  th, td {
+  th,
+  td {
     padding: 4px;
   }
 
   .calender-month-view-weekday {
-    //background: var(--dfm-table-odd-cell-bg);
 
     th {
       color: var(--dfm-primary);
@@ -74,7 +78,6 @@ table, th, tr, td {
     }
 
     .calender-month-view-day-cell {
-      //transition: all 150ms linear;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -95,9 +98,6 @@ table, th, tr, td {
 
 .calender-month-view-day-hover:hover {
   cursor: pointer;
-  //background: var(--dfm-main-200);
-  //border-color: var(--dfm-main-200);
-  //color: black;
 }
 
 
@@ -145,8 +145,6 @@ table, th, tr, td {
   transition: 200ms all ease-in-out;
 
   &:hover {
-    //background: var(--dfm-main-200);
-    //color: var(--dfm-primary);
     cursor: pointer;
   }
 }
@@ -178,94 +176,103 @@ table, th, tr, td {
 .time-slot-btn-mv {
   display: none;
 }
-.select-exam-bar-mv{
+
+.select-exam-bar-mv {
   display: none;
 }
 
-.basic-details-bar-mv{
+.basic-details-bar-mv {
   display: none;
 }
 
-.cal-next-btn-mv{
-  display: none!important;
+.cal-next-btn-mv {
+  display: none !important;
 }
 
-.cal-back-btn-mv{
-  display: none!important;
+.cal-back-btn-mv {
+  display: none !important;
 }
+
 @media (max-width: 1280px) {
   .appointment-slot-container {
     width: 100%;
   }
 }
-@media (max-width: 860px){
-  .calendar-mv{
+
+@media (max-width: 860px) {
+  .calendar-mv {
     flex-direction: column;
   }
+
   .appointment-slot-sec-1 {
     max-width: 100%;
   }
+
   .appointment-slot-divider {
-    margin:0px !important;
-    border:none
+    margin: 0px !important;
+    border: none
   }
 }
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  // * {
-  //   overflow-x: hidden;
-  // }
-  .appointment-slot-container{
-    width: 100%!important;
-    // border: 1px solid red;
+  .appointment-slot-container {
+    width: 100% !important;
   }
+
   .basic-details-progress-bar {
-    // border: 1px solid red;
     margin-top: 45px !important;
-    // border: 1px solid red;
     width: 100%;
   }
+
   .basic-details-progress-bar .progress-button {
     font-size: 14px;
     padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
     line-height: 14px;
-}
+  }
+
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
+
   .basic-details-progress-bar .time-slot-btn-mv {
     display: block;
   }
+
   .progress-bar-hr {
     width: 30px;
     height: 2px;
     opacity: 1;
   }
-  .appointment-slot-sec-1{
-    width:100%!important;
-    margin: 0px!important;
-    padding: 0px 0px!important;
+
+  .appointment-slot-sec-1 {
+    width: 100% !important;
+    margin: 0px !important;
+    padding: 0px 0px !important;
   }
+
   .calender-month-view-day {
     transition: all 150ms linear;
     text-align: center;
-    width: 30px!important;
-    height: 30px!important;
+    width: 30px !important;
+    height: 30px !important;
     border-radius: 50%;
     vertical-align: middle;
-    line-height: 30px!important;
+    line-height: 30px !important;
     color: var(--dfm-main-400);
   }
+
   .calendar {
     padding: 10px 20px;
   }
+
   .calendar-btn-mv {
     width: 35px !important;
     height: 35px !important;
   }
+
   .logo {
     background: #fdb022;
     border-radius: 50%;
@@ -280,9 +287,24 @@ table, th, tr, td {
     height: 10px;
     margin-left: 30px;
   }
+
   .notation-text {
     font-size: 14px;
   }
+
+  .slot-timing-mv span {
+    width: 100px !important;
+    height: 30px !important;
+    font-size: 13px !important;
+    padding: 14px !important;
+    font-weight: 500;
+    text-align: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    overflow-y: hidden;
+  }
+
   .slot-timing-mv {
     display: flex !important;
     flex-direction: column !important;
@@ -290,158 +312,161 @@ table, th, tr, td {
     gap: 10px;
     font-size: 10px;
     padding: 5px 6px;
-    // font-weight: 500;
+
+    &::-webkit-scrollbar {
+      display: block !important;
+      height: 20px !important;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: var(--dfm-primary-lighter);
+      border-radius: 16px;
+    }
+
+    &::-webkit-scrollbar-thumb:vertical {
+      background-color: var(--dfm-primary);
+      width: 10px;
+    }
   }
-  .slot-timing-mv span {
-    width: 100px!important;
-    height: 30px!important;
-    font-size: 13px!important;
-    padding: 14px!important;
-    font-weight: 500;
-    text-align: center;
-    display: flex!important;
-    align-items: center!important;
-    justify-content: center;
-    overflow-y: hidden;
-  }
-  .slot-timing-mv{
-    &::-webkit-scrollbar{
-    display: block!important;
-    height: 20px!important;
-  }
-  &::-webkit-scrollbar-track{
-    background-color: var(--dfm-primary-lighter);
-    border-radius:16px;
-  }
-  &::-webkit-scrollbar-thumb:vertical{
-    background-color:var(--dfm-primary);
-    width: 10px;
-    // height: 20px!important;
-    // height: inherit!important;
-    // border-radius: 40%;
-  }
-  }
+
   .time-detail {
     max-width: 300px !important;
   }
+
   .calendar .days span {
     width: 30px;
   }
+
   .calendar .month {
     padding: 0px !important;
   }
+
   .time-slot-container {
-    // border: 1px solid red;
     margin: 5px 0px 0px 0px !important;
     padding: 15px;
   }
+
   .time-slot-btn {
     display: none;
   }
+
   .time-slot {
     display: flex !important;
     padding: 0px 5px;
   }
-  .time-slot-btn {
-    display: none;
-  }
+
   .time-slot-mv {
     display: flex;
     flex-direction: column;
-    //align-items: center!important;
     max-height: 210px;
     flex-wrap: wrap;
     margin: 0px !important;
     padding: 0px !important;
     gap: 0px;
   }
+
   .slot-heading {
     font-size: 14px;
     font-weight: 700;
   }
-  .select-exam-bar{
+
+  .select-exam-bar {
     display: none;
   }
-  .select-exam-bar-mv{
+
+  .select-exam-bar-mv {
     display: block;
   }
-  .basic-details-bar{
+
+  .basic-details-bar {
     display: none;
   }
-  .basic-details-bar-mv{
+
+  .basic-details-bar-mv {
     display: block;
   }
-  .cal-back-btn-mv{
-    display: block!important;
+
+  .cal-back-btn-mv {
+    display: block !important;
   }
-  .cal-next-btn-mv{
-    display: block!important;
+
+  .cal-next-btn-mv {
+    display: block !important;
   }
-  .cal-next-btn{
-    display: none!important;
+
+  .cal-next-btn {
+    display: none !important;
   }
-  .cal-back-btn{
-    display: none!important;
+
+  .cal-back-btn {
+    display: none !important;
   }
-  .calendar-mv{
-    display: flex!important;
+
+  .calendar-mv {
+    display: flex !important;
     flex-direction: column;
-  }
-  .appointment-slot-sec-1{
-    width: 250px;
-  }
-  .calendar-mv{
     gap: 8px;
     width: 100%;
   }
-  .circle-24{
-    width: 15px!important;
-    height: 15px!important;
-    border-radius: 50%!important;
+
+  .circle-24 {
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 50% !important;
   }
+
   .appointment-slot-divider {
-    margin:0px !important;
-    border:none
+    margin: 0px !important;
+    border: none
   }
-  .appointment-slot-sec-2{
-    // border: 1px solid red;
-    overflow-y:auto;
+
+  .appointment-slot-sec-2 {
+    overflow-y: auto;
     padding: 0px;
   }
-  .calendar-footer-text-container-mv{
+
+  .calendar-footer-text-container-mv {
     justify-content: center;
   }
-  .off-day{
+
+  .off-day {
     white-space: nowrap;
   }
 }
 
-@media (min-width: 320px) and (max-width: 374px){
+@media (min-width: 320px) and (max-width: 374px) {
   * {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
   }
-  .basic-details-progress-bar .progress-button{
-    font-size: 10.5px!important;
+
+  .basic-details-progress-bar .progress-button {
+    font-size: 10.5px !important;
   }
-  .calendar-footer-section{
-    padding: 10px!important;
+
+  .calendar-footer-section {
+    padding: 10px !important;
   }
-  .time-slot-mobile{
+
+  .time-slot-mobile {
     border: 1px solid red;
     background-color: red;
   }
-  .calender-month-view-day{
-    width: 25px!important;
-    height: 25px!important;
-    line-height: 25px!important;
+
+  .calender-month-view-day {
+    width: 25px !important;
+    height: 25px !important;
+    line-height: 25px !important;
   }
-  .month-title-mv{
-    font-size: 18px!important;
+
+  .month-title-mv {
+    font-size: 18px !important;
   }
-  .calender-month-view-weekday th{
-    font-size: 12px!important;
+
+  .calender-month-view-weekday th {
+    font-size: 12px !important;
   }
-  .calendar-footer-text span{
-    font-size: 13px!important;
+
+  .calendar-footer-text span {
+    font-size: 13px !important;
   }
-  }
+}

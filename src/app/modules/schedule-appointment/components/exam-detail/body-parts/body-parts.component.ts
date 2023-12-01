@@ -76,14 +76,4 @@ export class BodyPartsComponent implements OnInit {
       eamGroup: this.fb.array([]),
     });
   }
-
-  private get examFormGroup() {
-    return this.fb.group({
-      exam: [null, []],
-    });
-  }
-
-  public get formArray() {
-    return;
-  }
 }
