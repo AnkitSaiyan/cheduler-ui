@@ -5,7 +5,6 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  //align-items: center;
   gap: 20px;
   transition: 200ms min-width linear;
 }
@@ -49,7 +48,6 @@
     width: 45px;
     height: 45px;
     padding: 8px;
-    // border: 1px solid red;
   }
 }
 
@@ -99,7 +97,6 @@
   .dfm-side-nav{
     position: fixed;
     width: 100%;
-    min-height: 86px;
     min-width: 0px!important;
     bottom: 0;
     flex-direction: row;
@@ -107,6 +104,8 @@
     align-items: center;
     z-index: 5;
     transition: none!important;
+    min-height: 0px;
+    height: 55px;
   }
 
   .toggle-btn-mv{
@@ -129,7 +128,6 @@
     max-width: 60px;
     width: 45px;
     color:#fff;
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -150,10 +148,6 @@
   }
   .dfm-side-nav-item-icon:hover .sub-menu-mv{
     display: block!important;
-  }
-  .dfm-side-nav{
-    min-height: 0px;
-    height: 55px;
   }
   .retain-div{
     width: 0px!important;

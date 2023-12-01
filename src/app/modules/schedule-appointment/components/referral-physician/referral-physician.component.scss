@@ -31,10 +31,7 @@
 .comments-mv {
   display: none !important;
 }
-.comments-section {
-  // border: 1px solid green;
-  // margin: 0px 0px -10px 0px!important;
-}
+
 .trash-btn {
   width: 20px;
   height: 20px;
@@ -42,21 +39,13 @@
   cursor: pointer;
   color: var(--dfm-primary);
 }
-// .trash-btn dfm-icon:hover{
-//   // background-color:none;
-//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-//   padding: 5px;
-//   border-radius: 8px;
-//   transition: .2s;
-// }
+
 .exam-form-main-container {
   .exam-form-container {
     min-width: 40vw;
   }
   .upload-main-container {
     display: flex;
-    // border: 1px solid red;
-    // justify-content: center;
     align-items: center;
   }
   .upload-container {
@@ -64,11 +53,9 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    // background-color: var(--dfm-primary-lighter);
     border-radius: 50px;
     padding: 10px 40px;
     gap: 10px;
-    width: auto;
     .upload-btn {
       width: 50px;
       height: 50px;
@@ -149,39 +136,24 @@
   }
 }
 // ======================Media Query for Mobile view=================
-@media (min-width: 680px) {
-  .exam-form-container {
-    // min-height: 336px;
-    // min-width: 666px;
-  }
-}
 @media (min-width: 180px) and (max-width: 680px) {
-  .exam-form-container {
-    // min-height: min(60vh, 354px);
-  }
   .main-exam-container {
-    // border: 1px solid red;
     padding: 10px 0px 10px 0px !important;
     background-color: #fff;
   }
 
   .exam-main-container {
-    // background-color: #fff !important;
-    // border: 1px solid green;
     width: 100%;
   }
   .exam-form-container {
     padding: 10px 20px !important;
     display: flex;
-    // border: 1px solid green;
     flex-direction: column;
     width: 100%;
     box-shadow: none !important;
   }
   .basic-details-progress-bar {
-    // border: 1px solid red;
     margin-top: 45px !important;
-    // border: 1px solid red;
     width: 100%;
   }
   .basic-details-progress-bar .progress-button {
@@ -205,23 +177,18 @@
 
   .exam-container {
     width: 100% !important;
-    // border: 1px solid blue;
     padding: 0px !important;
     display: flex !important;
     flex-direction: column !important;
   }
   .exam-container .left-container {
     width: 100% !important;
-    // border: 1px solid black;
-    // background-color: #f2f4f7;
   }
   .exam-container .right-container {
     width: 100% !important;
-    // border: 1px solid red;
   }
 
   .exam {
-    // border: 1px solid red;
     display: none !important;
   }
   .exam-text-area-mv {
@@ -229,7 +196,6 @@
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
-    // border: 1px solid red !important;
   }
   .exam-text-area {
     display: none !important;
@@ -259,6 +225,7 @@
 
   .exam-next-btn {
     background-color: #f2f4f7;
+    display: none !important;
   }
   .select-exam-bar {
     display: none;
@@ -271,9 +238,6 @@
   }
   .basic-details-bar-mv {
     display: block;
-  }
-  .exam-next-btn {
-    display: none !important;
   }
   .exam-next-btn-mv {
     display: block !important;
@@ -289,7 +253,6 @@
     display: none !important;
   }
   .exam-form-main-container .upload-container {
-    // flex-direction: column;
     padding: 10px;
     align-items: center;
     justify-content: center;

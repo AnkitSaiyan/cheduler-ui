@@ -1,13 +1,10 @@
 * {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
 }
 
 .login-dashboard-content {
-  // width: 100%;
   margin: 35px;
   padding: 20px;
-  // max-height: 400px;
-  // overflow-y: auto;
 }
 
 .referral-note{
@@ -27,10 +24,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  // max-height: 400px;
-  // overflow-y: auto;
-  // padding: 400px 0px 0px 0px;
-  // border: 1px solid red;
 }
 
 .display-3 {
@@ -58,10 +51,6 @@
   overflow-x: auto;
   max-height: 130vh;
 }
-// .display-boxes{
-//     // border: 3px solid green;
-//     max-width: 50%;
-// }
 
 .upcoming-appointments-date-time {
   display: flex;
@@ -73,7 +62,6 @@
 }
 
 .instruction-details {
-  // border: 1px solid red;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,7 +72,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  // justify-content: space-between;
   gap: 15px;
   margin-left: 15px;
 }
@@ -124,7 +111,6 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  /* gap: 10px; */
 }
 
 .menu-item {
@@ -152,7 +138,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // position: relative;
 }
 
 .white-button {
@@ -167,11 +152,8 @@
 }
 
 .previous-appointment-container {
-  // border: 1px solid red;
   padding: 20px;
   margin: 35px;
-  // max-height: 400px;
-  // overflow-y: auto;
 }
 
 .previous-appointment-cards {
@@ -179,13 +161,10 @@
   flex-direction: row;
   justify-content: space-between !important;
   align-items: center;
-  // max-height: 400px;
-  // overflow-y: auto;
 }
 
 .card-item {
   padding: 20px 40px;
-  // box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -203,16 +182,12 @@
 }
 
 .view-all-btn {
-  // position: absolute;
-  // top: 0;
-  // margin-left: 803px;
   text-decoration: underline;
   text-decoration-color: var(--dfm-primary);
 }
 
 .bg-lite-gray {
   width: 600px;
-  border: none;
   min-width: 50px;
   border: 2px solid #b0b3b7;
 }
@@ -246,7 +221,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  // border: 1px solid red;
   gap: 8px;
 }
 
@@ -277,11 +251,9 @@
 
 .ellipse-class {
   width: 100%;
-  // display: inline-flex;
   height: 25px;
   overflow-y: hidden;
   overflow: hidden !important;
-  // text-overflow: ellipsis;
 }
 
 .heading-div {
@@ -290,7 +262,6 @@
 }
 
 .exam-section {
-  // flex: 0 0 47%;
   background: #f8fafc;
   border: 1px solid rgba(224, 221, 228, 0.5);
   border-radius: 8px;
@@ -364,7 +335,6 @@
   white-space:nowrap;
 }
 .instructions-details{
-  // word-break: break-all;
   flex: 4;
 }
 // ======================Media Query for Mobile view=================
@@ -379,32 +349,25 @@
   }
 
   .upcoming-appointments-section {
-    width: 100%;
-    // border: 1px solid black;
-  }
-
-  .upcoming-appointments-section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
 
   .upcoming-text {
     font-size: 17px !important;
-    // text-align: left;
     font-weight: 600;
     margin: 0px 0px 0px 0px !important;
   }
 
   .upcoming-appointments-details {
-    // border: 1px solid red;
     width: 100% !important;
     padding: 15px !important;
     gap: 5px !important;
   }
 
   .upcoming-appointments-date-time {
-    // border: 1px solid red;
     width: 100% !important;
     display: flex;
     flex-direction: column;
@@ -423,7 +386,6 @@
 
   .appointment-hr-mv {
     width: 100%;
-    // margin: 1rem 0;
     color: inherit;
     border: 0;
     border-top: 1px solid;
@@ -435,6 +397,7 @@
 
   .appointment-exam-text {
     font-size: 14px !important;
+    display: none !important;
   }
 
   .appointment-exam-text-mv {
@@ -443,10 +406,6 @@
     margin: 0px !important;
     width: 100% !important;
     font-weight: 600;
-  }
-
-  .appointment-exam-text {
-    display: none !important;
   }
 
   .instructions-text-section-mv {
@@ -470,8 +429,6 @@
   .previous-app-text {
     display: block !important;
     margin: 16px 0px 0px 0px;
-    // color:var(--dfm-primary);
-    // border: 1px solid red;
     font-weight: 600;
     font-size: 17px !important;
   }
@@ -480,7 +437,6 @@
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    // border: 1px solid red;
     border-radius: 8px;
     background-color: #fff;
     gap: 8px !important;
@@ -494,7 +450,6 @@
     font-size: 13px !important;
     gap: 33px !important;
     justify-content: flex-start;
-    // border: 1px solid red;
   }
 
   .previous-appointment-title {
@@ -502,15 +457,12 @@
     flex-direction: column !important;
     justify-content: start !important;
     align-items: flex-start !important;
-    // position: relative;
   }
 
   .card-item {
     gap: 8px !important;
     padding: 10px 20px !important;
-    // height: 100px!important;
     width: 100% !important;
-    // border: 1px solid red;
     box-shadow: none !important;
   }
 
@@ -540,8 +492,7 @@
     display: block !important;
   }
   .status-text-color {
-    display: flex;
-    // border: 1px solid red;
+    display: none !important;
     font-size: 15px;
     font-weight: 600;
   }
@@ -563,9 +514,7 @@
   .exam-section {
     flex: 1;
   }
-  .status-text-color{
-    display: none!important;
-  }
+ 
   .status-text-color-mv{
     display: block;
     color: #4b5565;
@@ -615,7 +564,6 @@
 @media (min-width: 320px) and (max-width: 374px) {
   .status-text-color {
     display: flex;
-    // border: 1px solid red;
     font-size: 15px;
     font-weight: 600;
   }
@@ -627,21 +575,22 @@
 
   .upcoming-text {
     font-size: 15px !important;
-    // color: #531422;
-    // text-align: left;
     font-weight: 600;
     margin: 16px 0px 0px 0px !important;
   }
 
   .upcoming-appointments-details {
-    // border: 1px solid red;
     width: 100% !important;
     padding: 0px !important;
     gap: 5px !important;
   }
 
   .upcoming-appointments-date-time {
-    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 5px;
     width: 100% !important;
   }
 
@@ -662,18 +611,14 @@
 
   .appointment-exam-text {
     font-size: 14px !important;
+    display: none !important;
   }
 
   .appointment-exam-text-mv {
     display: block !important;
-    // font-size: 14px;
     padding: 0px !important;
     margin: 0px !important;
     width: 100% !important;
-  }
-
-  .appointment-exam-text {
-    display: none !important;
   }
 
   .instructions-text-section-mv {
@@ -697,7 +642,6 @@
   .previous-app-text {
     display: block !important;
     margin: 20px 0px 0px 0px;
-    // border: 1px solid red;
   }
 
   .previous-appointment-cards {
@@ -716,14 +660,6 @@
     align-items: flex-start;
     gap: 5px !important;
     font-size: 12px !important;
-  }
-
-  .upcoming-appointments-date-time {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 5px;
   }
 
   .time-span {

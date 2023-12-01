@@ -50,7 +50,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}')?.data);
 
     this.addExamForm = this.fb.group({
       exam: [null, []],
@@ -60,7 +60,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe({
       next: (examDetails) => {
         if (localStorage.getItem('appointmentDetails')) {
-          this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+          this.editData = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
 
           this.createForm(examDetails, true);
 
@@ -151,7 +151,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       exam.bodyPart?.forEach(({ id }) => {
         bodyTypes.forEach((bodyType) => {
           if (modifiedExamList[bodyType]?.[id]) {
-            modifiedExamList[bodyType][id] = [...modifiedExamList[bodyType]?.[id], { ...exam, bodyPart: id, bodyType }];
+            modifiedExamList[bodyType][id] = [...(modifiedExamList[bodyType]?.[id] ?? []), { ...exam, bodyPart: id, bodyType }];
           } else {
             modifiedExamList[bodyType][id] = [{ ...exam, bodyPart: id, bodyType }];
           }
@@ -177,7 +177,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
       ?.valueChanges.pipe(takeUntil(this.destroy$$))
       .subscribe((value) => {
         this.addExamForm.patchValue({
-          comments: value ? value : '',
+          comments: value ?? '',
         });
       });
 

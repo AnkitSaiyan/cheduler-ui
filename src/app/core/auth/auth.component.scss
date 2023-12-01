@@ -10,7 +10,6 @@
   .auth-sub-container {
     max-width: fit-content;
     height: fit-content;
-    //margin: auto;
     display: grid;
     grid-template-columns: 1.6fr 1px 1.5fr;
     justify-content: center;
@@ -47,19 +46,14 @@
     background: transparent !important;
     padding: 0px;
     min-height: calc(100vh - 76px - 73px);
-    // border: 1px solid red;
   }
 
   .auth-container .auth-sub-container {
     width: 100% !important;
-    // border: 1px solid red;
     padding: 0px !important;
     display: flex !important;
     max-width: none;
     height: auto;
-    //margin: auto;
-    display: grid;
-    // grid-template-columns: 1fr 1px 1fr;
     justify-content: center;
     background-color: transparent !important;
     box-shadow: none!important;

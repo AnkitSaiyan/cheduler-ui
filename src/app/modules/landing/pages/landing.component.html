@@ -23,9 +23,6 @@
               'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit consequuntur consequatur quae architecto, dolore id?'
         }}
       </p>
-      <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="schedule-button" routerLink="/schedule/overview">
-        Schedule Appointment
-      </dfm-button> -->
       <div class="mt-4 sc-btn">
         <dfm-button color="primary" size="lg" class="button-design schedule-button" routerLink="/schedule/referral-physician" (click)="resetAppointmentData()">
           {{ 'ScheduleAppointment' | translate }}
@@ -38,7 +35,7 @@
 
     <div class="right-section">
       <div class="right-section-img">
-        <img class="w-100 h-100 object-fit-contain" src="../../../../assets/images/landing-1.png" />
+        <img class="w-100 h-100 object-fit-contain" src="../../../../assets/images/landing-1.png" alt="image"/>
       </div>
     </div>
   </div>
@@ -54,12 +51,11 @@
           <span class="opening-section-header">{{ 'OpeningDays' | translate }}</span>
           <span class="opening-section-header-mv mx-2"> {{ 'OpeningDays' | translate }}</span>
           <table class="mt-2 opening-days">
+            <caption></caption>
             <tr *ngFor="let item of weekDay; let i = index">
               <th *ngIf="i > 0">{{ days[i] | translate }}</th>
               <td *ngIf="i > 0">
                 <span *ngIf="item; else elseBlock">{{ item }}</span>
-              </td>
-              <!-- <td *ngIf="i > 0"><span *ngIf="item ; else elseBlock">{{item.split('-')[0] | date: 'HH-MM'}}{{item.split('-')[1] | date: 'HH-MM'}}</span></td> -->
             </tr>
             <tr *ngFor="let item of weekDay; let i = index">
               <th *ngIf="i === 0">{{ days[i] | translate }}</th>

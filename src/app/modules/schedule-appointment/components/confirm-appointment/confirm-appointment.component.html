@@ -5,6 +5,8 @@
         <h5 class="font-weight-bold">{{"PatientDetails" | translate}}</h5>
         <div class="patient-detail-container">
           <table>
+            <caption></caption>
+            <tr *ngIf="false"><th></th></tr>
             <tr>
               <td class="text-primary table-title text-nowrape">{{"Name" | translate}} :</td>
               <td class="user-info">{{ basicDetails?.patientFname | titlecase }} {{ basicDetails?.patientLname }}</td>
@@ -48,7 +50,7 @@
             <dfm-icon name="calendar-check-01" style="color: #4e2267"></dfm-icon>
           </div>
           <span class="date-text dfm-color-primary text-nowrap">{{ 'Date' | translate }} : </span>
-          <span class="date-span text-nowrap">{{ slotDetails?.selectedDate | date : 'dd/MM/yyy' }}</span>
+          <span class="date-span text-nowrap">{{ slotDetails.selectedDate | date : 'dd/MM/yyy' }}</span>
         </div>
 
         <div class="d-flex gap-2 font-weight-medium time-section">
@@ -61,7 +63,7 @@
       </div>
       <div class="d-flex gap-2 font-weight-medium time-section">
         <span class="time-text dfm-color-primary text-nowrap">{{ 'Comments' | translate }} : </span>
-        <span class="time-span">{{ examDetails?.comments | dashIfNothing }}</span>
+        <span class="time-span">{{ examDetails.comments | dashIfNothing }}</span>
       </div>
       <div class="instructions-text-section" *ngIf="instructionSectionView">
         <span class="font-weight-medium text-primary instructions-text">{{ 'Instructions' | translate }}&nbsp;:&nbsp;</span>
@@ -86,11 +88,6 @@
       </div>
 
       <div class="d-flex flex-column dfm-gap-8" *ngIf="(appointment$$ | async)?.id && (isEdit$$ | async) === false">
-        <!-- <span class="font-weight-medium">Status</span>
-
-        <dfm-badge size="sm">
-          <span class="appointment-status font-weight-medium">Pending</span>
-        </dfm-badge> -->
         <div class="appointment-status">
           <div class="d-flex gap-2 align-items-center">
             <span class="font-weight-semi-bold text-primary">{{ 'Status' | translate }}&nbsp;:&nbsp;</span>
@@ -200,15 +197,6 @@
         <dfm-button [color]="'secondary'" (click)="onEdit()" [size]="'sm'" class="edit-btn-mv" routerLink="../slot">
           {{ 'Edit' | translate }}
         </dfm-button>
-
-        <!-- <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="cancelAppointment()">
-        {{"CancelAppointment" | translate}}
-      </dfm-button>
-
-      <dfm-button [color]="'primary'" [size]="'sm'" class=" cancel-btn-mv"
-                  (click)="cancelAppointment()">
-        {{"Cancel" | translate}}
-      </dfm-button> -->
         <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn" (click)="onAddNewAppointment()">
           {{ 'AddNewAppointment' | translate }}
         </dfm-button>

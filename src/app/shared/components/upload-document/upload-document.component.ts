@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
-import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, take, takeUntil } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
@@ -68,8 +68,8 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
 
   public uploadRefferingNote(event: any) {
     this.uploadFileName = event.target.files[0].name;
-    var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
-    var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    let extension = this.uploadFileName.slice(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
+    let allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
     const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (allowedExtensions.indexOf(extension) === -1) {

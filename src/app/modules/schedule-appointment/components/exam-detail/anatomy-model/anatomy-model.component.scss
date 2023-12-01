@@ -9,39 +9,38 @@
   transition: 200ms all ease-in-out;
 
   &:hover {
-    //background: var(--dfm-main-200);
-    //color: var(--dfm-primary);
     cursor: pointer;
   }
-dfm-button-icon {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  overflow: hidden;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-}
-p {
-  white-space: pre-wrap;
-}
+
+  dfm-button-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+
+  p {
+    white-space: pre-wrap;
+  }
 
   .basic-basea {
     display: flex;
     justify-content: center;
     height: 600px;
 
-    > svg {
+    >svg {
       height: 600px;
 
-      > path {
+      >path {
         stroke: var(--dfm-primary);
         stroke-opacity: 1;
       }
 
-      > path:hover {
+      >path:hover {
         fill: var(--dfm-primary);
       }
     }
@@ -51,32 +50,29 @@ p {
 dfm-input-dropdown {
   min-width: 160px;
 }
-.popover-content {
-  // padding: 24px;
 
-  > h5 {
+.popover-content {
+
+  >h5 {
     padding: 16px 12px 0 12px;
     font-weight: 500;
-    // color: var(--dfm-primary);
   }
 
   .exam-list {
     display: flex;
-      flex-direction: column;
+    flex-direction: column;
     align-items: baseline;
-    // gap: 8px;
 
-    > button:hover {
+    >button:hover {
       background: var(--dfm-primary);
       color: #ffffff;
     }
 
-    > button {
+    >button {
       text-align: left;
       width: 100%;
       padding: 8px 12px;
-      // border-radius: px;
-      // color: var(--dfm-primary);
+
       &.selected {
         color: var(--dfm-primary);
       }
@@ -105,15 +101,15 @@ dfm-input-dropdown {
   gap: 16px;
   max-width: 40%;
 
-    .exam-list {
-      display: flex;
-      gap: 12px;
-      overflow: auto;
-      flex-direction: column !important;
-    }
+  .exam-list {
+    display: flex;
+    gap: 12px;
+    overflow: auto;
+    flex-direction: column !important;
+  }
 }
 
-.exam-container{
+.exam-container {
   max-height: 256px;
   overflow: auto;
 }
@@ -121,6 +117,7 @@ dfm-input-dropdown {
 .model-container {
   width: min(380px, 29vw);
 }
+
 .mat-chip {
   display: flex;
   align-items: center;
@@ -144,9 +141,11 @@ dfm-input-dropdown {
   gap: 4px;
   flex-wrap: wrap;
 }
+
 p {
   font-weight: 600;
 }
+
 .filter {
   height: fit-content;
   border: 0.5px solid gray;
@@ -161,7 +160,7 @@ p {
 
     gap: 4px;
 
-    > h5 {
+    >h5 {
       margin: 0;
       font-weight: 600;
     }

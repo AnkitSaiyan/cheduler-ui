@@ -1,5 +1,5 @@
 * {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
 }
 .display-4{
   font-weight: 500;
@@ -11,16 +11,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  // border: 1px solid red;
   height: 70px!important;
 }
 .nav-main-container .container .lang-btn {
   max-width: 80px;
-  // background-color: transparent;
   display: none;
 }
 .navigation-section{
-  // border: 1px solid red;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -40,11 +37,8 @@
 
 .left-container {
   border-right: 1px solid var(--bs-gray-400);
-  // border: 1px solid red;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
   .left-container-img {
     display: flex;
     justify-content: center;
@@ -69,7 +63,6 @@
   line-height: 38px;
   /* identical to box height, or 127% */
   color: var(--dfm-primary);
-  // border: 1px solid red;
 }
 
 .sub-header {
@@ -84,6 +77,7 @@
   line-height: 44px;
   /* identical to box height, or 122% */
   color: #000000;
+  margin: 0px;
 }
 
 .new-user {
@@ -101,14 +95,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  align-items: center;
   flex-direction: row;
   padding: 12px 12px 12px 12px;
-  // gap: 3px;
 }
 
 .forgot-password {
-  // padding-left: 276px;
   float: right;
   text-decoration: underline;
   color: var(--dfm-primary);
@@ -144,7 +135,6 @@
 // ======================Media Query for Mobile view=================
 @media (max-width: 1024px) {
   .login-main-container{
-    // border: 1px solid red;
     width: 100%;
     margin: 30px 0px 0px 0px;
   }
@@ -157,7 +147,6 @@
   .nav-main-container {
     background-color:var(--dfm-primary-lighter);
     width: 100%;
-    // border: 1px solid red;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -177,7 +166,6 @@
   }
   .login-container {
     box-shadow: none;
-    // border: 1px solid blue;
     width: 100%;
     padding: 0;
   }
@@ -187,9 +175,7 @@
     flex-direction: column;
     align-items: center;
     padding: 0px 15px 0px 15px;
-    // border: 1px solid red;
     margin: 30px 0px 0px 0px;
-    // border: 1px solid red;
   }
   .register-user {
     text-decoration: underline;
@@ -204,24 +190,13 @@
     display: none;
   }
   .login-container .right-container {
-    // border: 1px solid red;
     width: 100%;
   }
   .right-subheader-section {
-    // border: 1px solid red;
     line-height: 0;
     margin-top: 0px !important;
   }
-  .right-section-header {
-    // border: 1px solid red;
-    margin: 0px;
-  }
-  // .login-container .right-container .login-form {
-  //   width: 100%!important;
-  //   border: 1px solid black;
-  //   padding: 10px;
-  //   margin: 0;
-  // }
+
   .login-form{
     width: 100%!important;
     padding: 0px 10px;
