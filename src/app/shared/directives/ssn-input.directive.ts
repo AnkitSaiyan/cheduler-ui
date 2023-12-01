@@ -18,8 +18,6 @@ export class SsnInputDirective {
 
   private numberOnly: RegExp = /^[0-9.-]+$/;
 
-  constructor() {}
-
   private handleChange(e: InputEvent) {
     const inputText = this.dfmSsnInput.value?.toString();
 

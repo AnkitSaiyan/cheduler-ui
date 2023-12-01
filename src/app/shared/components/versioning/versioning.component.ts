@@ -1,7 +1,4 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit } from '@angular/core';
-// import {SwUpdate, VersionReadyEvent} from "@angular/service-worker";
-// import {filter, from, map} from "rxjs";
-// import {VersioningService} from "../../../core/services/versioning.service";
 
 @Component({
   selector: 'dfm-versioning',
@@ -41,9 +38,6 @@ export class VersioningComponent implements OnInit {
   }
 
   public reload() {
-    // this.clearCookies();
-    // this.authService.logout$();
-    // this.localStorageService.clear();
     window.location.reload();
   }
   //

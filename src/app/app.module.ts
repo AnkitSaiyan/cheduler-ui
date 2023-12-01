@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {DesignSystemCoreModule} from 'diflexmo-angular-design';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ServiceWorkerModule} from '@angular/service-worker';
 import {DatePipe} from '@angular/common';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -65,7 +64,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   imports: [
     BrowserModule,
     CoreModule,
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: !window.location.href.includes('localhost') }),
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,

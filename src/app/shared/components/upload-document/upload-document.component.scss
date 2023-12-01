@@ -7,19 +7,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-color: white;
     position: relative;
-    // top: 10vh;
     height: 80vh;
     width: 60vw;
     border-radius: 10px;
     padding: 0px;
-    // .back-container {
-    //   background-color: var(--dfm-primary);
-    //   height: 300px;
-    //   width: 100%;
-    //   border-radius: 14px;
-    // }
   }
 }
 
@@ -41,8 +33,6 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   flex-direction: column;
   .upload-img-desc{
-    // position: absolute;
-    // top: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,7 +76,6 @@
       font-size: 13px;
     }
     input[type="file"]{
-        // border: 1px solid red;
         display: inline;
         position: absolute;
         width: inherit;
@@ -111,9 +100,7 @@
     50% {
       transform: translateY(-8px);
     }
-    // 100%{
-    //     transform: translateY(8px);
-    // }
+
     75% {
       transform: translateY(8px);
     }
@@ -121,19 +108,7 @@
       transform: translateY(0px);
     }
   }
-// @media(max-width:680px){  First mobile view design here
-//     .front-container{
-//        width: 100%;
-//         height: inherit;
-//         background-color: var(--dfm-primary-lighter);
-//     }
-//     .upload-main-container .container{
-//         width: 100%;
-//         margin: 0px 15px;
-//         // background-color: var(--dfm-primary-lighter);
-//         height: calc(100vh - 76px - 104px);
-//     }
-// }
+
 @media (max-width: 680px) {
   .upload-main-container {
     margin: 35px 10px 0px 10px;
@@ -150,7 +125,6 @@
     background-color:var(--dfm-primary-lighter);
     height: inherit;
     width: 100%;
-    // justify-content: flex-end;
     overflow: hidden;
     align-items: center;
     .upload-img-desc{
@@ -163,7 +137,6 @@
     }
   }
   .upload-document-btn {
-    // top: -80px;
     width: 190px;
     height: 190px;
     top: 50%;

@@ -7,7 +7,7 @@ import { BodyPartService } from './body-part.service';
 @Injectable({
   providedIn: 'root',
 })
-export class ExamService {
+export class ExamService { 
   public selectedExam: any = {};
   private allExams$$ = new BehaviorSubject<any>(null);
   public selectedCategory$$ = new BehaviorSubject<string>('');
@@ -30,7 +30,7 @@ export class ExamService {
     );
   }
 
-  public setCategory(category: BodyMaleFront | BodyMaleBack | any, bodyType?: BodyType) {
+  public setCategory(category: any, bodyType?: BodyType) {
     this.selectedBodyType$$.next(bodyType);
     this.selectedCategory$$.next(category);
   }

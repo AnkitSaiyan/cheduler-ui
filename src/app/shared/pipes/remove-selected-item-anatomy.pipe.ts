@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { BodyPartService } from 'src/app/core/services/body-part.service';
-import { ExamService } from 'src/app/core/services/exam.service';
 import { SELECTED_EXAM } from '../utils/const';
 
 @Pipe({

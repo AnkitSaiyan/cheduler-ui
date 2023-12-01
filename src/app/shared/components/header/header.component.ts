@@ -63,7 +63,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}'));
     this.isLoggedIn$ = this.authSvc.isLoggedIn$;
     this.userName$ = this.authSvc.authUser$.pipe(map((user) => user?.givenName));
 
@@ -72,7 +72,7 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
       .subscribe((url) => {
-        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}'));
         this.url = url;
       });
     this.shareDataSvc
@@ -100,8 +100,6 @@ export class HeaderComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public login() {
-    // this.loggingIn$$.next(true);
-
     if (this.url.includes('confirm')) {
       this.scheduleAppointmentSvc.resetDetails(true);
     }

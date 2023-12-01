@@ -27,7 +27,6 @@ export class OverviewComponent implements OnInit {
         map((exams) => {
           this.siteSetting = exams.data;
           localStorage.setItem('siteDetails', JSON.stringify(exams));
-          // this.sharedService.siteFooterDetails$$.next(exams);
         }),
       )
       .subscribe();

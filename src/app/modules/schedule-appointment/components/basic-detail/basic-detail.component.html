@@ -52,11 +52,11 @@
     <section class="register-btn-section" *ngIf="(isLoggedIn$ | async) ===  false">
       <div class="or-section">
         <div>
-          <hr class="bg-gray" width="100px"/>
+          <hr class="bg-gray" style="width: 100px;"/>
         </div>
         <div><span>&nbsp; {{"Or" | translate}} &nbsp; </span></div>
         <div>
-          <hr class="bg-gray" width="100px"/>
+          <hr class="bg-gray" style="width: 100px;"/>
         </div>
       </div>
       <div class="login-container">
@@ -68,23 +68,6 @@
             translate}}</span></span>
       </div>
     </section>
-
-    <!--    <div class="or-section mt-10">-->
-    <!--      <div>-->
-    <!--        <hr class="bg-gray" width="100px" />-->
-    <!--      </div>-->
-    <!--      <div><span>&nbsp; or &nbsp; </span></div>-->
-    <!--      <div>-->
-    <!--        <hr class="bg-gray" width="100px" />-->
-    <!--      </div>-->
-    <!--    </div>-->
-
-    <!--    <div class="right-subheader-section d-flex justify-content-center flex-row align-items-center">-->
-    <!--      <span class="new-user">Already have an Account?</span> &nbsp;-->
-    <!--      <span class="register-user">-->
-    <!--        <dfm-button [color]="'link'" [size]="'lg'" routerLink="/auth/login"> Login </dfm-button>-->
-    <!--      </span>-->
-    <!--    </div>-->
   </form>
 
   <div class="d-flex justify-content-center dfm-gap-16">

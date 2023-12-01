@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { IHttpConnectionOptions } from '@microsoft/signalr';
 import { NotificationDataService } from './notification-data.service';
-import { NotificationType } from 'diflexmo-angular-design';
-import { Subject, take } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
 
@@ -13,7 +12,7 @@ import { ShareDataService } from 'src/app/services/share-data.service';
 export class SignalRService {
   private hubConnection!: signalR.HubConnection;
 
-  private docData = new Subject<any>();
+  private docData = new Subject<any>(); 
 
   private selectedLang!: string;
 

@@ -1,5 +1,7 @@
 .patient-detail-container {
-  td, th {
+
+  td,
+  th {
     padding: 16px 16px 16px 0;
     font-weight: 500;
     word-break: break-all;
@@ -7,134 +9,161 @@
     text-align: left;
   }
 }
-.table-title{
-  font-weight: 600!important;
+
+.table-title {
+  font-weight: 600 !important;
 }
 
 .time-slot-btn-mv {
   display: none;
 }
+
 .text-underline-mv {
   display: none;
 }
+
 .edit-btn-mv {
   display: none;
 }
+
 .cancel-btn-mv {
   display: none;
 }
+
 .appointment-text {
   display: none;
 }
+
 .exams-category-text {
   display: block;
 }
+
 .exams-category-text-mv {
   display: none !important;
 }
+
 .appointment-hr-mv {
   display: none;
 }
-.select-exam-bar-mv{
+
+.select-exam-bar-mv {
   display: none;
 }
-.basic-details-bar-mv{
+
+.basic-details-bar-mv {
   display: none;
 }
-.name{
+
+.name {
   font-weight: 600;
-  // color: #531422;
   padding: 0px;
 }
-.value{
+
+.value {
   font-weight: 500;
   padding: 0px;
 }
-.confirm-btn-mv{
-  display: none!important;
+
+.confirm-btn-mv {
+  display: none !important;
 }
-.back-btn-mv{
-  display: none!important;
+
+.back-btn-mv {
+  display: none !important;
 }
-.back-btn2-mv{
-  display: none!important;
+
+.back-btn2-mv {
+  display: none !important;
 }
-.instructions-text-section{
-  // border: 1px solid red;
+
+.instructions-text-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
 }
-.instructions-value-text{
+
+.instructions-value-text {
   max-height: 150px;
   overflow-y: auto;
 }
-.instructions-text-section ul{
+
+.instructions-text-section ul {
   list-style-type: none;
 }
-.appointment-status{
-padding: 10px 0px;
-max-width: 100%;
-color: black;
-font-weight: 500;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-// border: 1px solid red;
-gap: 8px;
+
+.appointment-status {
+  padding: 10px 0px;
+  max-width: 100%;
+  color: black;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
 }
-.status-text{
+
+.status-text {
   padding: 5px;
   border-radius: 8px;
 }
-.confirmation-message{
+
+.confirmation-message {
   font-size: 13px;
 }
-.confirm-details{
-  // border: 1px solid red;
+
+.confirm-details {
   word-break: keep-all;
 }
-.exams-section-mv{
+
+.exams-section-mv {
   word-break: keep-all;
   word-wrap: break-word;
 }
-.appointment-details-mv{
+
+.appointment-details-mv {
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.time-section{
-  max-width: 350px!important;
+
+.time-section {
+  max-width: 350px !important;
 }
-.time-span{
-  word-break:break-word;
-  max-width:200px;
+
+.time-span {
+  word-break: break-word;
+  max-width: 200px;
   text-align: left;
   font-weight: 500;
 }
-.date-span{
+
+.date-span {
   font-weight: 500;
 }
-.time-text, .date-text{
+
+.time-text,
+.date-text {
   font-weight: 600;
 }
-.exams-text, .instructions-text{
-  //width: 145px;
-  font-weight: 600!important;
+
+.exams-text,
+.instructions-text {
+  font-weight: 600 !important;
 }
-.text-primary{
-  color: var(--dfm-primary)!important;
+
+.text-primary {
+  color: var(--dfm-primary) !important;
 }
-.exam-span{
-  // width: 145px;
+
+.exam-span {
   white-space: nowrap;
 }
 
-.user-info{
+.user-info {
   min-width: 128px !important;
 }
 
-.view-link{
+.view-link {
   color: blue;
   text-decoration: underline;
   cursor: pointer;
@@ -142,245 +171,267 @@ gap: 8px;
 
 // ======================Media Query for Mobile view=================
 @media (min-width: 180px) and (max-width: 680px) {
-  .main-container{
-    // border: 1px solid red;
+  .main-container {
     padding: 0px;
   }
-  .patient-detail-container table td{
+
+  .patient-detail-container table td {
     font-size: 14px;
   }
-  .appointment-details-mv{
+
+  .appointment-details-mv {
     font-size: 14px;
     flex-direction: column;
   }
-  // .exam-span{
-  //   width: 152px!important;
-  // }
-  .exams-section-mv{
+
+  .exams-section-mv {
     font-weight: 600;
     flex-direction: row;
   }
-  .exam-details{
+
+  .exam-details {
     font-weight: 500;
   }
 
-  .appointment-container{
-    display: flex!important;
-    flex-direction: column!important;
+  .appointment-container {
+    display: flex !important;
+    flex-direction: column !important;
     width: 100%;
   }
+
   .confirm-appointment {
     background-color: #fff;
   }
+
   .basic-details-progress-bar {
-    // border: 1px solid red;
     margin-top: 45px !important;
-    // border: 1px solid red;
   }
+
   .basic-details-progress-bar .progress-button {
     font-size: 14px;
     padding: 9px !important;
     border-radius: 4px;
     font-weight: 400;
     line-height: 14px;
-}
+  }
+
   .basic-details-progress-bar .time-slot-btn {
     display: none;
   }
+
   .basic-details-progress-bar .time-slot-btn-mv {
     display: block;
   }
+
   .progress-bar-hr {
     width: 30px;
     height: 2px;
     opacity: 1;
   }
+
   .confirm-details {
-    // border: 1px solid red;
     width: 100%;
     display: flex !important;
     flex-direction: column !important;
-    // border: 1px solid red;
     padding: 10px !important;
-    // background-color: var(--dfm-primary-lighter);
+    justify-content: space-between;
   }
+
   .confirm-details .patient-details {
     display: block;
     width: 100%;
   }
+
   .patient-detail-container {
     font-weight: 500;
   }
+
   .confirm-details .appointment-details {
-    // border: 1px solid black;
     width: 100%;
   }
+
   .appointment-text {
     display: block;
     font-weight: 600;
   }
+
   .appointment-details .appointment-text {
     display: none;
   }
+
   .appointment-details .appointment-hr {
     display: block;
   }
+
   .appointment-details .appointment-hr-mv {
     display: block;
     margin: 0px;
   }
+
   .appointment-date-time {
     display: flex !important;
     flex-direction: row !important;
-    justify-content:flex-start !important;
+    justify-content: flex-start !important;
     gap: 15px !important;
-    // border: 1px solid red;
+    font-size: 14px !important;
+  }
+
+  .exams-category-text-mv {
+    display: block !important;
+    font-size: 13px !important;
+    font-weight: 700;
   }
 
   .exams-category-text {
-    display: none;
-  }
-  .exams-category-text-mv {
-    display: block !important;
-    font-size: 13px!important;
-    font-weight: 700;
-  }
-  .exams-category-text {
     display: none !important;
   }
+
   .instructions-text-section {
-    // border: 1px solid red;
     margin: 10px 0px 0px 0px !important;
     display: flex;
     flex-direction: column;
-    // justify-content: space-between;
     gap: 10px;
   }
-  .instructions-value-text::-webkit-scrollbar{
-    display: block!important;
+
+  .instructions-value-text::-webkit-scrollbar {
+    display: block !important;
   }
+
   .instructions-text-section .instruction-text {
     font-size: 16px;
     font-weight: 500;
   }
-  .instructions-text-section ul{
-    list-style-type: none!important;
+
+  .instructions-text-section ul {
+    list-style-type: none !important;
   }
+
   .confirm-btn-section {
     margin: 30px 0px 0px 0px !important;
-    // gap: 20px;
   }
+
   .lab-confirmation-status {
     display: flex !important;
     flex-direction: column;
-    // justify-content: start !important;
     align-items: flex-start;
-    // border: 1px solid red;
     gap: 15px;
   }
+
   .edit-btn {
     display: none;
   }
+
   .cancel-btn {
     display: none;
   }
+
   .edit-btn-mv {
     display: block;
   }
+
   .cancel-btn-mv {
     display: block;
   }
-  .confirm-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+
   .patient-hr {
     display: block;
   }
+
   .name {
     width: 40%;
     font-size: 14px !important;
   }
+
   .value {
     width: 60%;
-    font-size: 14px!important;
+    font-size: 14px !important;
   }
 
   .pending-status {
     margin: 15px 0px 0px 0px;
   }
-  .select-exam-bar{
+
+  .select-exam-bar {
     display: none;
   }
-  .select-exam-bar-mv{
+
+  .select-exam-bar-mv {
     display: block;
   }
-  .basic-details-bar{
+
+  .basic-details-bar {
     display: none;
   }
-  .basic-details-bar-mv{
+
+  .basic-details-bar-mv {
     display: block;
   }
-  .appointment-date-time{
-    font-size: 14px!important;
+
+  .confirm-btn-mv {
+    display: block !important;
   }
-  .confirm-btn-mv{
-    display: block!important;
+
+  .confirm-btn {
+    display: none !important;
   }
-  .confirm-btn{
-    display: none!important;
+
+  .back-btn-mv {
+    display: block !important;
   }
-  .back-btn-mv{
-    display: block!important;
+
+  .back-btn {
+    display: none !important;
   }
-  .back-btn{
-    display: none!important;
+
+  .back-btn2 {
+    display: none !important;
   }
-  .back-btn2{
-    display: none!important;
+
+  .back-btn2-mv {
+    display: block !important;
   }
-  .back-btn2-mv{
-    display: block!important;
-  }
-  .time-span{
-    width:113px;
+
+  .time-span {
+    width: 113px;
     text-align: left;
   }
 }
 
-@media (min-width: 320px) and (max-width: 374px){
-.appointment-date-time{
-  font-size: 12px!important;
-  font-weight: 600;
-  gap: 5px!important;
-}
-.appointment-img-icon{
-  width: 15px!important;
-}
-.basic-details-progress-bar .progress-button{
-    font-size: 10.5px!important;
+@media (min-width: 320px) and (max-width: 374px) {
+  .appointment-date-time {
+    font-size: 12px !important;
+    font-weight: 600;
+    gap: 5px !important;
   }
-  .pending-status span{
-    font-size: 14px!important;
+
+  .appointment-img-icon {
+    width: 15px !important;
   }
-  .confirm-checkbox{
-    font-size: 12px!important;
-    line-height: 14px!important;
+
+  .basic-details-progress-bar .progress-button {
+    font-size: 10.5px !important;
   }
-  .confirm-checkbox{
-    font-size: 12px!important;
-    line-height: 14px!important;
+
+  .pending-status span {
+    font-size: 14px !important;
   }
-  .exams-category-text-mv{
-    font-size: 11px!important;
+
+  .confirm-checkbox {
+    font-size: 12px !important;
+    line-height: 14px !important;
+  }
+
+  .exams-category-text-mv {
+    font-size: 11px !important;
     font-weight: 800;
   }
-  .value{
-    font-size: 12px!important;
-    font-weight: 600!important;
+
+  .value {
+    font-size: 12px !important;
+    font-weight: 600 !important;
   }
-  .confirm-details{
-    padding: 24px!important;
+
+  .confirm-details {
+    padding: 24px !important;
   }
 }

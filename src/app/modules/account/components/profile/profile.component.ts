@@ -1,14 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DestroyableComponent} from "../../../../shared/components/destroyable/destroyable.component";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ModalService} from "../../../../core/services/modal.service";
 import {NotificationDataService} from "../../../../core/services/notification-data.service";
-import {Router} from "@angular/router";
-import {ScheduleAppointmentService} from "../../../../core/services/schedule-appointment.service";
-import {filter, take, takeUntil} from "rxjs";
-import {
-  ConfirmActionModalComponent, DialogData
-} from "../../../../shared/components/confirm-action-modal/confirm-action-modal.component";
+import { take, takeUntil} from "rxjs";
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UserManagementService } from 'src/app/core/services/user-management.service';
 
@@ -20,16 +14,13 @@ import { UserManagementService } from 'src/app/core/services/user-management.ser
 export class ProfileComponent extends DestroyableComponent implements OnInit, OnDestroy {
   isrevokedPermission: boolean = false;
   public userForm!: FormGroup;
-  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
+  private EMAIL_REGEX: RegExp = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
   private userId!: string;
 
   constructor(
-    private modalSvc: ModalService,
     private notificationSvc: NotificationDataService,
-    private router: Router,
     private fb: FormBuilder,
-    private scheduleAppointmentSvc: ScheduleAppointmentService,
     private authService: AuthService,
     private userManagementSvc: UserManagementService,
   ) {
@@ -73,7 +64,6 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
         this.notificationSvc.showNotification('Details saved successfully');
       });
 
-    // this.scheduleAppointmentSvc.setBasicDetails(this.userForm.value);
   }
   public handleEmailInput(e: Event): void {
     const inputText = (e.target as HTMLInputElement).value;
@@ -82,7 +72,7 @@ export class ProfileComponent extends DestroyableComponent implements OnInit, On
       return;
     }
 
-    if (!inputText.match(this.EMAIL_REGEX)) {
+    if (!this.EMAIL_REGEX.exec(inputText)) {
       this.userForm.get('email')?.setErrors({
         email: true,
       });

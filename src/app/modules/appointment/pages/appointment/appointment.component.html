@@ -63,7 +63,6 @@
                 <span class="appointment-exam-text-mv">{{"Exam" | translate}} : {{ exam.name }} </span>
               </div>
               <div class="instructions-text-section-mv mb-3">
-                <!-- <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span> -->
               </div>
 
               <div class="mb-3 gap-2 instructions-text d-flex">
@@ -97,7 +96,6 @@
   <div class="previous-appointment-title">
     <div class="heading-div previous-app-text">{{"AllAppointments" | translate}}</div>
 
-    <!-- <a href="#" class="white-button text-primary display-5 view-all-btn"> View all</a> -->
     <div *ngIf="filteredCompletedAppointments$$ | async as completedAppointments; else loadingCompleted">
       <dfm-button [color]="'link'" [size]="'sm'" class="view-all-btn" *ngIf="completedAppointments.length > 3" (click)="viewAll = !viewAll"
         >{{ viewAll ? ('Hide' | translate) : ('ViewAll' | translate) }}
@@ -150,20 +148,11 @@
                   <span class="appointment-exam-text-mv">{{"Exam" | translate}} : {{ exam.name }} </span>
                 </div>
                 <div class="instructions-text-section-mv mb-3">
-                  <!-- <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span> -->
                 </div>
 
                 <div class="mb-3 gap-2 instructions-text d-flex">
                   <span style="font-weight: 600" class="flex-1 instruction-span">{{"Instructions" | translate}} :</span> <span class="instructions-details">{{ exam.instructions }} </span>
                 </div>
-                <!-- <div class="lab-confirmation-status">
-                  <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-                    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-                    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-                    <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-                    <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
-                  </div>
-                </div> -->
               </div>
             </div>
             <hr>
@@ -181,7 +170,6 @@
                 </div>
                 <div class="d-flex align-items-center gap-2">
                   <p class="d-inline-block" style="width: 20px; height: 20px;"><dfm-icon name="clock"></dfm-icon></p>
-                  <!-- <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}">{{ item.statusText | translate }}</span> -->
                   <span [ngClass]="{'pending-status-text': (item.statusText === 'Pending') , 'completed-status-text': (item.statusText === 'Approved'), 'cancelled-status-text': (item.statusText === 'Cancelled')}"><span class="status-text-color">{{"AppointmentStatus" | translate}} :</span> <span class="status-text-color-mv">{{"Status" | translate}} :</span> &nbsp;{{ item.statusText | translate }}</span>
                 </div>
               </div>
@@ -201,20 +189,11 @@
                   <span class="appointment-exam-text-mv">{{"Exam" | translate}} : {{ exam.name }} </span>
                 </div>
                 <div class="instructions-text-section-mv mb-3">
-                  <!-- <span class="instruction-text text-primary ellipse-class">{{"Instructions" | translate}} : {{ exam.info }}</span> -->
                 </div>
 
                 <div class="mb-3 gap-2 instructions-text d-flex">
                   <span style="font-weight: 600" class="flex-1 instruction-span">{{"Instructions" | translate}} :</span> <span class="instructions-details">{{ exam.instructions }} </span>
                 </div>
-                <!-- <div class="lab-confirmation-status">
-                  <div class="status-btn d-flex flex-row justify-content-start align-items-start">
-                    <dfm-button [color]="'secondary'" [size]="'lg'" class="edit-btn"> Edit </dfm-button>
-                    <dfm-button [color]="'primary'" [size]="'lg'" class="cancel-btn mx-3"> Cancel </dfm-button>
-                    <dfm-button [color]="'secondary'" [size]="'sm'" class="edit-btn-mv"> Edit </dfm-button>
-                    <dfm-button [color]="'primary'" [size]="'sm'" class="cancel-btn-mv mx-3"> Cancel </dfm-button>
-                  </div>
-                </div> -->
               </div>
             </div>
             <hr *ngIf="i < completedAppointments.length - 1">
@@ -226,102 +205,6 @@
     <ng-template #noCompleted>
       <span class="no-appointment-text">{{"NoPreviousAppointmentsFound" | translate}}</span>
     </ng-template>
-
-    <!--
-      <div class="card-item" >
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>{{completedAppointments[2].startedAt | date:"dd, MMMM, yyyy"}}</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>{{completedAppointments[2].startedAt | date: 'HH:mm'}}</span></div>
-        </div>
-        <span class="display-5">Exam: {{completedAppointments[2].exam}}</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div> -->
-    <!-- <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span></div>
-          <div class="d-flex flex-row justify-content-between gap-2"><div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span></div>
-        </div>
-        <div class="d-flex flex-row justify-content-between gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-      </div>
-      <span class="display-5">Exam: Levering Stuenzolean</span>
-      <span class="display-5"
-        >Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-    </div>
   </div>
-  <div class="previous-appointment-cards d-flex justify-content-center mt-3" *ngIf="viewAll">
-    <div class="card-item">
-      <div class="display-5 previous-appointments-date-time">
-        <div class="d-flex flex-row justify-content-between gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
-          <span>12 November,2022</span>
-        </div>
-        <div class="d-flex flex-row justify-content-between gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-      </div>
-      <span class="display-5">Exam: Levering Stuenzolean</span>
-      <span class="display-5"
-        >Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-    </div>
-    <div class="card-item">
-      <div class="display-5 previous-appointments-date-time">
-        <div class="d-flex flex-row justify-content-between gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div>
-          <span>12 November,2022</span>
-        </div>
-        <div class="d-flex flex-row justify-content-between gap-2">
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-      </div>
-      <span class="display-5">Exam: Levering Stuenzolean</span>
-      <span class="display-5"
-        >Status: <span class="text-success">Completed</span>
-        <hr class="bg-lite-gray appointment-hr-mv" />
-      </span>
-      </div> -->
-  </div>
-
-  <!-- <div class="previous-appointment-cards container d-flex justify-content-center mt-3" *ngIf="viewAll">
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span></span>
-      </div>
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span></span>
-      </div>
-      <div class="card-item">
-        <div class="display-5 previous-appointments-date-time">
-          <div style="width: 20px; height: 20px"><dfm-icon name="calendar-check-01"></dfm-icon></div><span>12 November,2022</span>
-          <div style="width: 20px; height: 20px"><dfm-icon name="clock"></dfm-icon></div>
-          <span>12:30</span>
-        </div>
-        <span class="display-5">Exam: Levering Stuenzolean</span>
-        <span class="display-5">Status: <span class="text-success">Completed</span></span>
-      </div>
-    </div> -->
 </div>
 

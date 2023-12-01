@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, of, startWith, Subject, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, startWith, Subject, switchMap, tap } from 'rxjs';
 import { UserProperties, UserPropertiesRequestDate } from 'src/app/shared/models/user-properties.model';
 import { environment } from 'src/environments/environment';
 import { Permits } from '../../shared/models/user-permits.model';

@@ -92,9 +92,9 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public ngOnInit(): void {
     this.isEdit = localStorage.getItem('edit') == 'true';
-    const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') || '{}');
+    const qrDetails: any = JSON.parse(localStorage.getItem('referringDetails') ?? '{}');
     if (this.isEdit) {
-      const appointmentDetail = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      const appointmentDetail = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
         this.landingService
@@ -113,7 +113,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
     } else if (qrDetails.physician) this.referringDetails.physician = qrDetails.physician;
 
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}')?.data);
 
     this.scheduleAppointmentSvc.physicians$
       .pipe(
@@ -172,8 +172,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public uploadRefferingNote(event: any) {
     this.uploadFileName = event.target.files[0].name;
-    var extension = this.uploadFileName.substr(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
-    var allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    let extension = this.uploadFileName.slice(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
+    let allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
     const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
 
     if (!event.target.files.length) {
@@ -223,7 +223,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   public uploadDocumentFromMobile() {
     this.modalSvc.open(QrModalComponent, {
       data: {
-        id: localStorage.getItem('appointmentId') || '0',
+        id: localStorage.getItem('appointmentId') ?? '0',
       },
     });
   }

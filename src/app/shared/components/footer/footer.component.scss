@@ -1,7 +1,3 @@
-.footer-main-container {
-  //background-color: var(--dfm-primary);
-}
-
 .footer-sec-1 {
   display: flex;
   justify-content: space-evenly;
@@ -25,13 +21,7 @@
   flex-direction: row;
   justify-content: space-between !important;
   align-items: center;
-  // border: 1px solid red;
-  // padding: 16px 177.5px;
   color: #ffff;
-  // width: 100% !important;
-  // height: 88px;
-  // margin-top: 20px;
-  //background: var(--dfm-primary);
   .footer-text {
     display: flex;
     padding: 0;
@@ -41,7 +31,6 @@
 
 .footer-text {
   font-size: 18px;
-  // border: 1px solid red;
 }
 
 
@@ -51,15 +40,7 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  // .footer-sec-2 {
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   padding-bottom: 50px;
-  //   margin: auto;
-  //   gap: 8px;
-  // }
+  
   .privacy-footer-mv {
     display: flex!important;
     flex-direction: column!important;

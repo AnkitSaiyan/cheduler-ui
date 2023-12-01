@@ -3,7 +3,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AuthService } from '../../../core/services/auth.service';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { BehaviorSubject, filter, interval, lastValueFrom, map, Observable, of, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, filter, interval, map, take, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { ModalService } from '../../../core/services/modal.service';
 import { ConfirmActionModalComponent, DialogData } from '../confirm-action-modal/confirm-action-modal.component';

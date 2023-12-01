@@ -26,13 +26,13 @@ export class FooterComponent extends DestroyableComponent implements OnInit, OnD
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}'));
 
     this.routerStateSvc
       .listenForUrlChange$()
       .pipe(takeUntil(this.destroy$$))
       .subscribe((url) => {
-        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}'));
+        this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}'));
         this.url = url;
       });
     this.isUserLoggedIn$ = this.authSvc.isLoggedIn$;

@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('dashboard') }" (click)="navigateTo(['dashboard'])">
+  <div class="dfm-side-nav-item" [ngClass]="{ 'dfm-side-nav-item-active': url.includes('dashboard') }" (click)="navigateTo(['dashboard'])">
     <div class="dfm-side-nav-item-icon">
       <dfm-icon name="home-03"></dfm-icon>
     </div>
@@ -21,7 +21,7 @@
 
   <div
     class="dfm-side-nav-item"
-    [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('appointment') }"
+    [ngClass]="{ 'dfm-side-nav-item-active': url.includes('appointment') }"
     (click)="$event.stopPropagation(); navigateTo(['appointment'])"
   >
     <div class="dfm-side-nav-item-icon">
@@ -33,7 +33,7 @@
   <div
     #myAccountContainer
     class="dfm-side-nav-item "
-    [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('account') }"
+    [ngClass]="{ 'dfm-side-nav-item-active': url.includes('account') }"
     (click)="!isExpanded && toggleMenu(true); !isMobile$$.value &&  myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
   >
     <!-- =================||sub menu design for mobile view||=============== -->
@@ -64,7 +64,7 @@
   <div #myAccount class="dfm-side-nav-sub-menu" [ngClass]="{ 'dfm-side-nav-sub-menu-show': isExpanded && url.includes('account/profile') }">
     <div
       class="dfm-side-nav-item-wo-icon"
-      [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('profile') }"
+      [ngClass]="{ 'dfm-side-nav-item-active': url.includes('profile') }"
       (click)="navigateTo(['account', 'profile']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
     >
   <div class="dfm-side-nav-item-icon d-flex gap-3">
@@ -75,7 +75,7 @@
 
     <div
       class="dfm-side-nav-item-wo-icon"
-      [ngClass]="{ 'dfm-side-nav-item-active': url?.includes('privacy') }"
+      [ngClass]="{ 'dfm-side-nav-item-active': url.includes('privacy') }"
       (click)="navigateTo(['account', 'privacy']); myAccount.classList.toggle('dfm-side-nav-sub-menu-show')"
     >
     <div class="dfm-side-nav-item-icon d-flex gap-3">

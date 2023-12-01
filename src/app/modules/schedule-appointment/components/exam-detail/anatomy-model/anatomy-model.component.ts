@@ -1,9 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, distinctUntilChanged, map, startWith, take, takeUntil } from 'rxjs';
+import { distinctUntilChanged, map, take, takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
 import { ModalService } from 'src/app/core/services/modal.service';
-import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appointment.service';
 import { ShareDataService } from 'src/app/services/share-data.service';
 import { ConfirmActionModalComponent, DialogData } from 'src/app/shared/components/confirm-action-modal/confirm-action-modal.component';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
@@ -22,7 +21,6 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     private dialogSvc: ModalService,
     private fb: FormBuilder,
     public examSvc: ExamService,
-    private scheduleAppointmentSvc: ScheduleAppointmentService,
     private modalSvc: ModalService,
     private shareDataSvc: ShareDataService,
   ) {
@@ -95,7 +93,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
 
   ngOnInit() {
     this.filterForm = this.fb.group({
-      gender: [localStorage.getItem('gender') || 'male', [Validators.required]],
+      gender: [localStorage.getItem('gender') ?? 'male', [Validators.required]],
       bodyStructure: ['organs', [Validators.required]],
       side: ['front', [Validators.required]],
     });
@@ -160,7 +158,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     this.addExamForm.get('exam')?.setValue('');
   }
 
-  private showConfirm(): Promise<Boolean> {
+  private showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
       const modalRef = this.modalSvc.open(ConfirmActionModalComponent, {
         data: {

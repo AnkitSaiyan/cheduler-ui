@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterStateService } from '../../../core/services/router-state.service';
 import { DestroyableComponent } from '../../../shared/components/destroyable/destroyable.component';
-import { Observable, combineLatest, filter, map, pairwise, takeUntil, tap } from 'rxjs';
+import { Observable, combineLatest, map, takeUntil } from 'rxjs';
 import { ScheduleAppointmentService } from '../../../core/services/schedule-appointment.service';
-import { Router, RoutesRecognized } from '@angular/router';
+import { Router } from '@angular/router';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 

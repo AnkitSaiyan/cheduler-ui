@@ -14,8 +14,6 @@ export class HttpUtils {
       }
       headers = headers.append(headerValue[0], headerValue[1]);
     });
-    // headers = headers.append('Content-Type', 'Application/json');
-
     return headers;
   }
 }

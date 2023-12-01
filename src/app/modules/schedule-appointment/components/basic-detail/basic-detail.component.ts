@@ -5,8 +5,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {combineLatest, Observable, take, takeUntil} from 'rxjs';
 import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
 import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
-import { ModalService } from 'src/app/core/services/modal.service';
-import { QrModalComponent } from 'src/app/shared/components/qr-modal/qr-modal.component';
 
 @Component({
   selector: 'dfm-basic-detail',
@@ -21,7 +19,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
 
   public editData: any;
 
-  private EMAIL_REGEX: RegExp = /(.+)@(.+){1,}\.(.+){2,}/;
+  private EMAIL_REGEX: RegExp = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
   public patientSSN = new FormControl('');
 
@@ -31,7 +29,6 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalSvc: ModalService,
   ) {
     super();
   }
@@ -67,24 +64,19 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
             this.patientSSN.disable();
           } else {
             this.patientSSN.setValue(basicDetails.socialSecurityNumber ??
-              (JSON.parse(localStorage.getItem('appointmentDetails') || '{}')?.socialSecurityNumber) ?? '');
+              (JSON.parse(localStorage.getItem('appointmentDetails') ?? '{}')?.socialSecurityNumber) ?? '');
           }
         }, 0);
       });
 
     if (localStorage.getItem('appointmentDetails')) {
-      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
       if (this.editData) {
         this.basicDetailsForm.patchValue(this.editData);
       }
     }
 
     this.isLoggedIn$ = this.authService.isLoggedIn$;
-
-    // this.displayBasicDetails = Boolean(localStorage.getItem('user'))
-    // this.authService.isLoggedInUser.subscribe((user: boolean) => {
-    //   (user === true) ? this.displayBasicDetails = false : this.displayBasicDetails = true;
-    // })
   }
 
   public saveBasicDetails() {
@@ -116,7 +108,7 @@ export class BasicDetailComponent extends DestroyableComponent implements OnInit
       return;
     }
 
-    if (!inputText.match(this.EMAIL_REGEX)) {
+    if (!this.EMAIL_REGEX.exec(inputText)) {
       this.basicDetailsForm.get('patientEmail')?.setErrors({
         email: true,
       });
