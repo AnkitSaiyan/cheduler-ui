@@ -78,9 +78,9 @@ export class AuthService {
             this.authUser$$.next(
               new AuthUser(res.mail, res.givenName, res.id, res.surname, res.displayName, res.email, res.properties, res.socialSecurityNumber),
             );
-            return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(err)));
+            return this.userManagementApiService.getAllPermits(userId).pipe(catchError((err) => throwError(() => new Error(err))));
           }),
-          catchError((err) => throwError(err)),
+          catchError((err) => throwError(() => new Error(err))),
         );
       }),
       catchError(() => of(false)),

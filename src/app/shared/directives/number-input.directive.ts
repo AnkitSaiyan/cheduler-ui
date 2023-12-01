@@ -18,8 +18,6 @@ export class NumberInputDirective {
 
   private numberOnly: RegExp = /^\d+$/;
 
-  constructor() {}
-
   private handleChange(e: InputEvent) {
     const inputText = this.dfmNumberInput.value?.toString();
 

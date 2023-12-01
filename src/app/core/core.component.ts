@@ -1,10 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { BehaviorSubject, debounce, debounceTime, filter, map, Observable, Subject, take, takeUntil } from 'rxjs';
-import { ConfirmActionModalComponent, DialogData } from '../shared/components/confirm-action-modal/confirm-action-modal.component';
+import { BehaviorSubject, debounceTime, filter, map, Observable, Subject, takeUntil } from 'rxjs';
 import { AuthService } from './services/auth.service';
-import { ModalService } from './services/modal.service';
-import { NotificationDataService } from './services/notification-data.service';
 import { RouterStateService } from './services/router-state.service';
 import { DestroyableComponent } from '../shared/components/destroyable/destroyable.component';
 import { LoaderService } from './services/loader.service';

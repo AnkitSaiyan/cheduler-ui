@@ -13,7 +13,7 @@ export class AsPipe implements PipeTransform {
       case 'boolean':
         return Boolean(value);
       default:
-        return value as any;
+        return value;
     }
   }
 }

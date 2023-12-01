@@ -11,7 +11,6 @@ import { ScheduleAppointmentService } from 'src/app/core/services/schedule-appoi
 import { ChangeStatusRequestData } from 'src/app/shared/models/appointment.model';
 import { Translate } from '../../../../shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE } from '../../../../shared/utils/const';
 import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
 
 @Component({

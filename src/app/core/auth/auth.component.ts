@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
-import {map, Observable, takeUntil, tap} from "rxjs";
+import {Observable, takeUntil, tap} from "rxjs";
 import {RouterStateService} from "../services/router-state.service";
 import {DestroyableComponent} from "../../shared/components/destroyable/destroyable.component";
 

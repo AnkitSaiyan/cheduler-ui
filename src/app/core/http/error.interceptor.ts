@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 				this.generateErrorMessage(err, localStorage.getItem('lang') || ENG_BE);
 				this.stopLoaders();
 
-				return throwError(err);
+				return throwError(() => new Error(err.message));
 			}),
 		);
 	}
@@ -31,13 +31,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     if (err.status) {
       switch (err.status) {
-        case HttpStatusCodes.FORBIDDEN: {
+        case HttpStatusCodes.FORBIDDEN: 
           errorMessage = Translate.Error.Forbidden[lang];
-        }
         break;
-        case HttpStatusCodes.UNAUTHORIZED: {
+        case HttpStatusCodes.UNAUTHORIZED: 
           errorMessage = Translate.Error.Unauthorized[lang];
-        }
         break;
         default: {
           if (err?.error?.errors) {

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {NotificationType} from 'diflexmo-angular-design';
 import {ModalService} from 'src/app/core/services/modal.service';
@@ -18,7 +18,7 @@ import {DialogData} from "../../../shared/components/confirm-action-modal/confir
     `,
   ],
 })
-export class ForgotPasswordComponent extends DestroyableComponent implements OnInit, OnDestroy {
+export class ForgotPasswordComponent extends DestroyableComponent implements OnDestroy {
   public dialogData: DialogData = {
     confirmButtonText: 'Proceed',
     cancelButtonText: 'Cancel',
@@ -29,10 +29,6 @@ export class ForgotPasswordComponent extends DestroyableComponent implements OnI
 
   constructor(private dialogSvc: ModalService, private notificationService: NotificationDataService) {
     super();
-  }
-
-  public ngOnInit() {
-
   }
 
   public override ngOnDestroy() {

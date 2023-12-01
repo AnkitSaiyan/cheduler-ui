@@ -15,8 +15,6 @@ import { environment } from 'src/environments/environment';
 import { ExamDetails, SlotDetails } from '../../shared/models/local-storage-data.model';
 import { AuthService } from './auth.service';
 import { LoaderService } from './loader.service';
-import * as inspector from "inspector";
-
 @Injectable({
   providedIn: 'root',
 })
@@ -49,7 +47,7 @@ export class ScheduleAppointmentService {
     this.httpWithInterceptor = new HttpClient(this.httpBackend);
     // eslint-disable-next-line prefer-destructuring
     this.SubDomain = window.location.host.split('.')[0];
-  }
+  } 
 
   public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
@@ -113,9 +111,6 @@ export class ScheduleAppointmentService {
     this.examDetails$$.next({} as ExamDetails);
     this.slotDetails$$.next({} as SlotDetails);
     this.basicDetails$$.next({});
-    // this.examDetails$$.next({});
-    // this.slotDetails$$.next({});
-    // this.basicDetails$$.next({});
   }
 
   public addAppointment(requestData): Observable<Appointment> {
@@ -205,9 +200,6 @@ export class ScheduleAppointmentService {
   }
 
   public getExamByID(examID: number): Observable<Exam | undefined> {
-    // return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => of(this.examsDetails.find((exam) => +exam.id === +examID))));
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append('id', examID);
     return this.http.get<BaseResponse<Exam>>(`${environment.serverBaseUrl}/exam/${examID}`).pipe(
       map((response) => response.data),
       tap(() => {
@@ -266,9 +258,6 @@ export class ScheduleAppointmentService {
   }
 
   public getAppointmentByID$(appointmentID: number): Observable<Appointment> {
-    // let queryParams = new HttpParams();
-    // queryParams = queryParams.append('id', appointmentID);
-
     return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
       switchMap(() => {
         return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)

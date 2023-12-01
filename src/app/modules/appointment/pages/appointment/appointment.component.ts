@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 import {ExamDetails} from 'src/app/shared/models/local-storage-data.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE } from '../../../../shared/utils/const';
 import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 
 @Component({
@@ -68,25 +67,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
         },
       });
 
-    // this.scheduleAppointmentService.upcomingAppointments$.pipe(takeUntil(this.destroy$$)).subscribe((appointments) => {
-    //   if (!appointments.length) {
-    //     this.isAppointemntScheduled = false;
-    //     return;
-    //   }
-    //   this.isAppointemntScheduled = true;
-    //   this.appointments$$.next(appointments);
-    //   this.filteredAppointments$$.next(appointments);
-    // });
-    //
-    // this.scheduleAppointmentService.completedAppointment$.pipe(takeUntil(this.destroy$$)).subscribe((completedAppointments) => {
-    //   if (!completedAppointments.length) {
-    //     this.isAppointemntScheduled = false;
-    //     return;
-    //   }
-    //   this.isAppointemntScheduled = true;
-    //   this.completedAppointments$$.next(completedAppointments);
-    //   this.filteredCompletedAppointments$$.next(completedAppointments);
-    // });
     this.shareDataSvc
       .getLanguage$()
       .pipe(takeUntil(this.destroy$$))
@@ -126,8 +106,6 @@ export class AppointmentComponent extends DestroyableComponent implements OnInit
   }
 
   editAppointment(item: any) {
-    // const examDetails = {};
-    // examDetails['appointmentId'] = item['id'];
     this.scheduleAppointmentService
       .getAppointmentByID$(item.id)
       .pipe(takeUntil(this.destroy$$))

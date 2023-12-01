@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, map, takeUntil } from 'rxjs';
+import { BehaviorSubject, takeUntil } from 'rxjs';
 import { DestroyableComponent } from 'src/app/shared/components/destroyable/destroyable.component';
 import { LandingService } from '../../../core/services/landing.service';
 import { UtcToLocalPipe } from '../../../shared/pipes/utc-to-local.pipe';

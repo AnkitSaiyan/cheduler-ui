@@ -6,11 +6,7 @@ import { AfterViewInit, Component } from '@angular/core';
   styleUrls: ['./privacy-policy.component.scss']
 })
 export class PrivacyPolicyComponent implements AfterViewInit {
-
-  constructor() { }
-
   ngAfterViewInit(): void {
     document.querySelector('.container')?.scrollIntoView();
   }
-
 }

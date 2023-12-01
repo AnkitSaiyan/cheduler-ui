@@ -8,17 +8,9 @@
   </div>
 
   <div class="nav-items-right">
-    <!-- <div class="lang-btn-mv"><span class="text-gray text-bold">NL|</span> <span class="text-primary text-bold">EN</span></div> -->
-
     <ng-container *ngIf="!url.includes('auth') && !url.includes('schedule') && (isLoggedIn$ | async) === false && !url.includes('upload-document')">
       <dfm-button color="link" size="lg" class="button-design home-btn"
                   routerLink="/">{{ 'Home' | translate }}</dfm-button>
-
-      <!--      <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-plus-01"-->
-      <!--                  class="button-design register-btn" (click)="login()">-->
-      <!--        {{ 'Register' | translate }}-->
-      <!--      </dfm-button>-->
-
       <dfm-button [disabled]="(loggingIn$$ | async) === true" color="tertiary" size="lg" leadingIcon="user-01"
                   class="button-design login-btn" (click)="login()">
         {{ 'Login' | translate }}
@@ -36,50 +28,18 @@
                   class="button-design login-btn" (click)="login()">
         {{ 'Login' | translate }}
       </dfm-button>
-      <!--      <dfm-button color="tertiary" size="xl" leadingIcon="user-plus-01" class="button-design register-btn" routerLink="/auth/register">-->
-      <!--        {{ 'Register' | translate }}-->
-      <!--      </dfm-button>-->
     </ng-container>
-
-    <!--    <div class="lang-btn lang-dropdown">-->
-    <!--      <dfm-input-dropdown [items]="items" size="sm">-->
-    <!--        {{ items.name }}-->
-    <!--      </dfm-input-dropdown>-->
-    <!--    </div>-->
-
-    <!--    <div class=" language-btn-mv d-flex dfm-gap-4 align-items-center font-weight-semi-bold">-->
-    <!--      <span class="dfm-text-main-500 pointer">NL</span>-->
-    <!--      <span>|</span>-->
-    <!--      <span class="dfm-color-primary pointer">EN</span>-->
-    <!--    </div>-->
-
     <ng-container *ngIf="(isLoggedIn$ | async) === false && !url.includes('auth') && (url.includes('schedule') || url === '/')">
       <div class="register-menu">
         <!--||========Add button for Mobile view statrts=======|| -->
         <dfm-button color="link" size="sm" leadingIcon="user-01" class="register-btn-mv pointer" (click)="login()"></dfm-button>
         <!--||========Add button for Mobile view ends=======|| -->
-
-        <!--Sub Menu Appointment Pop Up Hidden-->
-        <!-- <div class="sub-menu">
-          <div class="sub-menu-items">
-                       <dfm-button color="primary" size="sm" leadingIcon="" class="" routerLink="/auth/register">
-                         {{ 'Register' | translate }}
-                       </dfm-button>
-            <div class="already-section">
-              <span>{{ 'ExistingUser' | translate }}?</span>
-              <span (click)="login()" class="pointer login-text">{{ 'Login' | translate }}</span>
-            </div>
-          </div>
-        </div> -->
       </div>
     </ng-container>
     <div class="loggedin-username" *ngIf="(isLoggedIn$ | async) === true">
       <span class="header-user-name" style="font-weight: 500">
         {{"Hello" | translate}}, <span class="text-gray">{{ userName$ | async }}!</span>
       </span>
-      <!-- <div class="online-dot"></div> -->
-      <!-- <span class="header-user-name fw-bold">{{ userName$ | async }}
-      </span> -->
     </div>
 
     <div class="d-flex dfm-gap-4 align-items-center font-weight-semi-bold">

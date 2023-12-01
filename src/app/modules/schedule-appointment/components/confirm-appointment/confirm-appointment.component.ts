@@ -18,8 +18,7 @@ import { UserManagementService } from 'src/app/core/services/user-management.ser
 import { AuthUser } from '../../../../shared/models/user.model';
 import { Translate } from 'src/app/shared/models/translate.model';
 import { ShareDataService } from 'src/app/services/share-data.service';
-import { DUTCH_BE, ENG_BE} from '../../../../shared/utils/const';
-import {UtcToLocalPipe} from "../../../../shared/pipes/utc-to-local.pipe";
+import { UtcToLocalPipe } from '../../../../shared/pipes/utc-to-local.pipe';
 import { DocumentViewModalComponent } from 'src/app/shared/components/document-view-modal/document-view-modal.component';
 
 @Component({
@@ -86,11 +85,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public ngOnInit(): void {
-    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') || '{}')?.data);
-    this.physicianDetails = (JSON.parse(localStorage.getItem('referringDetails') || '{}')) || '';
+    this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}')?.data);
+    this.physicianDetails = JSON.parse(localStorage.getItem('referringDetails') ?? '{}') || '';
 
     if (localStorage.getItem('appointmentDetails')) {
-      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') || '');
+      this.editData = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
       if (this.editData) {
         this.edit = true;
       }
@@ -113,10 +112,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         }),
         takeUntil(this.destroy$$),
       )
-      .subscribe(
-        (appointment) => {
+      .subscribe({
+        next: (appointment) => {
           if (Object.keys(appointment)?.length) {
-            this.appointment$$.next(appointment as Appointment);
+            this.appointment$$.next(appointment);
             localStorage.setItem('appointmentDetails', JSON.stringify(appointment));
           }
 
@@ -141,11 +140,11 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
           this.loading$$.next(false);
         },
-        (err) => {
+        error: (err) => {
           this.loading$$.next(false);
           this.appointment$$.next(null);
         },
-      );
+      });
 
     this.scheduleAppointmentSvc.examDetails$.pipe(takeUntil(this.destroy$$)).subscribe((examDetails) => {
       this.examDetails = examDetails;
@@ -187,9 +186,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       }
     });
 
-    // if (localStorage.getItem('appointmentId') && localStorage.getItem('edit')) {
-    //   this.confirmAppointment();
-    // }
     this.shareDataSvc
       .getLanguage$()
       .pipe(takeUntil(this.destroy$$))
@@ -216,12 +212,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public confirmAppointment2() {
-    // this.router.navigate([], {
-    //   queryParams: {
-    //     c: true,
-    //   },
-    // });
-
     this.isButtonDisable$$.next(true);
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
@@ -237,11 +227,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
             patientLname: null,
             patientEmail: null,
             patientTel: null,
-            // socialSecurityNumber: null,
           }
-        : this.basicDetails), 
+        : this.basicDetails),
       doctorId: this.physicianDetails.physician,
-      qrCodeId: this.physicianDetails.qrId ?? "",
+      qrCodeId: this.physicianDetails.qrId ?? '',
       comments: this.examDetails?.comments,
       socialSecurityNumber: this.basicDetails?.socialSecurityNumber ?? '',
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
@@ -330,11 +319,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
   }
 
   public confirmAppointment() {
-    // this.router.navigate([], {
-    //   queryParams: {
-    //     c: true,
-    //   },
-    // });
     this.isButtonDisable$$.next(true);
     const selectedTimeSlot = this.slotDetails.selectedSlots;
     const combinableSelectedTimeSlot = { ...Object.values(selectedTimeSlot)[0] };
@@ -354,7 +338,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
           }
         : this.basicDetails),
       doctorId: this.physicianDetails.physician,
-      qrCodeId: this.physicianDetails.qrId ?? "",
+      qrCodeId: this.physicianDetails.qrId ?? '',
       comments: this.examDetails?.comments,
       socialSecurityNumber: this.basicDetails.socialSecurityNumber ?? '',
       date: this.dateDistributedToString(this.dateToDateDistributed(this.slotDetails.selectedDate ?? new Date())),
@@ -426,8 +410,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       timeZone = timeZone.slice(1);
     }
 
-
-
     requestData = {
       ...requestData,
       patientTimeZone: timeZone ?? '',
@@ -455,13 +437,10 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               ),
             ),
           )
-          .subscribe(
-            (res) => {
-              // localStorage.setItem('appointmentId', res?['id'].toString());
-              // this.appointmentId$$.next(res?['id']);
+          .subscribe({
+            next: () => {
               localStorage.removeItem('appointmentDetails');
               this.notificationSvc.showNotification(Translate.Success.AppointmentUpdatedSuccessfully[this.selectedLang]);
-              // this.router.navigate(['/appointment']);
               localStorage.removeItem('edit');
               this.isEdit$$.next(false);
               this.isButtonDisable$$.next(false);
@@ -473,8 +452,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                 },
               });
             },
-            () => this.isButtonDisable$$.next(false),
-          );
+            error: () => this.isButtonDisable$$.next(false),
+          });
       } else {
         this.authService.isLoggedIn$
           .pipe(
@@ -494,8 +473,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               ),
             ),
           )
-          .subscribe(
-            (res) => {
+          .subscribe({
+            next: (res) => {
               localStorage.setItem('appointmentId', res?.id.toString());
               localStorage.removeItem('appointmentDetails');
               this.appointmentId$$.next(res?.id);
@@ -509,8 +488,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
                 },
               });
             },
-            () => this.isButtonDisable$$.next(false),
-          );
+            error: () => this.isButtonDisable$$.next(false),
+          });
       }
     }
   }
@@ -590,7 +569,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     const minutes = newDate.getMinutes().toString();
 
-    return `${newDate.getHours()}:${minutes.length < 2 ? `0${minutes}` : minutes}:00`;
+    return `${newDate.getHours()}:${minutes.length < 2 ? '0'+minutes : minutes}:00`;
   }
 
   public getSlotsInLocal(slots: string[]): string[] {
@@ -611,6 +590,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
         centered: true,
         modalDialogClass: 'ad-ap-modal-shadow',
       },
-    })
+    });
   }
 }
