@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, filter, map, Observable, switchMap } from 'rxjs';
-import { BodyMaleBack, BodyMaleFront } from 'src/app/shared/utils/anatomy.enum';
 import { BodyType, SELECTED_EXAM } from 'src/app/shared/utils/const';
 import { BodyPartService } from './body-part.service';
 
