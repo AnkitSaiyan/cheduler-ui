@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, map, take, takeUntil } from 'rxjs';
 import { ExamService } from 'src/app/core/services/exam.service';
@@ -32,6 +32,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
         this.selectedLang = lang;
       });
   }
+
+  @ViewChild('exam') private examDropdown;
 
   public filterForm!: FormGroup;
   @Input()
@@ -91,6 +93,8 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
 
   private selectedLang = ENG_BE;
 
+  private previousSelectedBodyPart: string = '';
+
   ngOnInit() {
     this.filterForm = this.fb.group({
       gender: [localStorage.getItem('gender') ?? 'male', [Validators.required]],
@@ -123,6 +127,16 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       .subscribe((value) => {
         this.examSvc.setCategory('', value);
       });
+
+    this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
+      if (this.previousSelectedBodyPart === data) {
+        this.examDropdown.clickout();
+        this.previousSelectedBodyPart = '';
+      } else {
+        this.previousSelectedBodyPart = data;
+        this.examDropdown.openDropdown();
+      }
+    });
   }
 
   public close() {
@@ -173,38 +187,3 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
     });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
