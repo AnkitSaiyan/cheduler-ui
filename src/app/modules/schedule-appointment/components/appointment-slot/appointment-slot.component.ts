@@ -76,7 +76,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     if (localStorage.getItem('appointmentDetails')) {
       this.editData = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
-      if (this.editData?.exam) {
+      if (this.editData?.exams) {
         const exams = [...this.editData.exams];
         exams.forEach((exam) => {
           const start = this.dateTo24TimeString(exam?.startedAt);

@@ -129,6 +129,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       });
 
     this.examSvc.selectedCategory$$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
+      if (!this.examDropdown) return;
       if (this.previousSelectedBodyPart === data) {
         this.examDropdown.clickout();
         this.previousSelectedBodyPart = '';
