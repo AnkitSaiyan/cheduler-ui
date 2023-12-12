@@ -264,7 +264,6 @@
       (mouseleave)="onMouseLeave(buttocksTrigger,category.Buttocks)"
       (mouseout)="$event.stopPropagation();buttocksTrigger.openMenu()">
       <div class="popover-content">
-        ->
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.Buttocks]"
@@ -284,7 +283,7 @@
       (mouseleave)="onMouseLeave(shoulderRtTrigger,category.ShoulderRt)"
       (mouseout)="$event.stopPropagation();shoulderRtTrigger.openMenu()">
       <div class="popover-content">
-        -->
+
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ShoulderRt]"
@@ -304,7 +303,7 @@
       (mouseleave)="onMouseLeave(shoulderLtTrigger,category.ShoulderLt)"
       (mouseout)="$event.stopPropagation();shoulderLtTrigger.openMenu()">
       <div class="popover-content">
-        -->
+
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ShoulderLt]"
@@ -362,7 +361,6 @@
       (mouseleave)="onMouseLeave(elbowRtTrigger,category.ElbowRt)"
       (mouseout)="$event.stopPropagation();elbowRtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ElbowRt]"
@@ -382,7 +380,6 @@
       (mouseleave)="onMouseLeave(elbowLtTrigger,category.ElbowLt)"
       (mouseout)="$event.stopPropagation();elbowLtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ElbowLt]"
@@ -402,7 +399,7 @@
       (mouseleave)="onMouseLeave(forearmRtTrigger,category.ForearmRt)"
       (mouseout)="$event.stopPropagation();forearmRtTrigger.openMenu()">
       <div class="popover-content">
-        -->
+
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ForearmRt]"
@@ -422,7 +419,7 @@
       (mouseleave)="onMouseLeave(forearmLtTrigger,category.ForearmLt)"
       (mouseout)="$event.stopPropagation();forearmLtTrigger.openMenu()">
       <div class="popover-content">
-        -->
+
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.ForearmLt]"
@@ -442,7 +439,6 @@
       (mouseleave)="onMouseLeave(wristRtTrigger,category.WristRt)"
       (mouseout)="$event.stopPropagation();wristRtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.WristRt]"
@@ -462,7 +458,6 @@
       (mouseleave)="onMouseLeave(wristLtTrigger,category.WristLt)"
       (mouseout)="$event.stopPropagation();wristLtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.WristLt]"
@@ -522,7 +517,6 @@
       (mouseleave)="onMouseLeave(hamstringRtTrigger,category.HamstringRt)"
       (mouseout)="$event.stopPropagation();hamstringRtTrigger.openMenu()">
       <div class="popover-content">
-        > -->
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.HamstringRt]"
@@ -542,7 +536,6 @@
       (mouseleave)="onMouseLeave(hamstringLtTrigger,category.HamstringLt)"
       (mouseout)="$event.stopPropagation();hamstringLtTrigger.openMenu()">
       <div class="popover-content">
-        > -->
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.HamstringLt]"
@@ -642,7 +635,6 @@
       (mouseleave)="onMouseLeave(ankleRtTrigger,category.AnkleRt)"
       (mouseout)="$event.stopPropagation();ankleRtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.AnkleRt]"
@@ -662,7 +654,6 @@
       (mouseleave)="onMouseLeave(ankleLtTrigger,category.AnkleLt)"
       (mouseout)="$event.stopPropagation();ankleLtTrigger.openMenu()">
       <div class="popover-content">
-        >
         <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Male][category.AnkleLt]"

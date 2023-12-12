@@ -309,8 +309,8 @@
   "YOUR_DOCUMNENT_UPLOAD_SUCCESSFULLY": "Het document is succesvol opgeladen. Ga nu verder met het boeken van de afsrpaak.",
   "SelectedExam": "Geselecteerd Onderzoek",
   "NO_EXAM_FOR_SELECTED_BODY_PART": "Er bestaat geen onderzoek voor het gekozen lichaamsdeel. Kies een onderzoek uit de lijst rechts, en klik daarna op 'Onderzoek toevoegen.",
-  "EXAM_EXIST_FOR_SELECTED_BODY_PART": "'Voor het gekozen lichaamsdeel bestaan 1 of meerdere onderzoeken: kies uit de lijst rechts, en klik daarn op 'Onderzoek toevoegen.",
-  "Filters":"Filters",
+  "EXAM_EXIST_FOR_SELECTED_BODY_PART": "'Voor het gekozen lichaamsdeel bestaan 1 of meerdere onderzoeken: kies uit de lijst rechts, en klik daarna op 'Onderzoek toevoegen.",
+  "Filters": "Filters",
   "Uploading": "Uploaden...",
   "QR_EXPIRE_REGENERATE": "QR is verlopen. Genereer een nieuwe QR.",
   "GENERATE_NEW_QR": "Genereer een nieuwe QR-code",
@@ -335,5 +335,6 @@
     }
   }
 }
+
 
 

@@ -408,7 +408,7 @@
       (mouseleave)="onMouseLeave(forearmRtTrigger,category.ForearmRt)"
       (mouseout)="$event.stopPropagation();forearmRtTrigger.openMenu()">
       <div class="popover-content">
-        < <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
+        <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
           <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
             *ngFor="let exam of exams[gender.Female][category.ForearmRt]"
             (click)="$event.stopPropagation();examSvc.addExam(category.ForearmRt +' ['+gender.Female+']' , exam)">
