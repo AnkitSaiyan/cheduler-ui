@@ -163,9 +163,15 @@
       [matMenuTriggerFor]="ankleBackLt" class="ankle-back-lt" fill="transparent" stroke="#8C8C8C"
       vector-effect="non-scaling-stroke"
       d="M291.541,1167.021c-9.577-0.406-20.94-2.932-26.006-9.887c3.129,15.681,6.034,31.961,7.465,39.615c2.5,13.375,2.667,35.916,2.083,40c-0.144,1.009-0.375,1.654-0.678,2.092c3.308,10.532,2.482,17.97,1.66,29.594c-0.249,3.515-0.06,13.297,0.44,20.242c0.508,0.56,1.035,1.105,1.598,1.626c4.882-14.596,28.534-15.045,35.094-7.896c1.65-5.945,1.032-11.148,2.053-18.408c1.125-8-0.125-13.125-0.5-16.625s1.875-5.125,3.375-12.125s-1.125-12.875-3-19.625s-2.458-13.625-2.958-22.959c-0.314-5.855,1.34-22.334,2.946-37.712C310.205,1163.027,300.613,1167.405,291.541,1167.021z" />
-    <path id="ffb_54" class="sole" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke"
+    <path id="ffb_54"  (mouseover)="heelRtTrigger.openMenu()" (mouseleave)="onMouseLeave(heelRtTrigger,category.HeelRt)"
+    (mouseout)="$event.stopPropagation();heelRtTrigger.openMenu()" #heelRtTrigger="matMenuTrigger"
+    (click)="$event.stopPropagation(); examSvc.setCategory(category.HeelRt , gender.Female); fillColor($event)"
+    [matMenuTriggerFor]="heelBackRt" class="heel-back-rt" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke"
       d="M370.073,1283.477c0.851,3.08,2.283,6.199,4.761,8.939c6.25,6.916,20.083,3.834,25.833,1.084c1.966-0.94,3.643-2.342,5.06-3.886C400.081,1275.026,375.084,1275.376,370.073,1283.477z" />
-    <path id="ffb_55" class="sole" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke"
+    <path id="ffb_55"  (mouseover)="heelLtTrigger.openMenu()" (mouseleave)="onMouseLeave(heelLtTrigger,category.HeelLt)"
+    (mouseout)="$event.stopPropagation();heelLtTrigger.openMenu()" #heelLtTrigger="matMenuTrigger"
+    (click)="$event.stopPropagation(); examSvc.setCategory(category.HeelLt , gender.Female); fillColor($event)"
+    [matMenuTriggerFor]="heelBackLt" class="heel-back-rl" fill="transparent" stroke="#8C8C8C" vector-effect="non-scaling-stroke"
       d="M278.103,1290.304c4.011,3.708,9.411,6.354,16.022,6.821c10.625,0.75,16.125-6.125,18.5-12.875c0.22-0.625,0.404-1.236,0.572-1.842C306.637,1275.259,282.985,1275.708,278.103,1290.304z" />
     <path id="ffb_56" (mouseover)="footRtTrigger.openMenu()" (mouseleave)="onMouseLeave(footRtTrigger,category.FootRt)"
       (mouseout)="$event.stopPropagation();footRtTrigger.openMenu()" #footRtTrigger="matMenuTrigger"
@@ -718,4 +724,45 @@
     </div>
   </div>
 </mat-menu>
+<mat-menu [hasBackdrop]="false" #heelBackRt="matMenu">
+  <div class="rm-li-menus" aria-labelledby="dropdownManual"
+    (mouseover)="heelRtTrigger.openMenu(); onMouseEnter(heelRtTrigger,category.HeelRt)"
+    (mouseleave)="onMouseLeave(heelRtTrigger,category.HeelRt)"
+    (mouseout)="$event.stopPropagation();heelRtTrigger.openMenu()">
+    <div class="popover-content">
+
+      <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
+        <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
+          *ngFor="let exam of exams[gender.Female][category.HeelRt]"
+          (click)="$event.stopPropagation();examSvc.addExam(category.HeelRt +' ['+ gender.Female+']', exam)">
+          {{ exam.name }}
+        </button>
+        <ng-container *ngIf="!exams[gender.Female][category.HeelRt]?.length">
+          <span class="no-exam">{{ 'NoExamsFound' | translate }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+<mat-menu [hasBackdrop]="false" #heelBackLt="matMenu">
+  <div class="rm-li-menus" aria-labelledby="dropdownManual"
+    (mouseover)="heelLtTrigger.openMenu(); onMouseEnter(heelLtTrigger,category.HeelLt)"
+    (mouseleave)="onMouseLeave(heelLtTrigger,category.HeelLt)"
+    (mouseout)="$event.stopPropagation();heelLtTrigger.openMenu()">
+    <div class="popover-content">
+
+      <div class="exam-list" *ngIf="(examSvc.getExams$() | async) as exams">
+        <button mat-menu-item [ngClass]="{'selected': examSvc.isExamSelected(exam.value)}"
+          *ngFor="let exam of exams[gender.Female][category.HeelLt]"
+          (click)="$event.stopPropagation();examSvc.addExam(category.HeelLt +' ['+ gender.Female+']', exam)">
+          {{ exam.name }}
+        </button>
+        <ng-container *ngIf="!exams[gender.Female][category.HeelLt]?.length">
+          <span class="no-exam">{{ 'NoExamsFound' | translate }}</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+
 </div>

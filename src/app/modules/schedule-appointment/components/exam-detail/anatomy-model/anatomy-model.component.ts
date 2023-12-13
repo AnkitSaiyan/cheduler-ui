@@ -133,7 +133,7 @@ export class AnatomyModelComponent extends DestroyableComponent implements OnIni
       if (this.previousSelectedBodyPart === data) {
         this.examDropdown.clickout();
         this.previousSelectedBodyPart = '';
-      } else {
+      } else if (data) {
         this.previousSelectedBodyPart = data;
         this.examDropdown.openDropdown();
       }

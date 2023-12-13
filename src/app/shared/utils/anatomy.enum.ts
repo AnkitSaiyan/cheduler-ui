@@ -87,8 +87,8 @@ export enum BodyMaleBack {
   AnkleLt = '23',
   FootRt = '26',
   FootLt = '27',
-  SoleRt = 'Sole [Rt]',
-  SoleLt = 'Sole [Lt]',
+  HeelRt = '24',
+  HeelLt = '25',
   HamstringRt = '14',
   HamstringLt = '15',
 }
@@ -122,9 +122,9 @@ export enum BodyFemaleBack {
   FootRt = '26',
   FootLt = '27',
   HamstringRt = '14',
-  HamstringLt = '14',
-  SoleRt = 'Sole [Rt]',
-  SoleLt = 'Sole [Lt]',
+  HamstringLt = '15',
+  HeelRt = '24',
+  HeelLt = '25',
 }
 
 export enum Skeleton {
