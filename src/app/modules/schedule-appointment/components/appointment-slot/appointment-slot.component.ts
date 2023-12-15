@@ -81,13 +81,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         exams.forEach((exam) => {
           const start = this.dateTo24TimeString(exam?.startedAt);
           const end = this.dateTo24TimeString(exam?.endedAt);
+          const users = exam.users?.map((u)=> { return {userId: +u}})
 
           this.toggleSlotSelection(
             {
               start,
               end,
               examId: +exam.id,
-              userList: exam.users,
+              userList: users,
               roomList: exam.rooms,
             } as ModifiedSlot,
             true,
