@@ -147,7 +147,7 @@
                   <span class="font-weight-medium">{{ 'ExamName' | translate }}:</span>
                 </div>
                 <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start text-sm">
-                  <span class="text-nowrape" *ngFor="let exam of examsDetails?.exams; let i =index">{{ examIdToName[exam].name }}{{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
+                  <span class="text-nowrape" *ngFor="let exam of examsDetails?.exams; let i =index">{{ examIdToName[exam]?.name }}{{i !== ((examsDetails?.exams?.length ?? 0) - 1) ? ',' : ''}}</span>
                 </div>
               </div>
 
