@@ -55,6 +55,10 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
+    if (this.isImage) {
+      this.downloadImage(this.downloadableDoc, this.fileName);
+      return;
+    }
     const linkSource = this.downloadableDoc;
     const downloadLink = document.createElement('a');
     const fileName = this.fileName;
@@ -66,5 +70,32 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   public closeModal() {
     this.modalSvc.close();
+  }
+
+  private downloadImage(base64Data: string, filename: string) {
+    const blob = this.base64ToBlob(base64Data);
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+  private base64ToBlob(base64Data: string): Blob {
+    const byteString = window.atob(base64Data.split(',')[1]);
+    const mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
+
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+
+    for (let i = 0; i < byteString.length; i++) {
+      uint8Array[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([arrayBuffer], { type: mimeString });
   }
 }
