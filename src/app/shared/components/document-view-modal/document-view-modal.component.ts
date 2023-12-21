@@ -4,6 +4,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'dfm-document-view-modal',
@@ -25,7 +26,12 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   private isDownloadClick: boolean = false;
 
-  constructor(private modalSvc: ModalService, private landingSvc: LandingService, private notificationService : NotificationDataService) {
+  constructor(
+    private modalSvc: ModalService,
+    private landingSvc: LandingService,
+    private notificationService: NotificationDataService,
+    private sanitizer: DomSanitizer,
+  ) {
     super();
   }
 
@@ -36,17 +42,22 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   }
 
   public getDocument(id) {
-    this.landingSvc.getDocumentById$(id, true).pipe(takeUntil(this.destroy$$)).subscribe((res) => {
-      this.isImage = !res.fileName.includes('.pdf');
-      if(!this.downloadableDoc)
-      this.image.next((this.isImage ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
-      this.fileName = res.fileName;
-    });
-    this.landingSvc.getDocumentById$(id, false).pipe(take(1)).subscribe((res) => {
-      this.image.next((!res.fileName.includes('.pdf') ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
-      this.downloadableDoc = (res.fileName.includes('.pdf') ? this.base64PdfStart : this.base64ImageStart) + res.fileData;
-      if (this.isDownloadClick) this.downloadDocument();
-    });
+    this.landingSvc
+      .getDocumentById$(id, true)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((res) => {
+        this.isImage = !res.fileName.includes('.pdf');
+        if (!this.downloadableDoc) this.image.next((this.isImage ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
+        this.fileName = res.fileName;
+      });
+    this.landingSvc
+      .getDocumentById$(id, false)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.image.next((!res.fileName.includes('.pdf') ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
+        this.downloadableDoc = (res.fileName.includes('.pdf') ? this.base64PdfStart : this.base64ImageStart) + res.fileData;
+        if (this.isDownloadClick) this.downloadDocument();
+      });
   }
 
   public downloadDocument() {
@@ -55,30 +66,25 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
-    if (this.isImage) {
-      this.downloadImage(this.downloadableDoc, this.fileName);
+    if (this.isImage && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      const url:any = this.sanitizer.bypassSecurityTrustResourceUrl(this.downloadableDoc)
+      window.open(url.changingThisBreaksApplicationSecurity, '_self');
       return;
     }
-    const linkSource = this.downloadableDoc;
-    const downloadLink = document.createElement('a');
-    const fileName = this.fileName;
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
-    this.isDownloadClick = false;
+    this.downloadImage(this.downloadableDoc);
   }
 
   public closeModal() {
     this.modalSvc.close();
   }
 
-  private downloadImage(base64Data: string, filename: string) {
-    const blob = this.base64ToBlob(base64Data);
+  private downloadImage(base64Data: string) {
+    let url1: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64Data);
+    const blob = this.base64ToBlob(url1.changingThisBreaksApplicationSecurity);
     const url = window.URL.createObjectURL(blob);
-
     const a = document.createElement('a');
     a.href = url;
-    a.download = filename;
+    a.download = this.fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
