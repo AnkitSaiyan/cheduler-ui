@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dfm-document-view-modal',
@@ -32,7 +31,6 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     private landingSvc: LandingService,
     private notificationService: NotificationDataService,
     private sanitizer: DomSanitizer,
-    private httpClient: HttpClient,
   ) {
     super();
   }
@@ -79,26 +77,15 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   private downloadImage(base64Data: string) {
     const blob = this.base64ToBlob(this.getSanitizeImage(base64Data));
     const url = window.URL.createObjectURL(blob);
-  
-    if (navigator.userAgent.match('CriOS') || navigator.userAgent.match('FxiOS')) {
-      // For Chrome on iOS and Firefox on iOS
-      window.open(url);
-    } else {
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = this.fileName;
-      a.target = '_self';
-  
-      // Use a timeout to delay the click event to improve compatibility with Safari
-      setTimeout(() => {
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }, 10);
-    }
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = this.fileName;
+    a.target = '_self';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
-  
 
   private base64ToBlob(base64Data: string): Blob {
     const byteString = window.atob(base64Data.split(',')[1]);
