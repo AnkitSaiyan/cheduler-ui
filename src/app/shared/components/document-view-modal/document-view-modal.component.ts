@@ -68,11 +68,8 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
-    // if (this.isImage) {
+   
       this.downloadImage(this.downloadableDoc);
-    // } else {
-      // this.downloadBrochure(this.getSanitizeImage(this.downloadableDoc));
-    // }
   }
 
   public closeModal() {
@@ -82,15 +79,26 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   private downloadImage(base64Data: string) {
     const blob = this.base64ToBlob(this.getSanitizeImage(base64Data));
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = this.fileName;
-    a.target = '_self';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+  
+    if (navigator.userAgent.match('CriOS') || navigator.userAgent.match('FxiOS')) {
+      // For Chrome on iOS and Firefox on iOS
+      window.open(url);
+    } else {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = this.fileName;
+      a.target = '_self';
+  
+      // Use a timeout to delay the click event to improve compatibility with Safari
+      setTimeout(() => {
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 10);
+    }
   }
+  
 
   private base64ToBlob(base64Data: string): Blob {
     const byteString = window.atob(base64Data.split(',')[1]);
@@ -107,23 +115,4 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     let url1: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
     return url1.changingThisBreaksApplicationSecurity;
   }
-
-  // async downloadBrochure(url: string) {
-  //   try {
-  //     const res = await lastValueFrom(this.httpClient.get(url, { responseType: 'blob' }));
-  //     this.downloadFile(res);
-  //   } catch (e: any) {
-  //     console.log(e.body.message);
-  //   }
-  // }
-
-  // downloadFile(data) {
-  //   const url = window.URL.createObjectURL(data);
-  //   const e = document.createElement('a');
-  //   e.href = url;
-  //   e.download = this.fileName;
-  //   document.body.appendChild(e);
-  //   e.click();
-  //   document.body.removeChild(e);
-  // }
 }
