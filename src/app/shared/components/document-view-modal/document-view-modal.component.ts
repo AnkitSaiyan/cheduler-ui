@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dfm-document-view-modal',
@@ -31,6 +32,7 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     private landingSvc: LandingService,
     private notificationService: NotificationDataService,
     private sanitizer: DomSanitizer,
+    private httpClient: HttpClient,
   ) {
     super();
   }
@@ -68,16 +70,9 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     }
     if (this.isImage) {
       this.downloadImage(this.downloadableDoc);
-      return;
+    } else {
+      this.downloadBrochure(this.getSanitizeImage(this.downloadableDoc));
     }
-
-    const linkSource = this.getSanitizeImage(this.downloadableDoc);
-    const downloadLink = document.createElement('a');
-    const fileName = this.fileName;
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
-    this.isDownloadClick = false;
   }
 
   public closeModal() {
@@ -110,5 +105,24 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   private getSanitizeImage(base64: string): any {
     let url1: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
     return url1.changingThisBreaksApplicationSecurity;
+  }
+
+  async downloadBrochure(url: string) {
+    try {
+      const res = await lastValueFrom(this.httpClient.get(url, { responseType: 'blob' }));
+      this.downloadFile(res);
+    } catch (e: any) {
+      console.log(e.body.message);
+    }
+  }
+
+  downloadFile(data) {
+    const url = window.URL.createObjectURL(data);
+    const e = document.createElement('a');
+    e.href = url;
+    e.download = this.fileName;
+    document.body.appendChild(e);
+    e.click();
+    document.body.removeChild(e);
   }
 }
