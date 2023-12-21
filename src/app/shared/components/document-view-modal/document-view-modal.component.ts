@@ -68,11 +68,11 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
-    if (this.isImage) {
+    // if (this.isImage) {
       this.downloadImage(this.downloadableDoc);
-    } else {
-      this.downloadBrochure(this.getSanitizeImage(this.downloadableDoc));
-    }
+    // } else {
+      // this.downloadBrochure(this.getSanitizeImage(this.downloadableDoc));
+    // }
   }
 
   public closeModal() {
@@ -85,6 +85,7 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     const a = document.createElement('a');
     a.href = url;
     a.download = this.fileName;
+    a.target = '_self';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -107,22 +108,22 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     return url1.changingThisBreaksApplicationSecurity;
   }
 
-  async downloadBrochure(url: string) {
-    try {
-      const res = await lastValueFrom(this.httpClient.get(url, { responseType: 'blob' }));
-      this.downloadFile(res);
-    } catch (e: any) {
-      console.log(e.body.message);
-    }
-  }
+  // async downloadBrochure(url: string) {
+  //   try {
+  //     const res = await lastValueFrom(this.httpClient.get(url, { responseType: 'blob' }));
+  //     this.downloadFile(res);
+  //   } catch (e: any) {
+  //     console.log(e.body.message);
+  //   }
+  // }
 
-  downloadFile(data) {
-    const url = window.URL.createObjectURL(data);
-    const e = document.createElement('a');
-    e.href = url;
-    e.download = this.fileName;
-    document.body.appendChild(e);
-    e.click();
-    document.body.removeChild(e);
-  }
+  // downloadFile(data) {
+  //   const url = window.URL.createObjectURL(data);
+  //   const e = document.createElement('a');
+  //   e.href = url;
+  //   e.download = this.fileName;
+  //   document.body.appendChild(e);
+  //   e.click();
+  //   document.body.removeChild(e);
+  // }
 }
