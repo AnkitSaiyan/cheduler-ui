@@ -66,7 +66,18 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
-    this.downloadImage(this.downloadableDoc);
+    if (this.isImage) {
+      this.downloadImage(this.downloadableDoc);
+      return;
+    }
+
+    const linkSource = this.getSanitizeImage(this.downloadableDoc);
+    const downloadLink = document.createElement('a');
+    const fileName = this.fileName;
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+    this.isDownloadClick = false;
   }
 
   public closeModal() {
@@ -74,8 +85,7 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
   }
 
   private downloadImage(base64Data: string) {
-    let url1: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64Data);
-    const blob = this.base64ToBlob(url1.changingThisBreaksApplicationSecurity);
+    const blob = this.base64ToBlob(this.getSanitizeImage(base64Data));
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -88,14 +98,17 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   private base64ToBlob(base64Data: string): Blob {
     const byteString = window.atob(base64Data.split(',')[1]);
-    const mimeString = `${this.isImage ? 'image' : 'application'}/${(this.fileName.split('.').slice(-1))}`;
+    const mimeString = `${this.isImage ? 'image' : 'application'}/${this.fileName.split('.').slice(-1)}`;
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const uint8Array = new Uint8Array(arrayBuffer);
-
     for (let i = 0; i < byteString.length; i++) {
       uint8Array[i] = byteString.charCodeAt(i);
     }
-
     return new Blob([arrayBuffer], { type: mimeString });
+  }
+
+  private getSanitizeImage(base64: string): any {
+    let url1: any = this.sanitizer.bypassSecurityTrustResourceUrl(base64);
+    return url1.changingThisBreaksApplicationSecurity;
   }
 }
