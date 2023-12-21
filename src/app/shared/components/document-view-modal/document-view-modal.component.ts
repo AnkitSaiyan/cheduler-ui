@@ -66,11 +66,6 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       this.notificationService.showNotification('Downloading in progress...');
       return;
     }
-    if (this.isImage && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      const url:any = this.sanitizer.bypassSecurityTrustResourceUrl(this.downloadableDoc)
-      window.open(url.changingThisBreaksApplicationSecurity, '_self');
-      return;
-    }
     this.downloadImage(this.downloadableDoc);
   }
 
@@ -93,8 +88,7 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   private base64ToBlob(base64Data: string): Blob {
     const byteString = window.atob(base64Data.split(',')[1]);
-    const mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0];
-
+    const mimeString = `${this.isImage ? 'image' : 'application'}/${(this.fileName.split('.').slice(-1))}`;
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const uint8Array = new Uint8Array(arrayBuffer);
 
