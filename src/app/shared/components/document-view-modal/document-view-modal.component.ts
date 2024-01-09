@@ -65,12 +65,6 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   public getDocument(id, focusedDocId?: number) {
     this.landingSvc
-      .getDocumentById$(id, true)
-      .pipe(takeUntil(this.destroy$$))
-      .subscribe((res) => {
-        this.showDocuments(res, focusedDocId);
-      });
-    this.landingSvc
       .getDocumentById$(id, false)
       .pipe(take(1))
       .subscribe((res) => {
@@ -98,19 +92,19 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
       return;
     }
     this.notificationService.showNotification('Downloading in progress...');
-    this.downloadImage(this.downloadableDoc);
+    this.downloadImage(this.focusedDocument);
   }
 
   public closeModal() {
     this.modalSvc.close();
   }
 
-  private downloadImage(base64Data: string) {
-    const blob = this.base64ToBlob(this.getSanitizeImage(base64Data));
+  private downloadImage(docData: any) {
+    const blob = this.base64ToBlob(this.getSanitizeImage(docData.fileData), docData);
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = this.fileName;
+    a.download = docData.fileName;
     a.target = '_self';
     document.body.appendChild(a);
     a.click();
@@ -118,9 +112,9 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     window.URL.revokeObjectURL(url);
   }
 
-  private base64ToBlob(base64Data: string): Blob {
+  private base64ToBlob(base64Data: string, docData: any): Blob {
     const byteString = window.atob(base64Data.split(',')[1]);
-    const mimeString = `${this.isImage ? 'image' : 'application'}/${this.fileName.split('.').slice(-1)}`;
+    const mimeString = `${docData.isImage ? 'image' : 'application'}/${docData.fileName.split('.').slice(-1)}`;
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const uint8Array = new Uint8Array(arrayBuffer);
     for (let i = 0; i < byteString.length; i++) {
@@ -134,4 +128,10 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     return url1.changingThisBreaksApplicationSecurity;
   }
 }
+
+
+
+
+
+
 

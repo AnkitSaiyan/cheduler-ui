@@ -57,6 +57,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public documentList$$ = new BehaviorSubject<any[]>([]);
 
+  public documentFromMobileList$$ = new BehaviorSubject<any[]>([]);
+
   public isDocumentUploading$$ = new BehaviorSubject<number>(0);
 
   constructor(
@@ -108,11 +110,15 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
         this.landingService
-          .getDocumentById$(appointmentDetail?.id, true)
+          .getDocumentById$(appointmentDetail?.id, false)
           .pipe(takeUntil(this.destroy$$))
           .subscribe((res) => {
             this.referringDetails.qrId = res?.[0].apmtQRCodeId;
-            this.documentList$$.next(res);
+            if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
+              this.documentFromMobileList$$.next(res);
+            } else {
+              this.documentList$$.next(res);
+            }
           });
       }
     }
@@ -143,10 +149,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
-      this.updateFileName(data.fileName, false);
-      this.referringDetails.qrId = data.appointmentQrcodeId;
+      this.referringDetails.qrId = data?.[0]?.appointmentQrcodeId;
       this.referringDetails.fileName = data.fileName;
       this.referringDetails.directUpload = false;
+      this.documentFromMobileList$$.next(data);
+      console.log(data);
     });
 
     this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
@@ -263,7 +270,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
           switchMap((res) => {
             this.referringDetails.qrId = res?.apmtDocUniqueId;
             this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
-            return this.landingService.getDocumentById$(res.apmtDocUniqueId, true);
+            return this.landingService.getDocumentById$(res.apmtDocUniqueId, false);
           }),
         )
         .subscribe({
@@ -282,6 +289,9 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadDocumentFromMobile() {
+    if (this.documentList$$.value?.length) {
+      return;
+    }
     this.modalSvc.open(QrModalComponent, {
       data: {
         id: localStorage.getItem('appointmentId') ?? '0',
@@ -298,18 +308,22 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.signalRFileName = fileName;
     }
   }
-  public clearFile(document: any) {
+  public clearFile(document: any, isFromMobile: boolean = false) {
     this.landingService.deleteDocument(document.id).pipe(takeUntil(this.destroy$$)).subscribe();
     // this.signalRFileName = '';
     this.notificationSvc.showNotification(Translate.DeleteSuccess(document.fileName)[this.selectedLang], NotificationType.SUCCESS);
-    this.documentList$$.next(this.documentList$$.value?.filter((item) => item?.id !== document?.id));
+    if (isFromMobile) {
+      this.documentFromMobileList$$.next(this.documentFromMobileList$$.value?.filter((item) => item?.id !== document?.id));
+    } else {
+      this.documentList$$.next(this.documentList$$.value?.filter((item) => item?.id !== document?.id));
+    }
   }
 
-  public viewDocument(id?: number) {
+  public viewDocument(id?: number, isFromMobile: boolean = false) {
     this.modalSvc.open(DocumentViewModalComponent, {
       data: {
         id: this.referringDetails.qrId || localStorage.getItem('appointmentId'),
-        documentList: this.documentList$$.value,
+        documentList: isFromMobile ? this.documentFromMobileList$$.value : this.documentList$$.value,
         focusedDocId: id,
       },
       options: {
@@ -321,6 +335,16 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

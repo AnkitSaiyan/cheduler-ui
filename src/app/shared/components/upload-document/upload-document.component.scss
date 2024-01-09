@@ -16,9 +16,16 @@
 }
 
 .file-name {
-    color: blue;
-    overflow-wrap: break-word;
-  }
+  font-weight: 500;
+    font-size: 14px;
+  color: blue;
+  width: 144px;
+  overflow-wrap: break-word;
+  &.error {
+      color: red;
+      margin: 0;
+    }
+}
 
 .front-container {
   padding: 5px;
@@ -81,7 +88,7 @@
         width: inherit;
         height: inherit;
         border-radius: 50%;
-        opacity: 0;    
+        opacity: 0;
         z-index: 2;
         cursor: pointer;
     }
@@ -150,10 +157,52 @@
         transition: 0.3s;
         animation: slide-up 2.5s linear infinite;
       }
-      span {
-        text-align: center;
-      }
+                                                                                                                                                                                                span {
+                                                                                                                                                                                                  text-align: center;
+                                                                                                                                                                                                }
+                                                                                                                                                                                                }
+&.end {
+  position: unset;
+  width: 90px;
+  height: 90px;
+  transform: unset;
+
+  .light-circle {
+    width: 75px;
+    height: 75px;
+  }
+}
+}
+
+.light-circle {
+  width: 150px;
+  height: 150px;
+
+  img {
+      width: 40px;
+      transition: 0.3s;
+      animation: slide-up 2.5s linear infinite;
+    }
+  
+    span {
+      text-align: center;
     }
   }
-
+  }
+  
+  small {
+    &.error {
+      color: red;
+      font-size: 10px;
+    }
+  }
+  
+  .document-list {
+    overflow: auto;
+    height: calc(100% - 120px);
+  }
+  
+  .h-full {
+    height: 100%;
+    padding-top: 24px
 }
