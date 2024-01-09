@@ -98,6 +98,10 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    &.disabled {
+        opacity: .5;
+        cursor: not-allowed;
+      }
   }
   .upload-text {
     font-weight: 500;
@@ -109,8 +113,11 @@
     font-size: 14px;
     color: blue;
     width: 144px;
-    text-align: center;
     overflow-wrap: break-word;
+    &.error {
+        color: red;
+        margin: 0;
+      }
   }
   .or-btn {
     margin: 30px 0px 0px 0px;
@@ -268,5 +275,12 @@
 @media (min-width: 320px) and (max-width: 374px) {
   .basic-details-progress-bar .progress-button {
     font-size: 10.5px !important;
+  }
+}
+
+small {
+  &.error {
+    color: red;
+    font-size: 10px;
   }
 }

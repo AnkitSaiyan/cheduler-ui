@@ -44,6 +44,10 @@ export const Translate = Object.freeze({
       [ENG_BE]: 'Failed to save the appointment',
       [DUTCH_BE]: 'Afspraak werd niet weerhouden',
     },
+    FailedToUpload: {
+      [ENG_BE]: 'Failed to upload.',
+      [DUTCH_BE]: 'Uploaden is mislukt',
+    },
     BackendCodes: {
       [ENG_BE]: {
         MSG_400_QR_EXPIRED: 'Your QR code has expired.',
@@ -63,10 +67,36 @@ export const Translate = Object.freeze({
     [ENG_BE]: 'File size should not be greater than',
     [DUTCH_BE]: 'De bestandsgrootte mag niet groter zijn dan.',
   },
+  UploadLimitExceeded: {
+    [ENG_BE]: 'Your upload limit has exceeded',
+    [DUTCH_BE]: 'Ihr Upload-Limit wurde überschritten',
+  },
   AreYouWantToChangeGender: {
     [ENG_BE]: 'Are you sure you want to switch the gender? Warning: Switching will discard the previously added exams.',
     [DUTCH_BE]:
       'Weet je zeker dat je van geslacht wilt veranderen? Waarschuwing: als u overschakelt, worden de eerder toegevoegde onderzoeken verwijderd.',
   },
+  // Toast Messages
+  DownloadSuccess: (filetype) => ({
+    [ENG_BE]: `${filetype} file downloaded successfully`,
+    [DUTCH_BE]: `${filetype} bestand succesvol gedownload`,
+  }),
+
+  DeleteSuccess: (filetype) => ({
+    [ENG_BE]: `${filetype} Deleted successfully`,
+    [DUTCH_BE]: `${filetype} Succesvol Verwijderd`,
+  }),
+
+  AddedSuccess: (filetype) => ({
+    [ENG_BE]: `${filetype} Added successfully`,
+    [DUTCH_BE]: `${filetype} Succesvol toegevoegd`,
+  }),
+
+  EditSuccess: (filetype) => ({
+    [ENG_BE]: `${filetype} Updated successfully`,
+    [DUTCH_BE]: `${filetype}Succesvol geüpdated`,
+  }),
 });
+
+
 

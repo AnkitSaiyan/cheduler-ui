@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
-import { BehaviorSubject, filter, takeUntil, map } from 'rxjs';
+import { BehaviorSubject, filter, takeUntil, map, take, switchMap } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -41,13 +41,25 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     directUpload: boolean;
   };
 
-  private fileSize!: number;
+  public fileSize!: number;
 
   public isEdit: boolean = false;
 
   public imageSrc: any;
 
   private selectedLang!: string;
+
+  public documentListError$$: BehaviorSubject<{ fileName: string; error: 'fileFormat' | 'fileLimit' }[]> = new BehaviorSubject<
+    { fileName: string; error: 'fileFormat' | 'fileLimit' }[]
+  >([]);
+
+  private fileMaxCount!: number;
+
+  public documentList$$ = new BehaviorSubject<any[]>([]);
+
+  public documentFromMobileList$$ = new BehaviorSubject<any[]>([]);
+
+  public isDocumentUploading$$ = new BehaviorSubject<number>(0);
 
   constructor(
     private fb: FormBuilder,
@@ -57,7 +69,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     public loaderSvc: LoaderService,
     private landingService: LandingService,
     private modalSvc: ModalService,
-    private notificationService: NotificationDataService,
+    private notificationSvc: NotificationDataService,
     private singnalRSvc: SignalRService,
     private shareDataSvc: ShareDataService,
   ) {
@@ -98,13 +110,15 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
         this.landingService
-          .getDocumentById$(appointmentDetail?.id, true)
+          .getDocumentById$(appointmentDetail?.id, false)
           .pipe(takeUntil(this.destroy$$))
           .subscribe((res) => {
-            this.referringDetails.fileName = res.fileName;
-            this.referringDetails.directUpload = !res.isUploadedFromQR;
-            this.referringDetails.qrId = res.apmtQRCodeId;
-            this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
+            this.referringDetails.qrId = res?.[0].apmtQRCodeId;
+            if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
+              this.documentFromMobileList$$.next(res);
+            } else {
+              this.documentList$$.next(res);
+            }
           });
       }
     }
@@ -135,14 +149,16 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
-      this.updateFileName(data.fileName, false);
-      this.referringDetails.qrId = data.appointmentQrcodeId;
+      this.referringDetails.qrId = data?.[0]?.appointmentQrcodeId;
       this.referringDetails.fileName = data.fileName;
       this.referringDetails.directUpload = false;
+      this.documentFromMobileList$$.next(data);
+      console.log(data);
     });
 
     this.siteDetails$$.pipe(takeUntil(this.destroy$$)).subscribe((res) => {
       this.fileSize = res.documentSizeInKb / 1024;
+      this.fileMaxCount = res.docUploadMaxCount;
       if (+res?.doctorReferringConsent === 1) {
         this.physicianForm.get('physician')?.removeValidators(Validators.required);
         this.physicianForm.updateValueAndValidity();
@@ -171,56 +187,111 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   public uploadRefferingNote(event: any) {
-    this.uploadFileName = event.target.files[0].name;
-    let extension = this.uploadFileName.slice(this.uploadFileName.lastIndexOf('.') + 1).toLowerCase();
-    let allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
-    const fileSize = event.target.files[0].size / 1024 / 1024 > this.fileSize;
-
     if (!event.target.files.length) {
       return;
-    } else if (allowedExtensions.indexOf(extension) === -1) {
-      this.notificationService.showNotification(Translate.FileFormatNotAllowed[this.selectedLang], NotificationType.WARNING);
-      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
-    } else if (fileSize) {
-      this.notificationService.showNotification(`File size should not be greater than ${this.fileSize} MB.`, NotificationType.WARNING);
-      this.documentUploadProcess.next('FAILED_TO_UPLOAD');
-    } else {
-      this.documentUploadProcess.next('Uploading');
-      this.onFileChange(event);
+    }
+    this.fileChange(event);
+  }
+
+  private checkFileExtensions(file: any): boolean {
+    const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    const fileName = file.name;
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    if (!allowedExtensions.includes(fileExtension)) {
+      return true;
+    }
+    return false;
+  }
+
+  private fileChange(event: any) {
+    const e = event;
+    const { files } = event.target as HTMLInputElement;
+
+    if (files?.length) {
+      const promises = Array.from(files).map((file) => this.readFileAsDataURL(file));
+      Promise.all(promises).then((transformedDataArray) => {
+        this.uploadDocuments(transformedDataArray);
+        e.target.value = ''; // Clear the file input
+      });
     }
   }
 
-  private uploadDocument(file: any) {
-    this.landingService.uploadDocumnet(file, '').subscribe({
-      next: (res) => {
-        this.referringDetails.fileName = this.uploadFileName;
-        this.referringDetails.qrId = res?.apmtDocUniqueId;
-        this.referringDetails.directUpload = true;
-        this.updateFileName(this.uploadFileName, true);
-      },
-      error: (err) => this.documentUploadProcess.next('FAILED_TO_UPLOAD'),
+  private readFileAsDataURL(file: File): Promise<any> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(file);
+      };
+      reader.readAsDataURL(file);
     });
   }
 
-  private onFileChange(event: any) {
-    new Promise((resolve) => {
-      const { files } = event.target as HTMLInputElement;
+  private async uploadDocuments(files: string[]) {
+    const transformedDataArray = files;
+    if (this.fileMaxCount === this.documentList$$.value?.length) {
+      this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+      return;
+    }
 
-      if (files && files?.length) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          resolve(files[0]);
-          this.imageSrc = reader.result;
-        };
-        reader.readAsDataURL(files[0]);
+    if (this.fileMaxCount < this.documentList$$.value?.length + transformedDataArray?.length) {
+      this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+      transformedDataArray?.splice(this.fileMaxCount - this.documentList$$.value?.length);
+    }
+    for (const file of transformedDataArray) {
+      if (!this.referringDetails.qrId) {
+        await this.uploadDocument(file);
+      } else {
+        this.uploadDocument(file, this.referringDetails.qrId);
       }
-    }).then((res) => {
-      this.uploadDocument(res);
-      event.target.value = '';
+    }
+  }
+
+  /**
+   * Ignore await response.
+   * @param file
+   * @returns
+   */
+  private uploadDocument(file: any, uniqueId = '') {
+    const fileSizeExceedsLimit = file.size / 1024 / 1024 > this.fileSize;
+    if (fileSizeExceedsLimit) {
+      this.documentListError$$.next([...this.documentListError$$.value, { fileName: file.name, error: 'fileLimit' }]);
+      return;
+    }
+    if (this.checkFileExtensions(file)) {
+      this.documentListError$$.next([...this.documentListError$$.value, { fileName: file.name, error: 'fileFormat' }]);
+      return;
+    }
+    return new Promise((resolve) => {
+      this.isDocumentUploading$$.next(this.isDocumentUploading$$.value + 1);
+      this.landingService
+        .uploadDocumnet(file, uniqueId)
+        .pipe(
+          take(1),
+          switchMap((res) => {
+            this.referringDetails.qrId = res?.apmtDocUniqueId;
+            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
+            return this.landingService.getDocumentById$(res.apmtDocUniqueId, false);
+          }),
+        )
+        .subscribe({
+          next: (documentList) => {
+            this.documentList$$.next(documentList);
+            this.notificationSvc.showNotification(Translate.AddedSuccess(file?.name)[this.selectedLang], NotificationType.SUCCESS);
+            resolve(documentList);
+          },
+          error: (err) => {
+            this.notificationSvc.showNotification(Translate.Error.FailedToUpload[this.selectedLang], NotificationType.DANGER);
+            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
+            resolve(err);
+          },
+        });
     });
   }
 
   public uploadDocumentFromMobile() {
+    if (this.documentList$$.value?.length) {
+      return;
+    }
     this.modalSvc.open(QrModalComponent, {
       data: {
         id: localStorage.getItem('appointmentId') ?? '0',
@@ -237,18 +308,23 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       this.signalRFileName = fileName;
     }
   }
-  public clearFile() {
-    this.landingService.deleteDocument(this.referringDetails.qrId).pipe(takeUntil(this.destroy$$)).subscribe();
-    this.documentUploadProcess.next('');
-    this.signalRFileName = '';
-    this.referringDetails.qrId = '';
-    this.referringDetails.fileName = '';
+  public clearFile(document: any, isFromMobile: boolean = false) {
+    this.landingService.deleteDocument(document.id).pipe(takeUntil(this.destroy$$)).subscribe();
+    // this.signalRFileName = '';
+    this.notificationSvc.showNotification(Translate.DeleteSuccess(document.fileName)[this.selectedLang], NotificationType.SUCCESS);
+    if (isFromMobile) {
+      this.documentFromMobileList$$.next(this.documentFromMobileList$$.value?.filter((item) => item?.id !== document?.id));
+    } else {
+      this.documentList$$.next(this.documentList$$.value?.filter((item) => item?.id !== document?.id));
+    }
   }
 
-  public viewDocument() {
+  public viewDocument(id?: number, isFromMobile: boolean = false) {
     this.modalSvc.open(DocumentViewModalComponent, {
       data: {
         id: this.referringDetails.qrId || localStorage.getItem('appointmentId'),
+        documentList: isFromMobile ? this.documentFromMobileList$$.value : this.documentList$$.value,
+        focusedDocId: id,
       },
       options: {
         size: 'xl',
@@ -259,3 +335,23 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -32,27 +32,66 @@
             <div class="upload-main-container">
               <div class="upload-container">
                 <div class="upload-section d-flex flex-column align-items-center">
-                  <input type="file"  accept = "image/*, application/pdf" (change)="uploadRefferingNote($event)" #fileUpload style="display: none" />
-                  <div class="upload-button" (click)="fileUpload.click()">
+                  <input type="file"  accept = "image/*, application/pdf" multiple (change)="uploadRefferingNote($event)" [disabled]="documentFromMobileList$$.value.length" (click)="fileUpload.value = ''; documentListError$$.next([])"  #fileUpload style="display: none" />
+                  <div class="upload-button" [ngClass]="{'disabled': (documentFromMobileList$$ | async)?.length}" (click)="fileUpload.click()">
                     <img src="../../../../../assets/images/upload-icon.png" alt="" width="40px" />
                   </div>
                   <p class="upload-text">{{'UPLOAD_DOCUMENT' | translate}}</p>
-                  <p class="file-name" [style.color]="(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') ? 'red' : ''">
-                    {{ (documentUploadProcess | async)  ?? '' | translate }}&nbsp;
-                     <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="!(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') && !(documentUploadProcess | async)?.includes('Uploading') && (documentUploadProcess | async)" name="trash-01"></dfm-icon>
-                  </p>
-                  <div *ngIf="!(documentUploadProcess | async)?.includes('FAILED_TO_UPLOAD') && !(documentUploadProcess | async)?.includes('Uploading') && (documentUploadProcess | async)" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
+                  <div class="d-flex dfm-gap-8 flex-column">
+                    <ng-container *ngIf="(documentListError$$ | async) as documentListError">
+                      <div class="d-flex flex-column dfm-gap-8" *ngFor="let document of documentListError">
+                        <p class="file-name error text-truncate" >
+                          {{ document.fileName| translate }}&nbsp;
+                        </p>
+                        <small class="error">{{'( ' + (document?.error === 'fileFormat' ? ('FileFormatNotAllowed' | translate) : ('FileSizeError' | translate) +' ' +fileSize + ' MB') +' )'}}</small>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="(documentList$$ | async) as documentList">
+                      <div class="d-flex align-items-center dfm-gap-8" *ngFor="let document of documentList">
+                        <p class="file-name text-truncate" >
+                          {{ document.fileName| translate }}&nbsp;
+                        </p>
+                        <dfm-button-icon size="sm" (click)="viewDocument(document?.id)" ngbPopover="{{ 'View' | translate }}"
+                          triggers="mouseenter:mouseleave"
+                          popoverClass="popover-p-8"
+                          [openDelay]="200"
+                          icon="eye"></dfm-button-icon>
+                        <dfm-button-icon size="sm" (click)="clearFile(document)" ngbPopover="{{ 'Delete' | translate }}"
+                          triggers="mouseenter:mouseleave"
+                          popoverClass="popover-p-8"
+                          [openDelay]="200"
+                          icon="trash-01"></dfm-button-icon>
+                      </div>
+                    </ng-container>
+
+                    <p class="file-name" *ngIf="isDocumentUploading$$ | async">
+                      {{ 'Uploading' | translate }}
+                    </p>
+                  </div>
                 </div>
                 <div class="or-btn"><span>{{'Or' | translate | uppercase}}</span></div>
                 <div class="upload-section d-flex flex-column align-items-center mobile-upload-mv">
-                  <div class="upload-button" (click)="uploadDocumentFromMobile()">
+                  <div class="upload-button" [ngClass]="{'disabled': (documentList$$ | async)?.length}" (click)="uploadDocumentFromMobile()">
                     <img src="../../../../../assets/images/phone-scan.png" alt="" width="40px" />
                   </div>
                   <p class="upload-text">{{'UPLOAD_DOCUMENT' | translate}} <br />{{"FROM_MOBILE_DEVICE" | translate}}</p>
-                  <p class="file-name">{{ signalRFileName }}&nbsp;
-                    <dfm-icon class="clear-icon" (click)="clearFile()" *ngIf="signalRFileName" name="trash-01"></dfm-icon>
-                  </p>
-                  <div *ngIf="signalRFileName" class="view-link" (click)="viewDocument()">{{"View"|translate}}</div>
+                  <div class="d-flex dfm-gap-8 flex-column" *ngIf="(documentFromMobileList$$ | async) as documentList">
+                    <div class="d-flex align-items-center dfm-gap-8" *ngFor="let document of documentList">
+                      <p class="file-name text-truncate" >
+                        {{ document.fileName| translate }}&nbsp;
+                      </p>
+                      <dfm-button-icon size="sm" (click)="viewDocument(document?.id, true)" ngbPopover="{{ 'View' | translate }}"
+                        triggers="mouseenter:mouseleave"
+                        popoverClass="popover-p-8"
+                        [openDelay]="200"
+                        icon="eye"></dfm-button-icon>
+                      <dfm-button-icon size="sm" (click)="clearFile(document, true)" ngbPopover="{{ 'Delete' | translate }}"
+                        triggers="mouseenter:mouseleave"
+                        popoverClass="popover-p-8"
+                        [openDelay]="200"
+                        icon="trash-01"></dfm-button-icon>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

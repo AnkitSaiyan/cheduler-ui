@@ -332,8 +332,13 @@
       "NO_ITEMS": "No items found",
       "LOADING": "Loading"
     }
-  }
+  },
+  "FileFormatNotAllowed": "File format not allowed",
+  "FileSizeError": "File size should not be greater than",
+  "UploadLimitExceeded": "Your upload limit has exceeded"
 }
+
+
 
 
 
