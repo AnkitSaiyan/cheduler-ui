@@ -61,7 +61,7 @@ export class LandingService {
       .pipe(map((response) => response?.data));
   }
 
-  public getQr(connectionId:string, appointmentId:string): Observable<any> {
+  public getQr(connectionId: string, appointmentId: string): Observable<any> {
     let params = new HttpParams()
       .append('signalRConnectionId', connectionId)
       .append('url', window.location.origin + `/upload-document/?id=qrcodeid`)
@@ -82,13 +82,14 @@ export class LandingService {
     );
   }
 
-  public uploadDocumnet(file: any, uniqueId: string): Observable<any> {
+  public uploadDocumnet(file: any, uniqueId: string, isUploadedFromQr: boolean = false): Observable<any> {
     const formData = new FormData();
     formData.append('File', file);
     formData.append('ApmtQRCodeId', uniqueId);
     formData.append('FileData', '');
     formData.append('FileName', '');
     formData.append('AppointmentId', (localStorage.getItem('appointmentId') ?? 0).toString());
+    formData.append('isUploadedFromQr', JSON.stringify(isUploadedFromQr));
 
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
     return this.httpClient.post<any>(`${environment.serverBaseUrl}/qrcode/upload`, formData, { headers }).pipe(
@@ -97,18 +98,18 @@ export class LandingService {
     );
   }
 
-  public getDocumentById$(id: any, isPreview:boolean): Observable<any> {
+  public getDocumentById$(id: any, isPreview: boolean): Observable<any> {
     let params = new HttpParams(); //appointmentId
     const idType = isNaN(id) ? 'qrCodeId' : 'appointmentId';
     params = params.append(idType, id);
     params = params.append('isPreview', isPreview);
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
-		return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getdocuments`, {params, headers}).pipe(
-		  map((response) => response.data),
-		  tap(() => {}),
-		);
+    return this.httpClient.get<any>(`${environment.serverBaseUrl}/qrcode/getdocuments`, { params, headers }).pipe(
+      map((response) => response.data),
+      tap(() => {}),
+    );
   }
-  
+
   public deleteDocument(qrId: string): Observable<any> {
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
     return this.httpClient.delete<any>(`${environment.serverBaseUrl}/qrcode/${qrId}`, { headers }).pipe(

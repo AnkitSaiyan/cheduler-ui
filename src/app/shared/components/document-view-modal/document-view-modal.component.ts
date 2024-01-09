@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DestroyableComponent } from '../destroyable/destroyable.component';
-import { Subject, take, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, take, takeUntil } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { NotificationDataService } from 'src/app/core/services/notification-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ENG_BE } from '../../utils/const';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'dfm-document-view-modal',
@@ -26,48 +28,77 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
 
   private isDownloadClick: boolean = false;
 
+  private selectedLang: string = ENG_BE;
+
+  public documents$$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+
+  public focusedDocument!: any;
+
   constructor(
     private modalSvc: ModalService,
     private landingSvc: LandingService,
     private notificationService: NotificationDataService,
     private sanitizer: DomSanitizer,
+    private shareDataSvc: ShareDataService,
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.modalSvc.dialogData$.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
-      this.getDocument(data.id);
+      if (data?.documentList) {
+        this.showDocuments(data?.documentList, data?.focusedDocId);
+      } else {
+        this.getDocument(data.id, data?.focusedDocId);
+      }
     });
+
+    this.shareDataSvc
+      .getLanguage$()
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe({
+        next: (lang) => {
+          this.selectedLang = lang;
+        },
+      });
   }
 
-  public getDocument(id) {
+  public getDocument(id, focusedDocId?: number) {
     this.landingSvc
       .getDocumentById$(id, true)
       .pipe(takeUntil(this.destroy$$))
       .subscribe((res) => {
-        this.isImage = !res.fileName.includes('.pdf');
-        if (!this.downloadableDoc) this.image.next((this.isImage ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
-        this.fileName = res.fileName;
+        this.showDocuments(res, focusedDocId);
       });
     this.landingSvc
       .getDocumentById$(id, false)
       .pipe(take(1))
       .subscribe((res) => {
-        this.image.next((!res.fileName.includes('.pdf') ? this.base64ImageStart : this.base64PdfStart) + res.fileData);
-        this.downloadableDoc = (res.fileName.includes('.pdf') ? this.base64PdfStart : this.base64ImageStart) + res.fileData;
-        if (this.isDownloadClick) this.downloadDocument();
+        this.showDocuments(res, focusedDocId);
       });
   }
 
+  private showDocuments(documentRes: any[], focusedDocId?: number) {
+    this.documents$$.next(
+      documentRes.map((res) => ({
+        ...res,
+        fileData: (!res.fileName.includes('.pdf') ? this.base64ImageStart : this.base64PdfStart) + res.fileData,
+        isImage: !res.fileName.includes('.pdf'),
+      })),
+    );
+    this.focusedDocument = this.documents$$.value?.find(({ id }) => id === focusedDocId) ?? this.documents$$.value[0];
+  }
+
+  public setFocus(docData: Document) {
+    this.focusedDocument = docData;
+  }
+
   public downloadDocument() {
-    if (!this.downloadableDoc) {
-      this.isDownloadClick = true;
-      this.notificationService.showNotification('Downloading in progress...');
+    if (!this.focusedDocument) {
       return;
     }
-   
-      this.downloadImage(this.downloadableDoc);
+    this.notificationService.showNotification('Downloading in progress...');
+    this.downloadImage(this.downloadableDoc);
   }
 
   public closeModal() {
@@ -103,3 +134,4 @@ export class DocumentViewModalComponent extends DestroyableComponent implements 
     return url1.changingThisBreaksApplicationSecurity;
   }
 }
+
