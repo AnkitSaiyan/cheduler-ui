@@ -38,7 +38,7 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
 
   public documentList$$ = new BehaviorSubject<any[]>([]);
 
-  public isDocumentUploading$$ = new BehaviorSubject<number>(0);
+  public isDocumentUploading$$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private route: ActivatedRoute,
@@ -136,18 +136,44 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
 
   private async uploadDocuments(files: string[]) {
     const transformedDataArray = files;
+    let isLimitExceeded = false;
     if (this.fileMaxCount === this.documentList$$.value?.length) {
       this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
       return;
     }
 
     if (this.fileMaxCount < this.documentList$$.value?.length + transformedDataArray?.length) {
-      this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
       transformedDataArray?.splice(this.fileMaxCount - this.documentList$$.value?.length);
+      isLimitExceeded = true;
     }
+
+    const allPromise: any[] = [];
     for (const file of transformedDataArray) {
-      this.uploadDocument(file, this.uniqueId);
+      allPromise.push(this.uploadDocument(file, this.uniqueId));
     }
+    this.isDocumentUploading$$.next(true);
+    this.documentUploadProcess.next('Uploading');
+    await Promise.all(allPromise);
+    this.landingSvc
+      .getDocumentById$(this.uniqueId, true)
+      .pipe(take(1))
+      .subscribe({
+        next: (documentList) => {
+          this.documentList$$.next(documentList);
+          this.isDocumentUploading$$.next(false);
+          this.documentUploadProcess.next('UPLOAD_DOCUMENT');
+          if (isLimitExceeded) {
+            this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+          }
+        },
+        error: () => {
+          this.isDocumentUploading$$.next(false);
+          this.documentUploadProcess.next('FAILED_TO_UPLOAD');
+          if (isLimitExceeded) {
+            this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+          }
+        },
+      });
   }
 
   /**
@@ -166,28 +192,19 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
       return;
     }
     return new Promise((resolve) => {
-      this.isDocumentUploading$$.next(this.isDocumentUploading$$.value + 1);
-      this.documentUploadProcess.next('Uploading');
+
       this.landingSvc
         .uploadDocumnet(file, uniqueId, true)
-        .pipe(
-          take(1),
-          switchMap((res) => {
-            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
-            return this.landingSvc.getDocumentById$(this.uniqueId, true);
-          }),
-        )
+        .pipe(take(1))
         .subscribe({
-          next: (documentList) => {
-            this.documentList$$.next(documentList);
+          next: (res) => {
             this.notificationService.showNotification(Translate.AddedSuccess(file?.name)[this.selectedLang], NotificationType.SUCCESS);
-            this.documentUploadProcess.next('UPLOAD_DOCUMENT');
-            resolve(documentList);
+
+            resolve(res);
           },
           error: (err) => {
             this.notificationService.showNotification(Translate.Error.FailedToUpload[this.selectedLang], NotificationType.DANGER);
-            this.documentUploadProcess.next('FAILED_TO_UPLOAD');
-            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
+
             resolve(err);
           },
         });
@@ -216,6 +233,8 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
     });
   }
 }
+
+
 
 
 
