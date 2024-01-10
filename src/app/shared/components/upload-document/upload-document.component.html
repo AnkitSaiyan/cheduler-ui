@@ -20,6 +20,7 @@
             </div>
           </div>
           <div class="upload-section d-flex flex-column align-items-center h-full " *ngIf="documentList$$.value?.length">
+
             <div class="upload-document-btn end">
               <div class="light-circle">
                 <input type="file" (change)="uploadRefferingNote($event)" accept = "image/*, application/pdf" #fileUpload multiple (click)="fileUpload.value = ''; documentListError$$.next([])" />
@@ -29,20 +30,27 @@
             <p class="upload-text">{{'UPLOAD_DOCUMENT' | translate}}</p>
             <div class="d-flex dfm-gap-8 flex-column document-list">
               <ng-container *ngIf="(documentListError$$ | async) as documentListError">
-                <div class="d-flex flex-column dfm-gap-8" *ngFor="let document of documentListError">
-                  <p class="file-name error text-truncate" >
-                    {{ document.fileName| translate }}&nbsp;
-                  </p>
+                <div class="d-flex flex-column dfm-gap-4" *ngFor="let document of documentListError">
+                  <div class="d-flex align-items-center">
+                    <p class="file-name error text-truncate" >
+                      {{ document.fileName| translate }}&nbsp;
+                    </p>
+                    <span class="view-link" (click)="fileUpload.click()">{{'ReUpload' | translate}}</span>
+                  </div>
                   <small class="error">{{'( ' + (document?.error === 'fileFormat' ? ('FileFormatNotAllowed' | translate) : ('FileSizeError' | translate) +' ' +fileSize + ' MB') +' )'}}</small>
                 </div>
               </ng-container>
               <ng-container *ngIf="(documentList$$ | async) as documentList">
                 <div class="d-flex align-items-center dfm-gap-8" *ngFor="let document of documentList">
-                  <p class="file-name text-truncate" >
-                    {{ document.fileName| translate }}&nbsp;
-                  </p>
+                  <div class="d-flex">
+                    <p class="file-name text-truncate" >
+                      {{ document.fileName| translate }}&nbsp;
+                    </p>
+                    <dfm-icon name="check" class="check"></dfm-icon>
+                  </div>
                 </div>
               </ng-container>
+
 
               <p class="file-name" *ngIf="isDocumentUploading$$ | async">
                 {{ 'Uploading' | translate }}

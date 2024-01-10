@@ -18,9 +18,10 @@
 .file-name {
   font-weight: 500;
     font-size: 14px;
-  color: blue;
+  color: black;
   width: 144px;
   overflow-wrap: break-word;
+  margin-bottom: 4px;
   &.error {
       color: red;
       margin: 0;
@@ -183,26 +184,41 @@
       transition: 0.3s;
       animation: slide-up 2.5s linear infinite;
     }
-  
+
     span {
       text-align: center;
     }
   }
   }
-  
+
   small {
     &.error {
       color: red;
       font-size: 10px;
     }
   }
-  
+
   .document-list {
     overflow: auto;
-    height: calc(100% - 120px);
+    height: calc(100% - 136px);
+      margin-top: 16px;
   }
-  
+
   .h-full {
     height: 100%;
     padding-top: 24px
+}
+.upload-text {
+  margin-top: 8px;
+}
+
+.view-link {
+  color: blue;
+  text-decoration: underline;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.check {
+  color: green;
 }
