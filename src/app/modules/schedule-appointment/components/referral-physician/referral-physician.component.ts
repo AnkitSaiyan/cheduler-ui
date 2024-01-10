@@ -61,6 +61,8 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public isDocumentUploading$$ = new BehaviorSubject<boolean>(false);
 
+  public isDocumentLoading$$ = new BehaviorSubject<boolean>(false);
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -161,18 +163,25 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
 
   private getUploadedFiles(id: number | string) {
+    this.isDocumentLoading$$.next(true);
     this.landingService
-      .getDocumentById$(id, false)
+      .getDocumentById$(id, true)
       .pipe(takeUntil(this.destroy$$))
-      .subscribe((res) => {
-        if (res?.[0].apmtQRCodeId) {
-          this.referringDetails.qrId = res?.[0].apmtQRCodeId;
-        }
-        if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
-          this.documentFromMobileList$$.next(res);
-        } else {
-          this.documentList$$.next(res);
-        }
+      .subscribe({
+        next: (res) => {
+          if (res?.[0].apmtQRCodeId) {
+            this.referringDetails.qrId = res?.[0].apmtQRCodeId;
+          }
+          if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
+            this.documentFromMobileList$$.next(res);
+          } else {
+            this.documentList$$.next(res);
+          }
+          this.isDocumentLoading$$.next(false);
+        },
+        error: () => {
+          this.isDocumentLoading$$.next(false);
+        },
       });
   }
 
@@ -189,6 +198,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     }
     this.referringDetails.physician = this.physicianForm.value.physician;
     localStorage.setItem('referringDetails', JSON.stringify(this.referringDetails));
+    this.landingService.setDocument(
+      this.referringDetails.qrId,
+      this.documentList$$.value?.length ? this.documentList$$.value : this.documentFromMobileList$$.value,
+    );
     this.router.navigate(['../exam'], { relativeTo: this.route, replaceUrl: true });
   }
 
@@ -342,7 +355,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.modalSvc.open(DocumentViewModalComponent, {
       data: {
         id: this.referringDetails.qrId || localStorage.getItem('appointmentId'),
-        documentList: isFromMobile ? this.documentFromMobileList$$.value : this.documentList$$.value,
+        documentList: !isFromMobile && this.documentList$$.value,
         focusedDocId: id,
       },
       options: {
@@ -354,6 +367,11 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
+
+
+
+
+
 
 
 
