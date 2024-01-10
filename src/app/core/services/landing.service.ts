@@ -1,6 +1,6 @@
 import { HttpBackend, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of, startWith, switchMap, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/shared/models/base-response.model';
 import { environment } from 'src/environments/environment';
@@ -24,6 +24,8 @@ export class LandingService {
   private SubDomain: string = '';
 
   public siteSetting$$ = new BehaviorSubject<any>(null);
+
+  private documentMap = new Map();
 
   constructor(private router: Router, private http: HttpBackend, private loaderSvc: LoaderService) {
     this.httpClient = new HttpClient(http);
@@ -83,6 +85,7 @@ export class LandingService {
   }
 
   public uploadDocumnet(file: any, uniqueId: string, isUploadedFromQr: boolean = false): Observable<any> {
+    this.documentMap.clear();
     const formData = new FormData();
     formData.append('File', file);
     formData.append('ApmtQRCodeId', uniqueId);
@@ -99,6 +102,9 @@ export class LandingService {
   }
 
   public getDocumentById$(id: any, isPreview: boolean): Observable<any> {
+    if (isPreview && this.documentMap.has(id)) {
+      return of(this.documentMap.get(id));
+    }
     let params = new HttpParams(); //appointmentId
     const idType = isNaN(id) ? 'qrCodeId' : 'appointmentId';
     params = params.append(idType, id);
@@ -110,6 +116,9 @@ export class LandingService {
     );
   }
 
+  public setDocument(id: any, documentList: any[]) {
+    this.documentMap.set(id, documentList);
+  }
   public deleteDocument(qrId: string): Observable<any> {
     let headers = HttpUtils.GetHeader(['SubDomain', window.location.host.split('.')[0]]);
     return this.httpClient.delete<any>(`${environment.serverBaseUrl}/qrcode/${qrId}`, { headers }).pipe(

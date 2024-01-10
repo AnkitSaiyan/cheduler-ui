@@ -312,6 +312,7 @@
   "EXAM_EXIST_FOR_SELECTED_BODY_PART": "'Voor het gekozen lichaamsdeel bestaan 1 of meerdere onderzoeken: kies uit de lijst rechts, en klik daarna op 'Onderzoek toevoegen.",
   "Filters": "Filters",
   "Uploading": "Uploaden...",
+  "LOADING": "Loaden...",
   "QR_EXPIRE_REGENERATE": "QR is verlopen. Genereer een nieuwe QR.",
   "GENERATE_NEW_QR": "Genereer een nieuwe QR-code",
   "FAILED_TO_UPLOAD": "Uploaden is mislukt",
@@ -338,6 +339,7 @@
   "FileSizeError": "De bestandsgrootte mag niet groter zijn dan.",
   "UploadLimitExceeded": "Ihr Upload-Limit wurde überschritten"
 }
+
 
 
 
