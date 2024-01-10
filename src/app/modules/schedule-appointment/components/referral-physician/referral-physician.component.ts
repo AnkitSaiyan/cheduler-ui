@@ -59,7 +59,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   public documentFromMobileList$$ = new BehaviorSubject<any[]>([]);
 
-  public isDocumentUploading$$ = new BehaviorSubject<number>(0);
+  public isDocumentUploading$$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
@@ -228,22 +228,44 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   private async uploadDocuments(files: string[]) {
     const transformedDataArray = files;
+    let isLimitExceeded = false;
     if (this.fileMaxCount === this.documentList$$.value?.length) {
       this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
       return;
     }
 
     if (this.fileMaxCount < this.documentList$$.value?.length + transformedDataArray?.length) {
-      this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
       transformedDataArray?.splice(this.fileMaxCount - this.documentList$$.value?.length);
+      isLimitExceeded = true;
     }
+    const allPromise: any[] = [];
     for (const file of transformedDataArray) {
       if (!this.referringDetails.qrId) {
         await this.uploadDocument(file);
       } else {
-        this.uploadDocument(file, this.referringDetails.qrId);
+        allPromise.push(this.uploadDocument(file, this.referringDetails.qrId));
       }
     }
+    this.isDocumentUploading$$.next(true);
+    await Promise.all(allPromise);
+    this.landingService
+      .getDocumentById$(this.referringDetails.qrId, true)
+      .pipe(take(1))
+      .subscribe({
+        next: (documentList) => {
+          this.documentList$$.next(documentList);
+          this.isDocumentUploading$$.next(false);
+          if (isLimitExceeded) {
+            this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+          }
+        },
+        error: () => {
+          this.isDocumentUploading$$.next(false);
+          if (isLimitExceeded) {
+            this.notificationSvc.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
+          }
+        },
+      });
   }
 
   /**
@@ -262,26 +284,19 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       return;
     }
     return new Promise((resolve) => {
-      this.isDocumentUploading$$.next(this.isDocumentUploading$$.value + 1);
       this.landingService
         .uploadDocumnet(file, uniqueId)
         .pipe(
           take(1),
-          switchMap((res) => {
-            this.referringDetails.qrId = res?.apmtDocUniqueId;
-            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
-            return this.landingService.getDocumentById$(res.apmtDocUniqueId, false);
-          }),
         )
         .subscribe({
-          next: (documentList) => {
-            this.documentList$$.next(documentList);
+          next: (res) => {
+            this.referringDetails.qrId = res?.apmtDocUniqueId;
             this.notificationSvc.showNotification(Translate.AddedSuccess(file?.name)[this.selectedLang], NotificationType.SUCCESS);
-            resolve(documentList);
+            resolve(res);
           },
           error: (err) => {
             this.notificationSvc.showNotification(Translate.Error.FailedToUpload[this.selectedLang], NotificationType.DANGER);
-            this.isDocumentUploading$$.next(this.isDocumentUploading$$.value - 1);
             resolve(err);
           },
         });
