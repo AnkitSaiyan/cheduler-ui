@@ -152,6 +152,7 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
       allPromise.push(this.uploadDocument(file, this.uniqueId));
     }
     this.isDocumentUploading$$.next(true);
+    this.documentUploadProcess.next('Uploading');
     await Promise.all(allPromise);
     this.landingSvc
       .getDocumentById$(this.uniqueId, true)
@@ -160,12 +161,14 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
         next: (documentList) => {
           this.documentList$$.next(documentList);
           this.isDocumentUploading$$.next(false);
+          this.documentUploadProcess.next('UPLOAD_DOCUMENT');
           if (isLimitExceeded) {
             this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
           }
         },
         error: () => {
           this.isDocumentUploading$$.next(false);
+          this.documentUploadProcess.next('FAILED_TO_UPLOAD');
           if (isLimitExceeded) {
             this.notificationService.showNotification(Translate.UploadLimitExceeded[this.selectedLang], NotificationType.DANGER);
           }
@@ -189,19 +192,19 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
       return;
     }
     return new Promise((resolve) => {
-      this.documentUploadProcess.next('Uploading');
+
       this.landingSvc
         .uploadDocumnet(file, uniqueId, true)
         .pipe(take(1))
         .subscribe({
           next: (res) => {
             this.notificationService.showNotification(Translate.AddedSuccess(file?.name)[this.selectedLang], NotificationType.SUCCESS);
-            this.documentUploadProcess.next('UPLOAD_DOCUMENT');
+
             resolve(res);
           },
           error: (err) => {
             this.notificationService.showNotification(Translate.Error.FailedToUpload[this.selectedLang], NotificationType.DANGER);
-            this.documentUploadProcess.next('FAILED_TO_UPLOAD');
+
             resolve(err);
           },
         });

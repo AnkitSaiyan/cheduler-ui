@@ -109,22 +109,12 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
       const appointmentDetail = JSON.parse(localStorage.getItem('appointmentDetails') ?? '');
       this.referringDetails.physician = appointmentDetail?.doctorId ?? '';
       if (appointmentDetail?.documentCount) {
-        this.landingService
-          .getDocumentById$(appointmentDetail?.id, false)
-          .pipe(takeUntil(this.destroy$$))
-          .subscribe((res) => {
-            this.referringDetails.qrId = res?.[0].apmtQRCodeId;
-            if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
-              this.documentFromMobileList$$.next(res);
-            } else {
-              this.documentList$$.next(res);
-            }
-          });
+        this.getUploadedFiles(appointmentDetail?.id);
       }
     }
-    if (qrDetails?.fileName) {
+    if (qrDetails?.qrId) {
       this.referringDetails = qrDetails;
-      this.updateFileName(this.referringDetails.fileName, this.referringDetails.directUpload);
+      this.getUploadedFiles(qrDetails?.qrId);
     } else if (qrDetails.physician) this.referringDetails.physician = qrDetails.physician;
 
     this.siteDetails$$.next(JSON.parse(localStorage.getItem('siteDetails') ?? '{}')?.data);
@@ -150,7 +140,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     this.singnalRSvc.documentData.pipe(takeUntil(this.destroy$$)).subscribe((data) => {
       this.modalSvc.close();
       this.referringDetails.qrId = data?.[0]?.appointmentQrcodeId;
-      this.referringDetails.fileName = data.fileName;
+      this.referringDetails.fileName = data?.[0]?.fileName;
       this.referringDetails.directUpload = false;
       this.documentFromMobileList$$.next(data);
       console.log(data);
@@ -168,6 +158,22 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
 
   override ngOnDestroy() {
     super.ngOnDestroy();
+  }
+
+  private getUploadedFiles(id: number | string) {
+    this.landingService
+      .getDocumentById$(id, false)
+      .pipe(takeUntil(this.destroy$$))
+      .subscribe((res) => {
+        if (res?.[0].apmtQRCodeId) {
+          this.referringDetails.qrId = res?.[0].apmtQRCodeId;
+        }
+        if (res?.some(({ isUploadedFromQR }) => isUploadedFromQR)) {
+          this.documentFromMobileList$$.next(res);
+        } else {
+          this.documentList$$.next(res);
+        }
+      });
   }
 
   private createForm(data) {
@@ -286,9 +292,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     return new Promise((resolve) => {
       this.landingService
         .uploadDocumnet(file, uniqueId)
-        .pipe(
-          take(1),
-        )
+        .pipe(take(1))
         .subscribe({
           next: (res) => {
             this.referringDetails.qrId = res?.apmtDocUniqueId;
@@ -350,6 +354,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
+
+
+
+
 
 
 
