@@ -53,7 +53,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     { fileName: string; error: 'fileFormat' | 'fileLimit' }[]
   >([]);
 
-  private fileMaxCount!: number;
+  public fileMaxCount!: number;
 
   public documentList$$ = new BehaviorSubject<any[]>([]);
 
@@ -367,6 +367,7 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     });
   }
 }
+
 
 
 

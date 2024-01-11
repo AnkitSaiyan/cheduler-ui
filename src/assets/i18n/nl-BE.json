@@ -338,8 +338,11 @@
   "FileFormatNotAllowed": "Bestandsformaat niet toegestaan.",
   "FileSizeError": "De bestandsgrootte mag niet groter zijn dan.",
   "UploadLimitExceeded": "Ihr Upload-Limit wurde überschritten",
-  "ReUpload": "Her-upload"
+  "ReUpload": "Her-upload",
+  "FileUploadInstruction": "Bestanden moeten pdf, jpg, jpeg, png zijn en mogen per document niet groter zijn dan {{maxFileSize}} MB",
+  "FileUploaded": "Geüpload - {{uploaded}} / {{fileMaxLimit}} Bestanden"
 }
+
 
 
 
