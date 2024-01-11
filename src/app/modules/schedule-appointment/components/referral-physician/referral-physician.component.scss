@@ -106,6 +106,18 @@
   .upload-text {
     font-weight: 500;
     font-size: 14px;
+    &.caption {
+      margin-top: -8px;
+      
+        &.small {
+        margin-top: -12px;
+        }
+                }
+
+                &.success {
+                  margin-top: -16px;
+                  color: var(--dfm-primary);
+                }
   }
 
   .file-name {

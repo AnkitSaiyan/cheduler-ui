@@ -337,8 +337,11 @@
   "FileFormatNotAllowed": "File format not allowed",
   "FileSizeError": "File size should not be greater than",
   "UploadLimitExceeded": "Your upload limit has exceeded",
-  "ReUpload": "Re-upload"
+  "ReUpload": "Re-upload",
+  "FileUploadInstruction": "Files must be pdf, jpg, jpeg, png and not exceed more than {{maxFileSize}} MB for each document",
+  "FileUploaded": "Uploaded - {{uploaded}} / {{fileMaxLimit}} Files"
 }
+
 
 
 

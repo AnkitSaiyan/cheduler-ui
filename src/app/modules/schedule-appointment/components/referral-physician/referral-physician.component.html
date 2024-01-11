@@ -28,7 +28,10 @@
               {{ 'RequiredField' | translate }}
             </span>
             <ng-container *ngIf="!(!physicianEnale?.editUploadedDocument && isEdit)">
-            <span class="upload-text">{{'UploadReferringNote' | translate}} <small>(pdf, jpg, jpeg, png)</small></span>
+            <span class="upload-text caption">{{'UploadReferringNote' | translate}} </span>
+            <span class="upload-text caption small">(<small>{{'FileUploadInstruction' | translate : { maxFileSize: fileSize} }}</small>)</span>
+
+            <span class="upload-text caption success" >{{'FileUploaded' | translate : {uploaded: documentList$$.value.length ? documentList$$.value.length : documentFromMobileList$$.value.length, fileMaxLimit: fileMaxCount} }}</span>
             <div class="upload-main-container">
               <div class="upload-container">
                 <div class="upload-section d-flex flex-column align-items-center">
