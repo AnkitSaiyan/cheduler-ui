@@ -66,7 +66,7 @@
 
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
           <div class="circle-24 calender-month-view-day-off"></div>
-          <span class="font-weight-medium off-day">{{ 'OffDay' | translate }}</span>
+          <span class="font-weight-medium off-day">{{ 'FullyBooked' | translate }}</span>
         </div>
 
         <div class="calendar-footer-text d-flex align-items-center dfm-gap-8">
@@ -156,7 +156,7 @@
 
                 <ng-container *ngIf="examsDetails?.exams?.length && examsDetails.exams.length > 1; else oneExam">
                   <ul style="max-height:140px; overflow-y:auto;">
-                
+
                     <ng-container *ngFor="let exam of examsDetails?.exams">
                       <li *ngIf="examIdToName[exam]?.instructions">
                         <span class="font-weight-medium ">{{ examIdToName[exam]?.name }} - </span>

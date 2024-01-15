@@ -194,7 +194,7 @@
   "EnterPhysicianName": "Selecteer naam dokter",
   "Next": "Volgende",
   "Holiday": "Vakantie",
-  "OffDay": "Vrije dag",
+  "FullyBooked": "Volzet",
   "Back": "Terug",
   "ExamName": "Naam onderzoek",
   "Instructions": "Aanwijzingen",
@@ -342,6 +342,8 @@
   "FileUploadInstruction": "Bestanden moeten pdf, jpg, jpeg, png zijn en mogen per document niet groter zijn dan {{maxFileSize}} MB",
   "FileUploaded": "Geüpload - {{uploaded}} / {{fileMaxLimit}} Bestanden"
 }
+
+
 
 
 
