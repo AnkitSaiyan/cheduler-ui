@@ -43,7 +43,7 @@
                       selectedDate$$.value?.getFullYear() === selectedCalendarDate$$.value.getFullYear(),
                     'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
                     'calender-month-view-day-holiday': holidays.includes(+day),
-                    'calender-month-view-day-off': offDays.includes(+day)
+                    'calender-month-view-day-off': fullyBooked.includes(+day)
                   }"
                 >
                   {{ day }}
