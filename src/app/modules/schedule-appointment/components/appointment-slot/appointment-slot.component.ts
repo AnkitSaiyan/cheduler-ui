@@ -57,8 +57,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
   public instructionSectionView: boolean = false;
 
+  public loading$$ = new BehaviorSubject<boolean>(true);
+
   constructor(
-    private authService: AuthService,
     private scheduleAppointmentSvc: ScheduleAppointmentService,
     private router: Router,
     private route: ActivatedRoute,
@@ -134,6 +135,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         filter((date) => !!date),
         tap(() => this.resetCalendarData()),
         switchMap((date) => {
+          this.loading$$.next(true);
           const fromDate = `${date.getFullYear()}-${date.getMonth() + 1}-01`;
           const toDate = `${date.getFullYear()}-${date.getMonth() + 1}-${this.getLastDayOfMonth(date)}`;
           const { exams } = this.examsDetails;
@@ -141,6 +143,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         }),
       )
       .subscribe((appointmentSlot) => {
+        this.loading$$.next(false);
         appointmentSlot.forEach((slot) => {
           const day = +slot.start.slice(-2);
 
