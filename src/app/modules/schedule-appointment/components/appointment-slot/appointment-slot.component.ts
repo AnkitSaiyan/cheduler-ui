@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from 'src/app/core/services/auth.service';
-import {DatePipe} from '@angular/common';
-import {BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {getDaysOfMonth, getWeekdayWiseDays, Weekday} from '../../../../shared/models/calendar.model.';
-import {ScheduleAppointmentService} from '../../../../core/services/schedule-appointment.service';
-import {DestroyableComponent} from '../../../../shared/components/destroyable/destroyable.component';
-import {AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum} from '../../../../shared/models/appointment.model';
-import {ExamDetails, SlotDetails} from '../../../../shared/models/local-storage-data.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { DatePipe } from '@angular/common';
+import { BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { getDaysOfMonth, getWeekdayWiseDays, Weekday } from '../../../../shared/models/calendar.model.';
+import { ScheduleAppointmentService } from '../../../../core/services/schedule-appointment.service';
+import { DestroyableComponent } from '../../../../shared/components/destroyable/destroyable.component';
+import { AppointmentSlot, ModifiedSlot, Slot, WorkStatusesEnum } from '../../../../shared/models/appointment.model';
+import { ExamDetails, SlotDetails } from '../../../../shared/models/local-storage-data.model';
 
 @Component({
   selector: 'dfm-appointment-slot',
@@ -34,6 +34,8 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   public holidays: number[] = [];
 
   public offDays: number[] = [];
+
+  public fullyBooked: number[] = [];
 
   public selectedTimeSlot: { [key: number]: any } = {};
 
@@ -81,7 +83,9 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         exams.forEach((exam) => {
           const start = this.dateTo24TimeString(exam?.startedAt);
           const end = this.dateTo24TimeString(exam?.endedAt);
-          const users = exam.users?.map((u)=> { return {userId: +u}})
+          const users = exam.users?.map((u) => {
+            return { userId: +u };
+          });
 
           this.toggleSlotSelection(
             {
@@ -145,7 +149,11 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               this.holidays.push(day);
               break;
             case WorkStatusesEnum.Working:
-              this.availableDays.push(day);
+              if (!slot.isAvailable) {
+                this.fullyBooked.push(day);
+              } else {
+                this.availableDays.push(day);
+              }
               break;
             case WorkStatusesEnum.Off:
               this.offDays.push(day);
@@ -160,7 +168,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           this.selectDate(new Date(this.editData.exams[0].startedAt).getDate(), true);
         }
       });
-
 
     this.selectedDate$$
       .pipe(
@@ -229,7 +236,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   public toggleSlotSelection(slot: ModifiedSlot, isEdit: boolean = false) {
-
     if (!this.isSlotAvailable(slot) && !isEdit) {
       return;
     }
@@ -257,7 +263,6 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
         };
       }
     }
-
   }
 
   public toggleSlotSelectionCombinable(slot: ModifiedSlot) {
@@ -331,7 +336,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
 
     const minutes = newDate.getMinutes().toString();
 
-    return `${newDate.getHours()}:${minutes.length < 2 ? '0'+minutes : minutes}:00`;
+    return `${newDate.getHours()}:${minutes.length < 2 ? '0' + minutes : minutes}:00`;
   }
 
   private updateCalendarDays() {
@@ -423,6 +428,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
     this.offDays = [];
     this.holidays = [];
     this.pastDays = [];
+    this.fullyBooked = [];
   }
 
   private resetSlots() {
