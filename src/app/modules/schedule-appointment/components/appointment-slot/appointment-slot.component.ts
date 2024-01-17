@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { DatePipe } from '@angular/common';
 import { BehaviorSubject, debounceTime, filter, switchMap, takeUntil, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -142,34 +141,37 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
           return this.scheduleAppointmentSvc.getCalendarDays$({ fromDate, toDate, exams });
         }),
       )
-      .subscribe((appointmentSlot) => {
-        this.loading$$.next(false);
-        appointmentSlot.forEach((slot) => {
-          const day = +slot.start.slice(-2);
+      .subscribe({
+        next: (appointmentSlot) => {
+          this.loading$$.next(false);
+          appointmentSlot.forEach((slot) => {
+            const day = +slot.start.slice(-2);
 
-          switch (slot.workStatus) {
-            case WorkStatusesEnum.Holiday:
-              this.holidays.push(day);
-              break;
-            case WorkStatusesEnum.Working:
-              if (!slot.isAvailable) {
-                this.fullyBooked.push(day);
-              } else {
-                this.availableDays.push(day);
-              }
-              break;
-            case WorkStatusesEnum.Off:
-              this.offDays.push(day);
-              break;
-            case WorkStatusesEnum.Past:
-              this.pastDays.push(day);
-              break;
-            default:
+            switch (slot.workStatus) {
+              case WorkStatusesEnum.Holiday:
+                this.holidays.push(day);
+                break;
+              case WorkStatusesEnum.Working:
+                if (!slot.isAvailable) {
+                  this.fullyBooked.push(day);
+                } else {
+                  this.availableDays.push(day);
+                }
+                break;
+              case WorkStatusesEnum.Off:
+                this.offDays.push(day);
+                break;
+              case WorkStatusesEnum.Past:
+                this.pastDays.push(day);
+                break;
+              default:
+            }
+          });
+          if (this.editData?.exams?.length) {
+            this.selectDate(new Date(this.editData.exams[0].startedAt).getDate(), true);
           }
-        });
-        if (this.editData?.exams?.length) {
-          this.selectDate(new Date(this.editData.exams[0].startedAt).getDate(), true);
-        }
+        },
+        error: () => this.loading$$.next(false),
       });
 
     this.selectedDate$$
