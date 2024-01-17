@@ -29,6 +29,9 @@
           </thead>
 
           <tbody>
+            <div class="loading-overlay" *ngIf="(loading$$ | async) === true">
+              <mat-spinner diameter="48"></mat-spinner>
+            </div>
             <tr *ngFor="let days of daysInMonthMatrix">
               <td class="calender-month-view-day-cell" *ngFor="let day of days">
                 <div
