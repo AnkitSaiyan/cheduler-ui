@@ -43,7 +43,8 @@
                       selectedDate$$.value &&
                       selectedDate$$.value?.getDate() === day &&
                       selectedDate$$.value?.getMonth() === selectedCalendarDate$$.value.getMonth() &&
-                      selectedDate$$.value?.getFullYear() === selectedCalendarDate$$.value.getFullYear(),
+                      selectedDate$$.value?.getFullYear() === selectedCalendarDate$$.value.getFullYear() &&
+                      availableDays.includes(+day),
                     'calender-month-view-day-available calender-month-view-day-hover': availableDays.includes(+day),
                     'calender-month-view-day-holiday': holidays.includes(+day),
                     'calender-month-view-day-off': fullyBooked.includes(+day)

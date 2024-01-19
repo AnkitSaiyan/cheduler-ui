@@ -109,6 +109,7 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
       if (slotDetails?.selectedDate) {
         const date = new Date(slotDetails.selectedDate);
         this.selectedDate$$.next(date);
+        this.selectedCalendarDate$$.next(date);
       }
 
       if (slotDetails?.selectedSlots) {

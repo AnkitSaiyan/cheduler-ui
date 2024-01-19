@@ -51,13 +51,13 @@ export class LandingComponent extends DestroyableComponent implements OnInit {
         res.forEach((element) => {
           const j = element.weekday;
           if (this.weekDay[j]) {
-            this.weekDay[j] += `, ${this.utcToLocalPipe.transform(element.dayStart.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
+            this.weekDay[j] += `, ${this.utcToLocalPipe.transform(element?.dayStart?.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
               element.dayEnd.slice(0, 5),
               true,
             )}`;
           } else {
-            this.weekDay[j] = `${this.utcToLocalPipe.transform(element.dayStart.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
-              element.dayEnd.slice(0, 5),
+            this.weekDay[j] = `${this.utcToLocalPipe.transform(element?.dayStart?.slice(0, 5), true)} - ${this.utcToLocalPipe.transform(
+              element?.dayEnd?.slice(0, 5),
               true,
             )}`;
           }
