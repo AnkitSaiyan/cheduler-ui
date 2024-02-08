@@ -8,7 +8,7 @@
       [matMenuTriggerFor]="headBack" class="head-back" fill="transparent" stroke="#8C8C8C"
       vector-effect="non-scaling-stroke"
       d="M450.806,154.076c3.058-18.988,9.442-66.107,10.527-83.743C462.666,48.667,432.333,15,400,15c-27.334,0-58.5,32-58,52.667c0.19,7.875,2,33,2.333,36.333c0.239,2.389,4.332,32.016,7.459,49.645C362,174.667,440.611,174.486,450.806,154.076z" />
-    <path id="mfb_29" (mouseover)="neckTrigger.openMenu()" (mouseleave)="onMouseLeave(neckTrigger,category.Head)"
+    <path id="mfb_29" (mouseover)="neckTrigger.openMenu()" (mouseleave)="onMouseLeave(neckTrigger,category.Neck)"
       (mouseout)="$event.stopPropagation();neckTrigger.openMenu()" #neckTrigger="matMenuTrigger"
       (click)="$event.stopPropagation(); examSvc.setCategory(category.Neck , gender.Male); fillColor($event)"
       [matMenuTriggerFor]="neckBack" class="neck-back" fill="transparent" stroke="#8C8C8C"
