@@ -41,7 +41,7 @@ export class SignalRService {
 
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(`https://diflexmo-scheduler-api-dev.azurewebsites.net/informhub`, options)
-      .configureLogging(signalR.LogLevel.Debug)
+      // .configureLogging(signalR.LogLevel.Debug)
       .build();
   }
 
@@ -49,7 +49,11 @@ export class SignalRService {
     this.hubConnection
       .start()
       .then(() => {})
-      .catch((err) => {});
+      .catch((err) => { });
+    
+      this.hubConnection.on('ping', () => {
+        this.hubConnection.send('pong');
+      });
   }
 
   private registerForDocument(): void {
