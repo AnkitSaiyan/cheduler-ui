@@ -452,6 +452,14 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
   }
 
   sortArrayObject(arr: any, key: string): Array<any> {
-    return arr.sort((a, b) => (a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0));
+    return arr.sort((a: any, b: any) => {
+      if (a[key] > b[key]) {
+        return 1;
+      } else if (b[key] > a[key]) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
   }
 }

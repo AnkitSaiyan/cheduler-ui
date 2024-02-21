@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard.component';
-import { OverviewComponent } from '../schedule-appointment/components/overview/overview.component';
 import { ExamDetailComponent } from '../schedule-appointment/components/exam-detail/exam-detail.component';
 import { ConfirmAppointmentComponent } from '../schedule-appointment/components/confirm-appointment/confirm-appointment.component';
 import { BasicDetailComponent } from '../schedule-appointment/components/basic-detail/basic-detail.component';

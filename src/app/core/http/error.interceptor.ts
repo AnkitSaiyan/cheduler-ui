@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 				// lang hardcoded to english for now
         console.log('efwefwe');
         
-				this.generateErrorMessage(err, localStorage.getItem('lang') || ENG_BE);
+				this.generateErrorMessage(err, localStorage.getItem('lang') ?? ENG_BE);
 				this.stopLoaders();
 
 				return throwError(() => new Error(err.message));
@@ -38,31 +38,36 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorMessage = Translate.Error.Unauthorized[lang];
         break;
         default: {
-          if (err?.error?.errors) {
-            const errObj = err.error.errors;
-            if (errObj?.GeneralErrors) {
-              if (Array.isArray(errObj.GeneralErrors)) {
-                errorMessage = '';
-                errObj.GeneralErrors.forEach((msg) => {
-                  errorMessage += `${msg} `;
-                });
-              } else if (typeof errObj?.GeneralErrors === 'string') {
-                errorMessage = errObj.GeneralErrors
-              }
-            } else if (typeof errObj === 'string') {
-              errorMessage = errObj;
-            }
-
-          } else if (err?.error?.message && typeof err.error.message === 'string') {
-            errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
-          } else if (err?.message && typeof err?.message === 'string') {
-            errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
-          }
+          errorMessage = this.defaultCase(err, errorMessage, lang);
         }
       }
     }
 
     this.notificationSvc.showNotification(errorMessage, NotificationType.DANGER);
+  }
+
+  private defaultCase(err:any, errorMessage: string, lang:string): string {
+    if (err?.error?.errors) {
+      const errObj = err.error.errors;
+      if (errObj?.GeneralErrors) {
+        if (Array.isArray(errObj.GeneralErrors)) {
+          errorMessage = '';
+          errObj.GeneralErrors.forEach((msg) => {
+            errorMessage += `${msg} `;
+          });
+        } else if (typeof errObj?.GeneralErrors === 'string') {
+          errorMessage = errObj.GeneralErrors
+        }
+      } else if (typeof errObj === 'string') {
+        errorMessage = errObj;
+      }
+    } else if (err?.error?.message && typeof err.error.message === 'string') {
+      errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
+    } else if (err?.message && typeof err?.message === 'string') {
+      errorMessage = Translate.Error.BackendCodes[lang][err.error.message] || Translate.Error.SomethingWrong[lang];
+    }
+
+    return errorMessage;
   }
 
   private stopLoaders() {

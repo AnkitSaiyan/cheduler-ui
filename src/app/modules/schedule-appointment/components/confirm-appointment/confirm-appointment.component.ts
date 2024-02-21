@@ -406,7 +406,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     let timeZone = this.datePipe.transform(new Date(), 'ZZZZZ');
 
-    if (timeZone && timeZone[0] === '+') {
+    if (timeZone?.startsWith('+')) {
       timeZone = timeZone.slice(1);
     }
 
@@ -584,7 +584,7 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
       data: {
         id: this.isEdit$$.value
           ? this.physicianDetails.qrId || localStorage.getItem('appointmentId')
-          : localStorage.getItem('appointmentId') || this.physicianDetails.qrId,
+          : localStorage.getItem('appointmentId') ?? this.physicianDetails.qrId,
       },
       options: {
         size: 'xl',

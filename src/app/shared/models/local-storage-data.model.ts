@@ -1,5 +1,3 @@
-import { Exam } from './exam.model';
-
 export interface ExamDetails {
   physician: number | string;
   exams: number[];

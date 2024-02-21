@@ -188,7 +188,7 @@ export class ExamDetailComponent extends DestroyableComponent implements OnInit,
 
   private addExamData(examDetails) {
     const fa = this.examForm.get('exams') as FormArray;
-    if (examDetails && examDetails?.exams?.length) {
+    if (examDetails?.exams?.length) {
       examDetails.exams.forEach((exam) => {
         fa.push(this.newExam(+exam));
       });

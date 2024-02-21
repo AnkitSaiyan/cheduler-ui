@@ -212,7 +212,6 @@ export class UploadDocumentComponent extends DestroyableComponent implements OnI
   }
   public clearFile(document: any) {
     this.landingSvc.deleteDocument(document.id).pipe(takeUntil(this.destroy$$)).subscribe();
-    // this.signalRFileName = '';
     this.notificationService.showNotification(Translate.DeleteSuccess(document.fileName)[this.selectedLang], NotificationType.SUCCESS);
     this.documentList$$.next(this.documentList$$.value?.filter((item) => item?.id !== document?.id));
   }

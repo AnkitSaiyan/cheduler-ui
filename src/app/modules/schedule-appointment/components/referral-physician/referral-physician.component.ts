@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NotificationType } from 'diflexmo-angular-design';
-import { BehaviorSubject, filter, takeUntil, map, take, switchMap } from 'rxjs';
+import { BehaviorSubject, filter, takeUntil, map, take } from 'rxjs';
 import { LandingService } from 'src/app/core/services/landing.service';
 import { LoaderService } from 'src/app/core/services/loader.service';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -342,7 +342,6 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
   }
   public clearFile(document: any, isFromMobile: boolean = false) {
     this.landingService.deleteDocument(document.id).pipe(takeUntil(this.destroy$$)).subscribe();
-    // this.signalRFileName = '';
     this.notificationSvc.showNotification(Translate.DeleteSuccess(document.fileName)[this.selectedLang], NotificationType.SUCCESS);
     if (isFromMobile) {
       this.documentFromMobileList$$.next(this.documentFromMobileList$$.value?.filter((item) => item?.id !== document?.id));
