@@ -190,11 +190,12 @@ export class AppointmentSlotComponent extends DestroyableComponent implements On
               date: dateString,
               exams: this.editData.exams.map((exam) => exam.id),
             });
+          } else {
+            return this.scheduleAppointmentSvc.getSlots$({
+              date: dateString,
+              exams: [...this.examsDetails.exams],
+            });
           }
-          return this.scheduleAppointmentSvc.getSlots$({
-            date: dateString,
-            exams: [...this.examsDetails.exams],
-          });
         }),
         takeUntil(this.destroy$$),
       )

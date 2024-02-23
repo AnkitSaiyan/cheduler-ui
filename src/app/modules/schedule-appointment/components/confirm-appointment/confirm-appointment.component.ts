@@ -104,7 +104,8 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
 
     combineLatest([this.appointmentId$$, this.appointmentRefresh$$])
       .pipe(
-        switchMap(([id]) => {
+        switchMap(([id])=>of(id)),
+        switchMap((id) => {
           if (id) {
             return this.scheduleAppointmentSvc.getAppointmentByID$(+id);
           }
@@ -445,7 +446,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.isEdit$$.next(false);
               this.isButtonDisable$$.next(false);
               this.createPermit();
-              this.appointmentRefresh$$.next(undefined);
               this.router.navigate([], {
                 queryParams: {
                   s: 'a',
@@ -480,7 +480,6 @@ export class ConfirmAppointmentComponent extends DestroyableComponent implements
               this.appointmentId$$.next(res?.id);
               this.notificationSvc.showNotification(Translate.Success.AppointmentAddedSuccessfully[this.selectedLang]);
               this.isButtonDisable$$.next(false);
-              this.appointmentRefresh$$.next(undefined);
               this.createPermit();
               this.router.navigate([], {
                 queryParams: {

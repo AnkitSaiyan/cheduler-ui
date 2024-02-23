@@ -47,7 +47,7 @@ export class ScheduleAppointmentService {
     this.httpWithInterceptor = new HttpClient(this.httpBackend);
     // eslint-disable-next-line prefer-destructuring
     this.SubDomain = window.location.host.split('.')[0];
-  } 
+  }
 
   public setExamDetails(reqData: ExamDetails) {
     localStorage.setItem('examDetails', JSON.stringify(reqData));
@@ -73,7 +73,6 @@ export class ScheduleAppointmentService {
   }
 
   public get slotDetails$(): Observable<SlotDetails> {
-
     if (!this.slotDetails$$.value?.selectedDate) {
       const slotDetails = localStorage.getItem('slotDetails');
       if (slotDetails) {
@@ -106,8 +105,8 @@ export class ScheduleAppointmentService {
     localStorage.removeItem('slotDetails');
     localStorage.removeItem('edit');
     localStorage.removeItem('appointmentDetails');
-    localStorage.removeItem('referringDetails')
-    localStorage.removeItem('gender')
+    localStorage.removeItem('referringDetails');
+    localStorage.removeItem('gender');
     this.examDetails$$.next({} as ExamDetails);
     this.slotDetails$$.next({} as SlotDetails);
     this.basicDetails$$.next({});
@@ -171,7 +170,7 @@ export class ScheduleAppointmentService {
   }
 
   public get physicians$(): Observable<Physician[]> {
-    return combineLatest([this.refreshPhysicians$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllPhysicians()));
+    return this.fetchAllPhysicians();
   }
 
   private fetchAllPhysicians(): Observable<any[]> {
@@ -180,11 +179,14 @@ export class ScheduleAppointmentService {
       .get<BaseResponse<any[]>>(`${environment.serverBaseUrl}/common/getdoctors`, {
         headers: { SubDomain: this.SubDomain },
       })
-      .pipe(map((response) => response.data), tap(()=> this.loaderSvc.spinnerDeactivate()));
+      .pipe(
+        map((response) => response.data),
+        tap(() => this.loaderSvc.spinnerDeactivate()),
+      );
   }
 
   public get exams$(): Observable<Exam[]> {
-    return combineLatest([this.refreshExams$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllExams()));
+    return this.fetchAllExams();
   }
 
   private fetchAllExams(): Observable<Exam[]> {
@@ -258,26 +260,21 @@ export class ScheduleAppointmentService {
   }
 
   public getAppointmentByID$(appointmentID: number): Observable<Appointment> {
-    return combineLatest([this.refreshAppointment$$.pipe(startWith(''))]).pipe(
-      switchMap(() => {
-        return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
-          .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`, {
-            headers: { SubDomain: this.SubDomain },
-          })
-          .pipe(
-            map((response) => {
-              if (Array.isArray(response.data)) {
-                return this.getAppointmentModified(response.data[0]);
-              }
-              return this.getAppointmentModified(response.data) as Appointment;
-            }),
-            catchError((e) => {
-
-              return of({} as Appointment);
-            }),
-          );
-      }),
-    );
+    return (this.authSvc.isLoggedIn ? this.http : this.httpWithInterceptor)
+      .get<BaseResponse<Appointment>>(`${environment.serverBaseUrl}/patientappointment/getbyid/${appointmentID}`, {
+        headers: { SubDomain: this.SubDomain },
+      })
+      .pipe(
+        map((response) => {
+          if (Array.isArray(response.data)) {
+            return this.getAppointmentModified(response.data[0]);
+          }
+          return this.getAppointmentModified(response.data) as Appointment;
+        }),
+        catchError((e) => {
+          return of({} as Appointment);
+        }),
+      );
   }
 
   private getAppointmentModified(appointment: any): any {
