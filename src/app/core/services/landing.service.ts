@@ -34,10 +34,10 @@ export class LandingService {
   }
 
   public get siteDetails$(): Observable<BaseResponse<any>> {
-    return combineLatest([this.refreshSiteDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllSiteDetail()));
+    return this.fetchAllSiteDetail();
   }
 
-  fetchAllSiteDetail(): Observable<any> {
+  private fetchAllSiteDetail(): Observable<any> {
     this.loaderSvc.activate();
     return this.httpClient
       .get<any>(`${environment.serverBaseUrl}/patientsite/getsitesettings`, {
@@ -52,7 +52,7 @@ export class LandingService {
   }
 
   public get workingDetails$(): Observable<any[]> {
-    return combineLatest([this.workingHourDetails$$.pipe(startWith(''))]).pipe(switchMap(() => this.fetchAllWorkingHours()));
+    return this.fetchAllWorkingHours();
   }
 
   fetchAllWorkingHours(): Observable<any> {
