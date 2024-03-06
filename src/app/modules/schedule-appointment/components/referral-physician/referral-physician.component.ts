@@ -348,6 +348,10 @@ export class ReferralPhysicianComponent extends DestroyableComponent implements 
     } else {
       this.documentList$$.next(this.documentList$$.value?.filter((item) => item?.id !== document?.id));
     }
+
+    if (!this.documentList$$.value.length && !this.documentFromMobileList$$.value.length) {
+      this.referringDetails.qrId = '';
+    }
   }
 
   public viewDocument(id?: number, isFromMobile: boolean = false) {
